@@ -1,0 +1,127 @@
+#loginbox {
+	width:600px;
+	box-sizing:border-box;
+	padding: 95px 130px 30px;
+	font-size:14px;
+	left:50%;
+	margin-left:-300px;
+	.logo {
+		width: 75.6px;
+  		height: 65.5px;
+  		position:absolute;
+  		left:30px;
+  		top: 40px;
+	}
+	.title {
+		font-size:32px;
+	}
+	.input-group-addon {
+		padding:8px;
+		background: transparent;
+		border-width:0px;
+		border-radius:0px;
+		box-shadow: inset 0 -2px 0 0 #474848;
+		font-size:18px;
+		img {
+			width: 25px;
+    		height: 30px;
+		}
+	}
+	input {
+		height:72px;
+		border-width:0px;
+		box-shadow:none;
+		border-radius:0px;
+		box-shadow: inset 0 -2px 0 0 #474848;
+		font-size:18px;
+		padding:5px 0px 0px;
+	}
+	.desc {
+		color:#9a9da1;
+		line-height:20px;
+		padding:12px 0;
+		font-size:13px;
+	}
+	button, a.sign-up {
+		padding:10px 0;
+		height: 48px;
+		border-radius: 5px;
+		background-color: #fec039;
+		text-align:center;
+		border-color:transparent;
+		box-sizing:border-box;
+		font-size:20px;
+		margin:1
+	}
+	button[disabled] {
+		background-color: #e2e2e2;
+		color:#fff;
+	}
+	button.sign-in {
+		width: 182px;
+		margin-top:35px;
+	}
+	a.sign-up {
+		width: 336px;
+	}
+	.connector {
+	  	height: 22px;
+	  	color: #9a9da1;
+	  	text-align:center;
+	  	font-size:18px;
+	  	margin:24px 0;
+	}
+	.user-status {
+		position:absolute;
+		top:10px;
+		left:10px;
+		span{
+		  width: 12px;
+		  height: 12px;
+		  background-image: radial-gradient(circle at 50% 50%, #ff5f56, #ff625a);
+		  border-image-slice: 1;
+		  border-radius:50%;
+		  margin:3px;
+		  display:inline-block;
+		}
+		span.offline{
+		  background-image: radial-gradient(circle at 50% 50%, #ff5f56, #ff625a);
+		}
+		span.inactive{
+		  background-image: radial-gradient(circle at 50% 50%, #ffbd2e, #ffc22c);
+		}
+		span.online{
+		  background-image: radial-gradient(circle at 50% 50%, #27c940, #2ad042);
+		}
+	}
+	.quick-link {
+		display: block;
+    	margin-top: 10px;
+    }
+}
+
+/* media queries */
+
+@media only screen and (max-width : 607px) {
+	#loginbox {
+		width:100%;
+		box-sizing:border-box;
+		padding: 95px 15px 30px 15px;
+		left:auto;
+		margin-left:auto;
+		.logo {
+			width: 75.6px;
+	  		height: 65.5px;
+	  		position:absolute;
+	  		left:10px;
+	  		top: 40px;
+		}
+	}
+}
+@media only screen and (max-width : 335px) {
+	#loginbox {
+		button.sign-up {
+			width: 100%;
+		}
+	}
+}

@@ -22,5 +22,7 @@ export default function configureStore(initialState) {
     });
   }
 
+  //console.log(store.getStore());
+  //console.log('store.getStore()');
   return store;
 }

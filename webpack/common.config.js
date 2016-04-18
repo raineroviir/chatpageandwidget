@@ -24,7 +24,7 @@ const common = {
 
   output: {
     path: PATHS.build,
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
 
   resolve: {
@@ -38,33 +38,31 @@ const common = {
       loader: 'imports?jQuery=jquery',
     }, {
       test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&mimetype=application/font-woff',
+      loader: 'url?limit=10000&mimetype=application/font-woff&name=styles/fonts/[name].[ext]',
     }, {
       test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&mimetype=application/font-woff2',
+      loader: 'url?limit=10000&mimetype=application/font-woff2&name=styles/fonts/[name].[ext]',
     }, {
       test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&mimetype=application/octet-stream',
+      loader: 'url?limit=10000&mimetype=application/octet-stream&name=styles/fonts/[name].[ext]',
     }, {
       test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&mimetype=application/font-otf',
+      loader: 'url?limit=10000&mimetype=application/font-otf&name=styles/fonts/[name].[ext]',
     }, {
       test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'file',
+      loader: 'file-loader?name=styles/fonts/[name].[ext]',
     }, {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&mimetype=image/svg+xml',
+      loader: 'url?limit=10000&mimetype=image/svg+xml&name=styles/svg/[name].[ext]',
     }, {
       test: /\.js$/,
       loaders: ['babel-loader'],
       exclude: /node_modules/,
     }, {
-      test: /\.png$/,
-      loader: 'file?name=[name].[ext]',
-    }, {
-      test: /\.jpg$/,
-      loader: 'file?name=[name].[ext]',
+      test: /\.(png|jpg|svg)$/,
+      loader: 'file-loader?name=images/[name].[ext]',
     }],
+
   },
 
   postcss: (webpack) => {

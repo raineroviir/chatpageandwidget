@@ -39,6 +39,7 @@ const initialState = {
 };
 
 export function items(state = initialState, action) {
+  //alert(action.type)
   switch (action.type) {
   case 'ADD_ITEM':
     return {
@@ -51,6 +52,26 @@ export function items(state = initialState, action) {
     };
 
   case 'DELETE_ITEM':
+    return {
+      ...state,
+      items: [
+        ...state.items.slice(0, action.index),
+        ...state.items.slice(+action.index + 1),
+      ],
+    };
+
+  case 'SUBMIT_REGISTRATION':
+    console.log('reducer function123');
+    return {
+      ...state,
+      items: [
+        ...state.items.slice(0, action.index),
+        ...state.items.slice(+action.index + 1),
+      ],
+    };    
+
+    case 'REGISTER_ORGANISATION_NAME':
+    console.log('REGISTER_ORGANISATION_NAME in reducer fn');
     return {
       ...state,
       items: [
