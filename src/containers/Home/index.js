@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import DocumentMeta from 'react-document-meta';
 
 /* components */
 import { Navigation } from 'components/Navigation';
-import { ChannelList } from 'components/ChannelList';
+import Channels from 'containers/Home/Channels';
 import { Header } from 'components/Header';
-import { ChannelUserList } from 'components/ChannelUserList';
+import Conversations from 'containers/Home/Conversations';
 import { ChatMessage } from 'components/ChatMessage';
 import { ChatTextBox } from 'components/ChatTextBox';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as ChannelsActions from '../../actions/Channels';
 
 const metaData = {
   title: 'Chat Center',
@@ -27,12 +30,12 @@ export class Home extends Component {
           <DocumentMeta {...metaData} />
           <div className="col-xs-12 col-md-3 sidebar">
             <Navigation />
-            <ChannelList />
+            <Channels />
           </div>
           <div className="col-xs-12 col-sm-12 col-md-9 main hidden-xs hidden-sm">
             <Header />
             <section className="row">
-              <ChannelUserList />
+              <Conversations />
               <div className="col-xs-12 col-sm-7 col-md-7 col-lg-8 chat">
                 <ChatMessage />
                 <ChatTextBox />

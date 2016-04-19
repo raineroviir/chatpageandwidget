@@ -29,4 +29,10 @@ $(document).ready(function () {
 		$('.sidebar').toggleClass('hidden-xs hidden-sm');
 		$('.main').toggleClass('hidden-xs hidden-sm');
 	});
-})
+	// Bug fix for mCustomScrollbar as its updateOnBrowserResize isnt working as expected
+	$(window).resize(function() {
+		$('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({ 
+	    theme:"dark-3"        
+		});
+	});
+});

@@ -2,30 +2,34 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration';
+import classNames from 'classnames';
 
-export class RegisterTeamDomain extends Component {
+export class RegisterOrgDomainComp extends Component {
+
+  constructor(props) {
+    super(props);
+  }
 
   handleBack(){
-    //console.log('Moving 1 step back');
-    window.location.hash = "#/register/team/name";
+    window.location.hash = "#/signup/organization/name";
   }
 
   handleNext(){
     let RegisterTeam = this.refs.RegisterTeam.value;
-
-    if(RegisterTeam === ''){
-      alert('please enter team name');
-      return;
-    } 
-
-    //store the value in STORE by dispatching event in action
-    this.props.actions.registerTeam(RegisterTeam);
+    this.props.handleNext(RegisterTeam);
     
-    window.location.hash = "#/register/team/personal/detail";
+  }
+
+  inputChange(){
+    this.refs.nextButton.disabled = !(this.refs.RegisterTeam.value)
+  }
+
+  componentDidMount() {
+    this.refs.nextButton.disabled = true;
   }
 
   render() {
-    //const { actions } = this.props
+
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal" role="form">
@@ -36,7 +40,7 @@ export class RegisterTeamDomain extends Component {
                 <div className="input-group input-group-lg">
 
                   <span className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" />https://</span>
-                  <input type="text" className="form-control" ref="RegisterTeam" placeholder="address" aria-describedby="username-addon" />
+                  <input type="text" className="form-control" ref="RegisterTeam" onChange={this.inputChange.bind(this)} placeholder="address" aria-describedby="username-addon" />
                   <span className="input-group-addon suffix">.chat.center</span>
                   
                 </div> 
@@ -47,7 +51,7 @@ export class RegisterTeamDomain extends Component {
                 <div className="form-group  button-wrapper">
                   <div className="col-sm-12">
                     <button type="button" className="btn btn-default back" onClick={this.handleBack}>BACK</button>
-                    <button type="button" className="btn btn-default sign-in" onClick={this.handleNext.bind(this)}>NEXT</button>
+                    <button type="button" ref="nextButton" className="btn btn-default sign-in" onClick={this.handleNext.bind(this)}>NEXT</button>
                   </div>
                 </div>
             </form>
@@ -56,23 +60,9 @@ export class RegisterTeamDomain extends Component {
   }
 }
 
-RegisterTeamDomain.propTypes = {
-  actions: PropTypes.object.isRequired
+//PropTypes required to make sure props are  formed as per the component requirement, else will throw an error in
+//console. This is used only in developers mode.
+RegisterOrgDomainComp.propTypes = {
+  handleBack:PropTypes.func.isRequired,
+  handleNext: PropTypes.func.isRequired
 }
-
-function mapStateToProps(state) {
-  return {
-    registrationDetails: state.registrationDetails
-  }
-}
-
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(RegistrationActions, dispatch)
-  }
-}
-
-export default connect(
-  mapStateToProps,mapDispatchToProps
-)(RegisterTeamDomain)

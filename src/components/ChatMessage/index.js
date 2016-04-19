@@ -3,16 +3,13 @@ import React, { Component } from 'react';
 /* component styles */
 //import { styles } from './styles.scss';
 
-/* images */
-const logo = require('./files/logo.png');
-
 export class ChatMessage extends Component {
   render() {
     return (
         <div className="chat-group mCustomScrollBar">
           <ul className="chat-flow">
               <li className="col-md-12">
-                <img className="img-circle pull-left" src="dist/user.png" title="name" alt="name" />
+                <img className="img-circle pull-left" src="dist/images/user.png" title="name" alt="name" />
                 <span className="bubble">
                   Hey, need some help
                 </span>
@@ -23,13 +20,13 @@ export class ChatMessage extends Component {
                 </div>
               </li>
               <li className="col-md-12">
-                <img className="img-circle pull-right" src="dist/user.png" title="name" alt="name" />
+                <img className="img-circle pull-right" src="dist/images/user.png" title="name" alt="name" />
                 <div className="bubble bubble--alt">
                   Hey, so tell me, what is so cool about Chat Center?
                 </div>
               </li>
               <li className="col-md-12">
-                <img className="img-circle pull-left" src="dist/user.png" title="name" alt="name" />
+                <img className="img-circle pull-left" src="dist/images/user.png" title="name" alt="name" />
                 <div className="bubble">
                   Your service SUCKS!
                 </div>
@@ -45,13 +42,13 @@ export class ChatMessage extends Component {
                 </div>
               </li>
               <li className="col-md-12">
-                <img className="img-circle pull-right" src="dist/user.png" title="name" alt="name" />
+                <img className="img-circle pull-right" src="dist/images/user.png" title="name" alt="name" />
                 <div className="bubble bubble--alt">
                   Hey, so tell me, what is so cool about Chat Center?
                 </div>
               </li>
               <li className="col-md-12">
-                <img className="img-circle pull-left" src="dist/user.png" title="name" alt="name" />
+                <img className="img-circle pull-left" src="dist/images/user.png" title="name" alt="name" />
                 <div className="bubble">
                   Your service SUCKS!
                 </div>
@@ -67,13 +64,13 @@ export class ChatMessage extends Component {
                 </div>
               </li>
               <li className="col-md-12">
-                <img className="img-circle pull-right" src="dist/user.png" title="name" alt="name" />
+                <img className="img-circle pull-right" src="dist/images/user.png" title="name" alt="name" />
                 <div className="bubble bubble--alt">
                   Hey, so tell me, what is so cool about Chat Center?
                 </div>
               </li>
               <li className="col-md-12">
-                <img className="img-circle pull-left" src="dist/user.png" title="name" alt="name" />
+                <img className="img-circle pull-left" src="dist/images/user.png" title="name" alt="name" />
                 <div className="bubble">
                   Your service SUCKS!
                 </div>

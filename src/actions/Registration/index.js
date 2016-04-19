@@ -46,6 +46,15 @@ export function registerPassword(RegisterPassword) {
   }
 }
 
+export function registerIndividualDetails(FirstName,LastName,Email,Password) {
+  return (dispatch, getState) => {
+      dispatch({
+      type: 'REGISTER_INDIVIDUAL_DETAILS',
+      value:{"first_name":FirstName,"last_name":LastName,"email":Email,"password":Password,"team_name":"chat.center"}
+    })
+  }
+}
+
 export function submitRegistration(index) {
   //alert('submitRegistration');
   return (dispatch, getState) => {
@@ -54,11 +63,14 @@ export function submitRegistration(index) {
 }
 
 function postActionConstruct(json) {
-  console.log(JSON.stringify(json));
-  return {
-    type: 'SUBMIT_REGISTRATION',
-    posts: 'json.data',
-    receivedAt: Date.now()
+  if(json.ok){
+    window.location.hash = "#/login";
+  }
+  return (dispatch, getState) => {
+      dispatch({
+      type: 'REGISTER_INDIVIDUAL_DETAILS',
+      value:{"error":json.error}
+    })
   }
 }
 
@@ -79,4 +91,4 @@ function postLoginRequest(payload){
     				},
 	     		 	body: JSON.stringify(payload)
 	  })
-} 
+}

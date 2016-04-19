@@ -5,6 +5,10 @@
 	font-size:14px;
 	left:50%;
 	margin-left:-300px;
+	.error-message {
+		color:red;
+		margin:10px 0;
+	}
 	.logo {
 		width: 75.6px;
   		height: 65.5px;
@@ -189,6 +193,15 @@
 #signupbox.logo-centered { 
 	padding: 30px 130px 30px;
 }
+
+/* Validation error message styles starts here*/
+.validation-fail{
+	color:red;
+}
+.hide-visibility{
+	visibility:hidden;
+}
+/* Validation error message styles ends here*/
 
 /* media queries */
 

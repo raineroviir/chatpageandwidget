@@ -31,6 +31,9 @@ const common = {
     extensions: ['', '.jsx', '.js', '.json', '.scss'],
     modulesDirectories: ['node_modules', PATHS.app],
   },
+  resolveLoader: {
+      packageMains: ['json-loader']
+  },
 
   module: {
     loaders: [{
@@ -51,10 +54,10 @@ const common = {
     }, {
       test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'file-loader?name=styles/fonts/[name].[ext]',
-    }, {
+    }, /*{
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'url?limit=10000&mimetype=image/svg+xml&name=styles/svg/[name].[ext]',
-    }, {
+    },*/ {
       test: /\.js$/,
       loaders: ['babel-loader'],
       exclude: /node_modules/,

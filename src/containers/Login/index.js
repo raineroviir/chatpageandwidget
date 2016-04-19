@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux';
+import * as LoginActions from '../../actions/Login'
 import DocumentMeta from 'react-document-meta';
 
 /* components */
-import { SignIn } from 'components/SignIn';
+import LoginComponent from 'components/Login';
 
 const metaData = {
   title: 'Login | Chat Center',
@@ -20,8 +23,25 @@ export class Login extends Component {
     return (
       <div>
           <DocumentMeta {...metaData} />
-          <SignIn />
+          <LoginComponent />
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    loginDetails: state.loginDetails
+  }
+}
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(LoginActions, dispatch)
+  }
+}
+
+export default connect(
+  mapStateToProps,mapDispatchToProps
+)(Login)

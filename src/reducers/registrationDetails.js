@@ -6,7 +6,8 @@ const initialState = {
     last_name:'',
     channel:'',
     email:'',
-    password:''
+    password:'',
+    error:''
   }
 };
 
@@ -56,6 +57,14 @@ export function registrationDetails(state = initialState, action) {
       Organisation
   };
 
+  case 'REGISTER_INDIVIDUAL_DETAILS':
+    //mutate initial state to store the organisation value and create STATE from it
+    var Organisation = (Object.assign(initialState.Organisation, action.value));
+    delete Organisation.team;
+    return {
+      ...state,
+      Organisation
+  };
   default:
     return state;
   }

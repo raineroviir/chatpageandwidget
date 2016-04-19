@@ -16,7 +16,6 @@ export function delItem(index) {
 }
 
 export function registerOrganisationName(RegisterOrganisationName) {
-  alert('ggggggggggggggg'+RegisterOrganisationName);
   return {
     type: 'REGISTER_ORGANISATION_NAME',
     RegisterOrganisationName,
@@ -26,7 +25,6 @@ export function registerOrganisationName(RegisterOrganisationName) {
 
 
 export function submitRegistration(index) {
-  alert('submitRegistration');
   return (dispatch, getState) => {
       return dispatch(postRegistration())
   }

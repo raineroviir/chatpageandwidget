@@ -3,11 +3,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration';
 
-export class RegisterTeamVerify extends Component {
+export class RegisterOrgVerifyComp extends Component {
 
-  handleBack(){
-    window.location.hash = "#/register/team/personal/address";
-  }
 
   handleNext(){
     //service call to register and move to chat message home screen
@@ -19,13 +16,22 @@ export class RegisterTeamVerify extends Component {
     } 
 
     //store the value in STORE by dispatching event in action
-    this.props.actions.registerPassword(RegisterPassword);
-    this.props.actions.submitRegistration();
+    this.props.handleNext(RegisterPassword);
+    //this.props.actions.submitRegistration();
     //window.location.hash = "#";
   }
 
+  inputChange(){
+    this.refs.submitButton.disabled = !(this.refs.RegisterPassword.value);
+  }
+
+  componentDidMount() {
+    this.refs.submitButton.disabled = true;
+    console.log(this.props.registrationDetails.Organisation);
+  }
+
   render() {
-    //const { actions } = this.props
+    const Organisation = this.props.registrationDetails.Organisation
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal" role="form">
@@ -34,32 +40,32 @@ export class RegisterTeamVerify extends Component {
                 <h1 className="title">Verify your details</h1>                
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Name of your chat.center</label>
-                  <span className="ans-label">https://orgtst.chat.center</span>
+                  <span className="ans-label">{Organisation.team_name}</span>
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Address of your chat.center</label>
-                  <span className="ans-label">https://orgtst.chat.center</span>
+                  <span className="ans-label">https://{Organisation.team}.chat.center</span>
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Full Name</label>
-                  <span className="ans-label">https://orgtst.chat.center</span>
+                  <span className="ans-label">{Organisation.first_name} {Organisation.last_name}</span>
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Email</label>
-                  <span className="ans-label">https://orgtst.chat.center</span>
+                  <span className="ans-label">{Organisation.first_name}</span>
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Your personal chat address</label>
-                  <span className="ans-label">https://orgtst.chat.center</span>
+                  <span className="ans-label">https://{Organisation.team}.chat.center/{Organisation.channel}</span>
                 </div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon" id="password-addon"><img src="dist/images/password-icon.svg" /></span>
-                  <input type="password" ref="RegisterPassword" className="form-control" placeholder="Set password" aria-describedby="password-addon" />
+                  <span className="input-group-addon" onChange={this.inputChange.bind(this)} id="password-addon"><img src="dist/images/password-icon.svg" /></span>
+                  <input type="password" ref="RegisterPassword" onChange={this.inputChange.bind(this)} className="form-control" placeholder="Set password" aria-describedby="password-addon" />
                 </div>
                 <div className="form-group button-wrapper">
                   <div className="col-sm-12">
-                    <button type="button" className="btn btn-default back" onClick={this.handleBack}>BACK</button>
-                    <button type="button" className="btn btn-default sign-up-inline" onClick={this.handleNext.bind(this)}>Create Chat Center</button>
+                    <button type="button" className="btn btn-default back" onClick={this.props.handleBack}>BACK</button>
+                    <button type="button" ref="submitButton" className="btn btn-default sign-up-inline" onClick={this.handleNext.bind(this)}>Create Chat Center</button>
                   </div>
                 </div>            
             </form>
@@ -68,23 +74,7 @@ export class RegisterTeamVerify extends Component {
   }
 }
 
-RegisterTeamVerify.propTypes = {
-  actions: PropTypes.object.isRequired
+RegisterOrgVerifyComp.propTypes = {
+  //actions: PropTypes.object.isRequired
 }
 
-function mapStateToProps(state) {
-  return {
-    registrationDetails: state.registrationDetails
-  }
-}
-
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(RegistrationActions, dispatch)
-  }
-}
-
-export default connect(
-  mapStateToProps,mapDispatchToProps
-)(RegisterTeamVerify)

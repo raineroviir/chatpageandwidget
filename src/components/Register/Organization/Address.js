@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import * as RegistrationActions from '../../../../actions/Registration'; 
+import * as RegistrationActions from '../../../actions/Registration'; 
 
-export class RegisterTeamPersonalAddress extends Component {
+export class RegisterOrgAddressComp extends Component {
 
   handleBack(){
-    window.location.hash = "#/register/team/personal/detail";
+    window.location.hash = "#/signup/organization/detail";
   }
 
   handleNext(){
@@ -19,8 +19,8 @@ export class RegisterTeamPersonalAddress extends Component {
     } 
 
     //store the value in STORE by dispatching event in action
-    this.props.actions.registerChannel(RegisterChannel);
-    window.location.hash = "#/register/team/verify";
+    this.props.handleNext(RegisterChannel);
+    window.location.hash = "#/signup/organization/verify";
   }
 
   render() {
@@ -43,7 +43,7 @@ export class RegisterTeamPersonalAddress extends Component {
                   </div>   
                 <div className="form-group button-wrapper">
                     <div className="col-sm-12">
-                      <button type="button" className="btn btn-default back" onClick={this.handleBack}>BACK</button>
+                      <button type="button" className="btn btn-default back" onClick={this.props.handleBack}>BACK</button>
                       <button type="button" className="btn btn-default sign-in" onClick={this.handleNext.bind(this)}>NEXT</button>
                     </div>
                 </div>           
@@ -53,23 +53,6 @@ export class RegisterTeamPersonalAddress extends Component {
   }
 }
 
-RegisterTeamPersonalAddress.propTypes = {
-  actions: PropTypes.object.isRequired
+RegisterOrgAddressComp.propTypes = {
+  //actions: PropTypes.object.isRequired
 }
-
-function mapStateToProps(state) {
-  return {
-    registrationDetails: state.registrationDetails
-  }
-}
-
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(RegistrationActions, dispatch)
-  }
-}
-
-export default connect(
-  mapStateToProps,mapDispatchToProps
-)(RegisterTeamPersonalAddress)
