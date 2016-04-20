@@ -24,6 +24,7 @@ export class RegisterOrgAddressComp extends Component {
   }
 
   render() {
+    const Organisation = this.props.registrationDetails.Organisation
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal" role="form">
@@ -32,8 +33,8 @@ export class RegisterOrgAddressComp extends Component {
                 <h1 className="title">Pick your personal chat address</h1>
                 <div className="desc">Examples: chat.center/you; yourteam.chat.center/you; chat.yourdomain.com/you</div>
                 <div className="input-group input-group-lg">
-                  <span>http://extraordinaryfoods.chat.center</span>
-                  <input type="text" className="form-control" ref="RegisterChannel" placeholder="/alex" aria-describedby="username-addon" />
+                  <span>https://{Organisation.team}.chat.center/</span>
+                  <input type="text" className="form-control" ref="RegisterChannel" placeholder="alex" aria-describedby="username-addon" />
                 </div> 
                 <div className="desc">
                   <ul><li>- Use this chat address to log in.</li>
