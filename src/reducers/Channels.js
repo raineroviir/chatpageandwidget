@@ -1,5 +1,9 @@
 const initialState = {
-  channels: []
+  channels: {
+    publicChannels: [],
+    groupChannels: [],
+    recentContacts: []
+  }
 };
 
 export function channels(state = initialState, action) {

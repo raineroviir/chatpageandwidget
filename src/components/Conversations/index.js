@@ -10,7 +10,7 @@ export class ConversationsView extends Component {
         <ul className="nav nav-sidebar user-item">
           { this.props.conversations.map(conversation => {
             return (
-              <li><a href="#"><img className="img-circle" src="dist/images/user.png" title={conversation.name} alt={conversation.name} /><span className="user-presence online pull-right">8:36 PM</span><span className="name-and-message middle-content"><strong className="name">{conversation.last_message.user_name}</strong><span className="message">{conversation.last_message.text}</span></span></a></li>
+              <li key={conversation.id}><a href="#"><img className="img-circle" src="dist/images/user.png" title={conversation.name} alt={conversation.name} /><span className="user-presence online pull-right">8:36 PM</span><span className="name-and-message middle-content"><strong className="name">{conversation.last_message.user_name}</strong><span className="message">{conversation.last_message.text}</span></span></a></li>
             );
           })
           }
