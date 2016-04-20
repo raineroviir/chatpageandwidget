@@ -62,6 +62,9 @@ export class RegisterOrgVerifyComp extends Component {
                   <span className="input-group-addon" onChange={this.inputChange.bind(this)} id="password-addon"><img src="dist/images/password-icon.svg" /></span>
                   <input type="password" ref="RegisterPassword" onChange={this.inputChange.bind(this)} className="form-control" placeholder="Set password" aria-describedby="password-addon" />
                 </div>
+                <div className="error-message">
+                {Organisation.error}
+                </div>
                 <div className="form-group button-wrapper">
                   <div className="col-sm-12">
                     <button type="button" className="btn btn-default back" onClick={this.props.handleBack}>BACK</button>
