@@ -7,7 +7,8 @@ const initialState = {
     channel:'',
     email:'',
     password:'',
-    error:''
+    error:'',
+    TeamAvailable:{}
   }
 };
 
@@ -60,11 +61,28 @@ export function registrationDetails(state = initialState, action) {
   case 'REGISTER_INDIVIDUAL_DETAILS':
     //mutate initial state to store the organisation value and create STATE from it
     var Organisation = (Object.assign(initialState.Organisation, action.value));
-    delete Organisation.team;
+    Organisation.team = null;
     return {
       ...state,
       Organisation
   };
+
+  case 'REGISTER_ORGANISATION_DETAILS':
+    //mutate initial state to store the organisation value and create STATE from it
+    var Organisation = (Object.assign(initialState.Organisation, action.value));
+    return {
+      ...state,
+      Organisation
+  };  
+  
+  case 'TEAM_AVAILABILITY_RESULT':
+    //mutate initial state to store the organisation value and create STATE from it
+    var Organisation = (Object.assign(initialState.Organisation, {TeamAvailable:action.posts}));
+    return {
+      ...state,
+      Organisation
+  };
+
   default:
     return state;
   }

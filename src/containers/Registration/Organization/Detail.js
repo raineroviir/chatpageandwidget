@@ -23,7 +23,7 @@ export class RegisterOrgDetail extends Component {
   render() {
     //const { actions } = this.props
     return (      
-      <RegisterOrgDetailComp handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
+      <RegisterOrgDetailComp registrationDetails={this.props.registrationDetails} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
     );
   }
 }

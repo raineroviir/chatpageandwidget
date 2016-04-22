@@ -68,7 +68,7 @@ function postActionConstruct(json) {
   }
   return (dispatch, getState) => {
       dispatch({
-      type: 'REGISTER_INDIVIDUAL_DETAILS',
+      type: 'REGISTER_ORGANISATION_DETAILS',
       value:{"error":json.error}
     })
   }
@@ -91,4 +91,31 @@ function postLoginRequest(payload){
     				},
 	     		 	body: JSON.stringify(payload)
 	  })
+}
+
+/**/
+export function checkTeamName(team_name) {
+   return (dispatch, getState) => {
+      return dispatch(teamNameAvailable(team_name))
+  }
+}
+
+function teamNameAvailable(team_name) {  
+  console.log('teamNameAvailable');
+  return dispatch => {
+    postTeamName(team_name).then(response => {return response.json()})  
+      .then(json => dispatch(postTeamAvailabilityResponse(json)))
+  }
+}
+
+function postTeamName(team_name){
+    return fetch('https://api-beta.chat.center/v1/teams.find?team='+team_name)
+} 
+
+function postTeamAvailabilityResponse(json) {
+  console.log(JSON.stringify(json));
+  return {
+    type: 'TEAM_AVAILABILITY_RESULT',
+    posts: json
+  }
 }

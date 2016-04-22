@@ -1,7 +1,7 @@
 {
   "channels": [
     {
-      "id": 46,
+      "id": 146,
       "name": "Public Channel",
       "is_public": true,
       "is_group": false,
@@ -11,7 +11,7 @@
       }
     },
     {
-      "id": 59,
+      "id": 159,
       "name": "Customer Support",
       "is_public": true,
       "is_group": false,
@@ -21,7 +21,7 @@
       }
     },
     {
-      "id": 61,
+      "id": 161,
       "name": "May Fair Support",
       "is_public": true,
       "is_group": false,
@@ -31,7 +31,7 @@
       }
     },
     {
-      "id": 63,
+      "id": 163,
       "name": "great_another_sergey_channel2",
       "is_public": true,
       "is_group": false,
@@ -41,7 +41,7 @@
       }
     },
     {
-      "id": 65,
+      "id": 165,
       "name": "Where we can improve !?",
       "is_public": false,
       "is_group": true,
@@ -51,7 +51,7 @@
       }
     },
     {
-      "id": 102,
+      "id": 1102,
       "name": "Offsore Sync Up",
       "is_public": false,
       "is_group": true,
@@ -60,7 +60,7 @@
         "team": "chat.center"
       }
     },{
-      "id": 46,
+      "id": 1146,
       "name": "sergey",
       "is_public": false,
       "is_group": true,

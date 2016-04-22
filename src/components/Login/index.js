@@ -31,13 +31,16 @@ export class LoginComponent extends Component {
   render() {
 
     return (
-      <div id="loginbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+      <div id="loginbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 logo-centered">
             <form id="signupform" className="form-horizontal" role="form">
-                <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
-                <h1 className="title">Welcome to chat.center</h1>
+                <div className="logo-wrapper">
+                  <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
+                </div>
+                <h1 className="title text-center">chat.center</h1>
+                <div className="details text-center">Sign in to your account</div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" /></span>
-                  <input type="text" className="form-control" ref="Username" placeholder="chat.center/username" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
+                  <span className="input-group-addon user-name" id="username-addon"><img className="prefix" src="dist/images/user-icon.svg" /><span className="prefix-text">http://</span></span>
+                  <input type="text" className="form-control" ref="Username" placeholder="your chat address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
                 </div>
                 <div className="desc">Examples: chat.center/you; yourteam.chat.center/you; chat.yourdomain.com/you</div>
                 <div className="input-group input-group-lg">
@@ -50,13 +53,17 @@ export class LoginComponent extends Component {
                 <div className="form-group">
                     <div className="col-sm-12 text-center">
                       <button type="button" className="btn btn-default sign-in" ref="loginBtn" onClick={this.handleLogin.bind(this)}>SIGN IN</button>
-                      <a className="quick-link" href="javascript:;" title="Forgot password">Forgot Password</a>
                     </div>
-                    <div className="col-sm-12 connector">
-                      <span>OR</span>
-                    </div>
-                    <div className="col-sm-12 text-center">
-                      <a href="#/signup/" className="btn btn-default sign-up" title="CREATE NEW CHAT.CENTER">CREATE NEW CHAT.CENTER</a>
+                  </div>
+                  <div className="col-sm-12 text-center">
+                    <div className="row">
+                      <div className="sign-in-wrapper col-sm-6">
+                        <span>New to chat.center?</span>
+                        <a href="#/signup" title="Sign up" className="pull-right">Sign up.</a>
+                      </div>
+                      <div className="forgot-password col-sm-6">
+                        <a className="quick-link" href="javascript:;" title="Forgot password">Forgot Password</a>
+                      </div>
                     </div>
                   </div>
             </form>

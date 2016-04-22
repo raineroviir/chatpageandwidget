@@ -2,7 +2,7 @@
 	width:600px;
 	box-sizing:border-box;
 	padding: 95px 130px 30px;
-	font-size:14px;
+	font-size:16px;
 	left:50%;
 	margin-left:-300px;
 	.error-message {
@@ -10,14 +10,25 @@
 		margin:10px 0;
 	}
 	.logo {
-		width: 75.6px;
-  		height: 65.5px;
+		width: 121.4px;
+  		height: 105.3px;
   		position:absolute;
   		left:30px;
   		top: 40px;
 	}
+	.logo-wrapper {
+		text-align:center;
+		.logo {
+	  		position:static;
+		}
+	}
 	.title {
-		font-size:32px;
+		font-size:50px;
+		color:#000;
+	}
+	.details {
+		font-size:16px;
+		color:#9a9da1;
 	}
 	.input-group-addon {
 		padding:8px;
@@ -30,6 +41,15 @@
 			width: 25px;
     		height: 30px;
 		}
+		img.prefix {
+    		margin-top:-4px;
+		}
+		.prefix-text {
+			color: #9a9da1;
+		    margin-top: 6px;
+		    display: inline-block;
+		    margin: 10px 0 0 10px;
+		}
 	}
 	input {
 		height:72px;
@@ -39,12 +59,13 @@
 		box-shadow: inset 0 -2px 0 0 #474848;
 		font-size:18px;
 		padding:5px 0px 0px;
+		color: #9a9da1;
 	}
 	.desc {
 		color:#9a9da1;
 		line-height:20px;
 		padding:12px 0;
-		font-size:13px;
+		font-size:14px;
 	}
 	button, a.sign-up {
 		padding:10px 0;
@@ -102,11 +123,33 @@
 		display: block;
     	margin-top: 10px;
     }
+    .sign-in-wrapper {
+        background: #eee;
+	    float:left;
+	    padding: 5px 10px;
+	    margin-top: 30px;
+	    span {
+	    margin-right:10px;
+	    }
+    }
+    .sign-in-wrapper::before {
+    	content:'';
+    	display:table;
+    	clear:both;
+    }
+    .forgot-password {
+    	margin:25px -15px 0 0;
+    	float:right;
+    	text-align:right;
+    }
+}
+#loginbox.logo-centered { 
+	padding: 30px 68px 30px;
 }
 
 /* media queries */
 
-@media only screen and (max-width : 607px) {
+@media only screen and (max-width : 600px) {
 	#loginbox {
 		width:100%;
 		box-sizing:border-box;
@@ -114,18 +157,44 @@
 		left:auto;
 		margin-left:auto;
 		.logo {
-			width: 75.6px;
-	  		height: 65.5px;
 	  		position:absolute;
 	  		left:10px;
 	  		top: 40px;
 		}
+		.logo-wrapper {
+			text-align:center;
+			.logo {
+		  		position:static;
+			}
+		}
+
+	}
+	#loginbox.logo-centered { 
+		padding: 30px 15px 30px;
 	}
 }
 @media only screen and (max-width : 335px) {
 	#loginbox {
-		button.sign-up {
-			width: 100%;
-		}
+		.forgot-password {
+	    	margin:15px -15px 0 0;
+	    	float:none;
+	    	text-align:center;
+	    }
+	}
+}
+@media only screen and (max-width : 396px) {
+	#loginbox {
+		.sign-in-wrapper {
+	        clear:both;
+		    margin: 30px auto 0;
+		    float:none;
+		    width:240px;
+	    }	
+		.forgot-password {
+	    	margin:15px -15px 0 0;
+	    	float:none;
+	    	text-align:center;
+	    	clear:both;
+	    }
 	}
 }

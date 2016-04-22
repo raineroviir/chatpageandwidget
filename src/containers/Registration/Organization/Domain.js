@@ -18,10 +18,14 @@ export class RegisterOrgDomain extends Component {
     window.location.hash = "#/signup/organization/detail";
   }
 
+  checkForTeamNameAvailability(CurrentTeamName){
+    this.props.actions.checkTeamName(CurrentTeamName);
+  }
+
   render() {
     //const { actions } = this.props
     return (
-      <RegisterOrgDomainComp handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />  
+      <RegisterOrgDomainComp checkForTeamNameAvailability={this.checkForTeamNameAvailability.bind(this)} registrationDetails={this.props.registrationDetails} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />  
 
     );
   }

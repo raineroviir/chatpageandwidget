@@ -32,15 +32,19 @@ export class Register extends Component {
                 <div className="user-type org col-sm-12 text-center">
                 <a href="#/signup/organization/name">
                   <img src="dist/images/org-icon.svg" title="Organization" />
-                  <strong>Organization</strong>
-                  <span>Great for teams and collaboration</span>
+                  <span className="user-type-content">
+                    <strong>Organization</strong>
+                    <span>Great for teams and collaboration</span>
+                  </span>
                 </a>
                 </div>
                 <div className="user-type ind col-sm-12 text-center">
                 <a href="#/signup/individual">
                   <img src="dist/images/ind-icon.svg" title="Organization" />
-                  <strong>Individual</strong>
-                  <span>If you want to keep it nice and simple </span>
+                  <span className="user-type-content">
+                    <strong>Individual</strong>
+                    <span>If you want to keep it nice and simple </span>
+                  </span>
                 </a>
                 </div>
                 <div className="col-sm-12 text-center">

@@ -23,7 +23,7 @@ export class RegisterOrgVerify extends Component {
   render() {
     //const { actions } = this.props
     return (
-      <RegisterOrgVerifyComp handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} registrationDetails={this.props.registrationDetails} />
+      <RegisterOrgVerifyComp registrationDetails={this.props.registrationDetails} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} registrationDetails={this.props.registrationDetails} />
     );
   }
 }

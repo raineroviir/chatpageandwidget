@@ -19,7 +19,7 @@ export class RegisterOrgAddress extends Component {
 
   render() {
     return (
-      <RegisterOrgAddressComp handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} registrationDetails={this.props.registrationDetails} />
+      <RegisterOrgAddressComp registrationDetails={this.props.registrationDetails} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
     );
   }
 }

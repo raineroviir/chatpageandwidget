@@ -22,7 +22,7 @@ export class RegisterOrgVerifyComp extends Component {
   }
 
   inputChange(){
-    this.refs.submitButton.disabled = !(this.refs.RegisterPassword.value);
+    this.refs.submitButton.disabled = !(this.refs.RegisterPassword.value&&this.refs.RegisterPassword.value.length>=8);
   }
 
   componentDidMount() {
@@ -31,20 +31,25 @@ export class RegisterOrgVerifyComp extends Component {
   }
 
   render() {
+
+    //redirect to first page if refreshed
+    if(this.props.registrationDetails.Organisation.team_name === ''){
+      window.location.hash = "#/signup/organization/name";
+    }
+    
     const Organisation = this.props.registrationDetails.Organisation
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal" role="form">
-                <div className="user-status"><span className="offline"></span><span className="inactive"></span><span className="online"></span></div>
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
-                <h1 className="title">Verify your details</h1>                
+                <h1 className="inner-title">Verify your details</h1>                
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Name of your chat.center</label>
                   <span className="ans-label">{Organisation.team_name}</span>
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Address of your chat.center</label>
-                  <span className="ans-label">https://{Organisation.team}.chat.center</span>
+                  <span className="ans-label">http://{Organisation.team}.chat.center</span>
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Full Name</label>
@@ -52,24 +57,26 @@ export class RegisterOrgVerifyComp extends Component {
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Email</label>
-                  <span className="ans-label">{Organisation.first_name}</span>
+                  <span className="ans-label">{Organisation.email}</span>
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Your personal chat address</label>
-                  <span className="ans-label">https://{Organisation.team}.chat.center/{Organisation.channel}</span>
+                  <span className="ans-label">http://{Organisation.team}.chat.center/{Organisation.channel}</span>
                 </div>
                 <div className="input-group input-group-lg">
                   <span className="input-group-addon" onChange={this.inputChange.bind(this)} id="password-addon"><img src="dist/images/password-icon.svg" /></span>
                   <input type="password" ref="RegisterPassword" onChange={this.inputChange.bind(this)} className="form-control" placeholder="Set password" aria-describedby="password-addon" />
                 </div>
                 <div className="error-message">
-                {Organisation.error}
+                  {this.props.registrationDetails.Organisation.error}
                 </div>
                 <div className="form-group button-wrapper">
-                  <div className="col-sm-12">
+                    <div className="col-sm-12">
+                      <div className="row">
                     <button type="button" className="btn btn-default back" onClick={this.props.handleBack}>BACK</button>
-                    <button type="button" ref="submitButton" className="btn btn-default sign-up-inline" onClick={this.handleNext.bind(this)}>Create Chat Center</button>
+                    <button type="button" ref="submitButton" className="btn btn-default sign-in pull-right domain-big-button" onClick={this.handleNext.bind(this)}>CREATE <span className="domain-big">CHAT.CENTER</span></button>
                   </div>
+                   </div>
                 </div>            
             </form>
        </div> 
