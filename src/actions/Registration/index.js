@@ -63,14 +63,26 @@ export function submitRegistration(index) {
 }
 
 function postActionConstruct(json) {
-  if(json.ok){
-    window.location.hash = "#/login";
-  }
+ 
   return (dispatch, getState) => {
-      dispatch({
+    dispatch({
       type: 'REGISTER_ORGANISATION_DETAILS',
       value:{"error":json.error}
     })
+    if(json.ok){
+        dispatch({
+          type:'RESET_ORGANISATION_DETAILS'
+        })
+
+        dispatch({
+          type:'SUCCESSFUL_REGISTRATION_ACK'
+        })
+
+        window.location.hash = "#/login";
+        //reset Organidation Details once successfully signed up
+        
+    }
+    
   }
 }
 

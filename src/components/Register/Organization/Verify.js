@@ -10,6 +10,8 @@ export class RegisterOrgVerifyComp extends Component {
     //service call to register and move to chat message home screen
     let RegisterPassword = this.refs.RegisterPassword.value;
 
+    this.refs.submitButton.disabled = true;
+    
     if(RegisterPassword === ''){
       alert('please enter password');
       return;

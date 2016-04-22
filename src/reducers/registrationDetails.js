@@ -12,6 +12,8 @@ const initialState = {
   }
 };
 
+const initialOrganisation = Object.assign({},initialState.Organisation);
+
 export function registrationDetails(state = initialState, action) {
   //alert(action.type)
 
@@ -78,6 +80,22 @@ export function registrationDetails(state = initialState, action) {
   case 'TEAM_AVAILABILITY_RESULT':
     //mutate initial state to store the organisation value and create STATE from it
     var Organisation = (Object.assign(initialState.Organisation, {TeamAvailable:action.posts}));
+    return {
+      ...state,
+      Organisation
+  };
+
+  case 'RESET_ORGANISATION_DETAILS':
+    //mutate initial state to store the organisation value and create STATE from it
+    var Organisation = Object.assign(initialState.Organisation,initialOrganisation);
+    return {
+      ...state,
+      Organisation
+  };
+
+  case 'SUCCESSFUL_REGISTRATION_ACK':
+    //mutate initial state to store the organisation value and create STATE from it
+    var Organisation = Object.assign(initialState.Organisation,{successfulRegistration:true});
     return {
       ...state,
       Organisation

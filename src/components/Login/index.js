@@ -7,8 +7,6 @@ import * as LoginActions from '../../actions/Login';
 /* component styles */
 import { styles } from './styles.scss';
 
-
-
 export class LoginComponent extends Component {
 
   handleLogin(){
@@ -26,9 +24,15 @@ export class LoginComponent extends Component {
     this.refs.loginBtn.disabled = !(this.refs.Username.value && this.refs.Password.value)
   }
   componentDidMount() {
-    this.refs.loginBtn.disabled = true;
+    this.refs.loginBtn.disabled = true; 
   }
+
   render() {
+    
+    var successfulRegistration = '';
+    if(this.props.registrationDetails.Organisation.successfulRegistration){
+        successfulRegistration = <span style={{color:'green'}}>Successfully Registered</span>
+    }
 
     return (
       <div id="loginbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 logo-centered">
@@ -47,8 +51,11 @@ export class LoginComponent extends Component {
                   <span className="input-group-addon" id="password-addon"><img src="dist/images/password-icon.svg" /></span>
                   <input type="password" className="form-control" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
                 </div>
+                <div className="text-center">
+                  {successfulRegistration}
+                </div>
                 <div className="error-message">
-                {this.props.loginDetails.User.error}
+                  {this.props.loginDetails.User.error}
                 </div>
                 <div className="form-group">
                     <div className="col-sm-12 text-center">
@@ -75,7 +82,8 @@ export class LoginComponent extends Component {
 
 function mapStateToProps(state) {
   return {
-    loginDetails: state.loginDetails
+    loginDetails: state.loginDetails,
+    registrationDetails: state.registrationDetails
   }
 }
 

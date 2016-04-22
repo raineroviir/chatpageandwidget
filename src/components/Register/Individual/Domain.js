@@ -17,8 +17,9 @@ export class RegisterIndividualDomain extends Component {
     window.location.hash = "#/signup/individual/";
   }
 
-  handleNext(){ 
-        //service call to register and move to chat message home screen
+  handleNext(){         
+
+    this.refs.createBtn.disabled = true;
 
     let RegisterChannel = this.refs.Channel.value;
 
