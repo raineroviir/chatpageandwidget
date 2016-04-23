@@ -8,6 +8,8 @@ const initialState = {
   }
 };
 
+const initialLoginState = Object.assign({},initialState.User);
+
 export function loginDetails(state = initialState, action) {
   //alert(action.type)
 
@@ -20,6 +22,14 @@ export function loginDetails(state = initialState, action) {
           ...state,
           User
       };
+
+    case 'RESET_USER_DETAILS':
+      //mutate initial state to store the organisation value and create STATE from it
+      var User = Object.assign(initialState.User,initialLoginState);
+      return {
+        ...state,
+        User
+    };
 
     default:
       return state;

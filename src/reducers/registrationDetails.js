@@ -1,6 +1,6 @@
 const initialState = {
   Organisation:{
-    team_name:'',
+    team_description:'',
     team:'',
     first_name:'',
     last_name:'',
@@ -21,7 +21,7 @@ export function registrationDetails(state = initialState, action) {
   
   case 'REGISTER_ORGANISATION_NAME':
     //mutate initial state to store the organisation value and create STATE from it
-    var Organisation = (Object.assign(initialState.Organisation, {team_name:action.RegisterOrganisationName}));
+    var Organisation = (Object.assign(initialState.Organisation, {team_description:action.RegisterOrganisationName}));
     return {
       ...state,
       Organisation

@@ -31,7 +31,7 @@ export class LoginComponent extends Component {
     
     var successfulRegistration = '';
     if(this.props.registrationDetails.Organisation.successfulRegistration){
-        successfulRegistration = <span style={{color:'green'}}>Successfully Registered</span>
+        successfulRegistration = <span style={{color:'green'}}>Your have successfully registered, please login to access your account</span>
     }
 
     return (
@@ -42,6 +42,9 @@ export class LoginComponent extends Component {
                 </div>
                 <h1 className="title text-center">chat.center</h1>
                 <div className="details text-center">Sign in to your account</div>
+                <div className="text-center" style={{marginTop:'20px'}}>
+                  {successfulRegistration}
+                </div>
                 <div className="input-group input-group-lg">
                   <span className="input-group-addon user-name" id="username-addon"><img className="prefix" src="dist/images/user-icon.svg" /><span className="prefix-text">http://</span></span>
                   <input type="text" className="form-control" ref="Username" placeholder="your chat address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
@@ -51,9 +54,7 @@ export class LoginComponent extends Component {
                   <span className="input-group-addon" id="password-addon"><img src="dist/images/password-icon.svg" /></span>
                   <input type="password" className="form-control" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
                 </div>
-                <div className="text-center">
-                  {successfulRegistration}
-                </div>
+                
                 <div className="error-message">
                   {this.props.loginDetails.User.error}
                 </div>

@@ -18,7 +18,7 @@ export class RegisterOrgDomainComp extends Component {
 
   handleNext(){
     let RegisterTeam = this.refs.RegisterTeam.value;
-    this.props.handleNext(RegisterTeam);
+    this.props.handleNext(RegisterTeam+'.chat.center');
   }
 
   inputChange(){
@@ -29,7 +29,7 @@ export class RegisterOrgDomainComp extends Component {
   componentDidMount() {
 
     if(this.props.registrationDetails.Organisation.team === ''){
-      this.state.team = this.props.registrationDetails.Organisation.team_name;
+      this.state.team = this.props.registrationDetails.Organisation.team_description;
     }
     
     if(this.props.registrationDetails.Organisation.TeamAvailable.ok){
@@ -46,7 +46,7 @@ export class RegisterOrgDomainComp extends Component {
   render() {
     
     //redirect to first page if refreshed
-    if(this.props.registrationDetails.Organisation.team_name === ''){
+    if(this.props.registrationDetails.Organisation.team_description === ''){
       window.location.hash = "#/signup/organization/name";
     }
 

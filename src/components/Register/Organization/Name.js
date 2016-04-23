@@ -9,7 +9,7 @@ export class RegisterOrgNameComp extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.state.team_name=this.props.registrationDetails.Organisation.team_name;
+    this.state.team_description=this.props.registrationDetails.Organisation.team_description;
   }
 
   handleNext(evt){
@@ -23,10 +23,10 @@ export class RegisterOrgNameComp extends Component {
   }
 
   componentDidMount() {
-    if(this.state.team_name === ''){
+    if(this.state.team_description === ''){
       this.refs.nextButton.disabled = true;
     }
-    this.refs.RegisterOrganisationName.value = this.state.team_name;
+    this.refs.RegisterOrganisationName.value = this.state.team_description;
   }
 
   render() { 

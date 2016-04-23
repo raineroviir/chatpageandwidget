@@ -69,6 +69,11 @@ function postActionConstruct(json) {
       type: 'REGISTER_ORGANISATION_DETAILS',
       value:{"error":json.error}
     })
+
+    dispatch({
+      type:'RESET_USER_DETAILS'
+    })
+
     if(json.ok){
         dispatch({
           type:'RESET_ORGANISATION_DETAILS'
