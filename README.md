@@ -1,16 +1,15 @@
-Build instructions
+## Build instructions
 
-Pre-req:
-    1. Nodejs (v 4.4.3 or 5.x)
-    2. "npm"
-    3. nginx or apache
-Steps:
-    git clone the repo
-    cd chatcenter-web
-    execute "npm run build"
-        this should create a folder called "dist"
+### Pre-req:
++ Nodejs (v 4.4.3 or 5.x)
++ "npm"
++ nginx or apache
 
-Deployment
+### Steps:
+1. git clone the repo
+2. cd chatcenter-web
+3. execute "npm run build" (this should create a folder called "dist")
 
-    Copy index.html from the root of the repo to web-server doc-root
-    Copy entire "dist"folder to webserver doc-root
+### Deployment (until we have service side component for the business app) -
+1. Copy index.html from the root of the repo to web-server doc-root
+2. Copy entire "dist"folder to webserver doc-root
