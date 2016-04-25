@@ -4,19 +4,19 @@ import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';
 
 /* components */
-import { ConversationsView } from 'components/Conversations';
-export class Conversations extends Component {
+import { ChatMessage } from 'components/ChatMessage';
+export class Messages extends Component {
   render() {
     return (
-      <ConversationsView conversations={this.props.conversations.conversations} />
+      <ChatMessage messages={this.props.messages.messages} user={this.props.user} />
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    conversations: state.conversations,
-    channelid: (state.channels.channels.otherChannels[0]) ? state.channels.channels.otherChannels[0].id : null
+    messages: state.messages,
+    user: state.userinfo
   }
 }
 
@@ -26,4 +26,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Conversations)
+export default connect(mapStateToProps, mapDispatchToProps)(Messages)

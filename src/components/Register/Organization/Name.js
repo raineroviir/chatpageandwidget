@@ -9,7 +9,7 @@ export class RegisterOrgNameComp extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.state.team_description=this.props.registrationDetails.Organisation.team_description;
+    this.state.team_description=this.props.registrationDetails.Organisation.payload.team_description;
   }
 
   handleNext(evt){

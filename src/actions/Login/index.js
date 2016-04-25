@@ -13,20 +13,21 @@ export function loginUser(Username,Password) {
 export function submitLogin(index) {
   //alert('submitRegistration');
   return (dispatch, getState) => {
-      return dispatch(postLogin(getState().loginDetails.User))
+      return dispatch(postLogin(getState().loginDetails.User.payload))
   }
 }
 
-function postActionConstruct(json) {
+function postActionConstruct(json, payload) {
   if(json.token){
-    window.location.hash = "#/home";
+    window.location.hash = "#/channel/" + payload.username.split("/")[1];
     if (typeof(Storage) !== "undefined") {
-        localStorage.setItem("token", json.token);
+        localStorage.setItem("token", JSON.stringify(json.token));
     }
   }
   return (dispatch, getState) => {
+    console.log(JSON.stringify(json.token))
       dispatch({
-      type: 'LOGIN_USER',
+      type: 'LOGIN_USER_RESPONSE',
       value:{"error":json.error,"token":json.token}
     })
   }
@@ -35,7 +36,7 @@ function postActionConstruct(json) {
 function postLogin(payload) {
   return dispatch => {
     postLoginRequest(payload).then(response => {return response.json()})	
-      .then(json => dispatch(postActionConstruct(json)))
+      .then(json => dispatch(postActionConstruct(json, payload)))
   }
 }
 

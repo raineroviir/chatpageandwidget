@@ -6,7 +6,8 @@ import * as RegistrationActions from '../../../actions/Registration';
 export class RegisterOrgVerifyComp extends Component {
 
 
-  handleNext(){
+  handleNext(e){
+    e.preventDefault();
     //service call to register and move to chat message home screen
     let RegisterPassword = this.refs.RegisterPassword.value;
 
@@ -35,11 +36,11 @@ export class RegisterOrgVerifyComp extends Component {
   render() {
 
     //redirect to first page if refreshed
-    if(this.props.registrationDetails.Organisation.team_name === ''){
+    if(this.props.registrationDetails.Organisation.payload.team_description === ''){
       window.location.hash = "#/signup/organization/name";
     }
     
-    const Organisation = this.props.registrationDetails.Organisation
+    const Organisation = this.props.registrationDetails.Organisation.payload
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal" role="form">
@@ -47,7 +48,7 @@ export class RegisterOrgVerifyComp extends Component {
                 <h1 className="inner-title">Verify your details</h1>                
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Name of your chat.center</label>
-                  <span className="ans-label">{Organisation.team_name}</span>
+                  <span className="ans-label">{Organisation.team_description}</span>
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Address of your chat.center</label>
@@ -76,7 +77,7 @@ export class RegisterOrgVerifyComp extends Component {
                     <div className="col-sm-12">
                       <div className="row">
                     <button type="button" className="btn btn-default back" onClick={this.props.handleBack}>BACK</button>
-                    <button type="button" ref="submitButton" className="btn btn-default sign-in pull-right domain-big-button" onClick={this.handleNext.bind(this)}>CREATE <span className="domain-big">CHAT.CENTER</span></button>
+                    <button type="submit" ref="submitButton" className="btn btn-default sign-in pull-right domain-big-button" onClick={this.handleNext.bind(this)}>CREATE <span className="domain-big">CHAT.CENTER</span></button>
                   </div>
                    </div>
                 </div>            

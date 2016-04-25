@@ -5,6 +5,10 @@
 	font-size:16px;
 	left:50%;
 	margin-left:-300px;
+	a, a:visited, a:active, a:focus, a:hover {
+	  color: #3997fe !important;
+	  text-decoration:none !important;
+	}
 	.error-message {
 		color:red;
 		margin:10px 0;

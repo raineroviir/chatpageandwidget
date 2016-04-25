@@ -9,12 +9,13 @@ export class RegisterOrgDetailComp extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.state.first_name=this.props.registrationDetails.Organisation.first_name;
-    this.state.last_name=this.props.registrationDetails.Organisation.last_name;
-    this.state.email=this.props.registrationDetails.Organisation.email;
+    this.state.first_name=this.props.registrationDetails.Organisation.payload.first_name;
+    this.state.last_name=this.props.registrationDetails.Organisation.payload.last_name;
+    this.state.email=this.props.registrationDetails.Organisation.payload.email;
   }
 
-  handleNext(){
+  handleNext(e){
+    e.preventDefault();
     let FirstName = this.refs.FirstName.value;
     let LastName = this.refs.LastName.value;
     let Email = this.refs.Email.value;
@@ -46,7 +47,7 @@ export class RegisterOrgDetailComp extends Component {
   render() {
 
     //redirect to first page if refreshed
-    if(this.props.registrationDetails.Organisation.team_name === ''){
+    if(this.props.registrationDetails.Organisation.payload.team_description === ''){
       window.location.hash = "#/signup/organization/name";
     }
 
@@ -71,7 +72,7 @@ export class RegisterOrgDetailComp extends Component {
                     <div className="col-sm-12">
                       <div className="row">
                       <button type="button" className="btn btn-default back" onClick={this.props.handleBack}>BACK</button>
-                      <button type="button" ref="nextButton" className="btn btn-default sign-in pull-right" onClick={this.handleNext.bind(this)}>NEXT</button>
+                      <button type="submit" ref="nextButton" className="btn btn-default sign-in pull-right" onClick={this.handleNext.bind(this)}>NEXT</button>
                     </div>
                     </div>
                 </div>           

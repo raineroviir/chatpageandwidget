@@ -20,7 +20,10 @@ import RegisterIndividualDomain from 'components/Register/Individual/Domain';
 export default (
   <Route path="/" component={App}> 
     <IndexRoute component={Login} />
-    <Route path="home" component={Home} />
+    <Route path="channel/:user">
+        <IndexRoute component={Home} />
+        <Route path="home" component={Home} />
+    </Route>
     <Route path="login" component={Login} />
     <Route path="signup" component={Registration} />
     <Route path="signup/organization" component={RegisterStart} />
@@ -34,5 +37,6 @@ export default (
     <Route path="signup/individual" component={RegisterIndividual} />
     <Route path="signup/individual/domain" component={RegisterIndividualDomain} />
     <Route status={404} path="*" component={Login} />
+
   </Route>
 );

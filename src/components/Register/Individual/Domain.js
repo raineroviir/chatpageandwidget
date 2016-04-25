@@ -9,7 +9,7 @@ export class RegisterIndividualDomain extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.state.channel=this.props.registrationDetails.Organisation.channel;
+    this.state.channel=this.props.registrationDetails.Organisation.payload.channel;
   }
 
   handleBack(){
@@ -17,8 +17,8 @@ export class RegisterIndividualDomain extends Component {
     window.location.hash = "#/signup/individual/";
   }
 
-  handleNext(){         
-
+  handleNext(e){         
+    e.preventDefault();
     this.refs.createBtn.disabled = true;
 
     let RegisterChannel = this.refs.Channel.value;
@@ -43,7 +43,7 @@ export class RegisterIndividualDomain extends Component {
   render() {
     
     //redirect to first page if refreshed
-    if(this.props.registrationDetails.Organisation.first_name === ''){
+    if(this.props.registrationDetails.Organisation.payload.first_name === ''){
       window.location.hash = "#/signup/individual";
     }
 
@@ -71,7 +71,7 @@ export class RegisterIndividualDomain extends Component {
                     <div className="col-sm-12">
                       <div className="row">
                         <button type="button" className="btn btn-default back" onClick={this.handleBack}>BACK</button>
-                        <button type="button" className="btn btn-default sign-in pull-right domain-big-button" ref="createBtn" onClick={this.handleNext.bind(this)}>CREATE <span className="domain-big">MY CHAT.CENTER</span></button>
+                        <button type="submit" className="btn btn-default sign-in pull-right domain-big-button" ref="createBtn" onClick={this.handleNext.bind(this)}>CREATE <span className="domain-big">MY CHAT.CENTER</span></button>
                       </div>
                   </div>
                 </div>

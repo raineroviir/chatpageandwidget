@@ -50,7 +50,7 @@ export function registerIndividualDetails(FirstName,LastName,Email,Password) {
   return (dispatch, getState) => {
       dispatch({
       type: 'REGISTER_INDIVIDUAL_DETAILS',
-      value:{"first_name":FirstName,"last_name":LastName,"email":Email,"password":Password,"team_name":"chat.center"}
+      value:{"first_name":FirstName,"last_name":LastName,"email":Email,"password":Password,"team_description":"chat.center"}
     })
   }
 }
@@ -58,7 +58,7 @@ export function registerIndividualDetails(FirstName,LastName,Email,Password) {
 export function submitRegistration(index) {
   //alert('submitRegistration');
   return (dispatch, getState) => {
-      return dispatch(postRegistration(getState().registrationDetails.Organisation))
+      return dispatch(postRegistration(getState().registrationDetails.Organisation.payload))
   }
 }
 
@@ -93,6 +93,8 @@ function postActionConstruct(json) {
 
 function postRegistration(payload) {
   return dispatch => {
+    if(payload.team !== null)
+      payload.team = payload.team+'.chat.center';
     postLoginRequest(payload).then(response => {return response.json()})	
       .then(json => dispatch(postActionConstruct(json)))
   }
@@ -111,22 +113,22 @@ function postLoginRequest(payload){
 }
 
 /**/
-export function checkTeamName(team_name) {
+export function checkTeamName(team_description) {
    return (dispatch, getState) => {
-      return dispatch(teamNameAvailable(team_name))
+      return dispatch(teamNameAvailable(team_description))
   }
 }
 
-function teamNameAvailable(team_name) {  
+function teamNameAvailable(team_description) {  
   console.log('teamNameAvailable');
   return dispatch => {
-    postTeamName(team_name).then(response => {return response.json()})  
+    postTeamName(team_description).then(response => {return response.json()})  
       .then(json => dispatch(postTeamAvailabilityResponse(json)))
   }
 }
 
-function postTeamName(team_name){
-    return fetch('https://api-beta.chat.center/v1/teams.find?team='+team_name)
+function postTeamName(team_description){
+    return fetch('https://api-beta.chat.center/v1/teams.find?team='+team_description)
 } 
 
 function postTeamAvailabilityResponse(json) {

@@ -1,18 +1,20 @@
 const initialState = {
   Organisation:{
-    team_description:'',
-    team:'',
-    first_name:'',
-    last_name:'',
-    channel:'',
-    email:'',
-    password:'',
+    payload:{
+      team_description:'',
+      team:'',
+      first_name:'',
+      last_name:'',
+      channel:'',
+      email:'',
+      password:''
+    },
     error:'',
     TeamAvailable:{}
   }
 };
 
-const initialOrganisation = Object.assign({},initialState.Organisation);
+const initialOrganisation = Object.assign({},initialState.Organisation.payload);
 
 export function registrationDetails(state = initialState, action) {
   //alert(action.type)
@@ -21,7 +23,8 @@ export function registrationDetails(state = initialState, action) {
   
   case 'REGISTER_ORGANISATION_NAME':
     //mutate initial state to store the organisation value and create STATE from it
-    var Organisation = (Object.assign(initialState.Organisation, {team_description:action.RegisterOrganisationName}));
+    var Organisation = initialState.Organisation;
+    Organisation.payload = (Object.assign(initialState.Organisation.payload, {team_description:action.RegisterOrganisationName}));
     return {
       ...state,
       Organisation
@@ -29,7 +32,13 @@ export function registrationDetails(state = initialState, action) {
 
   case 'REGISTER_TEAM':
     //mutate initial state to store the organisation value and create STATE from it
-    var Organisation = (Object.assign(initialState.Organisation, {team:action.RegisterTeam}));
+    var regTeam = action.RegisterTeam;
+    // if(action.RegisterTeam.indexOf('.chat.center') === -1){
+    //   regTeam = action.RegisterTeam+'.chat.center';
+    // }
+
+    var Organisation = initialState.Organisation;
+    Organisation.payload = (Object.assign(initialState.Organisation.payload, {team:regTeam}));
     return {
       ...state,
       Organisation
@@ -37,7 +46,9 @@ export function registrationDetails(state = initialState, action) {
 
   case 'REGISTER_CHANNEL':
     //mutate initial state to store the organisation value and create STATE from it
-    var Organisation = (Object.assign(initialState.Organisation, {channel:action.RegisterChannel}));
+   
+    var Organisation = initialState.Organisation;
+    Organisation.payload = (Object.assign(initialState.Organisation.payload, {channel:action.RegisterChannel}));
     return {
       ...state,
       Organisation
@@ -46,7 +57,8 @@ export function registrationDetails(state = initialState, action) {
   
   case 'REGISTER_PASSWORD':
     //mutate initial state to store the organisation value and create STATE from it
-    var Organisation = (Object.assign(initialState.Organisation, {password:action.RegisterPassword}));
+    var Organisation = initialState.Organisation;
+    Organisation.payload = (Object.assign(initialState.Organisation.payload, {password:action.RegisterPassword}));
     return {
       ...state,
       Organisation
@@ -54,7 +66,8 @@ export function registrationDetails(state = initialState, action) {
 
   case 'REGISTER_PERSONAL_DETAILS':
     //mutate initial state to store the organisation value and create STATE from it
-    var Organisation = (Object.assign(initialState.Organisation, action.value));
+    var Organisation = initialState.Organisation;
+    Organisation.payload = (Object.assign(initialState.Organisation.payload, action.value));
     return {
       ...state,
       Organisation
@@ -62,16 +75,20 @@ export function registrationDetails(state = initialState, action) {
 
   case 'REGISTER_INDIVIDUAL_DETAILS':
     //mutate initial state to store the organisation value and create STATE from it
-    var Organisation = (Object.assign(initialState.Organisation, action.value));
-    Organisation.team = null;
+    var Organisation = initialState.Organisation;
+    Organisation.payload = (Object.assign(initialState.Organisation.payload, action.value));
+    Organisation.payload.team = null;
     return {
       ...state,
       Organisation
   };
 
   case 'REGISTER_ORGANISATION_DETAILS':
-    //mutate initial state to store the organisation value and create STATE from it
-    var Organisation = (Object.assign(initialState.Organisation, action.value));
+    var Organisation = initialState.Organisation;
+    if(!!action.value.error){
+      Organisation.payload = (Object.assign(initialState.Organisation, action.value));
+    }
+    
     return {
       ...state,
       Organisation
@@ -87,7 +104,8 @@ export function registrationDetails(state = initialState, action) {
 
   case 'RESET_ORGANISATION_DETAILS':
     //mutate initial state to store the organisation value and create STATE from it
-    var Organisation = Object.assign(initialState.Organisation,initialOrganisation);
+    var Organisation = initialState.Organisation;
+    Organisation.payload = Object.assign(initialState.Organisation.payload,initialOrganisation);
     return {
       ...state,
       Organisation

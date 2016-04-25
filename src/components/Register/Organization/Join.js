@@ -7,10 +7,11 @@ export class RegisterIndividualDomain extends Component {
 
   handleBack(){
     //console.log('Moving 1 step back');
-    window.location.hash = "#/signup/individual/";
+    window.location.hash = "#/login";
   }
 
-  handleNext(){
+  handleNext(e){
+    e.preventDefault();
         //service call to register and move to chat message home screen
     let RegisterPassword = this.refs.RegisterPassword.value;
 
@@ -50,7 +51,7 @@ export class RegisterIndividualDomain extends Component {
                 </div>
                 <div className="form-group text-center">
                   <div className="col-sm-12">
-                    <button type="button" className="btn btn-default sign-in" onClick={this.handleNext.bind(this)}>JOIN</button>
+                    <button type="submit" className="btn btn-default sign-in" onClick={this.handleNext.bind(this)}>JOIN</button>
                   </div>
                 </div>
             </form>

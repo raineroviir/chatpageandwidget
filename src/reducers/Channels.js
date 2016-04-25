@@ -2,7 +2,11 @@ const initialState = {
   channels: {
     publicChannels: [],
     groupChannels: [],
-    recentContacts: []
+    otherChannels: [],
+    recentContacts: [],
+    meta: {
+      count: 0
+    }
   }
 };
 

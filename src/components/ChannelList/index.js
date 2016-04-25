@@ -17,10 +17,10 @@ export class ChannelList extends Component {
             <h3>
               <strong className="title">Direct Messages</strong>
               <span className="label label-default pull-right">New Chat</span>
-              <span className="badge pull-right mrg-rt-10px">42</span>
+              <span className="badge pull-right mrg-rt-10px">{ this.props.channels.meta.count }</span>
             </h3>
             <ul className="nav nav-sidebar user-item">
-              <li className="header">CHAT CHANNELS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
+              <li className="header">PUBLIC CHANNELS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
                { this.props.channels.publicChannels.map(channel => {
                 return (
                   <li key={channel.id}><a href="#"><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
@@ -31,6 +31,15 @@ export class ChannelList extends Component {
             <ul className="nav nav-sidebar user-item">
               <li className="header">GROUP CHANNELS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
               { this.props.channels.groupChannels.map(channel => {
+                  return (
+                    <li key={channel.id}><a href="#"><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
+                  );
+                })
+              }
+            </ul>
+            <ul className="nav nav-sidebar user-item">
+              <li className="header">PRIVATE CHANNELS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
+              { this.props.channels.otherChannels.map(channel => {
                   return (
                     <li key={channel.id}><a href="#"><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
                   );

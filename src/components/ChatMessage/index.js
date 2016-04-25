@@ -7,74 +7,32 @@ export class ChatMessage extends Component {
   render() {
     return (
         <div className="chat-group mCustomScrollBar">
-          <ul className="chat-flow">
-              <li className="col-md-12">
-                <img className="img-circle pull-left" src="dist/images/user.png" title="name" alt="name" />
-                <span className="bubble">
-                  Hey, need some help
-                </span>
-              </li>
-               <li className="col-md-12">
-                <div className="bubble combine">
-                  Hello are you there
-                </div>
-              </li>
-              <li className="col-md-12">
-                <img className="img-circle pull-right" src="dist/images/user.png" title="name" alt="name" />
-                <div className="bubble bubble--alt">
-                  Hey, so tell me, what is so cool about Chat Center?
-                </div>
-              </li>
-              <li className="col-md-12">
-                <img className="img-circle pull-left" src="dist/images/user.png" title="name" alt="name" />
-                <div className="bubble">
-                  Your service SUCKS!
-                </div>
-              </li>
-              <li className="col-md-12">
-                <div className="bubble combine">
-                  Hey, need some help Hey, need some help Hey, need some help Hey, need some help
-                </div>
-              </li>
-               <li className="col-md-12">
-                <div className="bubble combine">
-                  Hello are you there
-                </div>
-              </li>
-              <li className="col-md-12">
-                <img className="img-circle pull-right" src="dist/images/user.png" title="name" alt="name" />
-                <div className="bubble bubble--alt">
-                  Hey, so tell me, what is so cool about Chat Center?
-                </div>
-              </li>
-              <li className="col-md-12">
-                <img className="img-circle pull-left" src="dist/images/user.png" title="name" alt="name" />
-                <div className="bubble">
-                  Your service SUCKS!
-                </div>
-              </li>
-              <li className="col-md-12">
-                <div className="bubble combine">
-                  Hey, need some help
-                </div>
-              </li>
-               <li className="col-md-12">
-                <div className="bubble combine">
-                  Hello are you there
-                </div>
-              </li>
-              <li className="col-md-12">
-                <img className="img-circle pull-right" src="dist/images/user.png" title="name" alt="name" />
-                <div className="bubble bubble--alt">
-                  Hey, so tell me, what is so cool about Chat Center?
-                </div>
-              </li>
-              <li className="col-md-12">
-                <img className="img-circle pull-left" src="dist/images/user.png" title="name" alt="name" />
-                <div className="bubble">
-                  Your service SUCKS!
-                </div>
-              </li>
+          <ul className="chat-flow col-md-12">
+            { 
+              this.props.messages.map(message => {
+                let user = this.props.user.userinfo;
+                if(user.id != message.user_id){
+                  return(
+                    <li className="col-md-12">
+                      <img className="img-circle pull-left" src="dist/images/user.png" title="{message.user_id}" alt="{user_id.user_id}" />
+                      <span className="bubble">
+                        {message.text}
+                      </span>
+                    </li>
+                  )                  
+                }
+                else {
+                  return(
+                    <li className="col-md-12">
+                      <img className="img-circle pull-right" src={user.avatar_96} title={ user.first_name } alt={ user.first_name } />
+                      <div className="bubble bubble--alt">
+                        { message.text}
+                      </div>
+                    </li>
+                  )            
+                }
+              })
+            }
             </ul>
           </div>
     );

@@ -8,15 +8,15 @@ export class RegisterOrgAddressComp extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.state.channel=this.props.registrationDetails.Organisation.channel;
+    this.state.channel=this.props.registrationDetails.Organisation.payload.channel;
   }
 
   handleBack(){
     window.location.hash = "#/signup/organization/detail";
   }
 
-  handleNext(){
-    
+  handleNext(e){
+    e.preventDefault();
     let RegisterChannel = this.refs.RegisterChannel.value;
 
     if(RegisterChannel === ''){
@@ -43,7 +43,7 @@ export class RegisterOrgAddressComp extends Component {
   render() {
     
     //redirect to first page if refreshed
-    if(this.props.registrationDetails.Organisation.team_name === ''){
+    if(this.props.registrationDetails.Organisation.payload.team_description === ''){
       window.location.hash = "#/signup/organization/name";
     }
     const Organisation = this.props.registrationDetails.Organisation
@@ -52,7 +52,7 @@ export class RegisterOrgAddressComp extends Component {
             <form id="signupform" className="form-horizontal" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Pick your personal chat address</h1>
-                <div className="chat-address">http://{Organisation.team}.chat.center</div>
+                <div className="chat-address">http://{Organisation.payload.team}.chat.center</div>
                 <div className="input-group input-group-lg">
                   <span className="input-group-addon user-name" id="username-addon"><span className="prefix-text slash">/</span></span>
                   <input type="text" className="form-control" ref="RegisterChannel" placeholder="Your name or nickname" aria-describedby="username-addon" onChange={this.inputChange.bind(this)} />
@@ -67,7 +67,7 @@ export class RegisterOrgAddressComp extends Component {
                     <div className="col-sm-12">
                       <div className="row">
                       <button type="button" className="btn btn-default back" onClick={this.props.handleBack}>BACK</button>
-                      <button type="button" ref="nextButton" className="btn btn-default sign-in pull-right" onClick={this.handleNext.bind(this)}>NEXT</button>
+                      <button type="submit" ref="nextButton" className="btn btn-default sign-in pull-right" onClick={this.handleNext.bind(this)}>NEXT</button>
                     </div>
                     </div>
                 </div>           

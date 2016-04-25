@@ -9,7 +9,8 @@ import { styles } from './styles.scss';
 
 export class LoginComponent extends Component {
 
-  handleLogin(){
+  handleLogin(e){
+      e.preventDefault();
         //service call to register and move to chat message home screen
       let Username = this.refs.Username.value;
       let Password = this.refs.Password.value;
@@ -60,7 +61,7 @@ export class LoginComponent extends Component {
                 </div>
                 <div className="form-group">
                     <div className="col-sm-12 text-center">
-                      <button type="button" className="btn btn-default sign-in" ref="loginBtn" onClick={this.handleLogin.bind(this)}>SIGN IN</button>
+                      <button type="submit" className="btn btn-default sign-in" ref="loginBtn" onClick={this.handleLogin.bind(this)}>SIGN IN</button>
                     </div>
                   </div>
                   <div className="col-sm-12 text-center">

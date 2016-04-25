@@ -3,10 +3,10 @@ import DocumentMeta from 'react-document-meta';
 
 /* components */
 import { Navigation } from 'components/Navigation';
-import Channels from 'containers/Home/Channels';
 import { Header } from 'components/Header';
+import Channels from 'containers/Home/Channels';
 import Conversations from 'containers/Home/Conversations';
-import { ChatMessage } from 'components/ChatMessage';
+import Messages from 'containers/Home/Messages';
 import { ChatTextBox } from 'components/ChatTextBox';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -37,7 +37,7 @@ export class Home extends Component {
             <section className="row">
               <Conversations />
               <div className="col-xs-12 col-sm-7 col-md-7 col-lg-8 chat">
-                <ChatMessage />
+                <Messages />
                 <ChatTextBox />
               </div>
             </section>

@@ -39,14 +39,6 @@ RegisterOrgName.propTypes = {
   //dispatch: PropTypes.func.isRequired
 }
 
-
-// var form = reduxForm({
-//   form: 'contact',                      // the name of your form and the key to
-//                                         // where your form's state will be mounted
-//   fields: ['team_name'], // a list of all your fields in your form
-//   //validate: validateContact             // a synchronous validation function
-// })();
-
 function mapStateToProps(state) {
   return {
     registrationDetails: state.registrationDetails

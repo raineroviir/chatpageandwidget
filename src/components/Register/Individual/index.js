@@ -11,10 +11,10 @@ export class RegisterIndividual extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.state.first_name=this.props.registrationDetails.Organisation.first_name;
-    this.state.last_name=this.props.registrationDetails.Organisation.last_name;
-    this.state.email=this.props.registrationDetails.Organisation.email;
-    this.state.password=this.props.registrationDetails.Organisation.password;
+    this.state.first_name=this.props.registrationDetails.Organisation.payload.first_name;
+    this.state.last_name=this.props.registrationDetails.Organisation.payload.last_name;
+    this.state.email=this.props.registrationDetails.Organisation.payload.email;
+    this.state.password=this.props.registrationDetails.Organisation.payload.password;
   }
 
   handleBack(){
@@ -22,7 +22,8 @@ export class RegisterIndividual extends Component {
     window.location.hash = "#/signup/";
   }
 
-  handleNext(){
+  handleNext(e){
+    e.preventDefault();
     let FirstName = this.refs.FirstName.value;
     let LastName = this.refs.LastName.value;
     let Email = this.refs.Email.value;
@@ -78,7 +79,7 @@ export class RegisterIndividual extends Component {
                     <div className="col-sm-12">
                       <div className="row">
                         <button type="button" className="btn btn-default back" onClick={this.handleBack}>BACK</button>
-                        <button type="button" className="btn btn-default sign-in pull-right" ref="nextBtn" onClick={this.handleNext.bind(this)}>NEXT</button>
+                        <button type="submit" className="btn btn-default sign-in pull-right" ref="nextBtn" onClick={this.handleNext.bind(this)}>NEXT</button>
                       </div>
                     </div>
                 </div> 
