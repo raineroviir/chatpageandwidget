@@ -68,11 +68,11 @@ export class RegisterIndividual extends Component {
                   <input type="text" className="form-control" ref="LastName" placeholder="Last name" aria-describedby="last-name-addon" onChange={this.inputChange.bind(this)} />
                 </div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon email" id="email-addon"><img src="dist/images/user-icon.svg" /></span>
+                  <span className="input-group-addon email" id="email-addon"><img src="dist/images/iconMail.svg" /></span>
                   <input type="email" className="form-control" ref="Email" placeholder="Email" aria-describedby="email-addon" onChange={this.inputChange.bind(this)} />
                 </div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon" id="password-addon"><img src="dist/images/password-icon.svg" /></span>
+                  <span className="input-group-addon" id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></span>
                   <input type="password" className="form-control" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
                 </div>
                 <div className="form-group button-wrapper">

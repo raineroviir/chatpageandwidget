@@ -31,6 +31,10 @@ export class LoginComponent extends Component {
   render() {
     
     var successfulRegistration = '';
+    var errorCls = '';
+    if(!this.props.loginDetails.User.error) {
+      errorCls = 'hide';
+    }
     if(this.props.registrationDetails.Organisation.successfulRegistration){
         successfulRegistration = <span style={{color:'green'}}>Your have successfully registered, please login to access your account</span>
     }
@@ -46,19 +50,20 @@ export class LoginComponent extends Component {
                 <div className="text-center" style={{marginTop:'20px'}}>
                   {successfulRegistration}
                 </div>
+                <div className={'login-error-message ' + errorCls}>
+                  Incorrect Chat Address or Password
+                </div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon user-name" id="username-addon"><img className="prefix" src="dist/images/user-icon.svg" /><span className="prefix-text">http://</span></span>
+                  <span className="input-group-addon user-name" id="username-addon"><img className="prefix" src="dist/images/user-icon.svg" /><span className="prefix-text">https://</span></span>
                   <input type="text" className="form-control" ref="Username" placeholder="your chat address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
                 </div>
                 <div className="desc">Examples: chat.center/you; yourteam.chat.center/you; chat.yourdomain.com/you</div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon" id="password-addon"><img src="dist/images/password-icon.svg" /></span>
+                  <span className="input-group-addon" id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></span>
                   <input type="password" className="form-control" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
                 </div>
                 
-                <div className="error-message">
-                  {this.props.loginDetails.User.error}
-                </div>
+                
                 <div className="form-group">
                     <div className="col-sm-12 text-center">
                       <button type="submit" className="btn btn-default sign-in" ref="loginBtn" onClick={this.handleLogin.bind(this)}>SIGN IN</button>

@@ -19,10 +19,10 @@ export class RegisterOrgAddressComp extends Component {
     e.preventDefault();
     let RegisterChannel = this.refs.RegisterChannel.value;
 
-    if(RegisterChannel === ''){
+    /*if(RegisterChannel === ''){
       alert('please enter team name');
       return;
-    } 
+    } */
 
     //store the value in STORE by dispatching event in action
     this.props.handleNext(RegisterChannel);
@@ -30,6 +30,7 @@ export class RegisterOrgAddressComp extends Component {
   }
 
   inputChange(){
+    //this.props.checkForChannelNameAvailability(this.refs.RegisterChannel.value, this.props.registrationDetails.Organisation.payload.team);
     this.refs.nextButton.disabled = !(this.refs.RegisterChannel.value)
   }
 
@@ -46,13 +47,14 @@ export class RegisterOrgAddressComp extends Component {
     if(this.props.registrationDetails.Organisation.payload.team_description === ''){
       window.location.hash = "#/signup/organization/name";
     }
-    const Organisation = this.props.registrationDetails.Organisation
+    const Organisation = this.props.registrationDetails.Organisation;
+    
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Pick your personal chat address</h1>
-                <div className="chat-address">http://{Organisation.payload.team}.chat.center</div>
+                <div className="chat-address">https://{Organisation.payload.team}.chat.center</div>
                 <div className="input-group input-group-lg">
                   <span className="input-group-addon user-name" id="username-addon"><span className="prefix-text slash">/</span></span>
                   <input type="text" className="form-control" ref="RegisterChannel" placeholder="Your name or nickname" aria-describedby="username-addon" onChange={this.inputChange.bind(this)} />

@@ -65,9 +65,15 @@ export class RegisterOrgDetailComp extends Component {
                   <input type="text" className="form-control" ref="LastName" placeholder="Last Name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
                 </div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon email" id="email-addon"><img src="dist/images/user-icon.svg" /></span>
+                  <span className="input-group-addon email" id="email-addon"><img src="dist/images/iconMail.svg" /></span>
                   <input type="email" className="form-control" ref="Email" placeholder="Email" onChange={this.inputChange.bind(this)} aria-describedby="email-addon" />
                 </div>
+                <div className="desc">
+                  <ul><li>We need your email</li>
+                      <li>- To be able to restore your account if you forget your password</li>
+                      <li>- To send you notifications in case you miss some of your messages (You can to set your notification preferences once you register.)</li>
+                    </ul> 
+                  </div>
                 <div className="form-group button-wrapper">
                     <div className="col-sm-12">
                       <div className="row">

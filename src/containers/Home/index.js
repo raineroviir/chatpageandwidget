@@ -7,7 +7,7 @@ import { Header } from 'components/Header';
 import Channels from 'containers/Home/Channels';
 import Conversations from 'containers/Home/Conversations';
 import Messages from 'containers/Home/Messages';
-import { ChatTextBox } from 'components/ChatTextBox';
+import CreateMessage from 'containers/Home/CreateMessage';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';
@@ -38,7 +38,7 @@ export class Home extends Component {
               <Conversations />
               <div className="col-xs-12 col-sm-7 col-md-7 col-lg-8 chat">
                 <Messages />
-                <ChatTextBox />
+                <CreateMessage />
               </div>
             </section>
           </div>

@@ -18,7 +18,7 @@ export function getChannels() {
           dispatch(getConversations(json.channels[0].id))          
         }
         else{
-          dispatch(processConversationsForDispatch({ channels: []})) 
+          dispatch(processConversationsForDispatch({ conversations: []}, null)) 
         }
         dispatch(processChannelsForDispatch(json))
       })
@@ -35,8 +35,8 @@ export function getConversations(channelid) {
       .then(json => {
         /* Invoke Channels Service when we recieve new channels */
         if(json.conversations.length){
-          dispatch(getConversationHistory(15))
-          //dispatch(getConversationHistory(json.conversations[0].id))          
+          dispatch(getConversationHistory(json.conversations[0].id))          
+          //dispatch(getConversationHistory(15))
         }
         else{
           dispatch(processConversationsForDispatch({ messages: []})) 
@@ -45,10 +45,19 @@ export function getConversations(channelid) {
       })
   }
 }
+export function createMessage(message, conversationid) {
+  return dispatch => {
+    postMessage(message, conversationid).then(response => response.json())
+      .then(json => {
+        dispatch(processCreateMessage(json));
+        dispatch(getConversationHistory(conversationid));
+      })
+  }
+}
 function getConversationHistory (conversationid) {
   return dispatch => {
     fetchConversationHistory(conversationid).then(response => {return response.json()})  
-      .then(json => dispatch(processConversationsHistoryForDispatch(json)))
+      .then(json => dispatch(processConversationsHistoryForDispatch(json, conversationid)))
   }
 }
 function fetchChannels() {
@@ -99,6 +108,22 @@ function fetchConversationHistory(conversationid) {
     }
   })
 }
+function postMessage(message, conversationid) {
+  if (typeof(Storage) !== "undefined") {
+    var token = JSON.parse(localStorage.getItem("token"));
+  }
+  return fetch('https://api-beta.chat.center/v1/chats.postMessage', {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token.access_token,
+    },
+    body: JSON.stringify({
+      text: message,
+      conversation_id: conversationid
+    })
+  })
+}
 
 function processChannelsForDispatch(channels) {
   let source = channels.channels || [], 
@@ -127,10 +152,10 @@ function processConversationsForDispatch(conversations) {
   }
 }
 
-function processConversationsHistoryForDispatch(messages) {
+function processConversationsHistoryForDispatch(messages, conversationid) {
   return {
     type: 'FETCH_MESSAGES',
-    posts: messages.messages,
+    posts: { ...messages, conversationid},
     receivedAt: Date.now()
   }
 }
@@ -139,6 +164,16 @@ function processUserInfoForDispatch(user) {
   return {
     type: 'USER_ME',
     posts: user.user,
+    receivedAt: Date.now()
+  }
+}
+
+function processCreateMessage(response) {
+  return {
+    type: "MESSAGE_CREATED",
+    posts: {
+      showSuccessMessage: true
+    },
     receivedAt: Date.now()
   }
 }

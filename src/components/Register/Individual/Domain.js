@@ -30,6 +30,8 @@ export class RegisterIndividualDomain extends Component {
   inputChange(){
     if(this.state.channel === ''){
       this.refs.createBtn.disabled = !this.refs.Channel.value
+    } else {
+       this.refs.createBtn.disabled = false;
     }
   }
 
@@ -43,9 +45,16 @@ export class RegisterIndividualDomain extends Component {
   render() {
     
     //redirect to first page if refreshed
+    let wrapperCls = '';
+    let imgSrc = '';
+    if(this.props.registrationDetails.Organisation.error) {
+      wrapperCls = 'error';
+      imgSrc = '-error';
+    }
     if(this.props.registrationDetails.Organisation.payload.first_name === ''){
       window.location.hash = "#/signup/individual";
     }
+
 
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -53,16 +62,14 @@ export class RegisterIndividualDomain extends Component {
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Your personal chat address</h1>
                 
-                <div className="input-group input-group-lg">
+                <div className={'input-group input-group-lg ' + wrapperCls}>
 
-                  <span className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" /><span className="prefix-text">https://chat.center/</span></span>
+                  <span className="input-group-addon user-name" id="username-addon"><img className="prefix" src={'dist/images/user-icon' + imgSrc + '.svg'} /><span className="prefix-text">https://chat.center/</span></span>
                   <input type="text" className="form-control" ref="Channel" placeholder="address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)} />
                   
                 </div> 
-                <div className="error-message">
-                {this.props.registrationDetails.Organisation.error}
-                </div>
-                <div>
+                <p className="error-msg">This name is already taken</p>
+                <div className="own-domain-wrapper">
                       <a className="own-domain pull-right" href="javascript:;" title="Use my own domain">Use my own domain</a>
                 </div> 
                  

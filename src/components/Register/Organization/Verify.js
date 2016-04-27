@@ -52,7 +52,7 @@ export class RegisterOrgVerifyComp extends Component {
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Address of your chat.center</label>
-                  <span className="ans-label">http://{Organisation.team}.chat.center</span>
+                  <span className="ans-label">https://{Organisation.team}.chat.center</span>
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Full Name</label>
@@ -64,10 +64,10 @@ export class RegisterOrgVerifyComp extends Component {
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Your personal chat address</label>
-                  <span className="ans-label">http://{Organisation.team}.chat.center/{Organisation.channel}</span>
+                  <span className="ans-label">https://{Organisation.team}.chat.center/{Organisation.channel}</span>
                 </div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon" onChange={this.inputChange.bind(this)} id="password-addon"><img src="dist/images/password-icon.svg" /></span>
+                  <span className="input-group-addon" onChange={this.inputChange.bind(this)} id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></span>
                   <input type="password" ref="RegisterPassword" onChange={this.inputChange.bind(this)} className="form-control" placeholder="Set password" aria-describedby="password-addon" />
                 </div>
                 <div className="error-message">
@@ -80,7 +80,10 @@ export class RegisterOrgVerifyComp extends Component {
                     <button type="submit" ref="submitButton" className="btn btn-default sign-in pull-right domain-big-button" onClick={this.handleNext.bind(this)}>CREATE <span className="domain-big">CHAT.CENTER</span></button>
                   </div>
                    </div>
-                </div>            
+                </div>
+                <p className="terms">
+                By creating your account and using chat.center, you are agreeing to our <a href="javascript:;" title="Terms of Service">Terms of Service</a> and <a href="javascript:;" title="Privacy Policy">Privacy Policy</a>. 
+                </p>            
             </form>
        </div> 
     );

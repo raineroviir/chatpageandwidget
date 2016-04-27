@@ -50,7 +50,7 @@ export class Register extends Component {
                 <div className="col-sm-12 text-center">
                   <div className="sign-in-wrapper">
                     <span>Have an account?</span>
-                    <a href="#/login" title="Sign in" className="pull-right">Sign in</a>
+                    <a href="#/login" title="Sign in" className="pull-right">Sign in.</a>
                   </div>
                 </div>
             </form>

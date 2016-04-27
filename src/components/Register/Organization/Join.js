@@ -31,22 +31,21 @@ export class RegisterIndividualDomain extends Component {
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal" role="form">
-                <div className="user-status"><span className="offline"></span><span className="inactive"></span><span className="online"></span></div>
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="title">Join Extraordinary Foods chat.center </h1>
-                <div className="desc">Pick your personal chat address</div>
-                <div className="desc">http://extraordinaryfoods.chat.center</div>
+                <div className="chat-address">Pick your personal chat address</div>
+                <div className="chat-address">https://extraordinaryfoods.chat.center</div>
                 
                 <div className="input-group input-group-lg">
 
-                  <span className="input-group-addon user-name" id="username-addon">/</span>
+                  <span className="input-group-addon user-name" id="username-addon"><span className="prefix-text slash">/</span></span>
                   <input type="text" className="form-control" ref="RegisterTeam" placeholder="address" aria-describedby="username-addon" />
                   
                 </div> 
                 <div className="desc">All lowercase.</div>
                 <div className="desc">Anyone from your team and from the outside world will be able to use it to start a chat with you by using your chat address. Your team members can refer to you by using <a href="javascript:;">@username</a></div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon" id="password-addon"><img src="dist/images/password-icon.svg" /></span>
+                  <span className="input-group-addon" id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></span>
                   <input type="text" className="form-control" placeholder="Set password" aria-describedby="password-addon" />
                 </div>
                 <div className="form-group text-center">

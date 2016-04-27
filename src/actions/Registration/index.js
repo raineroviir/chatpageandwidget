@@ -91,8 +91,9 @@ function postActionConstruct(json) {
   }
 }
 
-function postRegistration(payload) {
+function postRegistration(payload1) {
   return dispatch => {
+    var payload = Object.assign({},payload1);
     if(payload.team !== null)
       payload.team = payload.team+'.chat.center';
     postLoginRequest(payload).then(response => {return response.json()})	
@@ -114,7 +115,12 @@ function postLoginRequest(payload){
 
 /**/
 export function checkTeamName(team_description) {
+
    return (dispatch, getState) => {
+       dispatch({
+        type: 'TEAM_AVAILABILITY_RESULT',
+        posts:{}
+      })
       return dispatch(teamNameAvailable(team_description))
   }
 }
@@ -135,6 +141,32 @@ function postTeamAvailabilityResponse(json) {
   console.log(JSON.stringify(json));
   return {
     type: 'TEAM_AVAILABILITY_RESULT',
+    posts: json
+  }
+}
+
+export function checkChannelName(register_channel, team_description) {
+   return (dispatch, getState) => {
+      return dispatch(channelNameAvailable(register_channel))
+  }
+}
+
+function channelNameAvailable(register_channel, team_description) {  
+  console.log('channelNameAvailable');
+  return dispatch => {
+    postChannelName(register_channel, team_description).then(response => {return response.json()})  
+      .then(json => dispatch(postChannelAvailabilityResponse(json)))
+  }
+}
+
+function postChannelName(register_channel, team_description){
+    return fetch('https://api-beta.chat.center/v1/channels.find?channel='+ register_channel + '&team=' + team_description)
+} 
+
+function postChannelAvailabilityResponse(json) {
+  console.log(JSON.stringify(json));
+  return {
+    type: 'CHANNEL_AVAILABILITY_RESULT',
     posts: json
   }
 }

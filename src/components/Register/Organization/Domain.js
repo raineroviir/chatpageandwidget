@@ -26,15 +26,48 @@ export class RegisterOrgDomainComp extends Component {
   }
 
   inputChange(){
+    this.refs.RegisterTeam.value = this.validateTeam(this.refs.RegisterTeam.value);
+     //var team_desc =this.validateTeam(this.refs.RegisterTeam.value);
     this.props.checkForTeamNameAvailability(this.refs.RegisterTeam.value);
     this.refs.nextButton.disabled = !(this.refs.RegisterTeam.value&&!this.props.registrationDetails.Organisation.TeamAvailable.ok)
   }
 
+  validateTeam(team_desc){
+     var finalStr = team_desc.replace(/[^a-zA-Z-0-9]/gi, '')
+     return finalStr.toLowerCase().substring(0,18);
+   }
+
   componentDidMount() {
 
-    if(this.props.registrationDetails.Organisation.payload.team === ''){
-      this.state.team = this.props.registrationDetails.Organisation.payload.team_description;
+    var team_desc = this.props.registrationDetails.Organisation.payload.team_description;
+    //var finalStr = team_desc.replace(/[^a-zA-Z-0-9]/gi, '')
+    //this.state.team =finalStr.toLowerCase().substring(0,18);
+
+    
+    var team_name = team_desc.split(' ');
+    var processed_team_name =[];
+    for(var i=0;i<team_name.length;i++){
+      processed_team_name.push(this.validateTeam(team_name[i]))
     }
+
+    var finalStr = '';
+    for(var i=0;i<processed_team_name.length;i++){
+      if(finalStr.length<19){
+        if(processed_team_name[i].length < 19){
+          if(finalStr.length + processed_team_name[i].length < 19){
+            finalStr += processed_team_name[i];
+          }
+        }else{
+          if(finalStr.length === 0){
+            finalStr = processed_team_name[i].substring(0,18);
+            return;
+          }
+        }
+      }      
+    }
+    
+
+    this.state.team = finalStr;//this.validateTeam(team_desc);
     
     if(this.props.registrationDetails.Organisation.TeamAvailable.ok){
       this.refs.nextButton.disabled = true;
@@ -62,6 +95,17 @@ export class RegisterOrgDomainComp extends Component {
           availability = <span style={{color:'green'}}>Available</span>
       }
 
+    let wrapperCls = '';
+    let imgSrc = '';
+    if(Object.keys(this.props.registrationDetails.Organisation.TeamAvailable).length && this.props.registrationDetails.Organisation.TeamAvailable.ok) {
+      wrapperCls = 'error';
+      imgSrc = '-error';
+    } else if(Object.keys(this.props.registrationDetails.Organisation.TeamAvailable).length && !this.props.registrationDetails.Organisation.TeamAvailable.ok) {
+      wrapperCls = 'success';
+    } else {
+      wrapperCls = 'loading';
+    }
+
     return (
 
       
@@ -70,17 +114,16 @@ export class RegisterOrgDomainComp extends Component {
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">What address would you like for your chat.center?</h1>
                 
-                <div className="input-group input-group-lg">
+                <div className={'input-group input-group-lg ' + wrapperCls}>
 
-                  <span className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" className="prefix" /><span className="prefix-text">http://</span></span>
+                  <span className="input-group-addon user-name" id="username-addon"><img src={'dist/images/user-icon' + imgSrc + '.svg'} className="prefix" /><span className="prefix-text">https://</span></span>
                   <input type="text" className="form-control" ref="RegisterTeam" onChange={this.inputChange.bind(this)} placeholder="address" aria-describedby="username-addon" />
                   <span className="input-group-addon suffix"><span className="prefix-text">.chat.center</span></span>
                   
-                </div> 
-                <div className="col-sm-12">
-                      {availability}
-                </div> 
-
+                </div>
+                <p className="error-msg">This name is already taken</p>
+                <p className="success-msg">Available</p>
+                <p className="loading-msg"><img src="dist/images/loader-dots.gif" title="loading" /></p>
                 <div className="own-domain-wrapper">
                       <a className="own-domain" href="javascript:;" title="Use my own domain">Use my own domain</a>
                 </div>  

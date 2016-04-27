@@ -31,18 +31,19 @@ export class RegisterIndividualDomain extends Component {
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal" role="form">
-                <div className="user-status"><span className="offline"></span><span className="inactive"></span><span className="online"></span></div>
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
-                <h1 className="title">Invite your team</h1>
-                <div className="desc">Email addresses</div>
+                <h1 className="inner-title">Invite your team</h1>
+                <div className="chat-address">Email addresses</div>
                 <div className="input-group input-group-lg">
                   <span className="input-group-addon email" id="email-addon"><img src="dist/images/user-icon.svg" /></span>
                   <input type="email" className="form-control" placeholder="email@domain.com" aria-describedby="email-addon" />
                 </div>
-                <div className="form-group  button-wrapper">
-                  <div className="col-sm-12">
+                <div className="form-group button-wrapper">
+                    <div className="col-sm-12">
+                      <div className="row">
                     <button type="button" className="btn btn-default back" onClick={this.handleBack}>SKIP</button>
-                    <button type="button" className="btn btn-default sign-in" onClick={this.handleNext.bind(this)}>SEND INVITES</button>
+                    <button type="button" className="btn btn-default sign-in pull-right" onClick={this.handleNext.bind(this)}>SEND INVITES</button>
+                  </div>
                   </div>
                 </div>
             </form>

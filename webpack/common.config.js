@@ -62,7 +62,7 @@ const common = {
       loaders: ['babel-loader'],
       exclude: /node_modules/,
     }, {
-      test: /\.(png|jpg|svg)$/,
+      test: /\.(png|jpg|svg|gif)$/,
       loader: 'file-loader?name=images/[name].[ext]',
     }],
 

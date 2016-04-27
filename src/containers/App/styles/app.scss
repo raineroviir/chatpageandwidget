@@ -36,10 +36,25 @@
 .cc-icon-settings_menu_button:before{content:'\004d';}
 
 /* Font Icons */
-@import 'fonts/roboto';
+@import 'fonts/rubik';
 
 html, body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rubik', sans-serif !important;
+}
+::-webkit-input-placeholder {
+   color: #9a9da1 !important;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #9a9da1 !important;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #9a9da1 !important;  
+}
+
+:-ms-input-placeholder {  
+   color: #9a9da1 !important;  
 }
 html, body, .wrapper, .wrapper > .row, .main, .sidebar{
   height: 100%;

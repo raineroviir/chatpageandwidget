@@ -4,6 +4,7 @@ import { items } from './items';
 import { channels } from './Channels';
 import { conversations } from './Conversations';
 import { messages } from './Messages';
+import { createMessage } from './CreateMessage';
 import { userinfo } from './Userinfo';
 import { registrationDetails } from './registrationDetails';
 import { loginDetails } from './loginDetails';
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   channels,
   conversations,
   messages,
+  createMessage,
   registrationDetails,
   loginDetails,
   userinfo

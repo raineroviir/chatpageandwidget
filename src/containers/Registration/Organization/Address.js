@@ -17,9 +17,13 @@ export class RegisterOrgAddress extends Component {
     window.location.hash = "#/signup/organization/verify";
   }
 
+  checkForChannelNameAvailability(CurrentChannelName, CurrentTeamName){
+    this.props.actions.checkChannelName(CurrentChannelName, CurrentTeamName);
+  }
+
   render() {
     return (
-      <RegisterOrgAddressComp registrationDetails={this.props.registrationDetails} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
+      <RegisterOrgAddressComp registrationDetails={this.props.registrationDetails} checkForChannelNameAvailability={this.checkForChannelNameAvailability.bind(this)} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
     );
   }
 }

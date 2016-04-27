@@ -10,7 +10,8 @@ const initialState = {
       password:''
     },
     error:'',
-    TeamAvailable:{}
+    TeamAvailable:{},
+    ChannelAvailable:{}
   }
 };
 
@@ -85,9 +86,12 @@ export function registrationDetails(state = initialState, action) {
 
   case 'REGISTER_ORGANISATION_DETAILS':
     var Organisation = initialState.Organisation;
-    if(!!action.value.error){
-      Organisation.payload = (Object.assign(initialState.Organisation, action.value));
-    }
+     Organisation.error = action.value.error;
+     // if(!!action.value.error){
+     //   Organisation.error = (Object.assign(initialState.Organisation.error, action.value.error));
+     // }//else{
+     //   Organisation = (Object.assign(initialState.Organisation, action));
+     // }
     
     return {
       ...state,
@@ -97,6 +101,14 @@ export function registrationDetails(state = initialState, action) {
   case 'TEAM_AVAILABILITY_RESULT':
     //mutate initial state to store the organisation value and create STATE from it
     var Organisation = (Object.assign(initialState.Organisation, {TeamAvailable:action.posts}));
+    return {
+      ...state,
+      Organisation
+  };
+
+  case 'CHANNEL_AVAILABILITY_RESULT':
+    //mutate initial state to store the organisation value and create STATE from it
+    var Organisation = (Object.assign(initialState.Organisation, {ChannelAvailable:action.posts}));
     return {
       ...state,
       Organisation
