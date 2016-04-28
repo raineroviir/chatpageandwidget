@@ -6,9 +6,12 @@ import * as ChannelsActions from '../../actions/Channels';
 /* components */
 import { ChannelList } from 'components/ChannelList';
 export class Channels extends Component {
+  selectChannel(channelid){
+    this.props.actions.getConversations(channelid);
+  }
   render() {
     return (
-        <ChannelList channels={this.props.channels.channels} />
+        <ChannelList channels={this.props.channels.channels} user={this.props.user} selectChannel={this.selectChannel.bind(this)} activeChannel={this.props.activeChannel}/>
     );
   }
   componentDidMount(){
@@ -18,7 +21,9 @@ export class Channels extends Component {
 
 function mapStateToProps(state) {
   return {
-    channels: state.channels
+    channels: state.channels,
+    user: state.userinfo,
+    activeChannel: state.conversations.channelid
   }
 }
 

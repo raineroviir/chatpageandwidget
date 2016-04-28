@@ -39,9 +39,9 @@ export function getConversations(channelid) {
           //dispatch(getConversationHistory(15))
         }
         else{
-          dispatch(processConversationsForDispatch({ messages: []})) 
+          dispatch(processConversationsHistoryForDispatch({ messages: []}, null)) 
         }
-        dispatch(processConversationsForDispatch(json))
+        dispatch(processConversationsForDispatch(json, channelid))
       })
   }
 }
@@ -54,7 +54,7 @@ export function createMessage(message, conversationid) {
       })
   }
 }
-function getConversationHistory (conversationid) {
+export function getConversationHistory (conversationid) {
   return dispatch => {
     fetchConversationHistory(conversationid).then(response => {return response.json()})  
       .then(json => dispatch(processConversationsHistoryForDispatch(json, conversationid)))
@@ -126,11 +126,12 @@ function postMessage(message, conversationid) {
 }
 
 function processChannelsForDispatch(channels) {
-  let source = channels.channels || [], 
+  let source = channels.channels.reverse() || [], 
     processed = {
       publicChannels: source.filter(item => item.is_public) || [],
+      privateChannels: source.filter(item => !item.is_public) || [],
       groupChannels: source.filter(item => item.is_group) || [],
-      otherChannels: source.filter(item => !item.is_group && !item.is_public) || [],
+      otherChannels: source.filter(item => !item.is_group) || [],
       recentContacts: channels.recentContacts || [],
       meta: {
         count: source.length
@@ -144,10 +145,10 @@ function processChannelsForDispatch(channels) {
   }
 }
 
-function processConversationsForDispatch(conversations) {
+function processConversationsForDispatch(conversations, channelid) {
   return {
     type: 'FETCH_CONVERSATIONS',
-    posts: conversations.conversations,
+    posts: { ...conversations, channelid},
     receivedAt: Date.now()
   }
 }

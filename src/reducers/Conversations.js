@@ -1,5 +1,6 @@
 const initialState = {
-  conversations: []
+  conversations: [],
+  channelid: null
 };
 
 export function conversations(state = initialState, action) {
@@ -7,7 +8,8 @@ export function conversations(state = initialState, action) {
   case 'FETCH_CONVERSATIONS':
     return {
       ...state,
-      conversations: action.posts
+      conversations: action.posts.conversations,
+      channelid: action.posts.channelid
     };    
   default:
     return state;

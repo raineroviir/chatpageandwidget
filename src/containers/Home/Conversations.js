@@ -6,9 +6,12 @@ import * as ChannelsActions from '../../actions/Channels';
 /* components */
 import { ConversationsView } from 'components/Conversations';
 export class Conversations extends Component {
+  selectConversation(conversationid){
+    this.props.actions.getConversationHistory (conversationid);
+  }
   render() {
     return (
-      <ConversationsView conversations={this.props.conversations.conversations} />
+      <ConversationsView conversations={this.props.conversations.conversations} selectConversation={this.selectConversation.bind(this)} activeConversation={this.props.activeConversation} />
     );
   }
 }
@@ -16,7 +19,8 @@ export class Conversations extends Component {
 function mapStateToProps(state) {
   return {
     conversations: state.conversations,
-    channelid: (state.channels.channels.otherChannels[0]) ? state.channels.channels.otherChannels[0].id : null
+    channelid: (state.channels.channels.otherChannels[0]) ? state.channels.channels.otherChannels[0].id : null,
+    activeConversation: state.messages.conversationid
   }
 }
 

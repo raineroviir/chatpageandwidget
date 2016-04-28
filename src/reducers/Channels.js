@@ -1,6 +1,7 @@
 const initialState = {
   channels: {
     publicChannels: [],
+    privateChannels:[],
     groupChannels: [],
     otherChannels: [],
     recentContacts: [],

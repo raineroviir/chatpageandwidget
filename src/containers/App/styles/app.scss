@@ -195,6 +195,7 @@ footer {
     display: block;
     margin-left: 6px;
 }
+.chat-group ul li{ min-height:50px;}
 .user-presence::before{
   content: '';
   border-radius: 50%;
@@ -321,8 +322,9 @@ li.available .user-presence::before {
 .nav>li>a:focus, .nav>li>a:hover, .nav>li>a.active {
   background-color: #45b166;
   color: #fff;
+  cursor:pointer;
 }
-.channel-list .messages .user-item li:hover a, .channel-list .messages .user-item li:hover a{ background-color:#45b166; }
+.channel-list .messages .user-item li:hover a, .channel-list .messages .user-item li.active a{ background-color:#45b166; }
 .nav.user-item > li > a:hover, .nav.user-item > li > a:focus{ background-color:transparent; }
 .user-item {
 }
@@ -669,7 +671,7 @@ li.available .user-presence::before {
 }
   
 .chat-flow li img.img-circle.pull-left{
-  top: 20px;
+  top: 5px;
     position: relative;
 }
 

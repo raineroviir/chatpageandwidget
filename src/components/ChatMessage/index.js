@@ -4,6 +4,11 @@ import React, { Component } from 'react';
 //import { styles } from './styles.scss';
 
 export class ChatMessage extends Component {
+  componentDidUpdate (){
+    $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({ 
+      theme:"dark-3"        
+    });
+  }
   render() {
     return (
       <div className="chat-group mCustomScrollBar">

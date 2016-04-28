@@ -4,14 +4,23 @@ import React, { Component } from 'react';
 //import { styles } from './styles.scss';
 
 export class ChannelList extends Component {
+  componentDidUpdate (){
+    $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({ 
+      theme:"dark-3"        
+    });
+  }
+  selectChannel(channel){
+    this.props.selectChannel(channel.id);
+  }
   render() {
+    let user = this.props.user.userinfo, activeChannel = this.props.activeChannel;
     return (
         <aside className="col-xs-12 col-md-9 channel-list mCustomScrollBar">
           <div className="user-detail">
             <span className="glyphicon glyphicon-menu-hamburger visible-xs" aria-hidden="true"></span>
             <strong className="title">Chat Center</strong>
-            <span className="user-presence small online">Alex Komarao</span>
-            <span className="team-name">team.chat.center/alex</span>
+            <span className="user-presence small online">{user.first_name + " " + user.last_name}</span>
+            <span className="team-name">{(user.team) ? (user.team.name + "/" + user.team.description) : ("chat.center/" + user.first_name) }</span>
           </div>
           <div className="messages">
             <h3>
@@ -19,29 +28,43 @@ export class ChannelList extends Component {
               <span className="label label-default pull-right">New Chat</span>
               <span className="badge pull-right mrg-rt-10px">{ this.props.channels.meta.count }</span>
             </h3>
-            <ul className="nav nav-sidebar user-item">
-              <li className="header">PUBLIC CHANNELS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
-               { this.props.channels.publicChannels.map(channel => {
-                return (
-                  <li key={channel.id}><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
-                );
-              })}
+            <ul className="nav nav-sidebar user-item" style={{display:((user.team) ? "none" : "")}}>
+              <li className="header">PUBLIC CHATS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
+               {
+                !user.team && this.props.channels.publicChannels.map(channel => {
+                  return (
+                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
+                  );
+                }) 
+              }
 
             </ul>
-            <ul className="nav nav-sidebar user-item">
-              <li className="header">GROUP CHANNELS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
-              { this.props.channels.groupChannels.map(channel => {
+            <ul className="nav nav-sidebar user-item" style={{display:((user.team) ? "none" : "")}}>
+              <li className="header">PRIVATE CHATS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
+              { 
+                !user.team && this.props.channels.privateChannels.map(channel => {
                   return (
-                    <li key={channel.id}><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
+                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
                   );
                 })
               }
             </ul>
-            <ul className="nav nav-sidebar user-item">
-              <li className="header">PRIVATE CHANNELS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
-              { this.props.channels.otherChannels.map(channel => {
+            <ul className="nav nav-sidebar user-item" style={{display:((!user.team) ? "none" : "")}}>
+              <li className="header">CHATS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
+              { 
+                user.team && this.props.channels.otherChannels.map(channel => {
                   return (
-                    <li key={channel.id}><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
+                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
+                  );
+                })
+              }
+            </ul>
+            <ul className="nav nav-sidebar user-item" style={{display:((!user.team) ? "none" : "")}}>
+              <li className="header">GROUP CHATS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
+              { 
+                user.team && this.props.channels.groupChannels.map(channel => {
+                  return (
+                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
                   );
                 })
               }

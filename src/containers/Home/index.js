@@ -3,7 +3,7 @@ import DocumentMeta from 'react-document-meta';
 
 /* components */
 import { Navigation } from 'components/Navigation';
-import { Header } from 'components/Header';
+import Header from 'containers/Home/Header';
 import Channels from 'containers/Home/Channels';
 import Conversations from 'containers/Home/Conversations';
 import Messages from 'containers/Home/Messages';
