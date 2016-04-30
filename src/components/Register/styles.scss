@@ -25,13 +25,14 @@
 		width: 75.6px;
   		height: 65.5px;
   		position:absolute;
-  		left:-25px;
+  		left:-34px;
   		top: 40px;
 	}
 	.logo-wrapper {
 		text-align:center;
 		.logo {
 	  		position:static;
+	  		margin-left: -10px;
 		}
 	}
 	.details {
@@ -41,9 +42,36 @@
 	}
 	.title {
 		font-size:50px;
+		margin-top: 10px;
+		margin-bottom: 20px;
 	}
 	.inner-title {
 		font-size:40px;
+		margin-top: 29px;
+	    letter-spacing: -0.2px;
+	    margin-bottom: 30px;
+	    line-height: 48px;
+	}
+	.domain-form {
+		.inner-title {
+			margin-right: 10px;
+		}
+		.own-domain-wrapper {
+	    	padding-right: 14px;
+		}
+		.desc {
+			margin-top: 48px
+		}
+		.button-wrapper {
+			margin-top: 28px;
+		}
+			
+		
+	}
+	.ind-details-from {
+		.button-wrapper {
+			margin-top: 37px;
+		}
 	}
 	.qn-label {
 		color:#9a9da1;
@@ -57,10 +85,10 @@
 		display:block;
 	}
 	.input-group {
-		margin-bottom:12px;
+		margin-bottom:8px;
 	}
 	.input-group-addon {
-		padding:8px;
+		padding:4px 9px 7px 0px;
 		background: transparent;
 		border-width:0px;
 		border-radius:0px;
@@ -76,12 +104,11 @@
 		}
 		.prefix-text {
 			color: #9a9da1;
-		    margin-top: 6px;
 		    display: inline-block;
-		    margin: 8px 0 0 10px;
+		    margin: 14px 0 0 10px;
 		}
 		.prefix-text.slash {
-		    margin: 5px 0 0 -10px;
+		    margin: 5px 0 0 2px;
 		    font-weight:bold;
 		    color:#000;
 		}
@@ -102,6 +129,10 @@
 		padding:12px 0;
 		font-size:14px;
 		clear:both;
+		letter-spacing: 0.1px;
+		&+.desc {
+			padding-top: 0px;
+		}
 		ul {
 			list-style-type:none;
 			padding:0;
@@ -112,9 +143,71 @@
 			}
 		}
 	}
+	.org-detail-form {
+		.inner-title {
+		    margin-bottom: 30px;
+		    margin-top: 27px;
+		}
+	}
+	.org-address-form {
+		.inner-title {
+			margin-top: 27px;
+		}
+		.desc {
+			margin-top: 27px;
+    		margin-left: 2px;
+		}
+		.button-wrapper {
+			margin-top: 24px;	
+		}
+		
+	}
+	.org-join-form {
+		.inner-title {
+		    margin-top: 27px;
+		}
+	}
+	.verify-details {
+	    .input-group  {
+	    	margin-bottom: 17px;
+	    }
+	    .password-input-group {
+	    	margin-top: 28px;
+	    }
+	    .inner-title {
+		    margin-top: 27px;
+		    margin-bottom: 18px;
+		}
+		.button-wrapper {
+			margin-top: 24px;
+		}
+		button.back {
+			width: 107px;
+		}
+		.terms {
+			margin-top: 34px;
+		}
+	}
 	.button-wrapper {
 		margin:50px 0 0;
 	}
+	.ind-domain-form {
+		.button-wrapper {
+			margin:26px 0 0;
+		}
+		button.back {
+			width: 107px;
+		}
+	}	
+
+	.name-chat-form, .org-detail-form {
+		.desc {
+			margin-top: -4px;
+		}
+		.button-wrapper {
+			margin-top: 24px;
+		}
+	}	
 	button {
 		padding:10px 0;
 		height: 48px;
@@ -179,7 +272,10 @@
 		display: block;
     	margin-top: 10px;
     }
+
     .own-domain-wrapper {
+    	margin-top: -3px;
+    	padding-right: 12px;
 	    .own-domain {
 	    	color:#474848 !important;
 	    	text-decoration:underline !important;
@@ -211,7 +307,7 @@
 		    	font-size:16px; 
 		    	float:left; 
 		    	padding:0 0 0 15px;
-		    	max-width:200px;
+		    	max-width:234px;
 		    	span {
 		    		clear: both;
 				    display: block;
@@ -223,13 +319,22 @@
     }
     .user-type.org {
     	border-bottom:2px solid #474848;
+    	padding-bottom: 9px;
+    }
+    .user-type.ind {
+    	margin-top: 13px;
     }
     .sign-in-wrapper {
         background: #eee;
 	    clear: both;
-	    padding: 5px 7px;
+	    padding: 11px 17px;
 	    margin: 30px auto 0;
-	    max-width:220px;
+	    display: inline-block;
+	    margin-top: 55px;
+	    letter-spacing: 0.4px;
+	    padding-left: 25px;
+	    padding-right: 25px;
+	    border-radius: 3px;
 	    span {
 	    margin-right:5px;
 	    }
@@ -247,9 +352,11 @@
     }
     button.domain-big-button {
     	width: 336px;
+    	letter-spacing: 0.9px;
+
     }
     .chat-address {
-    	margin-top:20px;
+    	margin-top:0;
     	display:inline-block;
     	color: #9a9da1;
     	clear:both;
@@ -281,6 +388,16 @@
 	.loading + .error-msg + .success-msg + .loading-msg{
 		display:block;
 	}
+	.name-your-chat {
+		.desc {
+			margin-top: -4px;
+		}
+	}
+	.double-slashes {
+    	letter-spacing: -3px;
+    	padding-right: 5px;
+    	margin-right: -3px;
+    }
 }
 #signupbox.logo-centered { 
 	padding: 30px 130px 30px;
@@ -366,3 +483,14 @@
 		}
 	}
 }
+
+@media only screen and (min-width : 600px) {
+	#signupbox {
+		.domain-form, .org-detail-form, .org-address-form, .ind-details-from,.name-chat-form {
+			button.back {
+				margin-left: 30px;
+			}
+		}
+	}
+}
+

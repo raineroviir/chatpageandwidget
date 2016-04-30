@@ -51,7 +51,7 @@ export class RegisterOrgAddressComp extends Component {
     
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <form id="signupform" className="form-horizontal" role="form">
+            <form id="signupform" className="form-horizontal org-address-form" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Pick your personal chat address</h1>
                 <div className="chat-address">https://{Organisation.payload.team}.chat.center</div>
@@ -60,9 +60,9 @@ export class RegisterOrgAddressComp extends Component {
                   <input type="text" className="form-control" ref="RegisterChannel" placeholder="Your name or nickname" aria-describedby="username-addon" onChange={this.inputChange.bind(this)} />
                 </div> 
                 <div className="desc">
-                  <ul><li>- Use this chat address to log in.</li>
-                      <li>- Anyone from your team and from the outside world will be able to use it to start a chat with you by typing your chat address in any browser on any device.</li>
-                      <li>- Your team members can refer to you by using <a href="javascript">@username</a></li>
+                  <ul><li>&ndash; Use this chat address to log in.</li>
+                      <li>&ndash; Anyone from your team and from the outside world will be able to use it to start a chat with you by typing your chat address in any browser on any device.</li>
+                      <li>&ndash; Your team members can refer to you by using <a href="javascript">@username</a></li>
                     </ul> 
                   </div>   
                 <div className="form-group button-wrapper">

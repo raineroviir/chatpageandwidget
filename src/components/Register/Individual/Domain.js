@@ -58,7 +58,7 @@ export class RegisterIndividualDomain extends Component {
 
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <form id="signupform" className="form-horizontal" role="form">
+            <form id="signupform" className="form-horizontal ind-domain-form" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Your personal chat address</h1>
                 
@@ -73,7 +73,12 @@ export class RegisterIndividualDomain extends Component {
                       <a className="own-domain pull-right" href="javascript:;" title="Use my own domain">Use my own domain</a>
                 </div> 
                  
-                <div className="desc">This is your personal chat address anybody will be able to reach you using this address. <br/> <br/>You will be able to create more, for various needs once you created your chat.center</div> 
+                <div className="desc">
+                  This is your personal chat address anybody will be able to reach you using this address. 
+                </div>
+                <div className="desc">
+                  You will be able to create more, for various needs once you created your chat.center
+                </div>
                 <div className="form-group button-wrapper">
                     <div className="col-sm-12">
                       <div className="row">

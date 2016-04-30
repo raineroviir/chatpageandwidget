@@ -43,7 +43,7 @@ export class RegisterOrgVerifyComp extends Component {
     const Organisation = this.props.registrationDetails.Organisation.payload
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <form id="signupform" className="form-horizontal" role="form">
+            <form id="signupform" className="form-horizontal verify-details" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Verify your details</h1>                
                 <div className="input-group input-group-lg">
@@ -66,7 +66,7 @@ export class RegisterOrgVerifyComp extends Component {
                   <label className="qn-label">Your personal chat address</label>
                   <span className="ans-label">https://{Organisation.team}.chat.center/{Organisation.channel}</span>
                 </div>
-                <div className="input-group input-group-lg">
+                <div className="input-group input-group-lg password-input-group">
                   <span className="input-group-addon" onChange={this.inputChange.bind(this)} id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></span>
                   <input type="password" ref="RegisterPassword" onChange={this.inputChange.bind(this)} className="form-control" placeholder="Set password" aria-describedby="password-addon" />
                 </div>

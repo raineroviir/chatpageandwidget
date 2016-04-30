@@ -110,13 +110,13 @@ export class RegisterOrgDomainComp extends Component {
 
       
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <form id="signupform" className="form-horizontal" role="form">
+            <form id="signupform" className="form-horizontal domain-form" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">What address would you like for your chat.center?</h1>
                 
                 <div className={'input-group input-group-lg ' + wrapperCls}>
 
-                  <span className="input-group-addon user-name" id="username-addon"><img src={'dist/images/user-icon' + imgSrc + '.svg'} className="prefix" /><span className="prefix-text">https://</span></span>
+                  <span className="input-group-addon user-name" id="username-addon"><img src={'dist/images/user-icon' + imgSrc + '.svg'} className="prefix" /><span className="prefix-text">https:<span className="double-slashes">//</span></span></span>
                   <input type="text" className="form-control" ref="RegisterTeam" onChange={this.inputChange.bind(this)} placeholder="address" aria-describedby="username-addon" />
                   <span className="input-group-addon suffix"><span className="prefix-text">.chat.center</span></span>
                   

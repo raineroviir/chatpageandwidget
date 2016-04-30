@@ -53,7 +53,7 @@ export class RegisterOrgDetailComp extends Component {
 
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <form id="signupform" className="form-horizontal" role="form">
+            <form id="signupform" className="form-horizontal org-detail-form" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Your Personal Details</h1>                
                 <div className="input-group input-group-lg">

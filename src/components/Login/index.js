@@ -54,11 +54,11 @@ export class LoginComponent extends Component {
                   Incorrect Chat Address or Password
                 </div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon user-name" id="username-addon"><img className="prefix" src="dist/images/user-icon.svg" /><span className="prefix-text">https://</span></span>
+                  <span className="input-group-addon user-name" id="username-addon"><img className="prefix" src="dist/images/user-icon.svg" /><span className="prefix-text">https:<span className="double-slashes">//</span></span></span>
                   <input type="text" className="form-control" ref="Username" placeholder="your chat address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
                 </div>
                 <div className="desc">Examples: chat.center/you; yourteam.chat.center/you; chat.yourdomain.com/you</div>
-                <div className="input-group input-group-lg">
+                <div className="input-group input-group-lg password-field">
                   <span className="input-group-addon" id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></span>
                   <input type="password" className="form-control" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
                 </div>
@@ -69,15 +69,13 @@ export class LoginComponent extends Component {
                       <button type="submit" className="btn btn-default sign-in" ref="loginBtn" onClick={this.handleLogin.bind(this)}>SIGN IN</button>
                     </div>
                   </div>
-                  <div className="col-sm-12 text-center">
-                    <div className="row">
-                      <div className="sign-in-wrapper col-sm-6">
-                        <span>New to chat.center?</span>
-                        <a href="#/signup" title="Sign up" className="pull-right">Sign up.</a>
-                      </div>
-                      <div className="forgot-password col-sm-6">
-                        <a className="quick-link" href="javascript:;" title="Forgot password">Forgot Password</a>
-                      </div>
+                  <div className="support-signin-wrapper">
+                    <div className="sign-up">
+                      <span>New to chat.center?</span>
+                      <a href="#/signup" title="Sign up" className="pull-right">Sign up.</a>
+                    </div>
+                    <div className="forgot-password">
+                      <a className="quick-link" href="javascript:;" title="Forgot password">Forgot password?</a>
                     </div>
                   </div>
             </form>
