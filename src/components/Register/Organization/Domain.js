@@ -116,8 +116,8 @@ export class RegisterOrgDomainComp extends Component {
                 
                 <div className={'input-group input-group-lg ' + wrapperCls}>
 
-                  <span className="input-group-addon user-name" id="username-addon"><img src={'dist/images/user-icon' + imgSrc + '.svg'} className="prefix" /><span className="prefix-text">https:<span className="double-slashes">//</span></span></span>
-                  <input type="text" className="form-control" ref="RegisterTeam" onChange={this.inputChange.bind(this)} placeholder="address" aria-describedby="username-addon" />
+                  <label htmlFor="registerTeam" className="input-group-addon user-name" id="username-addon"><img src={'dist/images/user-icon' + imgSrc + '.svg'} className="prefix" /><span className="prefix-text">https:<span className="double-slashes">//</span></span></label>
+                  <input id="registerTeam" type="text" className="form-control" ref="RegisterTeam" onChange={this.inputChange.bind(this)} placeholder="address" aria-describedby="username-addon" />
                   <span className="input-group-addon suffix"><span className="prefix-text">.chat.center</span></span>
                   
                 </div>

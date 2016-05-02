@@ -67,8 +67,8 @@ export class RegisterOrgVerifyComp extends Component {
                   <span className="ans-label">https://{Organisation.team}.chat.center/{Organisation.channel}</span>
                 </div>
                 <div className="input-group input-group-lg password-input-group">
-                  <span className="input-group-addon" onChange={this.inputChange.bind(this)} id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></span>
-                  <input type="password" ref="RegisterPassword" onChange={this.inputChange.bind(this)} className="form-control" placeholder="Set password" aria-describedby="password-addon" />
+                  <label htmlFor="password" className="input-group-addon" onChange={this.inputChange.bind(this)} id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></label>
+                  <input id="password" type="password" ref="RegisterPassword" onChange={this.inputChange.bind(this)} className="form-control" placeholder="Set password" aria-describedby="password-addon" />
                 </div>
                 <div className="error-message">
                   {this.props.registrationDetails.Organisation.error}

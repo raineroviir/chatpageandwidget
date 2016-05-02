@@ -54,13 +54,13 @@ export class LoginComponent extends Component {
                   Incorrect Chat Address or Password
                 </div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon user-name" id="username-addon"><img className="prefix" src="dist/images/user-icon.svg" /><span className="prefix-text">https:<span className="double-slashes">//</span></span></span>
-                  <input type="text" className="form-control" ref="Username" placeholder="your chat address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
+                  <label htmlFor="username" className="input-group-addon user-name" id="username-addon"><img className="prefix" src="dist/images/user-icon.svg" /><span className="prefix-text">https:<span className="double-slashes">//</span></span></label>
+                  <input id="username" type="text" className="form-control" ref="Username" placeholder="your chat address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
                 </div>
                 <div className="desc">Examples: chat.center/you; yourteam.chat.center/you; chat.yourdomain.com/you</div>
                 <div className="input-group input-group-lg password-field">
-                  <span className="input-group-addon" id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></span>
-                  <input type="password" className="form-control" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
+                  <label htmlFor="password" className="input-group-addon" id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></label>
+                  <input id="password" type="password" className="form-control" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
                 </div>
                 
                 

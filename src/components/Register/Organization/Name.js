@@ -39,8 +39,8 @@ export class RegisterOrgNameComp extends Component {
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Name your chat.center</h1>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" /></span>
-                  <input type="text" className="form-control" ref="RegisterOrganisationName" placeholder="Organization, team, department name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
+                  <label htmlFor="organizationName" className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" /></label>
+                  <input id="organizationName" type="text" className="form-control" ref="RegisterOrganisationName" placeholder="Organization, team, department name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
                 </div> 
                 <div className="desc">Example: Virgin Galactic; Techcrunch; Stanford United; Beyonce; Photo Review Blog etc. </div>
                 <div className="form-group button-wrapper">

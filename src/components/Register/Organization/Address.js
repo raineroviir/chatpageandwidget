@@ -56,8 +56,8 @@ export class RegisterOrgAddressComp extends Component {
                 <h1 className="inner-title">Pick your personal chat address</h1>
                 <div className="chat-address">https://{Organisation.payload.team}.chat.center</div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon user-name" id="username-addon"><span className="prefix-text slash">/</span></span>
-                  <input type="text" className="form-control" ref="RegisterChannel" placeholder="Your name or nickname" aria-describedby="username-addon" onChange={this.inputChange.bind(this)} />
+                  <label htmlFor="registerChannel" className="input-group-addon user-name" id="username-addon"><span className="prefix-text slash">/</span></label>
+                  <input id="registerChannel" type="text" className="form-control" ref="RegisterChannel" placeholder="Your name or nickname" aria-describedby="username-addon" onChange={this.inputChange.bind(this)} />
                 </div> 
                 <div className="desc">
                   <ul><li>&ndash; Use this chat address to log in.</li>

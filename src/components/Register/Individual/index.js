@@ -60,20 +60,20 @@ export class RegisterIndividual extends Component {
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Your personal details</h1>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon first-name" id="first-name-addon"><img src="dist/images/user-icon.svg" /></span>
-                  <input type="text" className="form-control" ref="FirstName" placeholder="First name" aria-describedby="first-name-addon" onChange={this.inputChange.bind(this)} />
+                  <label htmlFor="firstName" className="input-group-addon first-name" id="first-name-addon"><img src="dist/images/user-icon.svg" /></label>
+                  <input id="firstName" type="text" className="form-control" ref="FirstName" placeholder="First name" aria-describedby="first-name-addon" onChange={this.inputChange.bind(this)} />
                 </div>
                  <div className="input-group input-group-lg">
-                  <span className="input-group-addon last-name" id="last-name-addon"><img src="dist/images/user-icon.svg" /></span>
-                  <input type="text" className="form-control" ref="LastName" placeholder="Last name" aria-describedby="last-name-addon" onChange={this.inputChange.bind(this)} />
+                  <label htmlFor="lastName" className="input-group-addon last-name" id="last-name-addon"><img src="dist/images/user-icon.svg" /></label>
+                  <input id="lastName" type="text" className="form-control" ref="LastName" placeholder="Last name" aria-describedby="last-name-addon" onChange={this.inputChange.bind(this)} />
                 </div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon email" id="email-addon"><img src="dist/images/iconMail.svg" /></span>
-                  <input type="email" className="form-control" ref="Email" placeholder="Email" aria-describedby="email-addon" onChange={this.inputChange.bind(this)} />
+                  <label htmlFor="email" className="input-group-addon email" id="email-addon"><img src="dist/images/iconMail.svg" /></label>
+                  <input id="email" type="email" className="form-control" ref="Email" placeholder="Email" aria-describedby="email-addon" onChange={this.inputChange.bind(this)} />
                 </div>
                 <div className="input-group input-group-lg">
-                  <span className="input-group-addon" id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></span>
-                  <input type="password" className="form-control" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
+                  <label htmlFor="password" className="input-group-addon" id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></label>
+                  <input id="password" type="password" className="form-control" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
                 </div>
                 <div className="form-group button-wrapper">
                     <div className="col-sm-12">
