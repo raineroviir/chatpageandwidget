@@ -15,7 +15,11 @@
 	}
 	.error-message {
 		color:#c91913;
-		margin:10px 0;
+	}
+	.message-wrapper {
+		font-size: 14px;
+		text-align: center;
+		margin-left: 13px
 	}
 	.terms {
 		margin-top:30px;
@@ -369,7 +373,6 @@
     }
     .error-msg, .success-msg, .loading-msg {
 		color:#c91913;
-		margin:10px 0;
 		display:none;
 	}
 	.loading-msg {
@@ -379,7 +382,8 @@
 	.success-msg {
 		color:#299e4c;
 	}
-	.error + .error-msg {
+
+	.error + .message-wrapper .error-msg {
 		display:block;
 	}
 	.error .prefix-text, .error .prefix-text.slash {
@@ -388,11 +392,15 @@
 	.error input {
 		color:#c91913;
 	}
-	.success + .error-msg + .success-msg {
-		display:block;
+	.success + .message-wrapper {
+		.error-msg + .success-msg {
+			display:block;
+		}
 	}
-	.loading + .error-msg + .success-msg + .loading-msg{
-		display:block;
+	.loading + .message-wrapper {
+		.error-msg + .success-msg + .loading-msg{
+			display:block;
+		}
 	}
 	.name-your-chat {
 		.desc {
@@ -400,7 +408,7 @@
 		}
 	}
 	.double-slashes {
-    	letter-spacing: -3px;
+    	letter-spacing: -1px;
     	padding-right: 5px;
     	margin-right: -3px;
     }
@@ -490,7 +498,7 @@
 	}
 }
 
-@media only screen and (min-width : 600px) {
+@media only screen and (min-width : 651px) {
 	#signupbox {
 		.domain-form, .org-detail-form, .org-address-form, .ind-details-from,.name-chat-form {
 			button.back {
@@ -498,5 +506,12 @@
 			}
 		}
 	}
+
+	#signupbox {
+		.message-wrapper {
+			float: left;
+		}
+	}
 }
+
 

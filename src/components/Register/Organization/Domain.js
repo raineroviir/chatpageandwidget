@@ -121,9 +121,12 @@ export class RegisterOrgDomainComp extends Component {
                   <span className="input-group-addon suffix"><span className="prefix-text">.chat.center</span></span>
                   
                 </div>
-                <p className="error-msg">This name is already taken</p>
-                <p className="success-msg">Available</p>
-                <p className="loading-msg"><img src="dist/images/loader-dots.gif" title="loading" /></p>
+                <div className="message-wrapper">
+                  <p className="error-msg">This name is already taken</p>
+                  <p className="success-msg">Available</p>
+                  <p className="loading-msg"><img src="dist/images/loader-dots.gif" title="loading" /></p>
+                </div>
+                
                 <div className="own-domain-wrapper">
                       <a className="own-domain" href="javascript:;" title="Use my own domain">Use my own domain</a>
                 </div>  

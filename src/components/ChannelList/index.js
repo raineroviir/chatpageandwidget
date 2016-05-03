@@ -25,11 +25,12 @@ export class ChannelList extends Component {
           <div className="messages">
             <h3>
               <strong className="title">Direct Messages</strong>
-              <span className="label label-default pull-right">New Chat</span>
+              <span className="label label-default pull-right">
+              <span className="glyphicon glyphicon-pencil"></span></span>
               <span className="badge pull-right mrg-rt-10px">{ this.props.channels.meta.count }</span>
             </h3>
             <ul className="nav nav-sidebar user-item" style={{display:((user.team) ? "none" : "")}}>
-              <li className="header">PUBLIC CHATS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
+              <li className="header">PUBLIC CHATS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
                {
                 !user.team && this.props.channels.publicChannels.map(channel => {
                   return (
@@ -40,7 +41,7 @@ export class ChannelList extends Component {
 
             </ul>
             <ul className="nav nav-sidebar user-item" style={{display:((user.team) ? "none" : "")}}>
-              <li className="header">PRIVATE CHATS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
+              <li className="header">PRIVATE CHATS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
               { 
                 !user.team && this.props.channels.privateChannels.map(channel => {
                   return (
@@ -50,7 +51,7 @@ export class ChannelList extends Component {
               }
             </ul>
             <ul className="nav nav-sidebar user-item" style={{display:((!user.team) ? "none" : "")}}>
-              <li className="header">CHATS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
+              <li className="header">CHATS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
               { 
                 user.team && this.props.channels.otherChannels.map(channel => {
                   return (
@@ -60,7 +61,7 @@ export class ChannelList extends Component {
               }
             </ul>
             <ul className="nav nav-sidebar user-item" style={{display:((!user.team) ? "none" : "")}}>
-              <li className="header">GROUP CHATS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
+              <li className="header">GROUP CHATS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
               { 
                 user.team && this.props.channels.groupChannels.map(channel => {
                   return (
@@ -70,7 +71,7 @@ export class ChannelList extends Component {
               }
             </ul>
             <ul className="nav nav-sidebar user-item">
-              <li className="header">RECENT CONTACTS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
+              <li className="header">RECENT CONTACTS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
               { this.props.channels.recentContacts.map(user => {
                 return (
                   <li key={user.id}><a><span className="user-presence small online"></span><img className="img-circle" src="dist/images/user.png" title={user.name} alt={user.name} /><span className="name">{user.name}</span></a></li>
@@ -78,7 +79,7 @@ export class ChannelList extends Component {
               })}
             </ul>
             <ul className="nav nav-sidebar user-item">
-              <li className="header">TAGS<span className="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span></li>
+              <li className="header">TAGS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
               <li><a><span>#important</span></a></li>
             </ul>
           </div>
