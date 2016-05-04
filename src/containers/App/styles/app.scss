@@ -138,9 +138,7 @@ header {
 }
 header h1{
   margin-top: 5px;
-  font-size: 24px;
-  font-weight: normal;
-  margin-bbottom: 13px;
+  font-size: 25px;
 }
 header .label{
   margin-left: 5px;
@@ -861,6 +859,11 @@ li.available .user-presence::before {
   .bubble--alt {
     padding: 9px;
     border-radius: 8px;
+  }
+  header h1{
+    font-size: 24px;
+    font-weight: normal;
+    margin-bbottom: 13px;
   }
   
   

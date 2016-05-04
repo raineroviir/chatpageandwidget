@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 /* component styles */
 //import { styles } from './styles.scss';
+//
+import { DefaultMessage } from './default-message';
 
 export class ChatMessage extends Component {
   componentDidUpdate (){
@@ -9,12 +11,11 @@ export class ChatMessage extends Component {
       theme:"dark-3"        
     });
   }
-  render() {
-    return (
-      <div className="chat-group mCustomScrollBar">
-        <ul className="chat-flow col-md-12">
+  getMessages( messages ) {
+    if( messages && messages.length  ) {
+      return  (<ul className="chat-flow col-md-12">
           { 
-            this.props.messages.map(message => {
+            messages.map(message => {
               let user = this.props.user.userinfo;
               if(user.id != message.user_id){
                 return(
@@ -38,7 +39,17 @@ export class ChatMessage extends Component {
               }
             })
           }
-        </ul>
+        </ul>);
+    } else {
+      return <DefaultMessage></DefaultMessage>;
+    }
+  }
+  render() {
+    return (
+
+      <div className="chat-group mCustomScrollBar">
+        {this.getMessages(this.props.messages)} 
+       
       </div>
     );
   }
