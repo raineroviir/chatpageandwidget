@@ -115,18 +115,21 @@ function postLoginRequest(payload){
 
 /**/
 export function checkTeamName(team_description) {
+  //if(!team_description) return;
 
-   return (dispatch, getState) => {
-       dispatch({
+  return (dispatch, getState) => {
+    if(!team_description){
+      dispatch({
         type: 'TEAM_AVAILABILITY_RESULT',
         posts:{}
       })
-      return dispatch(teamNameAvailable(team_description))
+    }
+    return dispatch(teamNameAvailable(team_description))
   }
 }
 
 function teamNameAvailable(team_description) {  
-  console.log('teamNameAvailable');
+  //console.log('teamNameAvailable');
   return dispatch => {
     postTeamName(team_description).then(response => {return response.json()})  
       .then(json => dispatch(postTeamAvailabilityResponse(json)))
@@ -139,6 +142,13 @@ function postTeamName(team_description){
 
 function postTeamAvailabilityResponse(json) {
   console.log(JSON.stringify(json));
+  // if(!json.ok){
+  //   return {
+  //     type: 'TEAM_AVAILABILITY_RESULT',
+  //     posts:{}
+  //   }
+  // }
+
   return {
     type: 'TEAM_AVAILABILITY_RESULT',
     posts: json

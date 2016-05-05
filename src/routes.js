@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router';
 
 /* containers */
 import { App } from 'containers/App';
-import { Home } from 'containers/Home';
+import Home from 'containers/Home';
 import Login from 'containers/Login';
 import Registration from 'containers/Registration';
 import RegisterStart from 'components/Register';
@@ -20,9 +20,9 @@ import RegisterIndividualDomain from 'components/Register/Individual/Domain';
 export default (
   <Route path="/" component={App}> 
     <IndexRoute component={Login} />
-    <Route path="channel/:user">
+    <Route path="dashboard/:user">
         <IndexRoute component={Home} />
-        <Route path="home" component={Home} />
+        <Route path="/dashboard/:user/:channel" component={Home}/>
     </Route>
     <Route path="login" component={Login} />
     <Route path="signup" component={Registration} />

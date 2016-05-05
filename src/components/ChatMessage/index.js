@@ -41,7 +41,7 @@ export class ChatMessage extends Component {
           }
         </ul>);
     } else {
-      return <DefaultMessage></DefaultMessage>;
+      return <DefaultMessage user={this.props.user} />;
     }
   }
   render() {

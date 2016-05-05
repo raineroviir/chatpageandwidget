@@ -27,12 +27,12 @@ export class ChannelList extends Component {
               <strong className="title">Direct Messages</strong>
               <span className="label label-default pull-right">
               <span className="glyphicon glyphicon-pencil"></span></span>
-              <span className="badge pull-right mrg-rt-10px">{ this.props.channels.meta.count }</span>
+              <span className="badge pull-right mrg-rt-10px">{ this.props.channels.count }</span>
             </h3>
-            <ul className="nav nav-sidebar user-item" style={{display:((user.team) ? "none" : "")}}>
+            <ul className="nav nav-sidebar user-item" style={{display:((!user.team) ? "none" : "")}}>
               <li className="header">PUBLIC CHATS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
                {
-                !user.team && this.props.channels.publicChannels.map(channel => {
+                user.team && this.props.channels.publicChannels.map(channel => {
                   return (
                     <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
                   );
@@ -40,30 +40,30 @@ export class ChannelList extends Component {
               }
 
             </ul>
-            <ul className="nav nav-sidebar user-item" style={{display:((user.team) ? "none" : "")}}>
+            <ul className="nav nav-sidebar user-item" style={{display:((!user.team) ? "none" : "")}}>
               <li className="header">PRIVATE CHATS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
               { 
-                !user.team && this.props.channels.privateChannels.map(channel => {
+                user.team && this.props.channels.privateChannels.map(channel => {
                   return (
                     <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
                   );
                 })
               }
             </ul>
-            <ul className="nav nav-sidebar user-item" style={{display:((!user.team) ? "none" : "")}}>
+            <ul className="nav nav-sidebar user-item" style={{display:((user.team) ? "none" : "")}}>
               <li className="header">CHATS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
               { 
-                user.team && this.props.channels.otherChannels.map(channel => {
+                !user.team && this.props.channels.otherChannels.map(channel => {
                   return (
                     <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
                   );
                 })
               }
             </ul>
-            <ul className="nav nav-sidebar user-item" style={{display:((!user.team) ? "none" : "")}}>
+            <ul className="nav nav-sidebar user-item" style={{display:((user.team) ? "none" : "")}}>
               <li className="header">GROUP CHATS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
               { 
-                user.team && this.props.channels.groupChannels.map(channel => {
+                !user.team && this.props.channels.groupChannels.map(channel => {
                   return (
                     <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
                   );

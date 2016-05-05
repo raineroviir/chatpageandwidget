@@ -13,11 +13,13 @@ export class ChatTextBox extends Component {
   render() {
     return (
       <footer>
-           <div className="col-sm-12">
+           <div className="">
              <div className="input-group">
-                <span className="input-group-addon"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span>
+                <span className="input-group-addon">
+                  <span className="attach-button" aria-hidden="true"></span>
+                </span>
                 <input ref="Message" type="text" className="form-control" placeholder="Type here; '/' - commands, '@' - mentions" aria-label="Type here; '/' - commands, '@' - mentions" />
-                <span className="input-group-addon" onClick={ this.createMessagwe.bind(this)}>Send</span>
+                <span className="input-group-addon submit-btn" onClick={ this.createMessagwe.bind(this)}>Send</span>
               </div>
             </div>
        </footer>

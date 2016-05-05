@@ -19,17 +19,20 @@ export class RegisterOrgDomainComp extends Component {
   handleNext(e){
     e.preventDefault();
     let RegisterTeam = this.refs.RegisterTeam.value;
-    // if(RegisterTeam.indexOf('.chat.center') !== '-1'){
-    //   RegisterTeam = RegisterTeam+'.chat.center';
-    // }
     this.props.handleNext(RegisterTeam);
   }
 
   inputChange(){
     this.refs.RegisterTeam.value = this.validateTeam(this.refs.RegisterTeam.value);
      //var team_desc =this.validateTeam(this.refs.RegisterTeam.value);
+    
     this.props.checkForTeamNameAvailability(this.refs.RegisterTeam.value);
-    this.refs.nextButton.disabled = !(this.refs.RegisterTeam.value&&!this.props.registrationDetails.Organisation.TeamAvailable.ok)
+    
+    if(this.refs.RegisterTeam.value){
+        this.refs.nextButton.disabled = false;
+    }else{
+      this.refs.nextButton.disabled = true;
+    }
   }
 
   validateTeam(team_desc){
@@ -40,9 +43,6 @@ export class RegisterOrgDomainComp extends Component {
   componentDidMount() {
 
     var team_desc = this.props.registrationDetails.Organisation.payload.team_description;
-    //var finalStr = team_desc.replace(/[^a-zA-Z-0-9]/gi, '')
-    //this.state.team =finalStr.toLowerCase().substring(0,18);
-
     
     var team_name = team_desc.split(' ');
     var processed_team_name =[];
@@ -70,13 +70,16 @@ export class RegisterOrgDomainComp extends Component {
     this.state.team = finalStr;//this.validateTeam(team_desc);
     
     if(this.props.registrationDetails.Organisation.TeamAvailable.ok){
+      this.refs.nextButton.disabled = false;
+    }else{
       this.refs.nextButton.disabled = true;
     }
 
     this.refs.RegisterTeam.value = this.state.team;
 
     //check for team name availability on component load
-    this.props.checkForTeamNameAvailability(this.refs.RegisterTeam.value);
+    if(this.refs.RegisterTeam.value)
+      this.props.checkForTeamNameAvailability(this.refs.RegisterTeam.value);
 
   }
 
@@ -89,11 +92,13 @@ export class RegisterOrgDomainComp extends Component {
 
     //this.props.registrationDetails.Organisation.TeamAvailable.ok?'Already exists':'Available'
     var availability = '';
+    var boolAvailability= true;
     if(this.props.registrationDetails.Organisation.TeamAvailable.ok){
+        boolAvailability = false
         availability = <span style={{color:'red'}}>Already exists</span>
       }else{
           availability = <span style={{color:'green'}}>Available</span>
-      }
+    }
 
     let wrapperCls = '';
     let imgSrc = '';
@@ -135,7 +140,7 @@ export class RegisterOrgDomainComp extends Component {
                     <div className="col-sm-12">
                       <div className="row">
                     <button type="button" className="btn btn-default back" onClick={this.handleBack}>BACK</button>
-                    <button type="submit" disabled={this.props.registrationDetails.Organisation.TeamAvailable.ok} ref="nextButton" className="btn btn-default sign-in pull-right" onClick={this.handleNext.bind(this)}>NEXT</button>
+                    <button type="submit" disabled={!boolAvailability} ref="nextButton" className="btn btn-default sign-in pull-right" onClick={this.handleNext.bind(this)}>NEXT</button>
                   </div>
                   </div>
                 </div>

@@ -11,7 +11,7 @@ export class CreateMessage extends Component {
   }
   render() {
     return (
-      <ChatTextBox createMessage={this.createMessage.bind(this)} message={this.props.postSuccessFul} />
+      <ChatTextBox createMessage={this.createMessage.bind(this)} message={this.props.postSuccessFul} user={this.props.user} />
     );
   }
 }
@@ -19,7 +19,8 @@ export class CreateMessage extends Component {
 function mapStateToProps(state) {
   return {
     conversationid: state.messages.conversationid,
-    postSuccessFul: state.createMessage.showSuccessMessage
+    postSuccessFul: state.createMessage.showSuccessMessage,
+    user: state.userinfo
   }
 }
 

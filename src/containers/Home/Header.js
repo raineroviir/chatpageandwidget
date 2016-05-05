@@ -8,14 +8,14 @@ import { HeaderView } from 'components/Header';
 export class Header extends Component {
   render() {
     return (
-        <HeaderView userinfo={this.props.userinfo} />
+        <HeaderView user={this.props.user} />
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    userinfo: state.userinfo
+    user: state.userinfo
   }
 }
 

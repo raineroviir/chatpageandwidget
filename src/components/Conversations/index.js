@@ -27,7 +27,7 @@ export class ConversationsView extends Component {
           { this.props.conversations.map(conversation => {
             let activeConversation = this.props.activeConversation;
             return (
-              <li key={conversation.id} onClick={this.selectConversation.bind(this, conversation)} className={ (activeConversation == conversation.id) ? "active" : ""}><a><img className="img-circle" src="dist/images/user.png" title={conversation.name} alt={conversation.name} /><span className="user-presence online pull-right">8:36 PM</span><span className="name-and-message middle-content"><strong className="name">Sergey</strong><span className="message">{(conversation.last_message) ? conversation.last_message.text : ""}</span></span></a></li>
+              <li key={conversation.id} onClick={this.selectConversation.bind(this, conversation)} className={ (activeConversation == conversation.id) ? "active" : ""}><a><img className="img-circle" src="dist/images/user.png" title={conversation.name} alt={conversation.name} /><span className="user-presence online pull-right">8:36 PM</span><span className="name-and-message middle-content"><strong className="name"> User { (conversation.last_message) ? conversation.last_message.user_id : "User"}</strong><span className="message">{ (conversation.last_message) ? conversation.last_message.text : ""}</span></span></a></li>
             );
           })
           }

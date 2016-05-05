@@ -23,7 +23,7 @@ export class Login extends Component {
     return (
       <div>
           <DocumentMeta {...metaData} />
-          <LoginComponent />
+          <LoginComponent addOrg={!!this.props.location.search} />
       </div>
     );
   }

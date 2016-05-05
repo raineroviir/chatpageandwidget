@@ -173,6 +173,7 @@ footer {
     font-weight: normal;
     border: 1px solid #e5e5e5;
     background: transparent;
+    cursor: pointer;
 }
 .user-detail .title {
   font-size: 20px;
@@ -194,8 +195,12 @@ footer {
     font-size: 12px;
     display: block;
     margin-left: 6px;
+    color: rgba(255, 255, 255, 0.6);
 }
 .chat-group ul li{ min-height:50px;}
+.group-chat .chat-contacts{
+  display:none;
+}
 .user-presence::before{
   content: '';
   border-radius: 50%;
@@ -265,33 +270,40 @@ li.available .user-presence::before {
   border-radius: 20px;
   box-sizing: border-box;
   float: left;
-  margin: 5px 10px;
+  margin: 7px 10px 5px 10px;
   padding: 8px 30px;
   position: relative;
   width: 75%;
   max-width: 300px;
   word-wrap: break-word;
+  padding: 9px;
+  border-radius: 8px;
+  margin-left: 21px;
+  &:after {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 7px 8px 7px 0;
+    position: absolute;
+    left: -4px;
+    bottom:: 10px;
+    border-color: transparent #eeeff0 transparent transparent ;
+    content:'';
+    display:inline-block;
+  }
 }
 
 
-.bubble:before, .bubble:after {
-  border-radius: 20px / 10px;
-  content: '';
-  display: block;
-  position: absolute;
+.pull-right + .bubble  {
+  &:after {
+    border-color: transparent transparent transparent #45b166;
+    right: -4px;
+    left: auto;
+    border-width: 7px 0 7px 8px;
+  }
 }
 
-.bubble:before {
-  bottom: 0;
-  z-index: -2;
-}
 
-.bubble:after {
-  border: 8px solid transparent;
-  border-bottom-color: #eeeff0;
-  top: 5px;
-    left: -8px;
-}
 
 .bubble--alt {
   background-color: #45b166;
@@ -299,16 +311,6 @@ li.available .user-presence::before {
   color: #fff;
 }
 
-.bubble--alt:before {
-  left: auto;
-}
-
-.bubble--alt:after {
-  border-bottom-color: #45b166;
-  border-radius: 20px / 10px;
-  left: auto;
-  right: -7px;
-}
 .bubble.combine {
   margin-left: 55px;
   margin-top: 0px;
@@ -328,7 +330,9 @@ li.available .user-presence::before {
 }
 
 .channel-list .messages .user-item li:hover a, .channel-list .messages .user-item li.active a{ background-color:#45b166; }
-.nav.user-item > li > a:hover, .nav.user-item > li > a:focus{ background-color:transparent; }
+.nav.user-item > li > a:hover, .nav.user-item > li > a:focus{ background-color:transparent; 
+cursor: pointer;
+}
 .user-item {
 }
 .user-item li img {
@@ -410,8 +414,8 @@ li.available .user-presence::before {
   list-style-type: none;
 }
 .chat-flow li img {
-  height: 45px;
-  width: 45px;
+  height: 28px;
+  width: 28px;
 }
 .nav>li>a {
   padding: 5px 15px;
@@ -566,26 +570,38 @@ li.available .user-presence::before {
 
 .glyphicon-home{
   background-image: url(../images/profile.svg);
-  width: 24px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
 }
 
 .glyphicon-dashboard{
   background-image: url(../images/dashboard.svg);
-  width: 26px;
-    height: 26px;
+ width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
 }
 
 .glyphicon-user{
   background-image: url(../images/groups.svg);
   width: 24px;
-    height: 19px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
 }
 
 .glyphicon-search{
   background-image: url(../images/search.svg);
-  width: 27px;
-    height: 27px;
+  width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
 }
 
 .glyphicon-cog{
@@ -659,12 +675,8 @@ li.available .user-presence::before {
     border-radius: 50%;
 }
 
-.bubble--alt:after{
-  bottom:5px;
-}
-
 .bubble--alt{
-  margin-right: 35px;
+  margin-right: 20px;
 }
 
 .chat-flow li img.img-circle.pull-right{
@@ -674,8 +686,9 @@ li.available .user-presence::before {
 }
   
 .chat-flow li img.img-circle.pull-left{
-  top: 5px;
-    position: relative;
+  bottom: 5px;
+    position: absolute;
+    left: 0;
 }
 
 .img-circle.pull-left+.user-name-display{
@@ -692,6 +705,38 @@ li.available .user-presence::before {
 .chat-hint-text{
   text-align: center;
   color: #ccc;
+}
+
+footer {
+  padding: 8px 0;
+  .input-group {
+    .input-group-addon {
+      background: none;
+      border: 0;
+
+    }
+    .attach-button {
+      height: 24px;
+      width: 24px;
+      background: url( '../images/attach_button.svg' ) no-repeat;
+      display: inline-block;
+      background-size: 100%;
+      cursor: pointer;
+    }
+    .form-control {
+      height: 32px;
+      -webkit-box-shadow: inset 0px 0px 1px 1px #e7eaec;
+      -moz-box-shadow: inset 0px 0px 1px 1px #e7eaec;
+      box-shadow: inset 0px 0px 1px 1px #e7eaec;
+      border: 0;
+    }
+    .input-group-addon{
+      padding: 2px 12px;
+    }
+    .submit-btn {
+      cursor: pointer;
+    }
+  }
 }
 
 @media screen and (min-width: 786px) {
@@ -725,7 +770,7 @@ li.available .user-presence::before {
   .user-detail {
     padding:13px;
     padding-top: 20px;
-    padding-bottom: 16px;
+    padding-bottom: 11px;
   }
   .user-detail .title {
     font-size: 16px;
@@ -755,7 +800,7 @@ li.available .user-presence::before {
       margin-top: 4px;
       display: block;
       margin-left: -9px;
-
+      font-size: 14px;
     }
   }
   .user-presence.small::before {
@@ -763,6 +808,7 @@ li.available .user-presence::before {
   }
   .user-detail .team-name {
     margin-left: 0;
+    font-size: 14px;
   }
   .channel-list .messages h3  {
     border-bottom: 0;
@@ -827,6 +873,7 @@ li.available .user-presence::before {
   }
   .messages .nav.user-item > li:hover > a{
     background: rgba(171, 173, 179, 0.1);
+    cursor: pointer;
   }
   .messages .nav.user-item > li.active:hover > a{
     background: #45b166;
@@ -856,15 +903,19 @@ li.available .user-presence::before {
     }
 
   }
-  .bubble--alt {
-    padding: 9px;
-    border-radius: 8px;
-  }
+  
   header h1{
     font-size: 24px;
     font-weight: normal;
     margin-bbottom: 13px;
   }
-  
+
+  .bubble {
+    font-size: 15px;
+  }
+  /*temp fix to get scrollbar*/
+  .chat-contacts + .chat {
+    max-height: calc(100vh - 142px)
+  }
   
 }

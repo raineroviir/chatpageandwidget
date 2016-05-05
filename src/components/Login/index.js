@@ -17,13 +17,14 @@ export class LoginComponent extends Component {
 
       //store the value in STORE by dispatching event in action
       this.props.actions.loginUser(Username, Password);
-      this.props.actions.submitLogin();
+      this.props.actions.submitLogin(this.props.addOrg);
 
-      
   }
+
   inputChange(){
-    this.refs.loginBtn.disabled = !(this.refs.Username.value && this.refs.Password.value)
+    this.refs.loginBtn.disabled = !(this.refs.Username.value.trim() && this.refs.Password.value)
   }
+  
   componentDidMount() {
     this.refs.loginBtn.disabled = true; 
   }

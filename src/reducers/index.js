@@ -4,6 +4,7 @@ import { items } from './items';
 import { channels } from './Channels';
 import { conversations } from './Conversations';
 import { messages } from './Messages';
+import { orgs } from './Organizations';
 import { createMessage } from './CreateMessage';
 import { userinfo } from './Userinfo';
 import { registrationDetails } from './registrationDetails';
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   createMessage,
   registrationDetails,
   loginDetails,
-  userinfo
+  userinfo,
+  orgs
 });
 
 export default rootReducer;
