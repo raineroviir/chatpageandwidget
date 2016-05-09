@@ -23,8 +23,7 @@ export class RegisterOrgDomainComp extends Component {
   }
 
   inputChange(){
-    this.refs.RegisterTeam.value = this.validateTeam(this.refs.RegisterTeam.value);
-     //var team_desc =this.validateTeam(this.refs.RegisterTeam.value);
+    this.refs.RegisterTeam.value = this.validateTeam(this.refs.RegisterTeam.value);     
     
     this.props.checkForTeamNameAvailability(this.refs.RegisterTeam.value);
     
@@ -66,13 +65,13 @@ export class RegisterOrgDomainComp extends Component {
       }      
     }
     
+    this.state.team = finalStr;
 
-    this.state.team = finalStr;//this.validateTeam(team_desc);
-    
-    if(this.props.registrationDetails.Organisation.TeamAvailable.ok){
-      this.refs.nextButton.disabled = false;
-    }else{
-      this.refs.nextButton.disabled = true;
+    this.refs.nextButton.disabled = true;
+    if(finalStr){
+      if(!this.props.registrationDetails.Organisation.TeamAvailable.ok){
+        this.refs.nextButton.disabled = false;
+      }
     }
 
     this.refs.RegisterTeam.value = this.state.team;
@@ -90,7 +89,6 @@ export class RegisterOrgDomainComp extends Component {
       window.location.hash = "#/signup/organization/name";
     }
 
-    //this.props.registrationDetails.Organisation.TeamAvailable.ok?'Already exists':'Available'
     var availability = '';
     var boolAvailability= true;
     if(this.props.registrationDetails.Organisation.TeamAvailable.ok){
@@ -100,20 +98,18 @@ export class RegisterOrgDomainComp extends Component {
           availability = <span style={{color:'green'}}>Available</span>
     }
 
-    let wrapperCls = '';
+    let wrapperCls = 'loading';
     let imgSrc = '';
+
     if(Object.keys(this.props.registrationDetails.Organisation.TeamAvailable).length && this.props.registrationDetails.Organisation.TeamAvailable.ok) {
       wrapperCls = 'error';
       imgSrc = '-error';
     } else if(Object.keys(this.props.registrationDetails.Organisation.TeamAvailable).length && !this.props.registrationDetails.Organisation.TeamAvailable.ok) {
-      wrapperCls = 'success';
-    } else {
-      wrapperCls = 'loading';
+      if(this.props.registrationDetails.Organisation.TeamAvailable.error.indexOf('empty') === -1)
+        wrapperCls = 'success';
     }
 
-    return (
-
-      
+    return (      
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal domain-form" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
@@ -121,8 +117,8 @@ export class RegisterOrgDomainComp extends Component {
                 
                 <div className={'input-group input-group-lg ' + wrapperCls}>
 
-                  <label htmlFor="registerTeam" className="input-group-addon user-name" id="username-addon"><img src={'dist/images/user-icon' + imgSrc + '.svg'} className="prefix" /><span className="prefix-text">https:<span className="double-slashes">//</span></span></label>
-                  <input id="registerTeam" type="text" className="form-control" ref="RegisterTeam" onChange={this.inputChange.bind(this)} placeholder="address" aria-describedby="username-addon" />
+                  <label htmlFor="registerTeam" className="input-group-addon user-name" id="username-addon"><span className="prefix-text">https:<span className="double-slashes">//</span></span></label>
+                  <input autoFocus id="registerTeam" type="text" className="form-control" ref="RegisterTeam" onChange={this.inputChange.bind(this)} placeholder="address" aria-describedby="username-addon" />
                   <span className="input-group-addon suffix"><span className="prefix-text">.chat.center</span></span>
                   
                 </div>

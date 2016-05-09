@@ -56,7 +56,7 @@ export class LoginComponent extends Component {
                 </div>
                 <div className="input-group input-group-lg">
                   <label htmlFor="username" className="input-group-addon user-name" id="username-addon"><img className="prefix" src="dist/images/user-icon.svg" /><span className="prefix-text">https:<span className="double-slashes">//</span></span></label>
-                  <input id="username" type="text" className="form-control" ref="Username" placeholder="your chat address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
+                  <input autoFocus id="username" type="text" className="form-control" ref="Username" placeholder="your chat address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
                 </div>
                 <div className="desc">Examples: chat.center/you; yourteam.chat.center/you; chat.yourdomain.com/you</div>
                 <div className="input-group input-group-lg password-field">

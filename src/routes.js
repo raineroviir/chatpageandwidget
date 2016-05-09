@@ -36,6 +36,10 @@ export default (
     <Route path="organization/join" component={OrgJoin} />
     <Route path="signup/individual" component={RegisterIndividual} />
     <Route path="signup/individual/domain" component={RegisterIndividualDomain} />
+    <Route path=":user">
+        <IndexRoute component={Home} />
+        <Route path=":user" component={Home}/>
+    </Route>
     <Route status={404} path="*" component={Login} />
 
   </Route>

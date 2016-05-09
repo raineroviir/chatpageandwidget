@@ -7,11 +7,11 @@ import * as ChannelsActions from '../../actions/Channels';
 import { ChatTextBox } from 'components/ChatTextBox';
 export class CreateMessage extends Component {
   createMessage(message){
-    this.props.actions.createMessage(message, this.props.conversationid);
+    this.props.actions.createMessage(message, this.props.conversationid || this.props.convid);
   }
   render() {
     return (
-      <ChatTextBox createMessage={this.createMessage.bind(this)} message={this.props.postSuccessFul} user={this.props.user} />
+      <ChatTextBox createMessage={this.createMessage.bind(this)} message={this.props.postSuccessFul} user={this.props.user} isGuest={this.props.isGuest} />
     );
   }
 }
@@ -20,7 +20,8 @@ function mapStateToProps(state) {
   return {
     conversationid: state.messages.conversationid,
     postSuccessFul: state.createMessage.showSuccessMessage,
-    user: state.userinfo
+    user: state.userinfo,
+    isGuest: state.guest.guest
   }
 }
 

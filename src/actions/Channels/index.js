@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import * as loginActions from "../Login";
 let channels = require("json!./../../mocks/v1/channels.list.json");
 let conversations = require("json!./../../mocks/v1/conversations.list.json");
 
@@ -8,6 +9,10 @@ export function getChannels(channelid) {
     return dispatch(processChannelsForDispatch(channels));
   }*/
   return dispatch => {
+    if(typeof(Storage) === "undefined" || !localStorage.getItem("token")){
+      dispatch(initGuestMessaging());
+      return;
+    } 
     fetchUserInfo().then(response => {return response.json()})  
       .then(json => {
         dispatch(processUserInfoForDispatch(json))
@@ -52,12 +57,78 @@ export function getConversations(channelid, channels) {
 }
 export function createMessage(message, conversationid) {
   return dispatch => {
-    postMessage(message, conversationid).then(response => response.json())
-      .then(json => {
-        dispatch(processCreateMessage(json));
-        dispatch(getConversationHistory(conversationid));
-      })
+    let access_token = null, fetchGuestInfo = fetch("");
+    if(!localStorage.getItem('token')){
+      if(typeof(Storage) !== undefined && !localStorage.getItem('guest')){
+        // get guest user token if its not available
+        fetchGuestInfo = loginActions.postLoginRequest({
+          "username": "chat.center/guest",
+          "password": "12345678",
+          "grant_type": "password"
+        }).then(response => response.json())
+        .then(json => {
+          access_token = json.token.access_token;
+          !!typeof(Storage) && localStorage.setItem('guest', JSON.stringify(json.token));
+        })
+      }
+      else{
+        access_token = JSON.parse(localStorage.getItem('guest')).access_token
+      }
+      if(!conversationid){
+        // get conversationid if its not available
+        fetchGuestInfo = fetchGuestInfo.then(json => {
+          var channel = window.location.hash.match(/\/([^\/]+)\/?$/);
+          if(parseInt(channel[1])) channel = channel[0].match(/\/([^\/]+)\/?$/)[0];
+          else channel = channel[1];
+          return getChannel(channel, access_token);
+        }).then(response => response.json())
+        .then(json => {
+          if(json.channel && json.channel.id){
+            return createCoversation(json.channel.id, access_token);          
+          }
+          else{
+            dispatch(genericError());
+          }
+        }).then(response => response.json())        
+      }
+      fetchGuestInfo.then(json => {
+        if(conversationid || (json && json.conversation && json.conversation.id)){
+          if(json && json.conversation && json.conversation.id) dispatch(setGuestConvid(json.conversation.id));
+          // Post message using the conversationid
+          postMessage(message, conversationid || json.conversation.id, access_token).then(response => response.json())
+          .then(json => {
+            dispatch(processCreateMessage(json));
+            dispatch(processAddMessage(json));
+          })
+        }
+        else{
+          dispatch(genericError());
+        }
+      });
+      
+    }
+    else{
+      postMessage(message, conversationid).then(response => response.json())
+        .then(json => {
+          dispatch(processCreateMessage(json));
+          dispatch(getConversationHistory(conversationid));
+        })
+    }
   }
+}
+
+export function getChannel(channel, access_token, team) {
+  var url = 'https://api-beta.chat.center/v1/channels.find?channel=' + channel;
+  if(team){
+    url+= ("&team=" + team);
+  }
+  return fetch( url, {
+    method: 'GET',
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token,
+    }
+  })
 }
 export function getConversationHistory (conversationid) {
   return dispatch => {
@@ -146,6 +217,16 @@ function fetchUserInfo() {
     }
   })
 }
+function createCoversation(channelid, access_token) {
+  return fetch('https://api-beta.chat.center/v1/conversations.create', {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token,
+    },
+    body: JSON.stringify({ channel_id: channelid})
+  })
+}
 function fetchConversations(channel_id) {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token"));
@@ -170,15 +251,15 @@ function fetchConversationHistory(conversationid) {
     }
   })
 }
-function postMessage(message, conversationid) {
-  if (typeof(Storage) !== "undefined") {
+function postMessage(message, conversationid, access_token) {
+  if (typeof(Storage) !== "undefined" && !access_token) {
     var token = JSON.parse(localStorage.getItem("token"));
   }
   return fetch('https://api-beta.chat.center/v1/chats.postMessage', {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token.access_token,
+      'Authorization': 'Bearer ' + (access_token || token.access_token),
     },
     body: JSON.stringify({
       text: message,
@@ -299,6 +380,35 @@ function processOrgForDispatch(org) {
   return {
     type: "SET_ORGANIZATION",
     posts: orgs,
+    receivedAt: Date.now()
+  }
+}
+function initGuestMessaging() {
+  return {
+    type: "SET_GUEST",
+    posts: { guest: true },
+    receivedAt: Date.now()
+  }
+}
+
+function setGuestConvid (convid) {
+  return {
+    type: "SET_GUEST_CONV",
+    posts: { convid },
+    receivedAt: Date.now()
+  }
+}
+function processAddMessage(response) {
+  return {
+    type: "ADD_MESSAGE",
+    posts: response.message,
+    receivedAt: Date.now()
+  }
+}
+function genericError() {
+  return {
+    type: "GENERIC_ERROR",
+    posts: "Error",
     receivedAt: Date.now()
   }
 }

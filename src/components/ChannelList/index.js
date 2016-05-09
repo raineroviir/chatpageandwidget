@@ -33,8 +33,9 @@ export class ChannelList extends Component {
               <li className="header">PUBLIC CHATS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
                {
                 user.team && this.props.channels.publicChannels.map(channel => {
+                  let avatarText = (channel.name) ? channel.name.charAt(0) : "";
                   return (
-                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
+                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left hide" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="avatar">{avatarText}</span><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
                   );
                 }) 
               }
@@ -44,8 +45,9 @@ export class ChannelList extends Component {
               <li className="header">PRIVATE CHATS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
               { 
                 user.team && this.props.channels.privateChannels.map(channel => {
+                  let avatarText = (channel.name) ? channel.name.charAt(0) : "";
                   return (
-                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
+                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left hide" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="avatar">{avatarText}</span><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
                   );
                 })
               }
@@ -54,8 +56,9 @@ export class ChannelList extends Component {
               <li className="header">CHATS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
               { 
                 !user.team && this.props.channels.otherChannels.map(channel => {
+                  let avatarText = (channel.name) ? channel.name.charAt(0) : "";
                   return (
-                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
+                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left hide" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="avatar">{avatarText}</span><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
                   );
                 })
               }
@@ -64,8 +67,9 @@ export class ChannelList extends Component {
               <li className="header">GROUP CHATS<span className="plus-icon-wrapper pull-right"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></span></li>
               { 
                 !user.team && this.props.channels.groupChannels.map(channel => {
+                  let avatarText = (channel.name) ? channel.name.charAt(0) : "";
                   return (
-                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
+                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "active" : "" }><a><img className="img-rounded pull-left hide" src="dist/images/user.png" title={channel.name} alt={channel.name} /><span className="avatar">{avatarText}</span><span className="name middle-content ellipsis">{channel.name}</span><span className="badge">2</span></a></li>
                   );
                 })
               }

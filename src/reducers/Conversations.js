@@ -10,7 +10,9 @@ export function conversations(state = initialState, action) {
       ...state,
       conversations: action.posts.conversations,
       channelid: action.posts.channelid
-    };    
+    };
+  case 'RESET_CONVERSATIONS':
+    return initialState;
   default:
     return state;
   }

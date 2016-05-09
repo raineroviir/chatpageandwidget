@@ -36,11 +36,31 @@ function postActionConstruct(json, payload, addOrg) {
       }
       if(addOrg) localStorage.setItem("orgs", JSON.stringify(orgs));
       localStorage.setItem("token", JSON.stringify(json.token));
-      //console.log(localStorage.getItem("orgs"));
+      localStorage.setItem("guest", null);
     }
   }
   return (dispatch, getState) => {
-      dispatch({
+    dispatch({
+      type: 'RESET_CHANNELS',
+      value:"Login Success",
+      receivedAt: Date.now()
+    });    
+    dispatch({
+      type: 'RESET_USER',
+      value:"Login Success",
+      receivedAt: Date.now()
+    });
+    dispatch({
+      type: 'RESET_CONVERSATIONS',
+      value:"Login Success",
+      receivedAt: Date.now()
+    });    
+    dispatch({
+      type: 'RESET_MESSAGES',
+      value:"Login Success",
+      receivedAt: Date.now()
+    });
+    dispatch({
       type: 'LOGIN_USER_RESPONSE',
       value:{"error":json.error,"token":json.token}
     })
@@ -50,12 +70,19 @@ function postActionConstruct(json, payload, addOrg) {
 function postLogin(payload, addOrg) {
   return dispatch => {
     postLoginRequest(payload).then(response => {return response.json()})	
-      .then(json => dispatch(postActionConstruct(json, payload, addOrg)))
+      .then(json => {
+        dispatch(postActionConstruct(json, payload, addOrg))
+        dispatch({
+          type: "SET_GUEST",
+          posts: { guest: false },
+          receivedAt: Date.now()
+        });
+      })
   }
 }
 
 //https://id.chat.center/oauth/token
-function postLoginRequest(payload){
+export function postLoginRequest(payload){
 	  return fetch('https://id.chat.center/oauth/token',
     			{
     				method: 'POST',

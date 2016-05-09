@@ -58,7 +58,7 @@ export class RegisterOrgDetailComp extends Component {
                 <h1 className="inner-title">Your Personal Details</h1>                
                 <div className="input-group input-group-lg">
                   <label htmlFor="firstName" className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" /></label>
-                  <input type="text" className="form-control" ref="FirstName" placeholder="First Name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
+                  <input autoFocus type="text" className="form-control" ref="FirstName" placeholder="First Name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
                 </div>
                 <div className="input-group input-group-lg">
                   <label htmlFor="lastName" className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" /></label>

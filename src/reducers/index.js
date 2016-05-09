@@ -9,6 +9,7 @@ import { createMessage } from './CreateMessage';
 import { userinfo } from './Userinfo';
 import { registrationDetails } from './registrationDetails';
 import { loginDetails } from './loginDetails';
+import { guest } from './Guest';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   registrationDetails,
   loginDetails,
   userinfo,
-  orgs
+  orgs,
+  guest
 });
 
 export default rootReducer;

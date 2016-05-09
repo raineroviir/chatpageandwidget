@@ -23,6 +23,8 @@ export function channels(state = initialState, action) {
       ...state,
       channels: Object.assign({}, state.channels, { isGroupChat: action.posts.isGroupChat })
     };
+  case 'RESET_CHANNELS':
+    return initialState;
   default:
     return state;
   }

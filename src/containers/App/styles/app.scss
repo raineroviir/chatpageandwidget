@@ -408,6 +408,24 @@ cursor: pointer;
 .chat-contacts .user-item li:hover a .user-presence.online:before, .chat-contacts .user-item li.active a .user-presence.online:before {
   background-color: #fff;
 }
+a:hover .avatar, li.active .avatar, a:focus .avatar{
+  background-color: #fff;
+  color: #45b166;
+}
+.avatar{
+  float: left;
+  width: 40px;
+  text-align: center;
+  font-size: 1.6em;
+  vertical-align: middle;
+  line-height: 40px;
+  background-color: #45b166;
+  color: #fff;
+  border-radius: 40px;
+  text-transform:uppercase;
+}
+.channel-list .avatar{ width:28px; line-height:28px; border-radius:28px; font-size:1.2em }
+.chat .avatar{ margin-top:5px; }
 .chat-flow {
   float: left;
   padding:0px;

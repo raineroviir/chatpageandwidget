@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 //import { styles } from './styles.scss';
 
 export class ChatTextBox extends Component {
-  createMessagwe(){
+  createMessage(){
     if(this.refs.Message.value == "") return;
     this.props.createMessage(this.refs.Message.value);
     this.refs.Message.value = "";
@@ -19,7 +19,7 @@ export class ChatTextBox extends Component {
                   <span className="attach-button" aria-hidden="true"></span>
                 </span>
                 <input ref="Message" type="text" className="form-control" placeholder="Type here; '/' - commands, '@' - mentions" aria-label="Type here; '/' - commands, '@' - mentions" />
-                <span className="input-group-addon submit-btn" onClick={ this.createMessagwe.bind(this)}>Send</span>
+                <span className="input-group-addon submit-btn" onClick={ this.createMessage.bind(this)}>Send</span>
               </div>
             </div>
        </footer>

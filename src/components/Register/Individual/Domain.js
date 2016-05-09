@@ -65,7 +65,7 @@ export class RegisterIndividualDomain extends Component {
                 <div className={'input-group input-group-lg ' + wrapperCls}>
 
                   <label htmlFor="username" className="input-group-addon user-name" id="username-addon"><img className="prefix" src={'dist/images/user-icon' + imgSrc + '.svg'} /><span className="prefix-text">https:<span className="double-slashes">//</span>chat.center/</span></label>
-                  <input id="username" type="text" className="form-control" ref="Channel" placeholder="address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)} />
+                  <input autoFocus id="username" type="text" className="form-control" ref="Channel" placeholder="address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)} />
                   
                 </div> 
                 <p className="error-msg">This name is already taken</p>

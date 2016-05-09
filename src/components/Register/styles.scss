@@ -94,6 +94,14 @@
 	.input-group {
 		margin-bottom:8px;
 	}
+	/*.domain-form .input-group{
+		box-shadow: inset 0 -2px 0 0 #474848;
+		padding-bottom: 2px;
+		width: 100%;
+	}
+	.domain-form .input-group-addon, .domain-form input{
+		box-shadow: none;
+	}*/
 	.input-group-addon {
 		padding:4px 9px 7px 0px;
 		background: transparent;
@@ -173,6 +181,9 @@
 		.inner-title {
 		    margin-top: 27px;
 		}
+	}
+	.capitalize{
+		text-transform: capitalize;
 	}
 	.verify-details {
 	    .input-group  {
@@ -328,12 +339,18 @@
 	    }
     }
     .user-type.org {
-    	border-bottom:2px solid #474848;
-    	padding-bottom: 9px;
+    	margin-bottom: 9px;
     }
     .user-type.ind {
     	margin-top: 13px;
     }
+    .user-type.ind:hover, .user-type.org:hover {
+    	background: #FFE7AD;
+    	border-radius: 5px;
+    }
+    .user-type.median{
+    	border-bottom:2px solid #474848;
+    }    
     .sign-in-wrapper {
         background: #eee;
 	    clear: both;

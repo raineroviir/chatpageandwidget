@@ -15,11 +15,15 @@ export class RegisterOrgNameComp extends Component {
   handleNext(evt){
     evt.preventDefault();
     let RegisterOrganisationName = this.refs.RegisterOrganisationName.value;
-    this.props.handleNext(RegisterOrganisationName);
+    this.props.handleNext(this.capitalizeFirstLetter(RegisterOrganisationName));
   }
 
   inputChange(){
     this.refs.nextButton.disabled = !(this.refs.RegisterOrganisationName.value)
+  }
+
+  capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   componentDidMount() {
@@ -40,7 +44,7 @@ export class RegisterOrgNameComp extends Component {
                 <h1 className="inner-title">Name your chat.center</h1>
                 <div className="input-group input-group-lg">
                   <label htmlFor="organizationName" className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" /></label>
-                  <input id="organizationName" type="text" className="form-control" ref="RegisterOrganisationName" placeholder="Organization, team, department name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
+                  <input autoFocus id="organizationName" type="text" className="form-control capitalize" ref="RegisterOrganisationName" placeholder="Organization, team, department name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
                 </div> 
                 <div className="desc">Example: Virgin Galactic; Techcrunch; Stanford United; Beyonce; Photo Review Blog etc. </div>
                 <div className="form-group button-wrapper">

@@ -38,6 +38,10 @@ export class Register extends Component {
                   </span>
                 </a>
                 </div>
+
+                <div className="user-type median col-sm-12 text-center">
+                </div>
+
                 <div className="user-type ind col-sm-12 text-center">
                 <a href="#/signup/individual">
                   <img src="dist/images/ind-icon.svg" title="Organization" />

@@ -8,7 +8,7 @@ export function createMessage(state = initialState, action) {
     return {
       ...state,
       showSuccessMessage: action.posts.showSuccessMessage
-    };    
+    };
   default:
     return state;
   }
