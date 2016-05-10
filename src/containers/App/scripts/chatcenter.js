@@ -2,16 +2,17 @@ $(document).ready(function () {
 	$('.mCustomScrollBar').mCustomScrollbar({ 
 	    theme:"dark-3"        
 	});
+    
 	$('.chat-contacts').height($(window).height()-$('header').height()-35);
-	$('.chat-group').height($(window).height()-$('footer').height()-$('header').height()-75);
-	$('.user-detail').on('click', '.glyphicon-menu-hamburger', function () {
-		$('.leftmenu').toggleClass('hidden-xs');
-	});
+	
+    $('.chat-group').height($(window).height()-$('footer').height()-$('header').height()-75);
+
+	
 	$('.channel-list').on('click', function (e) {
 		if($(e.target).closest('.leftmenu').length == -1 || !$(e.target).hasClass('glyphicon-menu-hamburger'))
 			$('.leftmenu').addClass('hidden-xs');
 	});
-	$('.main header').on('click', '.glyphicon-user', function () {
+	$('.main header').on('click', '.groups-link', function () {
 		$('.chat-contacts').toggleClass('hidden-xs');
 	});
 	$('.main').on('click', function (e) {
@@ -25,6 +26,19 @@ $(document).ready(function () {
 		    theme:"dark-3"        
 		});
 	});
+
+    $('.user-info').on('click', '.menu-hamburger', function () {
+        $( 'body' ).toggleClass( 'show-master-nav' );
+    });
+
+    //show chat-panel on click of the chat message
+    $( '.chat-lists-wrapper' ).on('click', '.chat-message', function  (argument) {
+        $( 'body' ).addClass( 'show-chat-panel' );
+    });
+    $('.goback-icon').click( function() {
+        $( 'body' ).removeClass( 'show-chat-panel' );
+    } );
+
 	$('.main header').on('click', '.glyphicon-circle-arrow-left', function() {
 		$('.sidebar').toggleClass('hidden-xs hidden-sm');
 		$('.main').toggleClass('hidden-xs hidden-sm');

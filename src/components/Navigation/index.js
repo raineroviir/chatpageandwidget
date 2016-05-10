@@ -13,38 +13,47 @@ export class NavigationView extends Component {
   }
   render() {
     return (
-        <nav className="navbar col-xs-2 hidden-xs col-md-3 leftmenu">
-        <ul className="nav navbar-nav">
-          <li className="available"><span className="user-presence offline"></span><span className="user-presence inactive"></span><span className="user-presence online"></span></li>
-        </ul>
-        {
-          this.props.orgs.orgs.map(org => {
-            let avatar = (org.user && org.user.avatar_96) ? org.user.avatar_96 : "dist/images/logo.png";
-            if(org.active){
-              return(
-                <ul key={org.name} className="nav navbar-nav">  
-                  <li className="logo"><a><img src={avatar} title="Chat Center" /></a></li>
-                  <li className="active"><a href="#"><span className="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
-                  <li><a href="javascript:;"><span className="glyphicon glyphicon-dashboard" aria-hidden="true"></span></a></li>
-                  <li><a href="javascript:;"><span className="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
-                  <li><a href="javascript:;"><span className="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
-                  <li><a href="javascript:;"><span className="glyphicon glyphicon-cog" aria-hidden="true"></span></a></li>
+        <nav className="master-nav">
+        <div className="available-wrapper">
+          <span className="available-status busy"></span>
+          <span className="available-status inactive"></span>
+          <span className="available-status online"></span>
+        </div>
+        <div className="org-list-wrapper">
+          {
+            this.props.orgs.orgs.map(org => {
+              let avatar = (org.user && org.user.avatar_96) ? org.user.avatar_96 : "dist/images/logo.png";
+              if(org.active){
+                return(
+                  <ul className="org-list expanded" key={org.name}>  
+                    <li className="logo"><a><img src={avatar} title="Chat Center" /></a></li>
+                    <li className="active"><a className="nav-link" href="javascript:;"><span  className="home-icon" aria-hidden="true"></span></a></li>
+                    <li><a className="nav-link" href="javascript:;"><span className="dashboard-icon"  aria-hidden="true"></span></a></li>
+                    <li><a className="nav-link groups-link" href="javascript:;"><span className="groups-icon"  aria-hidden="true"></span></a></li>
+                    <li><a className="nav-link" href="javascript:;"><span className="search-icon"  aria-hidden="true"></span></a></li>
+                    <li><a className="nav-link" href="javascript:;"><span className="settings-icon"  aria-hidden="true"></span></a></li>
+                  </ul>
+                );
+              }
+              else{
+                return(
+                <ul className="org-list" key={org.name}>  
+                  <li onClick={this.switchOrganization.bind(this, org)} className="logo">
+                    <a><img src={avatar} title="Chat Center" />
+                    </a>
+                  </li>
                 </ul>
               );
-            }
-            else{
-              return(
-              <ul key={org.name} className="nav navbar-nav">  
-                <li onClick={this.switchOrganization.bind(this, org)} className="logo"><a><img src={avatar} title="Chat Center" /></a></li>
-              </ul>
-            );
-            }
-          })
-        }
-          <ul className="nav navbar-nav navbar-right fixed-btm-btn">
-            <li><Link  onClick={this.addOrganization.bind(this, this.props.orgs.orgs)} to="/?add"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></Link></li>
-          </ul>
-        </nav>
+              }
+            })
+          }
+        </div>
+        <div className="add-org-btn-wrapper">
+            <Link  onClick={this.addOrganization.bind(this, this.props.orgs.orgs)} to="/?add">
+              <span className="glyphicon glyphicon-plus add-icon" aria-hidden="true"></span>
+            </Link>
+        </div>
+      </nav>
     );
   }
 }

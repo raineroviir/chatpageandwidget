@@ -1,0 +1,94 @@
+.conversations-panel {
+    height: calc( 100vh - 97px );
+    &.group-chat {
+        .chats-contacts-wrapper {
+            display: none;
+        }
+        .chat-panel {
+            width: 100%;
+        }
+    }
+}
+.chats-contacts-wrapper {
+    height: 100%;
+    width: 312px;
+    float: left;
+    border-right: 1px solid #e5e5e5;
+    .chats-contacts {
+        ul {
+            margin: 0;
+            padding: 0; 
+            list-style: none;
+
+            li {
+                margin-bottom: 1px;
+            }
+            a {
+                position: relative;
+                cursor: pointer;
+                padding: 12px;
+                display: block;
+                min-height: 70px;
+                font-size:1.6em;
+                text-decoration: none;
+                color: #acaeb3; 
+
+            }
+            .img-circle {
+                display: none;
+            }
+            .img-circle,.avatar {
+                height:48px;
+                width: 48px;
+                position: absolute;
+                left: 10px;
+                top: 10px;
+                border-radius: 50%;
+                color: #fff;
+                background: #138536;
+                text-align: center;
+                line-height: 48px;
+                text-transform: uppercase;
+            }
+            .name {
+                font-size: 15px;
+                line-height: 1.2;
+                letter-spacing: 0.1px;
+                position: relative;
+                color: #474848;
+                padding-right: 60px;
+                text-transform: capitalize;
+                
+            }
+            .name, .message {
+                margin-left: 60px;
+                margin-bottom: 0;
+            }
+            .message {
+                line-height: 1.2;
+                letter-spacing: 0.1px;
+                font-size: 13px;
+            }
+            .time-wrapper {
+                position: absolute;
+                top: 0;
+                right: 0px;
+                font-size: 13px;
+                color: #acaeb3;
+            }
+            li.active, li:hover {
+                a {
+                    background: #138536;
+                }
+                .img-circle,.avatar { 
+                    background: #fff;
+                    color: #138536;
+                }
+                .message,.time-wrapper, a,.name {
+                color: #fff;
+                }
+            }
+            
+        }
+    }
+}

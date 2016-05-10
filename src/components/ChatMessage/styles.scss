@@ -1,0 +1,83 @@
+.chat-panel {
+    width: calc( 100% - 312px );
+    float: left;
+    height: 100%;
+    .chat-messages-wrapper {
+        height: calc( 100% - 48px );
+    }
+}
+
+.chat-messages {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    &>li {
+        margin:7px 12px; 
+    }
+    .chat-message {
+        position: relative;
+        overflow: auto;
+    }
+    .message-bubble {
+        background-color: #138536;
+        color: #fff;
+        float: right;
+        padding: 7px 8px;
+        border-radius: 9px;
+        margin-right: 36px;
+        position: relative;
+        &:after{
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7px 8px 7px 0;
+            position: absolute;
+            left: -4px;
+            bottom: 10px;
+            border-color: transparent #eeeff0 transparent transparent;
+            content: '';
+            display: inline-block;
+            border-color: transparent transparent transparent #138536;
+            right: -4px;
+            left: auto;
+            border-width: 7px 0 7px 8px;
+        }
+    }
+    .img-circle,.avatar {
+        height: 28px;
+        width: 28px;
+        position: absolute;
+        right: 0;
+        bottom: 0px;
+        border-radius: 50%;
+        color: #fff;
+        background: #138536;
+        text-align: center;
+        line-height: 28px;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+    .img-circle {
+        display: none;
+    }
+    .received-message {
+        .message-bubble {
+            margin-left: 36px;
+            margin-right: 0px;
+            float: left;
+            background: #eeeff0;
+            color: #333;
+            &:after {
+                right: auto;
+                left: -4px;
+                border-color: transparent #eeeff0 transparent transparent;
+                border-width: 7px 8px 7px 0;
+            }
+        }
+        .img-circle,.avatar {
+            right: auto;
+            left: 0
+        }
+    }
+}

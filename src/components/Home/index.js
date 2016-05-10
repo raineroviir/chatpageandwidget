@@ -28,18 +28,19 @@ export class HomeView extends Component {
     return (
       <div>
           <DocumentMeta {...metaData} />
-          <div className="col-xs-12 col-md-3 sidebar">
+          <div>
             <Navigation historyApi={this.props.historyApi} />
             <Channels />
           </div>
-          <div className="col-xs-12 col-sm-12 col-md-9 main hidden-xs hidden-sm">
+          <div className="main-section">
             <Header />
-            <section className={ this.props.isGroupChat ? "row group-chat" : "row"}>
+            <section className={ this.props.isGroupChat ? "group-chat conversations-panel" : "conversations-panel"}>
               <Conversations />
-              <div className={ this.props.isGroupChat ? "col-xs-12 chat" : "col-xs-12 col-sm-7 col-md-7 col-lg-8 chat"}>
+              <div className="chat-panel">
                 <Messages />
                 <CreateMessage />
               </div>
+            
             </section>
           </div>
       </div>

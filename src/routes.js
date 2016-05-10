@@ -16,6 +16,9 @@ import OrgInvite from 'components/Register/Organization/Invite';
 import OrgJoin from 'components/Register/Organization/Join';
 import RegisterIndividual from 'components/Register/Individual';
 import RegisterIndividualDomain from 'components/Register/Individual/Domain';
+import Channel from 'containers/Channel/Index';
+import ChannelCreate from 'containers/Channel/Create';
+import ChannelMembers from 'containers/Channel/Members';
 
 export default (
   <Route path="/" component={App}> 
@@ -36,6 +39,9 @@ export default (
     <Route path="organization/join" component={OrgJoin} />
     <Route path="signup/individual" component={RegisterIndividual} />
     <Route path="signup/individual/domain" component={RegisterIndividualDomain} />
+    <Route path="channel" component={Channel} />
+    <Route path="channel/create" component={ChannelCreate} />
+    <Route path="channel/members/:id" component={ChannelMembers} />
     <Route path=":user">
         <IndexRoute component={Home} />
         <Route path=":user" component={Home}/>

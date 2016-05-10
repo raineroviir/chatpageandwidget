@@ -7,25 +7,51 @@ import { styles } from './styles.scss';
 export class HeaderView extends Component {
   render() {
     let user = this.props.user.userinfo;
+
+    /*
+    
+    <span className="glyphicon glyphicon-circle-arrow-left arrow-left-icon" aria-hidden="true"></span> 
+
+    <span className="glyphicon glyphicon-user visible-xs" aria-hidden="true">
+              </span>
+    */
+    
     return (
-      <header>
-        <section className="row">
-          <div className="col-xs-12 col-sm-5 col-md-5 col-lg-8">
-            <span className="glyphicon glyphicon-circle-arrow-left visible-xs visible-sm" aria-hidden="true"></span>
-            <h1>Chat Center<a href="#"><span className="glyphicon glyphicon-cog channel-setting" aria-hidden="true"></span></a></h1>
-            <span>{(user.team) ? (user.team.name + "/" + user.team.description) : ("chat.center/" + user.first_name) }</span><span className="label label-default">SHARE</span><span className="glyphicon glyphicon-user visible-xs" aria-hidden="true"></span>
+
+      <div className="header">
+          <div className="goback-icon">
+            <span className="glyphicon glyphicon-circle-arrow-left "></span>
           </div>
-          <div className="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-            <ul className="horizontal-list pull-right">
+          <div className="feature-panel">
+            <ul className="feature-list">
               <li className="button-search"></li>
               <li className="button-new"></li>
               <li className="button-mention"></li>
               <li className="button-tag"></li>
             </ul>
           </div>
-        </section>
-        
-      </header>
+          <div className="title-section">
+
+            <h1 className="title">
+              Chat Center Support
+              <a href="#">
+              <span className="glyphicon glyphicon-cog channel-setting" aria-hidden="true"></span>
+              </a>
+            </h1>
+            <p className="channel-name-wrapper">
+              <span className="channel-name">
+              {
+                (user.team && user.team.name ) ? 
+                (user.team.name + "/" + user.team.description) : 
+                ("chat.center/" + (user.first_name?user.first_name:'')) 
+              }
+              </span>
+              <span className="label label-default">SHARE</span>
+              </p>
+          </div>
+
+         
+      </div>
     );
   }
 }
