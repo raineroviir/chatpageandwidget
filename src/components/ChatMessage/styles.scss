@@ -7,25 +7,55 @@
     }
 }
 
+@-webkit-keyframes fadeIn { from { opacity:0; opacity: 1\9; /* IE9 only */ } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; opacity: 1\9; /* IE9 only */ } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; opacity: 1\9; /* IE9 only */ } to { opacity:1; } }
+
+.fade-in {
+    opacity:0;  /* make things invisible upon start */
+    -webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+    -moz-animation:fadeIn ease-in 1;
+    animation:fadeIn ease-in 1;
+
+    -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+    -moz-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;
+
+    -webkit-animation-duration:0.5s;
+    -moz-animation-duration:0.5s;
+    animation-duration:0.5s;
+}
+
 .chat-messages {
     margin: 0;
     padding: 0;
     list-style: none;
     &>li {
         margin:7px 12px; 
+        &.sent-message  {
+            .message-bubble {
+                background-color: #138536;
+                color: #fff;
+                &:after{
+                    border-color: transparent transparent transparent #138536;
+                }
+            }
+        }
     }
     .chat-message {
         position: relative;
         overflow: auto;
     }
     .message-bubble {
-        background-color: #138536;
-        color: #fff;
+        background-color: #eeeff0;
+        color: #333;
         float: right;
         padding: 7px 8px;
         border-radius: 9px;
         margin-right: 36px;
         position: relative;
+        max-width: 236px;
+        transition: all ease-in 0.5s;
         &:after{
             content: '';
             width: 0;
@@ -35,10 +65,10 @@
             position: absolute;
             left: -4px;
             bottom: 10px;
-            border-color: transparent #eeeff0 transparent transparent;
             content: '';
             display: inline-block;
-            border-color: transparent transparent transparent #138536;
+            transition: all ease-in 0.5s;
+            border-color: transparent transparent transparent #eeeff0;
             right: -4px;
             left: auto;
             border-width: 7px 0 7px 8px;
@@ -66,8 +96,6 @@
             margin-left: 36px;
             margin-right: 0px;
             float: left;
-            background: #eeeff0;
-            color: #333;
             &:after {
                 right: auto;
                 left: -4px;
@@ -80,4 +108,5 @@
             left: 0
         }
     }
+
 }

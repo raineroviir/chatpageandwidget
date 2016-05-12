@@ -28,7 +28,9 @@ export class ConversationsView extends Component {
               let activeConversation = this.props.activeConversation,
               userName = (conversation.last_message) ? conversation.last_message.user_id : "User",
               avatarText = "U" + (userName + "").charAt(0),
-              time = moment(conversation.updated_at).format("LT");;
+              time = moment(conversation.updated_at),
+              diff = moment().endOf("day").diff(moment(conversation.updated_at), "days", true),
+              displayTime = (diff <= 1) ? time.format("LT") : (diff <= 2) ? "yesterday" : time.format("D MMM YYYY");
               return (
                 <li key={conversation.id} 
                 onClick={this.selectConversation.bind(this, conversation)} 
@@ -42,7 +44,7 @@ export class ConversationsView extends Component {
                     
                     <p className="name">
                       User { (conversation.last_message) ? conversation.last_message.user_id : "User"}
-                      <span className="time-wrapper">{time}</span>
+                      <span className="time-wrapper">{displayTime}</span>
                     </p>
                     <p className="message">
                     { (conversation.last_message) ? conversation.last_message.text : ""}

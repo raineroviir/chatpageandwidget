@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import moment from 'moment';
 import * as loginActions from "../Login";
 let channels = require("json!./../../mocks/v1/channels.list.json");
 let conversations = require("json!./../../mocks/v1/conversations.list.json");
@@ -43,7 +44,8 @@ export function getConversations(channelid, channels) {
       .then(json => {
         /* Invoke Channels Service when we recieve new channels */
         if(json.conversations.length){
-          dispatch(getConversationHistory(json.conversations[0].id));
+          let conversations = _.sortBy(json.conversations, a => parseInt(moment(a.updated_at).format("x"))).reverse();
+          dispatch(getConversationHistory(conversations[0].id));
         }
         else{
           dispatch(processConversationsHistoryForDispatch({ messages: []}, null)) 

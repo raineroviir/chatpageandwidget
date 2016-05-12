@@ -65,9 +65,25 @@
                     background-size: 100%; 
                 }
             }
+            &.logo .avatar {
+                background-color: #45b166;
+                color: #fff;
+                font-size:2em;
+                text-transform: uppercase;
+                text-align: center;
+                line-height: 40px;
+                height:40px;
+                border-radius: 2px;
+            }
             &.active,&:hover {
                 .nav-link {
                     background: #138536;
+                }
+                .avatar {
+                    background-color: #fff;
+                    color: #45b166;
+                    text-decoration:none;
+                    cursor:pointer;
                 }
             }
         
@@ -160,20 +176,27 @@
         display: block
     }
 }
-@media screen and (max-width: 768px) {
-    .main-section,.chats-contacts-wrapper {
+@media screen and (max-width: 767px) {
+    .main-section {
         display: none;
     }
     .show-chat-panel {
-        .master-nav,.secondary-nav,.chats-contacts-wrapper {
+        .master-nav,.secondary-nav {
             display: none;
         }
-        .chat-panel {
-            display: block;
-            width: 100%;
-        }
+        
         .main-section  {
             display: block;
+        }
+    }
+}
+@media screen and (max-width: 1000px) {
+    .chats-contacts-wrapper {
+        display: none;
+    }
+    .main-section {
+        .chat-panel {
+            width: 100%;
         }
     }
 }

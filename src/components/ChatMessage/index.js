@@ -21,7 +21,7 @@ export class ChatMessage extends Component {
               let avatarText = "U" + ((message.user_id) ? (message.user_id + "").charAt(0) : "");
               if(user.id != message.user_id){
                 return(
-                  <li key={message.id} className="received-message">
+                  <li key={message.id} className="received-message fade-in">
                     <div className="chat-message">
                       <img className="img-circle" 
                       src="dist/images/user.png" 
@@ -37,7 +37,7 @@ export class ChatMessage extends Component {
               }
               else {
                 return(
-                  <li key={message.id} className="sent-message">
+                  <li key={message.id} className="sent-message fade-in">
                     <div className="chat-message">
                       <img className="img-circle" 
                       src={user.avatar_96} 

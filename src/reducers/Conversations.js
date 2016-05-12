@@ -1,3 +1,5 @@
+import moment from 'moment';
+var _ = require('lodash');
 const initialState = {
   conversations: [],
   channelid: null
@@ -8,7 +10,7 @@ export function conversations(state = initialState, action) {
   case 'FETCH_CONVERSATIONS':
     return {
       ...state,
-      conversations: action.posts.conversations,
+      conversations: _.sortBy(action.posts.conversations, a => parseInt(moment(a.updated_at).format("x"))).reverse(),
       channelid: action.posts.channelid
     };
   case 'RESET_CONVERSATIONS':
