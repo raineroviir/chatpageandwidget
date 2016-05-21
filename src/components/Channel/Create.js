@@ -9,24 +9,25 @@ export class ChannelCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.state.team_description=this.props.registrationDetails.Organisation.payload.team_description;
   }
 
   handleNext(evt){
     evt.preventDefault();
-    let RegisterOrganisationName = this.refs.RegisterOrganisationName.value;
-    this.props.handleNext(RegisterOrganisationName);
+    let avatar = this.refs.avatar.value
+    let name = this.refs.name.value;
+    let address = this.refs.address.value;
+    this.props.handleNext(avatar, name, address);
   }
 
   inputChange(){
-    this.refs.nextButton.disabled = !(this.refs.RegisterOrganisationName.value)
+    this.refs.nextButton.disabled = !(this.refs.avatar.value && this.refs.name.value && this.refs.address.value)
+  }
+  openFileInput() {
+    this.refs.avatar.click();
   }
 
   componentDidMount() {
-    if(this.state.team_description === ''){
-      this.refs.nextButton.disabled = true;
-    }
-    this.refs.RegisterOrganisationName.value = this.state.team_description;
+    this.refs.nextButton.disabled = true;
   }
 
   render() { 
@@ -34,25 +35,40 @@ export class ChannelCreate extends Component {
   //  console.log("SignUpRegistrationComponentRender"+this.props.registrationDetails);
     
     return (
-      <div id="signupbox"  className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <form id="signupform" className="form-horizontal name-chat-form" role="form">
-                <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
-                <h1 className="inner-title">Name your chat.center</h1>
-                <div className="input-group input-group-lg">
-                  <label htmlFor="organizationName" className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" /></label>
-                  <input id="organizationName" type="text" className="form-control" ref="RegisterOrganisationName" placeholder="Organization, team, department name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
-                </div> 
-                <div className="desc">Example: Virgin Galactic; Techcrunch; Stanford United; Beyonce; Photo Review Blog etc. </div>
-                <div className="form-group button-wrapper">
-                    <div className="col-sm-12">
-                      <div className="row">
+            <div id="create-ext-chat-form"  className="create-ext-chat-form chat-name-address" >
+              <div className="section-content">
+                <h1 className="section-title-1">Internal group chat</h1>
+                <h2 className="section-title">Chat name and address</h2>
+                <div className="form-wrapper">
+                  <div className="change-image-wrapper">
+                    <input id="chatavatar" type="file" className="input-field" ref="avatar" placeholder="avatar" onChange={this.inputChange.bind(this)} aria-describedby="chatavatar-addon" />
+                    <div className="change-image">
+                      Change Image
+                    </div>
+                    <div className="browse" onClick={this.openFileInput.bind(this)}>
+                      Browse Image
+                    </div>
+                    
+                  </div>
+                  <div className="input-wrapper">
+                    <label htmlFor="chatname">Chat Name</label>
+                    <input id="chatname" type="text" className="input-field" ref="name" placeholder="i.e. Sales, Support, etc " onChange={this.inputChange.bind(this)} aria-describedby="chatname-addon" />
+                  </div>
+                  
+                  <div className="input-wrapper">
+                    <label htmlFor="chataddress-addon">Chat address</label>
+                    <input id="chataddress-addon" type="text" className="input-field" ref="address" placeholder="team.chat.center/address" onChange={this.inputChange.bind(this)} aria-describedby="chataddress-addon" />
+                  </div>
+                  
+                  <div className="button-wrapper">
                     <button type="button" className="btn btn-default back" onClick={this.props.handleBack}>BACK</button>
                     <button type="submit" ref="nextButton" className="btn btn-default sign-in pull-right" onClick={this.handleNext.bind(this)}>NEXT</button>
-                  </div>
-                   </div>
-                </div>            
-            </form>
-       </div> 
+                  </div> 
+                </div>
+
+              </div>
+            </div>
+      
     );
   }
 }

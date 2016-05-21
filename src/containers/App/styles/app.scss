@@ -582,7 +582,7 @@ a:hover .avatar, li.active .avatar, a:focus .avatar{
 }
 
 /*Ravi styles overridden -  Start */
-.glyphicon-plus:before, .glyphicon-home:before, .glyphicon-dashboard:before, .glyphicon-user:before, .glyphicon-search:before, .glyphicon-cog:before {
+.glyphicon-plus:before, .glyphicon-home:before, .glyphicon-dashboard:before, .glyphicon-search:before, .glyphicon-cog:before {
     content: "" !important;
 }
 
@@ -604,7 +604,7 @@ a:hover .avatar, li.active .avatar, a:focus .avatar{
     background-size: contain;
 }
 
-.glyphicon-user{
+.icon-user{
   background-image: url(../images/groups.svg);
   width: 24px;
     height: 24px;

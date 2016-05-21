@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import * as CCActions from '../../actions'
 import DocumentMeta from 'react-document-meta';
 
+import { styles } from './styles.scss';
+
 /* components */
 //import { Register } from 'components/Register';
 
@@ -22,38 +24,36 @@ export class Channel extends Component {
   render() {
     //const { actions } = this.props
     return (
-      <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 logo-centered">
-            <form id="signupform" className="form-horizontal" role="form">
-                <div className="logo-wrapper">
-                  <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
-                </div>
-                <h1 className="title text-center">chat.center</h1>
-                <div className="details text-center">Create a free chat.center for:</div>
-                <div className="user-type org col-sm-12 text-center">
-                <a href="#/signup/organization/name">
-                  <img src="dist/images/org-icon.svg" title="Organization" />
-                  <span className="user-type-content">
-                    <strong>Organization</strong>
-                    <span>Great for teams and collaboration</span>
-                  </span>
-                </a>
-                </div>
-                <div className="user-type ind col-sm-12 text-center">
-                <a href="#/signup/individual">
-                  <img src="dist/images/ind-icon.svg" title="Organization" />
-                  <span className="user-type-content">
-                    <strong>Individual</strong>
-                    <span>If you want to keep it nice and simple </span>
-                  </span>
-                </a>
-                </div>
-                <div className="col-sm-12 text-center">
-                  <div className="sign-in-wrapper">
-                    <span>Have an account?</span>
-                    <a href="#/login" title="Sign in" className="pull-right">Sign in.</a>
-                  </div>
-                </div>
-            </form>
+      <div  className="create-ext-chat create-ext-chat-form">
+        <a href="#" className="close-wrapper">
+          <span className="glyphicon glyphicon-remove"></span>
+        </a>
+        <div className="section-content">
+          <h1 className="section-title">Create external chat</h1>
+          <p className="title-desc">What kind of chat would you like to create?</p>
+          <div className="chat-type-wrapper">
+            <div className="master-tile">
+              <a className="master-link" href="#/channel/create/individual-chat">
+                <span className="icon-wapper">
+                  <span className="glyphicon glyphicon-user"></span>
+                </span>
+                <span className="master-link-title">Individual Chat</span>
+              </a>
+              <p className="master-tile-desc">
+                Chat with each customer individually. Good for sales and support etc.
+              </p>
+            </div>
+            <div className="master-tile">
+              <a className="master-link" href="#/channel/create/group-chat">
+                <span className="icon-wapper"><span className="glyphicon glyphicon-qrcode"></span></span>
+                <span className="master-link-title">Group Chat</span>
+              </a>
+              <p className="master-tile-desc">
+                Anybody can join, everyone talks in the same chat.
+              </p>
+            </div>
+          </div>
+        </div>  
        </div> 
     );
   }

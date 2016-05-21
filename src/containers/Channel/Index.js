@@ -5,6 +5,7 @@ import * as CCActions from '../../actions'
 import DocumentMeta from 'react-document-meta';
 
 /* components */
+import Navigation from 'containers/Home/Navigation';
 import { Channel } from '../../components/Channel/Index';
 
 const metaData = {
@@ -23,7 +24,9 @@ export class ChannelContainer extends Component {
     const { actions } = this.props
     return (
       <div>
+
           <DocumentMeta {...metaData} />
+          <Navigation historyApi={this.props.historyApi} />
           <Channel actions={actions} />
       </div>
     );
