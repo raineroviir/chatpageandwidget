@@ -35,7 +35,7 @@ $(document).ready(function () {
     $( 'body' ).on('click', '.chat-lists-wrapper .chat-message', function  (argument) {
         $( 'body' ).addClass( 'show-chat-panel' );
     });
-    $('body').click('click','.goback-icon' function() {
+    $('body').click('click','.goback-icon', function() {
         $( 'body' ).removeClass( 'show-chat-panel' );
     } );
 
