@@ -8,18 +8,18 @@ $(document).ready(function () {
     $('.chat-group').height($(window).height()-$('footer').height()-$('header').height()-75);
 
 	
-	$('.channel-list').on('click', function (e) {
+	$('body').on('click', '.channel-list', function (e) {
 		if($(e.target).closest('.leftmenu').length == -1 || !$(e.target).hasClass('glyphicon-menu-hamburger'))
 			$('.leftmenu').addClass('hidden-xs');
 	});
-	$('.main header').on('click', '.groups-link', function () {
+	$('body').on('click', '.main header .groups-link', function () {
 		$('.chat-contacts').toggleClass('hidden-xs');
 	});
-	$('.main').on('click', function (e) {
+	$('body').on('click', '.main', function (e) {
 		if($(e.target).closest('.chat-contacts').length == -1 || !$(e.target).hasClass('glyphicon-user'))
 			$('.chat-contacts').addClass('hidden-xs');
 	});
-	$('.channel-list').on('click', '.user-item li:not(".header")', function() {
+	$('body').on('click', '.channel-list .user-item li:not(".header")', function() {
 		$('.sidebar').toggleClass('hidden-xs hidden-sm');
 		$('.main').toggleClass('hidden-xs hidden-sm');
 		$('.mCustomScrollBar').mCustomScrollbar({ 
@@ -27,19 +27,19 @@ $(document).ready(function () {
 		});
 	});
 
-    $('.user-info').on('click', '.menu-hamburger', function () {
+    $('body').on('click', '.user-info .menu-hamburger', function () {
         $( 'body' ).toggleClass( 'show-master-nav' );
     });
 
     //show chat-panel on click of the chat message
-    $( '.chat-lists-wrapper' ).on('click', '.chat-message', function  (argument) {
+    $( 'body' ).on('click', '.chat-lists-wrapper .chat-message', function  (argument) {
         $( 'body' ).addClass( 'show-chat-panel' );
     });
-    $('.goback-icon').click( function() {
+    $('body').click('click','.goback-icon' function() {
         $( 'body' ).removeClass( 'show-chat-panel' );
     } );
 
-	$('.main header').on('click', '.glyphicon-circle-arrow-left', function() {
+	$('body').on('click', '.main header .glyphicon-circle-arrow-left', function() {
 		$('.sidebar').toggleClass('hidden-xs hidden-sm');
 		$('.main').toggleClass('hidden-xs hidden-sm');
 	});
