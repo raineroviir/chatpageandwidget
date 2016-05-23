@@ -29,7 +29,7 @@ export class Channel extends Component {
           <span className="glyphicon glyphicon-remove"></span>
         </a>
         <div className="section-content">
-          <h1 className="section-title">Create external chat</h1>
+          <h1 className="section-title">Who can delete unwanted messages and block for bad behavior?</h1>
           <p className="title-desc">What kind of chat would you like to create?</p>
           <div className="chat-type-wrapper">
             <div className="master-tile">

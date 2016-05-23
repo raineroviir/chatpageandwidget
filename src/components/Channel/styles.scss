@@ -13,6 +13,7 @@
 		letter-spacing: -0.5px;
 		margin: 0;
 		font-weight: normal;
+		font-family: Rubik-Medium;    
 	}	
 	.section-title-1 {
 		font-size: 20px;
@@ -63,7 +64,7 @@
 	.button-wrapper {
 
 	}
-	button {
+	.btn {
 		padding:10px 0;
 		height: 48px;
 		border-radius: 5px;
@@ -74,22 +75,22 @@
 		font-size:20px;
 		margin:1
 	}
-	button[disabled] {
+	.btn[disabled] {
 		background-color: #e2e2e2;
 		color:#fff;
 	}
-	button.sign-up {
+	.btn.sign-up {
 		width: 336px;
 		margin-top:23px;
 	}
-	button.sign-up-inline {
+	.btn.sign-up-inline {
 		width: 186px;
 		margin-top:12px;
 	}
-	button.sign-in {
+	.btn.sign-in {
 		width: 182px;
 	}
-	button.back {
+	.btn.back {
 		background-color: transparent;
 		width: 182px;
 	}
@@ -130,6 +131,80 @@
 			height: 0;
 			width:0;
 		}
+	}
+
+
+	.footer-help {
+		text-align: center;
+		margin-top: 95px;
+		font-size: 16px;
+		color: #474848;
+		a {
+			margin-left: 10px;
+		}
+	}
+	.moderators-count {
+		font-size: 18px;
+		letter-spacing: 0.1px;
+		color: #474848;
+		padding: 0 10px;
+		margin-top: 20px;
+	}
+	.moderator-item-wrapper {
+		padding: 0 10px;
+	}
+	.add-via-chat-link {
+		position: absolute;
+		left: 100%;
+		font-size: 14px;
+		letter-spacing: 0.1px;
+		color: #9a9da1;
+	    font-size: 14px;
+	    letter-spacing: 0.1px;
+	    color: #9a9da1;
+	    top: 10px;
+	    min-width: 100px;
+	    text-decoration: underline;
+	}
+	.moderator-item {
+		margin-top: 20px;
+		.avatar-wrapper {
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: 12px;
+
+			.avatar-text, avatar-img {
+				width: 28px;
+				height: 28px;
+				background-color: #45b166;
+	            color: #fff;
+	            text-align: center;
+	            line-height: 29px;
+	            display: inline-block;
+	            border-radius: 50%;
+			}
+			
+            .avatar-img {
+            	display: none;
+            }
+		}	
+		.user-name {
+        	display: inline-block;
+        	vertical-align: middle;
+        }
+        .user-chat-address-wrapper {
+        	float: right;
+        	.user-chat-address {
+	        	color: #9a9da1;
+	        }
+	        button {
+	        	border: 0;
+	        	background: none;
+	        	margin-left: 13px;
+	        	color: #9a9da1;
+	        }
+        }
+        
 	}
 	
 }
