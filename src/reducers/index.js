@@ -11,7 +11,7 @@ import { registrationDetails } from './registrationDetails';
 import { loginDetails } from './loginDetails';
 import { guest } from './Guest';
 import { channelDetails } from './ChannelDetails';
-import { createChannel } from './createChannel';
+import { createChannel } from './CreateChannel';
 
 const rootReducer = combineReducers({
   form: formReducer,
