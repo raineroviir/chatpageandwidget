@@ -1,12 +1,16 @@
 import fetch from 'isomorphic-fetch';
 //import postLoginRequest from '../services/common/login';
+import * as LoginActions from '../Login';
 
 export function registerOrganisationName(RegisterOrganisationName) {
+  //alert(dispatch);
   return (dispatch, getState) => {
-      dispatch({
+    dispatch({
       type: 'REGISTER_ORGANISATION_NAME',
       RegisterOrganisationName
     })
+    // LoginActions.loginUser("ravish", "password");
+    // dispatch(LoginActions.submitLogin());
   }
 }
 
@@ -55,14 +59,14 @@ export function registerIndividualDetails(FirstName,LastName,Email,Password) {
   }
 }
 
-export function submitRegistration(index) {
+export function submitRegistration(isIndividual) {
   //alert('submitRegistration');
   return (dispatch, getState) => {
-      return dispatch(postRegistration(getState().registrationDetails.Organisation.payload))
+      return dispatch(postRegistration(getState().registrationDetails.Organisation.payload, isIndividual))
   }
 }
 
-function postActionConstruct(json) {
+function postActionConstruct(json, isIndividual) {
  
   return (dispatch, getState) => {
     dispatch({
@@ -75,29 +79,35 @@ function postActionConstruct(json) {
     })
 
     if(json.ok){
+        var payload = getState().registrationDetails.Organisation.payload, 
+          username = ((payload.team) ? (payload.team + '.chat.center/') : 'chat.center/' ) + payload.channel,
+          password = payload.password;
+
+        dispatch(LoginActions.loginUser(username, password));
+        dispatch(LoginActions.submitLogin("", !isIndividual));          
+
+        if (typeof(Storage) !== "undefined") {
+          localStorage.setItem("user_channel", payload.channel);
+        }
+        // TODO: Need to reset org details after successful registration followed by successful login
         dispatch({
           type:'RESET_ORGANISATION_DETAILS'
         })
 
         dispatch({
           type:'SUCCESSFUL_REGISTRATION_ACK'
-        })
-
-        window.location.hash = "#/login";
-        //reset Organidation Details once successfully signed up
-        
-    }
-    
+        })       
+    }    
   }
 }
 
-function postRegistration(payload1) {
+function postRegistration(payload1, isIndividual) {
   return dispatch => {
     var payload = Object.assign({},payload1);
     if(payload.team !== null)
       payload.team = payload.team+'.chat.center';
     postLoginRequest(payload).then(response => {return response.json()})	
-      .then(json => dispatch(postActionConstruct(json)))
+      .then(json => dispatch(postActionConstruct(json, isIndividual)))
   }
 }
 

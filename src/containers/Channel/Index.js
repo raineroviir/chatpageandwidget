@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import * as CCActions from '../../actions'
+import * as CCActions from '../../actions/CreateChannel'
 import DocumentMeta from 'react-document-meta';
 
 /* components */
@@ -20,6 +20,12 @@ const metaData = {
 };
 
 export class ChannelContainer extends Component {
+
+  chatType(attr, url){
+    this.props.actions.chatType(attr);
+    window.location.hash = url;
+  }
+
   render() {
     const { actions } = this.props
     return (
@@ -27,7 +33,7 @@ export class ChannelContainer extends Component {
 
           <DocumentMeta {...metaData} />
           <Navigation historyApi={this.props.historyApi} />
-          <Channel actions={actions} />
+          <Channel actions={actions} chatType={this.chatType.bind(this)}/>
       </div>
     );
   }

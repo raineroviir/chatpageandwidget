@@ -12,16 +12,12 @@ export class RegisterOrgVerify extends Component {
   }
 
   handleNext(RegisterPassword){
-    
     //store the value in STORE by dispatching event in action
     this.props.actions.registerPassword(RegisterPassword);
     this.props.actions.submitRegistration();
-    //alert(result);
-    //window.location.hash = "#";
   }
 
   render() {
-    //const { actions } = this.props
     return (
       <RegisterOrgVerifyComp registrationDetails={this.props.registrationDetails} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} registrationDetails={this.props.registrationDetails} />
     );

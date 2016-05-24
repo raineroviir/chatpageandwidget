@@ -11,6 +11,7 @@ import { registrationDetails } from './registrationDetails';
 import { loginDetails } from './loginDetails';
 import { guest } from './Guest';
 import { channelDetails } from './ChannelDetails';
+import { createChannel } from './createChannel';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
   userinfo,
   orgs,
   guest,
-  channelDetails
+  channelDetails,
+  createChannel
 });
 
 export default rootReducer;

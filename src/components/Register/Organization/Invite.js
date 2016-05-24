@@ -6,8 +6,11 @@ import * as RegistrationActions from '../../../actions/Registration';
 export class RegisterIndividualDomain extends Component {
 
   handleBack(){
-    //console.log('Moving 1 step back');
-    window.location.hash = "#/login";
+    //console.log(this.props.registrationDetails);
+    if (typeof(Storage) !== "undefined") {
+      window.location.hash = "#/" + localStorage.getItem("user_channel");
+      localStorage.setItem("user_channel", "");
+    }
   }
 
   handleNext(e){

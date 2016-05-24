@@ -10,16 +10,22 @@ export function loginUser(Username,Password) {
   }
 }
 
-export function submitLogin(addOrg) {
+export function submitLogin(addOrg,goToInvitePage) {
   //alert('submitRegistration');
   return (dispatch, getState) => {
-      return dispatch(postLogin(getState().loginDetails.User.payload, addOrg))
+      return dispatch(postLogin(getState().loginDetails.User.payload, addOrg, goToInvitePage))
   }
 }
 
-function postActionConstruct(json, payload, addOrg) {
+function postActionConstruct(json, payload, addOrg, goToInvitePage) {
+  
   if(json.token){
-    window.location.hash = "#/dashboard/" + payload.username.split("/")[1];
+    if(goToInvitePage){
+      window.location.hash = "#/organization/invite";
+    }
+    else{
+      window.location.hash = "#/dashboard/" + payload.username.split("/")[1];
+    }
     if (typeof(Storage) !== "undefined") {
       var orgs = JSON.parse(localStorage.getItem("orgs")) || [],
         org = orgs.filter(item => item.name == payload.username);
@@ -67,11 +73,11 @@ function postActionConstruct(json, payload, addOrg) {
   }
 }
 
-function postLogin(payload, addOrg) {
+export function postLogin(payload, addOrg, goToInvitePage) {
   return dispatch => {
     postLoginRequest(payload).then(response => {return response.json()})	
       .then(json => {
-        dispatch(postActionConstruct(json, payload, addOrg))
+        dispatch(postActionConstruct(json, payload, addOrg, goToInvitePage))
         dispatch({
           type: "SET_GUEST",
           posts: { guest: false },

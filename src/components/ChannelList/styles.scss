@@ -2,6 +2,7 @@
     height: 100vh;
     background: #273d2e;
     color: #fff;
+    margin-left: 0px;
     .msg-count {
         min-width: 20px;
         height: 20px;
@@ -30,6 +31,7 @@
         position: absolute;
         top: 22px;
         left: 10px;
+        cursor:pointer;
     }
     .user-name {
         margin-bottom: 0;
@@ -200,9 +202,11 @@
 }
 
 @media screen and (min-width: 768px) {
+
     .secondary-nav {
         width: 240px;
         float: left;
+        margin-left: 72px;
         .menu-hamburger {
             display: none;
         }

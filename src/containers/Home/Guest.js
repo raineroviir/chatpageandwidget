@@ -9,7 +9,7 @@ import CreateMessage from 'containers/Home/CreateMessage';
 export class Messages extends Component {
   render() {
     return (
-      <div className="col-xs-6 col-md-offset-3">
+      <div className="guest-messaging-wrapper">
         <h1>Chat Center</h1>
         <ChatMessage messages={this.props.messages.messages} user={this.props.user} isGuest={this.props.isGuest} />
         <CreateMessage isGuest={this.props.isGuest} convid={this.props.convid} />

@@ -6,21 +6,17 @@ import classNames from 'classnames';
 
 export class ChannelCreate extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   handleNext(evt){
     evt.preventDefault();
-    let avatar = this.refs.avatar.value
-    let name = this.refs.name.value;
-    let address = this.refs.address.value;
-    this.props.handleNext(avatar, name, address);
+    let attr = {};
+    attr.avatar = this.refs.avatar.value
+    attr.description = this.refs.description.value;
+    attr.channel = this.refs.channel.value;
+    this.props.handleNext(attr);
   }
 
   inputChange(){
-    this.refs.nextButton.disabled = !(this.refs.avatar.value && this.refs.name.value && this.refs.address.value)
+    this.refs.nextButton.disabled = !(this.refs.avatar.value && this.refs.description.value && this.refs.channel.value)
   }
   openFileInput() {
     this.refs.avatar.click();
@@ -52,12 +48,12 @@ export class ChannelCreate extends Component {
                   </div>
                   <div className="input-wrapper">
                     <label htmlFor="chatname">Chat Name</label>
-                    <input id="chatname" type="text" className="input-field" ref="name" placeholder="i.e. Sales, Support, etc " onChange={this.inputChange.bind(this)} aria-describedby="chatname-addon" />
+                    <input id="chatname" type="text" className="input-field" ref="description" placeholder="i.e. Sales, Support, etc " onChange={this.inputChange.bind(this)} aria-describedby="chatname-addon" />
                   </div>
                   
                   <div className="input-wrapper">
                     <label htmlFor="chataddress-addon">Chat address</label>
-                    <input id="chataddress-addon" type="text" className="input-field" ref="address" placeholder="team.chat.center/address" onChange={this.inputChange.bind(this)} aria-describedby="chataddress-addon" />
+                    <input id="chataddress-addon" type="text" className="input-field" ref="channel" placeholder="team.chat.center/address" onChange={this.inputChange.bind(this)} aria-describedby="chataddress-addon" />
                   </div>
                   
                   <div className="button-wrapper">

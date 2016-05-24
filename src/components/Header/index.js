@@ -20,7 +20,7 @@ export class HeaderView extends Component {
 
       <div className="header">
           <div className="goback-icon">
-            <span className="glyphicon glyphicon-circle-arrow-left "></span>
+            <span className="glyphicon glyphicon-chevron-left"></span>
           </div>
           <div className="feature-panel">
             <ul className="feature-list">

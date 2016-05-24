@@ -28,7 +28,7 @@ export class ChannelMembers extends Component {
   //  console.log("SignUpRegistrationComponentRender"+this.props.registrationDetails);
     
     return (
-      <div id="create-ext-chat-form"  className="create-ext-chat-form chat-name-address" >
+      <div id="create-ext-chat-form"  className="create-ext-chat-form moderators-form " >
        
         <div className="section-content">
           <h1 className="section-title-1">Internal group chat</h1>
@@ -37,7 +37,7 @@ export class ChannelMembers extends Component {
 
             <div className="input-wrapper">
               <input id="membersName" type="text" className="input-field" ref="membersName" placeholder="Invite people from Extraordinary Foods" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
-              <a href="javascript:;" title="add" className="add-via-chat-link">Add via<br/>chat address</a>
+              <a href="javascript:;" title="add" className="add-via-chat-link">Add via chat address</a>
             </div>
 
             <div className="moderators-count">

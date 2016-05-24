@@ -25,7 +25,7 @@ export class RegisterIndividualDomain extends Component {
 
     //store the value in STORE by dispatching event in action
     this.props.actions.registerChannel(RegisterChannel);
-    this.props.actions.submitRegistration();
+    this.props.actions.submitRegistration(true);
   }
   inputChange(){
     if(this.state.channel === ''){

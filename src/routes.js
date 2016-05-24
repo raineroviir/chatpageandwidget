@@ -39,8 +39,8 @@ export default (
     <Route path="organization/join" component={OrgJoin} />
     <Route path="signup/individual" component={RegisterIndividual} />
     <Route path="signup/individual/domain" component={RegisterIndividualDomain} />
-    <Route path="channel/create" component={Channel} />
-    <Route path="channel/create/:type" component={ChannelCreate} />
+    <Route path="channel/type" component={Channel} />
+    <Route path="channel/create" component={ChannelCreate} />
     <Route path="channel/members/:id" component={ChannelMembers} />
     <Route path=":user">
         <IndexRoute component={Home} />

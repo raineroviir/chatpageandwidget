@@ -25,15 +25,15 @@ export class Channel extends Component {
     //const { actions } = this.props
     return (
       <div  className="create-ext-chat create-ext-chat-form">
-        <a href="#" className="close-wrapper">
+        <a href="javascript: void( 0 )" className="close-wrapper">
           <span className="glyphicon glyphicon-remove"></span>
         </a>
         <div className="section-content">
-          <h1 className="section-title">Who can delete unwanted messages and block for bad behavior?</h1>
+          <h1 className="section-title">Create external chat</h1>
           <p className="title-desc">What kind of chat would you like to create?</p>
           <div className="chat-type-wrapper">
             <div className="master-tile">
-              <a className="master-link" href="#/channel/create/individual-chat">
+              <a className="master-link" href="javascript:;" onClick={this.props.chatType.bind(this, {is_public:true,is_group:false,is_direct:false}, '#/channel/create')}>
                 <span className="icon-wapper">
                   <span className="glyphicon glyphicon-user"></span>
                 </span>
@@ -44,7 +44,7 @@ export class Channel extends Component {
               </p>
             </div>
             <div className="master-tile">
-              <a className="master-link" href="#/channel/create/group-chat">
+              <a className="master-link" href="javascript:;" onClick={this.props.chatType.bind(this, {is_public:true,is_group:true,is_direct:false}, '#/channel/create')}>
                 <span className="icon-wapper"><span className="glyphicon glyphicon-qrcode"></span></span>
                 <span className="master-link-title">Group Chat</span>
               </a>

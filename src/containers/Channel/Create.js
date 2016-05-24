@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import * as CCActions from '../../actions/Channels';
+import * as CCActions from '../../actions/CreateChannel';
 import DocumentMeta from 'react-document-meta';
 import Navigation from 'containers/Home/Navigation';
 import {ChannelCreate} from '../../components/Channel/Create';
@@ -20,20 +20,13 @@ const metaData = {
 
 export class ChannelCreateContainer extends Component {
 
-  // constructor(props) {
-  //   super(props); 
-  // }
-
   handleBack(){
-    //console.log('Moving 1 step back'); 
     window.location.hash = "#/channel/create";
   }
 
-  handleNext(RegisterOrganisationName){
-    //store the value in STORE by dispatching event in action
-    //this.props.actions.registerOrganisationName(RegisterOrganisationName);
-
-    //navigate to next screen
+  handleNext(attr){
+    this.props.actions.chatDetails(attr);
+    this.props.actions.createChannel();
     window.location.hash = "#/channel/members/2";
 
   }
@@ -43,7 +36,7 @@ export class ChannelCreateContainer extends Component {
             <div>
               <DocumentMeta {...metaData} />
               <Navigation historyApi={this.props.historyApi} />
-              <ChannelCreate registrationDetails={this.props.registrationDetails} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
+              <ChannelCreate handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
           </div>
     );
   }

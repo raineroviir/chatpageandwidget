@@ -22,6 +22,7 @@
     padding: 12px 10px;
     padding-bottom: 60px;
     display: none;
+    position: fixed;
     .available-wrapper {
         white-space: nowrap;
         .available-status  {
@@ -175,18 +176,37 @@
     .master-nav {
         display: block
     }
+    .secondary-nav {
+        margin-left: 72px;
+    }
 }
 @media screen and (max-width: 767px) {
     .main-section {
         display: none;
     }
-    .show-chat-panel {
+    .show-chat-panel,.show-conversation-panel {
         .master-nav,.secondary-nav {
             display: none;
         }
         
         .main-section  {
             display: block;
+        }
+    }
+    .show-conversation-panel {
+        .chats-contacts-wrapper {
+            display:block;
+        }
+        .chat-panel {
+            display:none;
+        }
+    }
+    .show-chat-panel {
+        .chats-contacts-wrapper {
+            display:none;
+        }
+        .chat-panel {
+            display:block;
         }
     }
 }
@@ -196,6 +216,9 @@
     }
     .main-section {
         .chat-panel {
+            width: 100%;
+        }
+        .chats-contacts-wrapper {
             width: 100%;
         }
     }

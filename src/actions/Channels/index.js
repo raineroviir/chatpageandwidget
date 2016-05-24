@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
 import * as loginActions from "../Login";
+import * as createChannelActions from "../CreateChannel";
 let channels = require("json!./../../mocks/v1/channels.list.json");
 let conversations = require("json!./../../mocks/v1/conversations.list.json");
 
@@ -193,6 +194,10 @@ export function setUserInfo(user, history) {
     posts : null,
     receivedAt: Date.now()
   };
+}
+
+export function createChannelChatType(attr) {
+  createChannelActions.chatType(attr);
 }
 
 function fetchChannels() {
