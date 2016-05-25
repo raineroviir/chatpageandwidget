@@ -50,7 +50,7 @@ export class Channels extends Component {
   }
   render() {
     return (
-        <ChannelList createChannel={this.createChannel.bind(this)} channels={this.props.channels.channels} user={this.props.user} selectChannel={this.selectChannel.bind(this)} activeChannel={this.props.activeChannel}/>
+        <ChannelList createChannel={this.createChannel.bind(this)} channels={this.props.channels.channels} user={this.props.user} selectChannel={this.selectChannel.bind(this)} activeChannel={this.props.activeChannel} org={this.props.org} />
     );
   }
   componentDidMount(){
@@ -62,7 +62,8 @@ function mapStateToProps(state, ownProps) {
   return {
     channels: state.channels,
     user: state.userinfo,
-    activeChannel: state.conversations.channelid
+    activeChannel: state.conversations.channelid,
+    org: state.orgs.orgs.find(org => org.active)
   }
 }
 

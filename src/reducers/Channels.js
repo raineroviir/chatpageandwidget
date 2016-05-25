@@ -6,6 +6,7 @@ const initialState = {
     groupChannels: [],
     otherChannels: [],
     recentContacts: [],
+    directChannels: [],
     count: 0,
     isGroupChat: false
   }

@@ -26,7 +26,7 @@ export class ChannelList extends Component {
               { user.first_name  ? (user.first_name + " " + user.last_name ) : '' }
             </p>
             <p className="ellipsis team-name">
-              {(user.team&&user.team.name) ? (user.team.name + "/" + user.team.description) : ("chat.center/" + ( user.first_name?user.first_name:'' ) ) }
+              { this.props.org && this.props.org.name }
             </p>
           </div>
           <div className="direct-message">
@@ -37,6 +37,26 @@ export class ChannelList extends Component {
                 </span>
                 
               </div>
+              <ul className="chat-list">
+              {
+                this.props.channels.directChannels.map(channel => {
+                  let avatarText = (channel.name) ? channel.name.charAt(0) : "";
+                  return (
+
+                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message active" : "chat-message" }>
+                      <a>
+                        <img className="img-rounded" src="dist/images/user.png" title={channel.name} alt={channel.name} />
+                        <span className="avatar">{avatarText}</span>
+                        <span className="name ellipsis">
+                          {channel.name}
+                        </span>
+                        <span className="msg-count">2</span>
+                      </a>
+                    </li>
+                  );
+                })
+              }
+              </ul>
           </div>
           <div className="chat-lists-wrapper">
             

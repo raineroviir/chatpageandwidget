@@ -5,23 +5,36 @@ import * as createChannelActions from "../CreateChannel";
 let channels = require("json!./../../mocks/v1/channels.list.json");
 let conversations = require("json!./../../mocks/v1/conversations.list.json");
 
-export function getChannels(channelid) {
+export function getChannels(channelid, old_token) {
   /* Mocks */
   /*return (dispatch, getState) => {
     return dispatch(processChannelsForDispatch(channels));
   }*/
   return dispatch => {
+    let unauth = false;
     if(typeof(Storage) === "undefined" || !localStorage.getItem("token")){
       dispatch(initGuestMessaging());
       return;
     } 
-    fetchUserInfo().then(response => {return response.json()})  
+    fetchUserInfo().then(response => {
+      if (response.status == 401) {
+        unauth = true;
+        if(typeof(Storage) !== "undefined"){
+          localStorage.setItem("token", old_token);
+        } 
+        window.location.hash = "#";
+      }
+      return response.json()
+    })  
       .then(json => {
-        dispatch(processUserInfoForDispatch(json))
-        dispatch(processOrgsForDispatch(json));
+        if(!unauth){
+          dispatch(processUserInfoForDispatch(json))
+          dispatch(processOrgsForDispatch(json));
+        }
       });
 
-    fetchChannels().then(response => {return response.json()})  
+    if(!unauth){
+      fetchChannels().then(response => {return response.json()})  
       .then(json => {
         /* Invoke Channels Service when we recieve new channels */
         if(json.channels.length){
@@ -32,6 +45,7 @@ export function getChannels(channelid) {
         }
         dispatch(processChannelsForDispatch(json))
       })
+    } 
   }
 }
 export function getConversations(channelid, channels) {
@@ -141,7 +155,9 @@ export function getConversationHistory (conversationid) {
 }
 
 export function switchOrganization(org, orgs, history) {
+  let old_token; 
   if (typeof(Storage) !== "undefined") {
+    old_token = localStorage.getItem("token");
     localStorage.setItem("token", JSON.stringify(org.token));     
   }
   window.location = "#/dashboard/" + org.name.split("/")[1];
@@ -149,7 +165,7 @@ export function switchOrganization(org, orgs, history) {
   //dispatch(processOrgForDispatch(org, orgs));
   org.active = true;
   return dispatch => {
-    dispatch(getChannels())
+    dispatch(getChannels(null, old_token))
     return dispatch(processOrgForDispatch(org, orgs))
   }
   /*return {
@@ -279,10 +295,11 @@ function processChannelsForDispatch(channels) {
   let source = channels.channels.reverse() || [], 
     processed = {
       all: channels.channels,
-      publicChannels: source.filter(item => item.is_public) || [],
-      privateChannels: source.filter(item => !item.is_public) || [],
-      groupChannels: source.filter(item => item.is_group) || [],
-      otherChannels: source.filter(item => !item.is_group) || [],
+      publicChannels: source.filter(item => item.is_public && !item.is_direct) || [],
+      privateChannels: source.filter(item => !item.is_public && !item.is_direct) || [],
+      groupChannels: source.filter(item => item.is_group && !item.is_direct) || [],
+      otherChannels: source.filter(item => !item.is_group && !item.is_direct) || [],
+      directChannels: source.filter(item => item.is_direct) || [],
       recentContacts: channels.recentContacts || []
     },
     meta = {
@@ -350,13 +367,23 @@ function processOrgsForDispatch(userinfo) {
       });
     orgs = orgs.filter(item => {item.active = false; return true; });
     if(!org){
-      let chname = window.location.hash.split("dashboard/")[1];
-      orgs.push({
-        name: (userinfo.user.team) ? userinfo.user.team.name + "/" + chname : "chat.center/" + chname,
-        token: token,
-        user: userinfo.user,
-        active: true
-      })
+      let chname = window.location.hash.split("dashboard/")[1],
+        name = (userinfo.user.team) ? userinfo.user.team.name + "/" + chname : "chat.center/" + chname,
+          orgNew = orgs.find(item => {
+        return item.name == name
+      });
+      if(orgNew){
+        orgNew.token = token;
+        orgNew.active = true;
+      }
+      else {
+        orgs.push({
+          name: name,
+          token: token,
+          user: userinfo.user,
+          active: true
+        })
+      }
     }
     else{
       org.active = true;

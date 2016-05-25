@@ -40,7 +40,7 @@ function postActionConstruct(json, payload, addOrg, goToInvitePage) {
       else{
         org[0].token = json.token;
       }
-      if(addOrg) localStorage.setItem("orgs", JSON.stringify(orgs));
+      localStorage.setItem("orgs", JSON.stringify(orgs));
       localStorage.setItem("token", JSON.stringify(json.token));
       localStorage.setItem("guest", null);
     }

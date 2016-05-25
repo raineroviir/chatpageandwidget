@@ -6,7 +6,8 @@ import { styles } from './styles.scss';
 
 export class HeaderView extends Component {
   render() {
-    let user = this.props.user.userinfo;
+    let user = this.props.user.userinfo,
+      channel = this.props.channelInfo;
 
     /*
     
@@ -33,7 +34,7 @@ export class HeaderView extends Component {
           <div className="title-section">
 
             <h1 className="title">
-              Chat Center Support
+              { channel && channel.name}
               <a href="#">
               <span className="glyphicon glyphicon-cog channel-setting" aria-hidden="true"></span>
               </a>
@@ -41,9 +42,7 @@ export class HeaderView extends Component {
             <p className="channel-name-wrapper">
               <span className="channel-name">
               {
-                (user.team && user.team.name ) ? 
-                (user.team.name + "/" + user.team.description) : 
-                ("chat.center/" + (user.first_name?user.first_name:'')) 
+                channel ? (channel.address.domain + "/" + channel.address.channel) : ""
               }
               </span>
               <span className="label label-default">SHARE</span>

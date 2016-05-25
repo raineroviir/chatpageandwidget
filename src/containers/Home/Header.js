@@ -8,14 +8,15 @@ import { HeaderView } from 'components/Header';
 export class Header extends Component {
   render() {
     return (
-        <HeaderView user={this.props.user} />
+        <HeaderView user={this.props.user} channelInfo={this.props.channelInfo} />
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    user: state.userinfo
+    user: state.userinfo,
+    channelInfo: state.channels.channels.all.find(channel => channel.id == state.conversations.channelid)
   }
 }
 

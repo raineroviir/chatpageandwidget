@@ -30,7 +30,7 @@ export class NavigationView extends Component {
                     <li className="logo">
                       <a className={classnames({ avatar: !org.user.avatar_96})}>
                         <img className={classnames({ hide: !org.user.avatar_96})} src={avatar} title="Chat Center" />
-                        <span className={classnames({ hide: org.user.avatar_96})}>{ (org.name + "").charAt(0) || "CC"}</span>
+                        <span className={classnames({ hide: org.user.avatar_96})}>{ (org.user.first_name + "").charAt(0) || "CC"}</span>
                       </a>
                     </li>
                     <li className="active"><a className="nav-link" href="javascript:;"><span  className="home-icon" aria-hidden="true"></span></a></li>
