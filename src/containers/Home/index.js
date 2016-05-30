@@ -45,7 +45,7 @@ export class Home extends Component {
     });
 
     //show chat-panel on click of the chat message
-    $( '.chat-lists-wrapper' ).on('click', '.chat-message', function  (e) {
+    $( '.chat-lists-wrapper, .direct-message' ).on('click', '.chat-message', function  (e) {
       if($(this).hasClass('no-user')) {
         $( 'body' ).addClass( 'show-chat-panel' );
         $('.goback-icon').addClass('skip-user');
