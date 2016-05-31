@@ -16,7 +16,7 @@ export class ChannelCreate extends Component {
   }
 
   inputChange(){
-    this.refs.nextButton.disabled = !(this.refs.avatar.value && this.refs.description.value && this.refs.channel.value)
+    this.refs.nextButton.disabled = !(this.refs.description.value && this.refs.channel.value)
   }
   openFileInput() {
     this.refs.avatar.click();
@@ -24,17 +24,27 @@ export class ChannelCreate extends Component {
 
   componentDidMount() {
     this.refs.nextButton.disabled = true;
+    $('body').keydown(function(e){
+        if (e.which==27){
+            window.location.hash = "#/dashboard";
+        }
+    });
   }
 
   render() { 
-
-  //  console.log("SignUpRegistrationComponentRender"+this.props.registrationDetails);
+    let channel = this.props.details.payload;
     
     return (
-            <div id="create-ext-chat-form"  className="create-ext-chat-form chat-name-address" >
+            <div id="create-ext-chat-form"  className="create-ext-chat create-ext-chat-form chat-name-address" >
+              <a href="#/dashboard" className="close-wrapper">
+                <span className="glyphicon glyphicon-remove"></span>
+              </a>
               <div className="section-content">
-                <h1 className="section-title-1">Internal group chat</h1>
+                <h1 className="section-title-1" style={{display:((channel.is_public && channel.is_group) ? "" : "none")}}>External group chat</h1>
+                <h1 className="section-title-1" style={{display:((channel.is_public && !channel.is_group) ? "" : "none")}}>External Team-to-One chat channel</h1>
+                <h1 className="section-title-1" style={{display:((!channel.is_public) ? "" : "none")}}>Internal group chat</h1>
                 <h2 className="section-title">Chat name and address</h2>
+                <p className="desc" style={{display:((!channel.is_public) ? "" : "none")}}>Private group chat. Only designated members have access. </p>
                 <div className="form-wrapper">
                   <div className="change-image-wrapper">
                     <input id="chatavatar" type="file" className="input-field" ref="avatar" placeholder="avatar" onChange={this.inputChange.bind(this)} aria-describedby="chatavatar-addon" />

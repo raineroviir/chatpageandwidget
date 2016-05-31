@@ -26,7 +26,7 @@ export class ChannelMembersContainer extends Component {
 
   handleBack(){
     //console.log('Moving 1 step back'); 
-    window.location.hash = window.history.back();
+    window.history.back();
   }
 
   handleNext(RegisterOrganisationName){

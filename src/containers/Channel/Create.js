@@ -21,7 +21,7 @@ const metaData = {
 export class ChannelCreateContainer extends Component {
 
   handleBack(){
-    window.location.hash = "#/channel/create";
+    window.history.back();
   }
 
   handleNext(attr){
@@ -36,7 +36,7 @@ export class ChannelCreateContainer extends Component {
             <div>
               <DocumentMeta {...metaData} />
               <Navigation historyApi={this.props.historyApi} />
-              <ChannelCreate handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
+              <ChannelCreate details={this.props.createChannel} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
           </div>
     );
   }
@@ -50,7 +50,7 @@ ChannelCreateContainer.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    registrationDetails: state.registrationDetails
+    createChannel: state.createChannel.CreateChannel
   }
 }
 

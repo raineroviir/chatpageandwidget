@@ -26,26 +26,26 @@ export function getChannels(channelid, old_token) {
       }
       return response.json()
     })  
-      .then(json => {
-        if(!unauth){
-          dispatch(processUserInfoForDispatch(json))
-          dispatch(processOrgsForDispatch(json));
-        }
-      });
+    .then(json => {
+      if(!unauth){
+        dispatch(processUserInfoForDispatch(json))
+        dispatch(processOrgsForDispatch(json));
+      }
+    });
 
-    if(!unauth){
-      fetchChannels().then(response => {return response.json()})  
-      .then(json => {
-        /* Invoke Channels Service when we recieve new channels */
-        if(json.channels.length){
-          dispatch(getConversations(channelid || json.channels[0].id, json.channels))          
-        }
-        else{
-          dispatch(processConversationsForDispatch({ conversations: []}, null)) 
-        }
-        dispatch(processChannelsForDispatch(json))
-      })
-    } 
+    fetchChannels().then(response => {return response.json()})  
+    .then(json => {
+      /* If there is error in json stop proceeding */
+      if(json.error) { return; }
+      /* Invoke Channels Service when we recieve new channels */
+      if(json.channels.length){
+        dispatch(getConversations(channelid || json.channels[0].id, json.channels))          
+      }
+      else{
+        dispatch(processConversationsForDispatch({ conversations: []}, null)) 
+      }
+      dispatch(processChannelsForDispatch(json))
+    })
   }
 }
 export function getConversations(channelid, channels) {
@@ -55,6 +55,10 @@ export function getConversations(channelid, channels) {
   }*/
 
   return dispatch => {
+    /* Load memoized (cached) conversations from store if any */
+    dispatch(processMemoizedConversationsForDispatch(channelid));
+
+    /* Trigger API to get latest conversations */
     fetchConversations(channelid).then(response => {return response.json()})  
       .then(json => {
         /* Invoke Channels Service when we recieve new channels */
@@ -63,6 +67,7 @@ export function getConversations(channelid, channels) {
           dispatch(getConversationHistory(conversations[0].id));
         }
         else{
+          /* Reset conversation history from API */
           dispatch(processConversationsHistoryForDispatch({ messages: []}, null)) 
         }
         dispatch(processConversationsForDispatch(json, channelid))
@@ -149,6 +154,10 @@ export function getChannel(channel, access_token, team) {
 }
 export function getConversationHistory (conversationid) {
   return dispatch => {
+    /* Load memoized (cached) conversation history from store if any */
+    dispatch(processMemoizedConversationsHistoryForDispatch(conversationid));
+
+    /* Trigger API service to retrieve latest conversation history */
     fetchConversationHistory(conversationid).then(response => {return response.json()})  
       .then(json => dispatch(processConversationsHistoryForDispatch(json, conversationid)))
   }
@@ -336,6 +345,22 @@ function processConversationsHistoryForDispatch(messages, conversationid) {
   return {
     type: 'FETCH_MESSAGES',
     posts: { ...messages, conversationid},
+    receivedAt: Date.now()
+  }
+}
+
+function processMemoizedConversationsHistoryForDispatch(conversationid) {
+  return {
+    type: 'FETCH_MESSAGES_MEMOIZED',
+    posts: { conversationid},
+    receivedAt: Date.now()
+  }
+}
+
+function processMemoizedConversationsForDispatch(conversationid) {
+  return {
+    type: 'FETCH_CONVERSATIONS_MEMOIZED',
+    posts: { conversationid},
     receivedAt: Date.now()
   }
 }

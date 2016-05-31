@@ -23,21 +23,22 @@ export class HeaderView extends Component {
           <div className="goback-icon">
             <span className="glyphicon glyphicon-chevron-left"></span>
           </div>
-          <div className="feature-panel">
+          {/*<div className="feature-panel">
             <ul className="feature-list">
               <li className="button-search"></li>
               <li className="button-new"></li>
               <li className="button-mention"></li>
               <li className="button-tag"></li>
             </ul>
-          </div>
+          </div>*/}
           <div className="title-section">
 
             <h1 className="title">
               { channel && channel.name}
               <a href="#">
-              <span className="glyphicon glyphicon-cog channel-setting" aria-hidden="true"></span>
+                <span className="glyphicon glyphicon-cog channel-setting" aria-hidden="true"></span>
               </a>
+              
             </h1>
             <p className="channel-name-wrapper">
               <span className="channel-name">

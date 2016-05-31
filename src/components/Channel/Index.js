@@ -21,11 +21,18 @@ const metaData = {
 };
 
 export class Channel extends Component {
+  componentDidMount() {
+    $('body').keydown(function(e){
+        if (e.which==27){
+            window.location.hash = "#/dashboard";
+        }
+    });
+  }
   render() {
     //const { actions } = this.props
     return (
       <div  className="create-ext-chat create-ext-chat-form">
-        <a href="javascript: void( 0 )" className="close-wrapper">
+        <a href="#/dashboard" className="close-wrapper">
           <span className="glyphicon glyphicon-remove"></span>
         </a>
         <div className="section-content">

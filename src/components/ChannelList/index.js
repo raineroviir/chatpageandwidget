@@ -137,7 +137,7 @@ export class ChannelList extends Component {
                 })
               }
             </ul>
-            <ul className="chat-list" style={{display:((user.team) ? "none" : "")}}>
+            <ul className="chat-list group-chat-list" style={{display:((user.team) ? "none" : "")}}>
               <li className="chat-list-title">
                   <span className="title-text ellipsis">GROUP CHATS</span>
                   <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'group')}>
@@ -151,9 +151,15 @@ export class ChannelList extends Component {
                     <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message no-user active" : "chat-message no-user" }>
                       <a>
                         <img className="img-rounded" src="dist/images/user.png" title={channel.name} alt={channel.name} />
-                        <span className="avatar">{avatarText}</span>
+                        <span className="avatar">{avatarText}
+
+                        </span>
                         <span className="name ellipsis">
-                          {channel.name}
+                          <span>
+                            {channel.name}
+                            <span className="groups-icon"></span>
+                          </span>
+                          
                         </span>
                         <span className="msg-count">2</span>
                       </a>

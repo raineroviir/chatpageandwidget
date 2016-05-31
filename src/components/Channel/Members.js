@@ -28,8 +28,10 @@ export class ChannelMembers extends Component {
   //  console.log("SignUpRegistrationComponentRender"+this.props.registrationDetails);
     
     return (
-      <div id="create-ext-chat-form"  className="create-ext-chat-form moderators-form " >
-       
+      <div id="create-ext-chat-form"  className="create-ext-chat create-ext-chat-form moderators-form " >
+        <a href="#/dashboard" className="close-wrapper">
+          <span className="glyphicon glyphicon-remove"></span>
+        </a>
         <div className="section-content">
           <h1 className="section-title-1">Internal group chat</h1>
           <h1 className="section-title">Who can delete unwanted messages and block for bad behaviour?</h1>
