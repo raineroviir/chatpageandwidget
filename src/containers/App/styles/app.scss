@@ -585,9 +585,9 @@ a:hover .avatar, li.active .avatar, a:focus .avatar{
 }
 
 /*Ravi styles overridden -  Start */
-.glyphicon-plus:before, .glyphicon-home:before, .glyphicon-dashboard:before, .glyphicon-search:before, .glyphicon-cog:before {
+/*.glyphicon-plus:before, .glyphicon-home:before, .glyphicon-dashboard:before, .glyphicon-search:before, .glyphicon-cog:before {
     content: "" !important;
-}
+}*/
 
 .glyphicon-home{
   background-image: url(../images/profile.svg);
@@ -625,7 +625,7 @@ a:hover .avatar, li.active .avatar, a:focus .avatar{
     background-size: contain;
 }
 
-.glyphicon-cog{
+/*.glyphicon-cog{
   background-image: url(../images/settings.svg);
   width: 24px;
     height: 24px;
@@ -635,12 +635,13 @@ a:hover .avatar, li.active .avatar, a:focus .avatar{
   background-image: url(../images/plus_button.svg);
   width: 17px;
     height: 17px;
-}
+}*/
 
 .channel-setting{
   background-image: url(../images/settings_menu_button.svg);
   width: 18px;
     height: 18px;
+    display: inline-block;
 }
 
 .leftmenu .navbar-nav>li>a, .leftmenu .navbar-nav>li>a:hover{

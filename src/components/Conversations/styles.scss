@@ -92,3 +92,28 @@
         }
     }
 }
+
+
+
+/*just targetted for mobile resolution*/
+@media screen and (max-width: 767px) {
+    .chats-contacts-wrapper {
+        .chats-contacts {
+            ul {
+                
+                .img-circle,.avatar {
+                    height: 28px;
+                    width: 28px;
+                    line-height: 28px;
+                    font-size: 16px;
+                }
+                .name, .message {
+                    margin-left: 36px;
+                }
+                a {
+                    min-height: 56px;
+                }
+            }
+        }
+    }   
+}

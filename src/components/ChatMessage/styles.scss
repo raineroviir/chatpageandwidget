@@ -115,12 +115,24 @@
     max-width: 1000px;
     margin: 0 auto;
     height: calc( 100vh - 59px );
+    .header-section {
+        padding: 10px;
+    }
     h1 {
         margin: 0;
-        padding: 10px;
+        
     }
     .post-form-wrapper {
         margin:0 auto;
         max-width: 1000px;
     }
+    
+    .login-link-wrapper {
+        float: right;
+        margin-top: 12px;
+        a {
+            text-decoration: none;
+        }
+    }
+
 }

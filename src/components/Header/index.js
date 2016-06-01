@@ -5,7 +5,22 @@ import { Link } from 'react-router';
 import { styles } from './styles.scss';
 
 export class HeaderView extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {openFeature: false};
+  }
+
+
+  toggleFeturePanel( e ) {
+    e.preventDefault();
+    this.setState({
+      openFeature: !this.state.openFeature
+    });
+  }
+
   render() {
+    console.log( 'this.state', this.state );
     let user = this.props.user.userinfo,
       channel = this.props.channelInfo;
 
@@ -23,20 +38,21 @@ export class HeaderView extends Component {
           <div className="goback-icon">
             <span className="glyphicon glyphicon-chevron-left"></span>
           </div>
-          {/*<div className="feature-panel">
+          <div className= { this.state.openFeature ? "feature-panel open-feature" : "feature-panel"} >
+            <a href="#" className="glyphicon glyphicon-menu-hamburger  feature-panel-menu" onClick={this.toggleFeturePanel.bind(this)}> </a>
             <ul className="feature-list">
               <li className="button-search"></li>
               <li className="button-new"></li>
               <li className="button-mention"></li>
               <li className="button-tag"></li>
             </ul>
-          </div>*/}
+          </div>
           <div className="title-section">
 
             <h1 className="title">
               { channel && channel.name}
               <a href="#">
-                <span className="glyphicon glyphicon-cog channel-setting" aria-hidden="true"></span>
+                <span className="channel-setting" aria-hidden="true"></span>
               </a>
               
             </h1>

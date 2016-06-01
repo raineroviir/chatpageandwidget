@@ -10,7 +10,13 @@ export class Messages extends Component {
   render() {
     return (
       <div className="guest-messaging-wrapper">
-        <h1>Chat Center</h1>
+        <div className="header-section">
+          <div className="login-link-wrapper">
+            <a href="#">Login</a>
+          </div>
+          <h1>Chat Center</h1>
+        </div>
+
         <ChatMessage messages={this.props.messages.messages} user={this.props.user} isGuest={this.props.isGuest} />
         <CreateMessage isGuest={this.props.isGuest} convid={this.props.convid} />
       </div>

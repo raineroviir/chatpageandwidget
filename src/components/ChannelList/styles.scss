@@ -167,10 +167,9 @@
             display: none;
         }
         .name {
-            width: 100%;
-            display: block;
-            padding-right: 20px;
-            text-transform: capitalize;
+            max-width: 100%;
+            display: inline-block;
+            text-transform: capitalize
         }
         .msg-count {
             position: absolute;
@@ -210,7 +209,13 @@
             background-repeat: no-repeat;
             background-position: center center;
             vertical-align: middle;
-            margin-left: 6px;
+            position: absolute;
+            top: 2px;
+            right: 2px;
+        }
+        .name {
+            position: relative;
+            padding-right: 20px;
         }
     }
 
@@ -229,4 +234,13 @@
             padding: 20px 12px  16px 12px;
         }
     }
+}
+
+/*just targetted for mobile resolution*/
+@media screen and (max-width: 767px) {
+    .secondary-nav {
+        .chat-list {
+            margin-top: 20px;
+        }  
+    }   
 }

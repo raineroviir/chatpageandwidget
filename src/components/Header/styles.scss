@@ -13,15 +13,17 @@
             font-size: 16px;
             letter-spacing: -0.5px;
             color: #474848;
-            margin-bottom: 14px;
+            margin-bottom: 10px;
             text-transform: capitalize;
-            width: 100%;
+            max-width: 100%;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
             line-height: 1.2;
-            padding-right: 20px;
+            padding-right: 24px;
             position: relative;
+            display:inline-block;
+            max-width: calc(100% - 30px);
             a {
                 position: absolute;
                 top: 0;
@@ -52,7 +54,25 @@
         }
     }
     .feature-panel {
-        float: right
+        float: right;
+        .feature-panel-menu {
+            text-decoration: none;
+            color: #474848;
+            font-size: 18px;
+        }
+        .feature-list {
+            position: absolute;
+            right: 33px;
+            top: 0;
+            background: #fff;
+            z-index: 1;
+            display: none;
+        }
+        &.open-feature {
+            .feature-list {
+                display: inline-block;
+            }
+        }
     }
     .feature-list {
         margin: 0;
@@ -92,21 +112,6 @@
 }
 
 @media screen and (min-width: 768px) {
-    .header {
-        .title-section {
-         
-            .title {
-                
-                font-size: 26px;
-                a {
-                    display: absolute;
-                    top: 0px;
-                    right: -10px;
-                }
-                
-            }
-        }
-    }
 
     .goback-icon {
         display: none;
@@ -115,12 +120,26 @@
         .title-section {
             margin-left:0;
             .title {
+                font-size: 26px;
+                max-width: calc(100% - 197px);
                 a {
                     position: static
                 }
             }
         }
-
-        
+        .feature-panel {
+            ul {
+                li  {
+                    margin: 0 .5em;
+                }
+            }
+            .feature-panel-menu {
+                display: none;
+            }
+            .feature-list {
+                display: inline-block;
+                position: static;
+            }
+        }
     }
 }
