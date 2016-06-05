@@ -25,6 +25,9 @@ export class RegisterOrgDomainComp extends Component {
   inputChange(){
     this.refs.RegisterTeam.value = this.validateTeam(this.refs.RegisterTeam.value);     
     
+    let width = $('#calc-input-width').html( this.refs.RegisterTeam.value  ).width();
+    this.refs.RegisterTeam.style.width = width;
+
     this.props.checkForTeamNameAvailability(this.refs.RegisterTeam.value);
     
     if(this.refs.RegisterTeam.value){
@@ -35,11 +38,18 @@ export class RegisterOrgDomainComp extends Component {
   }
 
   validateTeam(team_desc){
-     var finalStr = team_desc.replace(/[^a-zA-Z-0-9]/gi, '')
+     var finalStr = team_desc.replace(/[^a-zA-Z-0-9]/gi, '');
+
      return finalStr.toLowerCase().substring(0,18);
    }
 
   componentDidMount() {
+
+    if( !$('#calc-input-width').length ) {
+      $( 'body' ).append( '<span id="calc-input-width">' );  
+    } 
+    
+    
 
     var team_desc = this.props.registrationDetails.Organisation.payload.team_description;
     
@@ -77,8 +87,14 @@ export class RegisterOrgDomainComp extends Component {
     this.refs.RegisterTeam.value = this.state.team;
 
     //check for team name availability on component load
-    if(this.refs.RegisterTeam.value)
+    if(this.refs.RegisterTeam.value) {
+      
       this.props.checkForTeamNameAvailability(this.refs.RegisterTeam.value);
+      let width = $('#calc-input-width').html( this.refs.RegisterTeam.value  ).width();
+      this.refs.RegisterTeam.style.width = width;
+      
+    }
+    
 
   }
 
@@ -115,7 +131,7 @@ export class RegisterOrgDomainComp extends Component {
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">What address would you like for your chat.center?</h1>
                 
-                <div className={'input-group input-group-lg ' + wrapperCls}>
+                <div className={'chat-center-address-input input-group input-group-lg ' + wrapperCls}>
 
                   <label htmlFor="registerTeam" className="input-group-addon user-name" id="username-addon"><span className="prefix-text">https:<span className="double-slashes">//</span></span></label>
                   <input autoFocus id="registerTeam" type="text" className="form-control" ref="RegisterTeam" onChange={this.inputChange.bind(this)} placeholder="address" aria-describedby="username-addon" />
@@ -131,7 +147,9 @@ export class RegisterOrgDomainComp extends Component {
                 <div className="own-domain-wrapper">
                       <a className="own-domain" href="javascript:;" title="Use my own domain">Use my own domain</a>
                 </div>  
-                <div className="desc">This is your organization's dedicated name space. You will be able to create external chats for sales, support and alike, and internal chats to talk privately with your team, for example:  extraordinaryfoods.chat.center/sales, /support, /internal, etc.</div> 
+                <div className="desc">This is your organization's dedicated name space. You will be able to create external chats for sales, support and alike, and internal chats to talk privately with your team, for example: 
+                   <p className="desc-ex">extraordinaryfoods.chat.center/sales, /support, /internal, etc.</p>
+                </div> 
                 <div className="form-group button-wrapper">
                     <div className="col-sm-12">
                       <div className="row">

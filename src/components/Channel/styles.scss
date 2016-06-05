@@ -6,6 +6,10 @@
 		max-width: 626px;
 		margin: 0 auto;
 	}
+	.error-message {
+		color:#c91913;
+		margin:10px 0;
+	}
 	.section-title {
 		font-size: 40px;
 		line-height: 1.2;
@@ -109,8 +113,15 @@
 		letter-spacing: 0.1px;
 		color: #000000; 	
 		text-align: center;
-		padding-top: 20px;
     	margin-bottom: 8px;
+    	cursor:pointer;
+    	img {
+    		max-width:100%;
+    		max-height:100%;
+    		margin:auto;
+    		vertical-align:middle;
+    		cursor:pointer;
+    	}
 	}
 	.browse {
 		font-size: 14px;

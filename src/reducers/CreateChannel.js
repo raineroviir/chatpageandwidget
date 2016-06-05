@@ -12,7 +12,7 @@ const initialState = {
   }
 };
 
-const initialCreateChannel = Object.assign({},initialState.CreateChannel.payload);
+const initialCreateChannel = Object.assign({},initialState);
 
 export function createChannel(state = initialState, action) {
 
@@ -43,9 +43,12 @@ export function createChannel(state = initialState, action) {
       };
 
     case 'RESET_CREATE_CHANNEL':
+      var CreateChannel = initialState.CreateChannel;
+      CreateChannel = (Object.assign(initialState.CreateChannel, {error:""}))
+      CreateChannel.payload = (Object.assign(initialState.CreateChannel.payload, {channel:"",description:"",avatar:"",is_public:"",is_direct:"",is_group:""}));
       return {
         ...state,
-        initialCreateChannel
+        CreateChannel
       };
 
     default:

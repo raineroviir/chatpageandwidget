@@ -149,19 +149,22 @@ export class ChannelList extends Component {
                   let avatarText = (channel.name) ? channel.name.charAt(0) : "";
                   return (
                     <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message no-user active" : "chat-message no-user" }>
-                      <a>
-                        <img className="img-rounded" src="dist/images/user.png" title={channel.name} alt={channel.name} />
-                        <span className="avatar">{avatarText}
+                      <a className={channel.is_public? 'public-channel': 'private-channel'  }>
+                        
+                          <img className="img-rounded" src="dist/images/user.png" title={channel.name} alt={channel.name} />
+                          <span className="avatar">{avatarText}
 
-                        </span>
-                        <span className="name ellipsis">
-                          <span>
-                            {channel.name}
-                            <span className="groups-icon"></span>
                           </span>
-                          
-                        </span>
-                        <span className="msg-count">2</span>
+                          <span className="name ellipsis">
+                            <span>
+                              {channel.name}
+                              <span className="groups-icon"></span>
+                              {!channel.is_public&&<span className="lock-icon"></span>}
+                            </span>
+                            
+                          </span>
+                          <span className="msg-count">2</span>
+                        
                       </a>
                     </li>
                   );

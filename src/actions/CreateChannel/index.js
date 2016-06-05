@@ -31,10 +31,12 @@ function postActionConstruct(json) {
         type: 'CHAT_ERROR',
         error: json.error
       })
+      window.location.hash = "#/channel/members/2";
     } else {
       dispatch({
         type: 'RESET_CREATE_CHANNEL'
       })
+      window.location.hash = "#/channel/members/2";
     }
   }
 }
@@ -43,14 +45,22 @@ function createRequest(payload){
     if (typeof(Storage) !== "undefined") {
       var token = JSON.parse(localStorage.getItem("token"));
     }
-    delete payload.avatar;
+    var data = new FormData();
+    if($('#chatavatar')[0].files[0]) {
+      data.append('avatar', $('#chatavatar')[0].files[0]);
+    }
+    data.append('channel', payload.channel);
+    data.append('description', payload.description);
+    data.append('is_public', payload.is_public);
+    data.append('is_group', payload.is_group);
+    data.append('is_direct', payload.is_direct);
     return fetch('https://api-beta.chat.center/v1/channels.create',
       {
         method: 'POST',
         headers:{
-          'Content-Type': 'application/json',
+          'enctype':"multipart/form-data",
           'Authorization': 'Bearer ' + token.access_token
         },
-        body: JSON.stringify(payload)
+        body: data
     })
 } 

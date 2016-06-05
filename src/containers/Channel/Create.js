@@ -27,8 +27,6 @@ export class ChannelCreateContainer extends Component {
   handleNext(attr){
     this.props.actions.chatDetails(attr);
     this.props.actions.createChannel();
-    window.location.hash = "#/channel/members/2";
-
   }
 
   render() {

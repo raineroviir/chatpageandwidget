@@ -200,8 +200,8 @@
         }
     }
     .group-chat-list {
-        .groups-icon {
-            background-image: url(../images/groups.svg);   
+        .groups-icon, .lock-icon {
+            background-image: url(../images/password-icon-white.svg);   
             height: 16px;
             width: 16px;
             display: inline-block;
@@ -212,6 +212,18 @@
             position: absolute;
             top: 2px;
             right: 2px;
+        }
+        .groups-icon {
+            background-image: url(../images/groups.svg);   
+        }
+        .private-channel {
+            padding-right: 55px;
+            .groups-icon {
+                right: 20px;
+            }
+            .name {
+                padding-right: 40px;
+            }
         }
         .name {
             position: relative;
