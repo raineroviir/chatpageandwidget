@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 //import postLoginRequest from '../services/common/login';
 import * as LoginActions from '../Login';
+import urlConfig from '../../url-config';
 
 export function registerOrganisationName(RegisterOrganisationName) {
   //alert(dispatch);
@@ -111,9 +112,9 @@ function postRegistration(payload1, isIndividual) {
   }
 }
 
-//https://id.chat.center/oauth/token
+
 function postLoginRequest(payload){
-	  return fetch('https://api-beta.chat.center/v1/users.signup',
+	  return fetch(urlConfig.base + 'users.signup',
     			{
     				method: 'POST',
     				headers:{
@@ -147,7 +148,7 @@ function teamNameAvailable(team_description) {
 }
 
 function postTeamName(team_description){
-    return fetch('https://api-beta.chat.center/v1/teams.find?team='+team_description)
+    return fetch(urlConfig.base + 'teams.find?team='+team_description)
 } 
 
 function postTeamAvailabilityResponse(json) {
@@ -180,7 +181,7 @@ function channelNameAvailable(register_channel, team_description) {
 }
 
 function postChannelName(register_channel, team_description){
-    return fetch('https://api-beta.chat.center/v1/channels.find?channel='+ register_channel + '&team=' + team_description)
+    return fetch(urlConfig.base + 'channels.find?channel='+ register_channel + '&team=' + team_description)
 } 
 
 function postChannelAvailabilityResponse(json) {

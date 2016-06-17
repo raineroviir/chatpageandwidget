@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 //import postLoginRequest from '../services/common/login';
+import urlConfig from '../url-config';
 
 export function addItem(fields) {
   return {
@@ -39,7 +40,7 @@ function postRegistration() {
 }
 
 function postLoginRequest(){
-	  return fetch('https://api-beta.chat.center/v1/users.signup',
+	  return fetch(urlConfig.base + '/users.signup',
     			{
     				method: 'POST',
     				headers:{

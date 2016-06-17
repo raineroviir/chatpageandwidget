@@ -1,3 +1,4 @@
+import urlConfig from '../../url-config';
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
 import * as loginActions from "../Login";
@@ -140,7 +141,7 @@ export function createMessage(message, conversationid) {
 }
 
 export function getChannel(channel, access_token, team) {
-  var url = 'https://api-beta.chat.center/v1/channels.find?channel=' + channel;
+  var url =  urlConfig.base + 'channels.find?channel=' + channel;
   if(team){
     url+= ("&team=" + team);
   }
@@ -229,7 +230,7 @@ function fetchChannels() {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch('https://api-beta.chat.center/v1/channels.list', {
+  return fetch( urlConfig.base + 'channels.list', {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
@@ -241,7 +242,7 @@ function fetchUserInfo() {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch('https://api-beta.chat.center/v1/users.me', {
+  return fetch( urlConfig.base + 'users.me', {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
@@ -250,7 +251,7 @@ function fetchUserInfo() {
   })
 }
 function createCoversation(channelid, access_token) {
-  return fetch('https://api-beta.chat.center/v1/conversations.create', {
+  return fetch( urlConfig.base + 'conversations.create', {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json',
@@ -263,7 +264,7 @@ function fetchConversations(channel_id) {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch('https://api-beta.chat.center/v1/conversations.list?channel_id=' + channel_id, {
+  return fetch( urlConfig.base + 'conversations.list?channel_id=' + channel_id, {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
@@ -275,7 +276,7 @@ function fetchConversationHistory(conversationid) {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch('https://api-beta.chat.center/v1/conversations.history?conversation_id=' + conversationid, {
+  return fetch( urlConfig + 'conversations.history?conversation_id=' + conversationid, {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
@@ -287,7 +288,7 @@ function postMessage(message, conversationid, access_token) {
   if (typeof(Storage) !== "undefined" && !access_token) {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch('https://api-beta.chat.center/v1/chats.postMessage', {
+  return fetch( urlConfig + 'chats.postMessage', {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json',

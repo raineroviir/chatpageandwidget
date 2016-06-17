@@ -24,6 +24,7 @@
     display: none;
     position: fixed;
     .available-wrapper {
+        display: none;
         white-space: nowrap;
         .available-status  {
             margin-left: 8px;
@@ -148,6 +149,7 @@
         bottom: 10px;
         left: 0;
         width: 72px;
+
         a {
             height: 40px;
             width: 40px;
@@ -155,6 +157,7 @@
             position:relative;
             font-size: 16px;
             border-radius: 50%;
+            color: #fff;
             .add-icon {
                 position: absolute;
                 top: 50%;

@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import urlConfig from '../../url-config';
 
 export function chatType(attr) {
   return (dispatch, getState) => {
@@ -54,7 +55,7 @@ function createRequest(payload){
     data.append('is_public', payload.is_public);
     data.append('is_group', payload.is_group);
     data.append('is_direct', payload.is_direct);
-    return fetch('https://api-beta.chat.center/v1/channels.create',
+    return fetch(urlConfig.base + '/channels.create',
       {
         method: 'POST',
         headers:{

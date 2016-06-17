@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import urlConfig from '../../../url-config';
 
 export function postLoginRequest(){
 	  return fetch('https://id.chat.center/oauth/token',

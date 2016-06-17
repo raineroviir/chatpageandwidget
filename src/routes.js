@@ -19,6 +19,7 @@ import RegisterIndividualDomain from 'components/Register/Individual/Domain';
 import Channel from 'containers/Channel/Index';
 import ChannelCreate from 'containers/Channel/Create';
 import ChannelMembers from 'containers/Channel/Members';
+import Widget from 'containers/Widget';
 
 export default (
   <Route path="/" component={App}> 
@@ -42,6 +43,7 @@ export default (
     <Route path="channel/type" component={Channel} />
     <Route path="channel/create" component={ChannelCreate} />
     <Route path="channel/members/:id" component={ChannelMembers} />
+    <Route path="widget" component={Widget} />
     <Route path=":user">
         <IndexRoute component={Home} />
         <Route path=":user" component={Home}/>

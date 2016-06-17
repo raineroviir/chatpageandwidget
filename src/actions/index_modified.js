@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-//import postLoginRequest from '../services/common/login';
+import urlConfig from '../../url-config';
 
 export function addItem(fields) {
   return {
@@ -47,7 +47,7 @@ function postRegistration() {
 }
 
 function postLoginRequest(){
-	  return fetch('https://id.chat.center/oauth/token',
+	  return fetch(urlConfig.authBase,
     			{
     				method: 'POST',
     				headers:{

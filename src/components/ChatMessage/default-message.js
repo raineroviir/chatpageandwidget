@@ -7,6 +7,8 @@ import { styles } from './default-message.scss';
 export class DefaultMessage extends Component {
   render() {
     let user = this.props.user.userinfo, isGuest = this.props.isGuest;
+
+    console.log('user', user);
     return (
         <div className="default-message">
             <div className="feature-link">
@@ -22,8 +24,8 @@ export class DefaultMessage extends Component {
                     <div className="welcome-logo"></div>
                 </div>
                 <div className="title-section">
-                    <h3 className="welcome-title">chat.center {(isGuest) ? "" : user.first_name}</h3>
-                    <p className="title-desc">{(isGuest) ? "" : ((user.team) ? (user.team.name + "/" + user.team.description) : ("chat.center/" + user.first_name)) }</p>
+                    <h3 className="welcome-title">chat.center {(isGuest) ? "" : user&&user.first_name}</h3>
+                    <p className="title-desc">{(isGuest) ? "" : (!user?"":(user.team) ? (user.team.name + "/" + user.team.description) : ("chat.center/" + user.first_name)) }</p>
                 </div>
                 <div className="welcome-message">
                     We will be happy to show you around, and help you make sure you are using Chat center to its full potential. Any feedback is very welcome too.
