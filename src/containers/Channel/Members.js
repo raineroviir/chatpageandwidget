@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import * as CCActions from '../../actions/Channels';
+import * as CCActions from '../../actions/CreateChannel';
 import DocumentMeta from 'react-document-meta';
 import Navigation from 'containers/Home/Navigation';
 import {ChannelMembers} from '../../components/Channel/Members';
@@ -29,13 +29,13 @@ export class ChannelMembersContainer extends Component {
     window.history.back();
   }
 
-  handleNext(RegisterOrganisationName){
+  handleNext(){
     //store the value in STORE by dispatching event in action
     //this.props.actions.registerOrganisationName(RegisterOrganisationName);
 
     //navigate to next screen
    // window.location.hash = "#/signup/organization/domain";
-
+    this.props.actions.createChannel();
   }
 
   render() {
@@ -57,7 +57,7 @@ ChannelMembersContainer.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    registrationDetails: state.registrationDetails
+    createChannel: state.createChannel.CreateChannel
   }
 }
 

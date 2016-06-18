@@ -1,0 +1,101 @@
+.widget-nav {
+    width: 216px;
+    background-color: #ededed;
+    float: left;
+    min-height: 100vh;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    letter-spacing: 0.1px;
+    .nav-links {
+        margin: 0;
+        padding: 0;
+        text-align: right;
+        list-style: none;
+        margin-top: 174px;
+        li {
+            margin-bottom: 8px;
+        }
+        a {
+           
+            color: #474848;
+            padding: 8px 24px;
+            display: block;
+            opacity: 0.5;
+            font-family: "Rubik-Medium";
+            text-decoration: none;
+            &.active-link, &:hover {
+                opacity: 1;
+            }
+            &.active-link {
+                box-shadow: inset -4px 0px 0 0 #fdb22b;
+            }
+        }
+    }
+    .widget-nav-footer {
+        position: absolute;
+        left: 18px;
+        right: 24px;
+        bottom: 20px;
+    }
+}
+.widget-component {
+    margin-left: 72px;
+    position: relative;
+    .widget-content {
+        min-height: 100vh;
+        margin-left: 216px;
+        padding: 48px 49px;
+        color: #474848;
+        .widget-close {
+            background: url( '../images/widget-close.png' ) no-repeat center center;
+            background-size: 100%;
+            width: 48px;
+            height: 48px;
+            position: absolute;
+            right: 48px;
+            top: 48px;
+        }
+    }
+    .email-camp-channel {
+        font-size: 15px;
+        line-height: 34px;
+    }
+    .email-icon-wrapper {        
+        border-radius: 2px;
+        border: solid 2px rgba(150, 150, 150, 0.23);
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 12px;
+        color: #157EFB;
+        width: 30px;
+        height: 30px;
+        background:#ffffff url('../images/msg-env.png') no-repeat center center;
+        background-size: 21px 14px;
+
+    }
+    .widget-title {
+        font-size: 40px;
+        line-height: 1.4;
+        letter-spacing: -0.1px;
+        color: #000000;
+        font-family: "Rubik-Medium";
+        margin-top: 28px;
+
+    }
+    .widget-sub-title {
+        font-family: Rubik;
+        font-size: 20px;
+        line-height: 1.2;
+        color: #000000;
+        margin-top: 15px;
+    }
+    .widget-description {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-top: 16px;
+    }
+}

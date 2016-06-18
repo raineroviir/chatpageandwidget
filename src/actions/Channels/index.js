@@ -276,7 +276,7 @@ function fetchConversationHistory(conversationid) {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch( urlConfig + 'conversations.history?conversation_id=' + conversationid, {
+  return fetch( urlConfig.base + 'conversations.history?conversation_id=' + conversationid, {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
@@ -288,7 +288,7 @@ function postMessage(message, conversationid, access_token) {
   if (typeof(Storage) !== "undefined" && !access_token) {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch( urlConfig + 'chats.postMessage', {
+  return fetch( urlConfig.base + 'chats.postMessage', {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json',

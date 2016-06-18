@@ -18,6 +18,13 @@ export function chatDetails(attr) {
       })
   }
 }
+export function resetDetails() {
+  return (dispatch, getState) => {
+      dispatch({
+        type: 'RESET_CREATE_CHANNEL'
+      })
+  }
+}
 export function createChannel() {
   return (dispatch, getState) => {
     createRequest(getState().createChannel.CreateChannel.payload).then(response => {return response.json()}) 
@@ -32,12 +39,11 @@ function postActionConstruct(json) {
         type: 'CHAT_ERROR',
         error: json.error
       })
-      window.location.hash = "#/channel/members/2";
     } else {
       dispatch({
         type: 'RESET_CREATE_CHANNEL'
       })
-      window.location.hash = "#/channel/members/2";
+      window.location.hash = "#/dashboard/" + json.channel.name;
     }
   }
 }
@@ -47,8 +53,8 @@ function createRequest(payload){
       var token = JSON.parse(localStorage.getItem("token"));
     }
     var data = new FormData();
-    if($('#chatavatar')[0].files[0]) {
-      data.append('avatar', $('#chatavatar')[0].files[0]);
+    if(payload.avatar) {
+      data.append('avatar', payload.avatar);
     }
     data.append('channel', payload.channel);
     data.append('description', payload.description);

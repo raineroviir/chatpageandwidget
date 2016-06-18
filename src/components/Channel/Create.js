@@ -32,16 +32,18 @@ export class ChannelCreate extends Component {
   }
 
   componentDidMount() {
-    this.refs.nextButton.disabled = true;
+    if(!(this.props.details.payload.description && this.props.details.payload.channel)) {
+      this.refs.nextButton.disabled = true;
+    }
     $('body').keydown(function(e){
         if (e.which==27){
             window.location.hash = "#/dashboard";
         }
     });
-    /*var self = this;
-    this.refs.description = this.props.details.payload.description;
-    this.refs.channel = this.props.details.payload.channel;
-    this.refs.avatar = this.props.details.payload.avatar;
+    var self = this;
+    this.refs.description.value = this.props.details.payload.description;
+    this.refs.channel.value = this.props.details.payload.channel;
+    this.refs.avatar.files[0] = this.props.details.payload.avatar;
     if(this.props.details.payload.avatar) {
       var oFReader = new FileReader();
       oFReader.readAsDataURL(this.props.details.payload.avatar);
@@ -49,7 +51,7 @@ export class ChannelCreate extends Component {
           self.refs.avatarPreview.src = oFREvent.target.result;
           self.refs.avatarPreview.style.display = 'block';
       };
-    }*/
+    }
   }
 
   render() { 

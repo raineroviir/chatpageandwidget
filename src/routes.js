@@ -20,9 +20,14 @@ import Channel from 'containers/Channel/Index';
 import ChannelCreate from 'containers/Channel/Create';
 import ChannelMembers from 'containers/Channel/Members';
 import Widget from 'containers/Widget';
+import WidgetAppearance from 'containers/WidgetAppearance';
+import WidgetInvitations from 'containers/WidgetInvitations';
+import WidgetLabels from 'containers/WidgetLabels';
+
 
 export default (
-  <Route path="/" component={App}> 
+    
+<Route path="/" component={App} > 
     <IndexRoute component={Login} />
     <Route path="dashboard/:user">
         <IndexRoute component={Home} />
@@ -42,13 +47,18 @@ export default (
     <Route path="signup/individual/domain" component={RegisterIndividualDomain} />
     <Route path="channel/type" component={Channel} />
     <Route path="channel/create" component={ChannelCreate} />
-    <Route path="channel/members/:id" component={ChannelMembers} />
-    <Route path="widget" component={Widget} />
+    <Route path="channel/members" component={ChannelMembers} />
+    <Route path="widget/installation" component={Widget}></Route>
+    <Route path="widget/appearance" component={WidgetAppearance}></Route>
+    <Route path="widget/invitations" component={WidgetInvitations}></Route>
+    <Route path="widget/labels" component={WidgetLabels}></Route>
+
     <Route path=":user">
         <IndexRoute component={Home} />
         <Route path=":user" component={Home}/>
     </Route>
     <Route status={404} path="*" component={Login} />
 
-  </Route>
+</Route>
+  
 );

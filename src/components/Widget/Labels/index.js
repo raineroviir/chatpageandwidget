@@ -6,12 +6,17 @@ import { Link } from 'react-router';
 import { styles } from './styles.scss';
 
 
-export class WidgetView extends Component {
+export class Labels extends Component {
   render() {
     return (
-        <div className="widget-component">
-          Widgte comes here
+        <div>
+          Labels<br/>
+          Labels
         </div>
     );
   }
 }
+
+
+
+

@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 import DocumentMeta from 'react-document-meta';
 import Navigation from 'containers/Home/Navigation';
 import {WidgetNav} from '../../components/WidgetNav/index';
-import {Installation} from '../../components/widget/Installation';
+import {Labels} from '../../components/widget/Labels';
 
 import * as WidgetActions from '../../actions/Widget'
 
@@ -22,7 +22,7 @@ const metaData = {
   },
 };
 
-export class Widget extends Component {
+export class WidgetLabels extends Component {
   constructor( props ){
     super( props );
   }
@@ -35,7 +35,7 @@ export class Widget extends Component {
         <div className="widget-component">
           <WidgetNav />
           <div className="widget-content">
-           <Installation />
+           <Labels />
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@ export class Widget extends Component {
   }
 }
 
-Widget.propTypes = {
+WidgetLabels.propTypes = {
   // todos: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 }
@@ -63,4 +63,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Widget);
+)(WidgetLabels);

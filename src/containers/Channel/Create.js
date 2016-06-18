@@ -21,12 +21,13 @@ const metaData = {
 export class ChannelCreateContainer extends Component {
 
   handleBack(){
+    this.props.actions.resetDetails();
     window.history.back();
   }
 
   handleNext(attr){
     this.props.actions.chatDetails(attr);
-    this.props.actions.createChannel();
+    window.location.hash = "#/channel/members";
   }
 
   render() {
@@ -34,7 +35,7 @@ export class ChannelCreateContainer extends Component {
             <div>
               <DocumentMeta {...metaData} />
               <Navigation historyApi={this.props.historyApi} />
-              <ChannelCreate details={this.props.createChannel} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
+              <ChannelCreate details={this.props.createChannel} handleBack={this.handleBack.bind(this)} handleNext={this.handleNext.bind(this)} />
           </div>
     );
   }

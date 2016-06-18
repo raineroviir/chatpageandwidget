@@ -13,8 +13,7 @@ export class ChannelMembers extends Component {
 
   handleNext(evt){
     evt.preventDefault();
-    let RegisterOrganisationName = this.refs.RegisterOrganisationName.value;
-    this.props.handleNext(RegisterOrganisationName);
+    this.props.handleNext();
   }
 
   inputChange(){
