@@ -88,9 +88,9 @@
         font-size: 13px;
         text-transform: uppercase;
     }
-    .img-circle {
+    /*.img-circle {
         display: none;
-    }
+    }*/
     .received-message {
         .message-bubble {
             margin-left: 36px;
@@ -136,3 +136,17 @@
     }
 
 }
+.user-name-display{
+    font-size: 13px;
+}
+.received-message .user-name-display{
+    padding-left: 40px;
+    color: #ccc;
+}
+.sent-message .user-name-display{
+    padding-right: 40px;
+    color: #ccc;
+    text-align: right;
+}
+.time-bubble{text-align:right; clear:both; margin-right: 40px; font-size: 13px; color: #999; padding-top: 5px; }
+.today .img-circle,.avatar{ bottom:2.5em; } 

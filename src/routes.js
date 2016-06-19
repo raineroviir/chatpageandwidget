@@ -47,7 +47,9 @@ export default (
     <Route path="signup/individual/domain" component={RegisterIndividualDomain} />
     <Route path="channel/type" component={Channel} />
     <Route path="channel/create" component={ChannelCreate} />
+    <Route path="channel/edit/:id" component={ChannelCreate} />
     <Route path="channel/members" component={ChannelMembers} />
+    <Route path="channel/members/:id" component={ChannelMembers} />
     <Route path="widget/installation" component={Widget}></Route>
     <Route path="widget/appearance" component={WidgetAppearance}></Route>
     <Route path="widget/invitations" component={WidgetInvitations}></Route>

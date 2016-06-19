@@ -29,13 +29,22 @@ export class ChannelMembersContainer extends Component {
     window.history.back();
   }
 
-  handleNext(){
+  updateMembers(members){
+    this.props.actions.updateMembers(members);
+  }
+
+  validateEmail(email){
+    var allowed=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$)/; 
+    return allowed.test(email);
+  }
+
+  handleNext(members){
     //store the value in STORE by dispatching event in action
     //this.props.actions.registerOrganisationName(RegisterOrganisationName);
 
     //navigate to next screen
    // window.location.hash = "#/signup/organization/domain";
-    this.props.actions.createChannel();
+    this.props.actions.createChannel(members);
   }
 
   render() {
@@ -43,7 +52,7 @@ export class ChannelMembersContainer extends Component {
         <div>
           <DocumentMeta {...metaData} />
           <Navigation historyApi={this.props.historyApi} />
-          <ChannelMembers registrationDetails={this.props.registrationDetails} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
+          <ChannelMembers validateEmail={this.validateEmail.bind(this)} updateMembers={this.updateMembers.bind(this)} details={this.props.createChannel} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
         </div>
     );
   }

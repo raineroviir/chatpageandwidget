@@ -22,6 +22,7 @@ const metaData = {
 export class ChannelContainer extends Component {
 
   chatType(attr, url){
+    attr.team = this.props.org ? this.props.org.name.split('/')[0] : ''
     this.props.actions.chatType(attr);
     window.location.hash = url;
   }
@@ -46,7 +47,7 @@ ChannelContainer.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    todos: state.todos
+    org: state.orgs.orgs.find(org => org.active)
   }
 }
 

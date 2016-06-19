@@ -108,7 +108,6 @@
 		height: 72px;
 		border-radius: 3px;
 		background-color: #e2e2e2;
-		opacity: 0.3;
 		font-size: 14px;
 		line-height: 1.3;
 		letter-spacing: 0.1px;
@@ -203,6 +202,7 @@
 		.user-name {
         	display: inline-block;
         	vertical-align: middle;
+        	text-transform:capitalize;
         }
         .user-chat-address-wrapper {
         	float: right;

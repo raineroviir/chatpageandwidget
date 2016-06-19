@@ -8,7 +8,6 @@ export class DefaultMessage extends Component {
   render() {
     let user = this.props.user.userinfo, isGuest = this.props.isGuest;
 
-    console.log('user', user);
     return (
         <div className="default-message">
             <div className="feature-link">

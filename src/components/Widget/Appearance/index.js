@@ -5,6 +5,8 @@ import { Link } from 'react-router';
 /* component styles */
 import { styles } from './styles.scss';
 
+import previewImg from '../../images/preview.png';
+
 
 export class Appearance extends Component {
     constructor(props){
@@ -123,7 +125,7 @@ export class Appearance extends Component {
                         onClick={this.selectCustomTheme.bind(this)}
                         >
                         </a>
-                        <span className="angle-arrow">
+                        <span className="angle-down-arrow">
                         </span>
                     </div>
                     <span>Custom</span>
@@ -133,14 +135,17 @@ export class Appearance extends Component {
     }
     let fileTemplate;
     if( this.state.channelLogo ) {
-        fileTemplate = (<div>
+        fileTemplate = (
+            <div className="channel-logo-input-wrapper">
                 <input id="channelLogo" type="file"  accept="image/*" ref="channelLogo" placeholder="avatar" onChange={this.inputChange.bind(this, 'file')} aria-describedby="chatavatar-addon" />
-                <div className="">
-                    Preview
+                <div className="channel-logo-preview">
                     <img ref="channelLogoPreview" src="/dist/images/msg-env.png" />
                 </div>
-                <button type="button" onClick={this.openFileInput.bind(this)}>Change</button>
-        </div>)
+                <div className="cell">
+                    <button type="button" onClick={this.openFileInput.bind(this)}>CHANGE</button>
+                </div>
+            </div>
+        )
     }
     return (
         <div className="widget-appearance">
@@ -163,23 +168,23 @@ export class Appearance extends Component {
             </p>
             
             <div className="key-colors-section">
-                <h4>Key color</h4>
+                <h4 className="key-color-label">Key color</h4>
                 {
                     getColorsTiles()
                 }
             </div>
-            <div>
-                <div>
-                    <div>
-                        Team  avatars
+            <div className="inputs-wrapper">
+                <div className="switchs-wrapper">
+                    <div className="input-field-wrapper">
+                        <span className="switch-label">Team  avatars</span>
                         <span className={'widget-switch '+ (this.state.teamAvatar? 'switch-on' : '')}
                         onClick={this.toggleTeamAvatarStatus.bind(this)}
                         >
                             <span className="switch-point"></span>
                         </span>
                     </div>
-                    <div>
-                        Channel Logo
+                    <div className="input-field-wrapper">
+                        <span className="switch-label">Channel Logo</span>
                         <span className={'widget-switch ' + (this.state.channelLogo? 'switch-on' : '')}
                         onClick={this.toggleChannelLogoStatus.bind(this)}>
                             <span className="switch-point"></span>
@@ -190,12 +195,12 @@ export class Appearance extends Component {
                     fileTemplate
                 }
             </div>
-            <div>
-                Widget preview
-                <a href="#">Edit labels</a>
+            <div className="widget-preview-label-wrapper">
+                <span className="preview-label">Widget preview</span>
+                <a href="#/widget/labels" className="edit-label-link">Edit labels</a>
             </div>
-            <div>
-                Preview Comes here
+            <div className="preview-wrapper">
+                <img src={previewImg} />
             </div>
         </div>
     );

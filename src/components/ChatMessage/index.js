@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
 /* component styles */
+import moment from 'moment';
 import { styles } from './styles.scss';
-//
 import { DefaultMessage } from './default-message';
+let classNames = require("classNames");
 
 export class ChatMessage extends Component {
   componentDidMount (){
@@ -12,22 +13,35 @@ export class ChatMessage extends Component {
       theme:"dark-3"        
     });
   }
+  computeDate(date){
+    if(!date) return false;
+    let time = moment(date),
+    diff = moment().endOf("day").diff(time, "days", true);
+    return (diff <= 1) ? "today" : (diff <= 2) ? "yesterday" : time.format("D MMM YYYY")
+  }
   getMessages( messages ) {
     if( messages && messages.length  ) {
       return  (<ul className="chat-messages">
           { 
-            messages.map(message => {
-              let user = this.props.user.userinfo;
-              let avatarText = "U" + ((message.user_id) ? (message.user_id + "").charAt(0) : "");
+            messages.map((message, ind, msgs) => {
+              let user = this.props.user.userinfo,
+                combineMessage = !!ind && msgs[ind - 1].user_id == message.user_id,
+                displayDate = this.computeDate(message.created_at),
+                avatarText = "U" + ((message.user_id) ? (message.user_id + "").charAt(0) : ""),
+                isShowDate = !!ind && this.computeDate(msgs[ind - 1].created_at) == displayDate,
+                relative_time = displayDate == "today" && moment(message.created_at).format("LT");
+              
               if(user.id != message.user_id){
                 return(
                   <li key={message.id} className="received-message fade-in">
+                    <div className={classNames("text-center", { hide: isShowDate })}>{ displayDate}</div>
                     <div className="chat-message">
-                      <img className="img-circle" 
+                      <span className={classNames("avatar", { hide: false })}>{avatarText}</span>
+                      <img className={classNames("img-circle", { hide: true })} 
                       src="dist/images/user.png" 
                       title="{message.user_id}" 
                       alt="{user_id.user_id}" />
-                      <span className="avatar">{avatarText}</span>
+                      <div className={classNames("user-name-display", { hide: combineMessage })}>{ "User " + message.user_id}</div>
                       <div className="message-bubble">
                         {message.text}
                       </div>
@@ -38,15 +52,15 @@ export class ChatMessage extends Component {
               else {
                 return(
                   <li key={message.id} className="sent-message fade-in">
-                    <div className="chat-message">
-                      <img className="img-circle" 
-                      src={user.avatar_96} 
-                      title={ user.first_name } 
-                      alt={ user.first_name } />
-                      <span className="avatar">{avatarText}</span>
+                    <div className={ classNames("chat-message", { today: !!relative_time})}>
+                      <div className={classNames("text-center", { hide: isShowDate })}>{ displayDate}</div>
+                      <div className={classNames("user-name-display", { hide: combineMessage })}>{ user.first_name + " " + user.last_name}</div>
+                      <img className={classNames("img-circle", { hide: !user.avatar_96 })} src={user.avatar_96}  title={ user.first_name }  alt={ user.first_name } />                      
+                      <span className={classNames("avatar", { hide: !!user.avatar_96 })}>{avatarText}</span>
                       <div className="message-bubble">
                         { message.text}
                       </div>
+                      <p className={ classNames("time-bubble", {hide: !relative_time})}>{relative_time}</p>
                     </div>
                   </li>
                 )            

@@ -55,9 +55,12 @@ export function getConversations(channelid, channels) {
     return dispatch(processConversationsForDispatch(conversations));
   }*/
 
-  return dispatch => {
+  return (dispatch, getState) => {
     /* Load memoized (cached) conversations from store if any */
     dispatch(processMemoizedConversationsForDispatch(channelid));
+    /* Load memoized (cached) conversation history from store if any */
+    let conv = getState().conversations.memoizedMessage[channelid];
+    !!conv && dispatch(processMemoizedConversationsHistoryForDispatch(conv));
 
     /* Trigger API to get latest conversations */
     fetchConversations(channelid).then(response => {return response.json()})  
@@ -155,12 +158,16 @@ export function getChannel(channel, access_token, team) {
 }
 export function getConversationHistory (conversationid) {
   return dispatch => {
-    /* Load memoized (cached) conversation history from store if any */
-    dispatch(processMemoizedConversationsHistoryForDispatch(conversationid));
-
     /* Trigger API service to retrieve latest conversation history */
     fetchConversationHistory(conversationid).then(response => {return response.json()})  
-      .then(json => dispatch(processConversationsHistoryForDispatch(json, conversationid)))
+      .then(json => {
+        dispatch(processConversationsHistoryForDispatch(json, conversationid))
+        dispatch({
+          type: 'SET_CONVERSATION_CHANNEL_MEMOIZED',
+          posts: { conversationid},
+          receivedAt: Date.now()
+        });
+      })
   }
 }
 
@@ -358,10 +365,10 @@ function processMemoizedConversationsHistoryForDispatch(conversationid) {
   }
 }
 
-function processMemoizedConversationsForDispatch(conversationid) {
+function processMemoizedConversationsForDispatch(channelid) {
   return {
     type: 'FETCH_CONVERSATIONS_MEMOIZED',
-    posts: { conversationid},
+    posts: { channelid},
     receivedAt: Date.now()
   }
 }

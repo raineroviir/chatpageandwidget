@@ -1,0 +1,83 @@
+.widget-invitation {
+
+    .proactive-invitation {
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.6;
+        letter-spacing: 0.1px;
+        color: #000000;
+        font-family: 'Rubik-Medium';
+        .widget-switch {
+            margin-left: 30px;
+        }
+    }
+
+    .widget-sub-title {
+        margin-top: 30px;
+    }
+    .pro-inv-banner-wrapper {
+        margin: 20px -49px 0 -49px;
+        img {
+            width: 100%;
+        }
+    }
+    select {
+        padding: 4px 6px ;
+        border-radius: 5px;
+        background-color: #ffffff;
+        border: solid 0.5px #e7eaec;
+        min-width: 96px;
+        font-family: 'Rubik';
+    }
+    .conditions-form {
+        margin-top: 41px;
+        padding-bottom: 41px;
+        .conditions-title {
+            font-family: 'Rubik-Medium';
+            font-size: 15px;
+            line-height: 1.6;
+            letter-spacing: 0.1px;
+            color: #474848;
+            margin-bottom: 20px;
+            select {
+                margin: 7px;
+            }
+        }
+    }
+    .condition-row {
+        max-width: 700px; 
+        width: 100%;
+        display: table;
+        margin-bottom: 20px;
+        .condition-cell {
+            display: table-cell;
+        }
+        .cell1 {
+            width: 30%;
+            padding-right: 16px;
+        }
+        .cell2 {
+            width: 30%;
+            padding-right: 16px;
+        }
+        .cell3 {
+            width: 40%;
+            padding-right: 16px;
+            .input-field {
+                margin-right: 10px 
+            }
+        }
+        select {
+            width: 100%;
+        }
+        .input-field {
+            border-radius: 5px;
+            background-color: #ffffff;
+            border: solid 0.5px #e7eaec;
+            padding: 4px 13px;
+        }
+        .seconds {
+            width: 80px;
+        }
+    }
+}

@@ -26,16 +26,27 @@ export class ChannelCreateContainer extends Component {
   }
 
   handleNext(attr){
-    this.props.actions.chatDetails(attr);
-    window.location.hash = "#/channel/members";
+    if(this.props.id) {
+      this.props.actions.updateChannelDetails(attr);
+    }
+    else {
+      this.props.actions.chatDetails(attr);
+    }
+  }
+
+  fetchChannel(){
+    if(this.props.id)
+    this.props.actions.fetchChannel(this.props.id);
+    
   }
 
   render() {
+    
     return (
             <div>
               <DocumentMeta {...metaData} />
               <Navigation historyApi={this.props.historyApi} />
-              <ChannelCreate details={this.props.createChannel} handleBack={this.handleBack.bind(this)} handleNext={this.handleNext.bind(this)} />
+              <ChannelCreate fetchChannel={this.fetchChannel.bind(this)} details={this.props.createChannel} handleBack={this.handleBack.bind(this)} handleNext={this.handleNext.bind(this)} />
           </div>
     );
   }
@@ -47,9 +58,11 @@ ChannelCreateContainer.propTypes = {
   //dispatch: PropTypes.func.isRequired
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  console.log(ownProps.params.id)
   return {
-    createChannel: state.createChannel.CreateChannel
+    createChannel: state.createChannel.CreateChannel,
+    id: ownProps.params.id
   }
 }
 

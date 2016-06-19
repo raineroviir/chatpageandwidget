@@ -3,6 +3,7 @@ var _ = require('lodash');
 const initialState = {
   conversations: [],
   memoized: {},
+  memoizedMessage: {},
   channelid: null
 };
 
@@ -14,7 +15,10 @@ export function conversations(state = initialState, action) {
       ...state,
       conversations: conv,
       channelid: action.posts.channelid,
-      memoized: Object.assign({}, { [action.posts.channelid]: conv })
+      memoized: {
+        ...state.memoized,
+        [action.posts.channelid]: conv 
+      }
     };
   case 'FETCH_CONVERSATIONS_MEMOIZED':
     if(!state.memoized[action.posts.channelid]) return state;
@@ -23,10 +27,13 @@ export function conversations(state = initialState, action) {
       conversations: [ ...state.memoized[action.posts.channelid]],
       channelid: action.posts.channelid
     };
+  case 'SET_CONVERSATION_CHANNEL_MEMOIZED':
     return {
       ...state,
-      conversations: _.sortBy(action.posts.conversations, a => parseInt(moment(a.updated_at).format("x"))).reverse(),
-      channelid: action.posts.channelid
+      memoizedMessage: {
+        ...state.memoizedMessage,
+        [state.channelid] : action.posts.conversationid 
+      }
     };
   case 'RESET_CONVERSATIONS':
     return initialState;
