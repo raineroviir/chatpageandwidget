@@ -38,8 +38,8 @@ export class Installation extends Component {
             ]
             return (
                 <div className="plugins-section">
-                    {platforms.map((item)=>{
-                        return (<div className="pulgin-for-tile">
+                    {platforms.map((item, index)=>{
+                        return (<div className="pulgin-for-tile" key={index}>
                                 <div className="pulgin-for">
                                 <span className={'platform-logo '  + item.logo}>
                                 </span>

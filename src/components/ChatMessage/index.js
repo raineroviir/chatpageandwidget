@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { styles } from './styles.scss';
 import { DefaultMessage } from './default-message';
-let classNames = require("classNames");
+let classNames = require("classnames");
 
 export class ChatMessage extends Component {
   componentDidMount (){

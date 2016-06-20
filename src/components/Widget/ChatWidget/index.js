@@ -13,8 +13,8 @@ export class ChatWidget extends Component {
         super( props );
         this.state = {};
     }
-    componentDidUpdate (){
-        $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({ 
+    componentDidMount (){
+        $('#chat-body').removeAttr("style").mCustomScrollbar({ 
             theme:"dark-3"        
         });
     }
@@ -48,7 +48,7 @@ export class ChatWidget extends Component {
                 </a>
             </div>
 
-            <div className="chat-widget-body mCustomScrollBar">
+            <div className="chat-widget-body" id="chat-body">
                 <div className="chat-widget-body-content">
                     <div className="welcome-section">
                         <div className="chat-center-team">

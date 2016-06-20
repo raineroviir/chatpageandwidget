@@ -34,7 +34,7 @@ export class ChannelCreate extends Component {
 
   componentDidMount() {
 
-    if(this.props.details.payload.is_public === "" || this.props.details.payload.is_direct=== "" || this.props.details.payload.is_group==="") {
+    if(!this.props.id && (this.props.details.payload.is_public === "" || this.props.details.payload.is_direct=== "" || this.props.details.payload.is_group==="")) {
       window.location.hash = "#/channel/type";
     }
     if(!(this.props.details.payload.description && this.props.details.payload.channel)) {

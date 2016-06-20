@@ -35,9 +35,9 @@ export class ChannelMembers extends Component {
   }
 
   componentDidMount() {
-    if(this.props.details.payload.is_public === "" || this.props.details.payload.is_direct==="" || this.props.details.payload.is_group==="") {
+    if(!this.props.id && (this.props.details.payload.is_public === "" || this.props.details.payload.is_direct==="" || this.props.details.payload.is_group==="")) {
       window.location.hash = "#/channel/type";
-    } else if(this.props.details.payload.channel == "" || this.props.details.payload.description=="") {
+    } else if(!this.props.id && (this.props.details.payload.channel == "" || this.props.details.payload.description=="")) {
       window.location.hash = "#/channel/create";
     }
     if(!(this.props.details.payload.members && this.props.details.payload.members.length)) {
@@ -96,8 +96,8 @@ export class ChannelMembers extends Component {
             </div>
             <div className="button-wrapper">
               <button type="button" className="btn btn-default back" onClick={this.props.handleBack}>BACK</button>
-              <button type="submit" ref="createButton" className={classnames('btn btn-default sign-in pull-right', { hide: this.props.details.payload.id})} onClick={this.handleNext.bind(this)}>CREATE</button>
-              <button type="submit" ref="saveButton" className={classnames('btn btn-default sign-in pull-right', { hide: !this.props.details.payload.id})} onClick={this.handleNext.bind(this)}>SAVE</button>
+              <button type="submit" ref="createButton" className={classnames('btn btn-default sign-in pull-right', { hide: this.props.id})} onClick={this.handleNext.bind(this)}>CREATE</button>
+              <button type="submit" ref="saveButton" className={classnames('btn btn-default sign-in pull-right', { hide: !this.props.id})} onClick={this.handleNext.bind(this)}>SAVE</button>
             </div> 
             <div className="footer-help">
               <div>

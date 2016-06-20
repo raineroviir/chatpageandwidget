@@ -12,7 +12,8 @@ export class Invitations extends Component {
     constructor( props ){
         super( props );
         this.state = {
-            proChatInvitation: false
+            proChatInvitation: false,
+            condList :[{}]
         }
     }
 
@@ -24,7 +25,49 @@ export class Invitations extends Component {
         };
         this.setState( stateObject() );   
     }
+    removeCondition( index ) {
+        this.state.condList.splice(index, 1);
+        this.setState({
+            condList: this.state.condList
+        });
+    }
+    addCondition() {
+        this.state.condList.push({});
+        this.setState({
+            condList: this.state.condList
+        });
+    }
     render(){
+        let conditionRows = this.state.condList.map( ( cond, index)=> {
+            return (<div className="condition-row" key={index}>
+                <div className="condition-row">
+                    <div className="condition-cell cell1">
+                        <select>
+                            <option>Condition1</option>
+                            <option>Condition2</option>
+                            <option>Condition3</option>
+                        </select>
+                    </div>
+                    <div className="condition-cell cell2">
+                        <select>
+                            <option>Contains1</option>
+                            <option>Contains2</option>
+                            <option>Contains3</option>
+                        </select>
+                    </div>
+                    <div className="condition-cell cell3">
+                        <input type="text" className="input-field"/>
+                        <span onClick={
+                            this.removeCondition.bind(this, index)
+                        }
+                        className="remove-condition">
+                            x
+                        </span>
+                    </div>
+                </div>
+            </div>)
+        });
+        
         return (
             <div className="widget-invitation">
                 <a href="#" className="widget-close">
@@ -79,26 +122,11 @@ export class Invitations extends Component {
                             seconds
                         </div>
                     </div>
-                
-                    <div className="condition-row">
-                        <div className="condition-row">
-                            <div className="condition-cell cell1">
-                                <select>
-                                    <option>Current page URL</option>
-                                </select>
-                            </div>
-                            <div className="condition-cell cell2">
-                                <select>
-                                    <option>Contains</option>
-                                </select>
-                            </div>
-                            <div className="condition-cell cell3">
-                                <input type="text" className="input-field"/>
-                            </div>
-                        </div>
-                    </div>
+                    {
+                        conditionRows
+                    }
                     <div>
-                        <button className="cc-btn">ADD CONDITION</button>
+                        <button className="cc-btn" onClick={this.addCondition.bind(this)}>ADD CONDITION</button>
                     </div>
                 </div>
             </div>

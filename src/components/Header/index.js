@@ -8,7 +8,10 @@ export class HeaderView extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {openFeature: false};
+    this.state = {
+      openFeature: false,
+      showSettingsMenu: false
+    };
   }
 
 
@@ -16,6 +19,13 @@ export class HeaderView extends Component {
     e.preventDefault();
     this.setState({
       openFeature: !this.state.openFeature
+    });
+  }
+
+  toggleSettingsMenu( e ){
+    e.preventDefault();
+    this.setState({
+      showSettingsMenu: !this.state.showSettingsMenu
     });
   }
 
@@ -51,11 +61,35 @@ export class HeaderView extends Component {
 
             <h1 className="title">
               { channel && channel.name}
-              <a href="#">
+              <a href="#" onClick={this.toggleSettingsMenu.bind(this)}>
                 <span className="channel-setting" aria-hidden="true"></span>
               </a>
-              
             </h1>
+            <div className={"settings-menu" + (this.state.showSettingsMenu ? ' show-menu': '')} >
+              <ul>
+                <li>
+                  <a href="#/widget/installation">Website widget setup</a>
+                </li>
+                <li>
+                  <a>Click to Chat button setup</a>
+                </li>
+                <li>
+                  <a>Chat page setup</a>
+                </li>
+                <li className="separator">
+                  <a href={channel ? '#/channel/edit/' + channel.id : 'javascript:;'}>Channel name and URL</a>
+                </li>
+                <li>
+                  <a>Channel notification preferances</a>
+                </li>
+                <li>
+                  <a href={channel ? '#/channel/members/' + channel.id : 'javascript:;'}>Channel members</a>
+                </li>
+                <li>
+                  <a>Channel responces</a>
+                </li>
+              </ul>
+            </div>
             <p className="channel-name-wrapper">
               <span className="channel-name">
               {

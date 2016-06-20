@@ -46,7 +46,7 @@ export class ChannelCreateContainer extends Component {
             <div>
               <DocumentMeta {...metaData} />
               <Navigation historyApi={this.props.historyApi} />
-              <ChannelCreate fetchChannel={this.fetchChannel.bind(this)} details={this.props.createChannel} handleBack={this.handleBack.bind(this)} handleNext={this.handleNext.bind(this)} />
+              <ChannelCreate id={this.props.id} fetchChannel={this.fetchChannel.bind(this)} details={this.props.createChannel} handleBack={this.handleBack.bind(this)} handleNext={this.handleNext.bind(this)} />
           </div>
     );
   }
@@ -59,7 +59,6 @@ ChannelCreateContainer.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
-  console.log(ownProps.params.id)
   return {
     createChannel: state.createChannel.CreateChannel,
     id: ownProps.params.id

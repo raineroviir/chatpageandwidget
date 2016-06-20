@@ -52,7 +52,7 @@ export class ChannelMembersContainer extends Component {
         <div>
           <DocumentMeta {...metaData} />
           <Navigation historyApi={this.props.historyApi} />
-          <ChannelMembers validateEmail={this.validateEmail.bind(this)} updateMembers={this.updateMembers.bind(this)} details={this.props.createChannel} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
+          <ChannelMembers id={this.props.id} validateEmail={this.validateEmail.bind(this)} updateMembers={this.updateMembers.bind(this)} details={this.props.createChannel} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
         </div>
     );
   }
@@ -64,9 +64,10 @@ ChannelMembersContainer.propTypes = {
   //dispatch: PropTypes.func.isRequired
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
-    createChannel: state.createChannel.CreateChannel
+    createChannel: state.createChannel.CreateChannel,
+    id: ownProps.params.id
   }
 }
 
