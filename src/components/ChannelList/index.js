@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 /* component styles */
 //import { styles } from './styles.scss';
 import { styles } from './styles.scss';
-let classNames = require("classNames");
+let classNames = require("classnames");
 export class ChannelList extends Component {
   componentDidUpdate (){
     $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({ 
