@@ -40,7 +40,7 @@ export function getChannels(channelid, old_token) {
       if(json.error) { return; }
       /* Invoke Channels Service when we recieve new channels */
       if(json.channels.length){
-        dispatch(getConversations(channelid || json.channels[0].id, json.channels))          
+        dispatch(getConversations(channelid || Array.prototype.slice.call(json.channels).reverse().find(chl => chl.is_direct).id, json.channels))          
       }
       else{
         dispatch(processConversationsForDispatch({ conversations: []}, null)) 
@@ -316,7 +316,7 @@ function processChannelsForDispatch(channels) {
       privateChannels: source.filter(item => !item.is_public && !item.is_direct) || [],
       groupChannels: source.filter(item => item.is_group && !item.is_direct) || [],
       otherChannels: source.filter(item => !item.is_group && !item.is_direct) || [],
-      directChannels: source.filter(item => item.is_direct) || [],
+      directChannel: source.filter(item => item.is_direct)[0] || null,
       recentContacts: channels.recentContacts || []
     },
     meta = {

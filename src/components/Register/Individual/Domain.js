@@ -36,10 +36,19 @@ export class RegisterIndividualDomain extends Component {
   }
 
   componentDidMount() {
-    if(!this.state.channel ){
-      this.refs.createBtn.disabled = true;
+    if(this.state.channel === ''){
+      this.refs.Channel.value = this.props.registrationDetails.Organisation.payload.first_name;
     }
-    this.refs.Channel.value = this.state.channel;
+    else{
+      this.refs.Channel.value = this.state.channel;
+    }
+
+    if(this.refs.Channel.value  === ''){
+      this.refs.nextButton.disabled = true;
+    }else{
+      this.refs.nextButton.disabled = false;
+    }
+    
   }
 
   render() {

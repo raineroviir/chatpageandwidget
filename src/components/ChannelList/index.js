@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 /* component styles */
 //import { styles } from './styles.scss';
 import { styles } from './styles.scss';
-
+let classNames = require("classNames");
 export class ChannelList extends Component {
   componentDidUpdate (){
     $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({ 
@@ -20,7 +20,7 @@ export class ChannelList extends Component {
           
           <div className="user-info">
             <span className="glyphicon glyphicon-menu-hamburger menu-hamburger" aria-hidden="true"></span>
-            <h3 className="title ellipsis">Chat Center</h3>
+            <h3 className="title ellipsis">{ (user.team && user.team.name) ? user.team.name.replace(/\./g, " ") : "Chat Center"}</h3>
             <p className="ellipsis user-name">
               <span className="available-status online"></span>
               { user.first_name  ? (user.first_name + " " + user.last_name ) : '' }
@@ -29,34 +29,14 @@ export class ChannelList extends Component {
               { this.props.org && this.props.org.name }
             </p>
           </div>
-          <div className="direct-message">
-              <h3 className="title ellipsis">Direct Messages</h3>
-              <div className="item-features">
-                <span className="msg-count">{ this.props.channels.count }</span>
-                <span className="pencil-wrapper">
-                </span>
-                
-              </div>
-              <ul className="chat-list">
-              {
-                this.props.channels.directChannels.map(channel => {
-                  let avatarText = (channel.name) ? channel.name.charAt(0) : "";
-                  return (
-
-                    <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message active" : "chat-message" }>
-                      <a>
-                        <img className="img-rounded" src="dist/images/user.png" title={channel.name} alt={channel.name} />
-                        <span className="avatar">{avatarText}</span>
-                        <span className="name ellipsis">
-                          {channel.name}
-                        </span>
-                        <span className="msg-count">2</span>
-                      </a>
-                    </li>
-                  );
-                })
-              }
-              </ul>
+          <div className="direct-message" onClick={this.selectChannel.bind(this, this.props.channels.directChannel)}>
+            <h3 className="title ellipsis">Direct Messages</h3>
+            <div className="item-features">
+              <span className="msg-count">{ this.props.channels.count }</span>
+              <span className="pencil-wrapper">
+              </span>
+              
+            </div>              
           </div>
           <div className="chat-lists-wrapper">
             
@@ -73,8 +53,8 @@ export class ChannelList extends Component {
                     
                     <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message active" : "chat-message" }>
                       <a>
-                        <img className="img-rounded" src="dist/images/user.png" title={channel.name} alt={channel.name} />
-                        <span className="avatar">{avatarText}</span>
+                        <img className={classNames("img-rounded", { hide: !channel.avatar_96})} src={channel.avatar_96 || ""} title={channel.name} alt={channel.name} />
+                        <span className={classNames("avatar", { hide: !!channel.avatar_96})}>{avatarText}</span>
                         <span className="name ellipsis">
                           {channel.name}
                         </span>
@@ -100,8 +80,8 @@ export class ChannelList extends Component {
 
                     <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message active" : "chat-message" }>
                       <a>
-                        <img className="img-rounded" src="dist/images/user.png" title={channel.name} alt={channel.name} />
-                        <span className="avatar">{avatarText}</span>
+                        <img className={classNames("img-rounded", { hide: !channel.avatar_96})} src={channel.avatar_96 || ""} title={channel.name} alt={channel.name} />
+                        <span className={classNames("avatar", { hide: !!channel.avatar_96})}>{avatarText}</span>
                         <span className="name ellipsis">
                           {channel.name}
                         </span>
@@ -125,8 +105,8 @@ export class ChannelList extends Component {
                   return (
                     <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message active" : "chat-message" }>
                       <a>
-                        <img className="img-rounded" src="dist/images/user.png" title={channel.name} alt={channel.name} />
-                        <span className="avatar">{avatarText}</span>
+                        <img className={classNames("img-rounded", { hide: !channel.avatar_96})} src={channel.avatar_96 || ""} title={channel.name} alt={channel.name} />
+                        <span className={classNames("avatar", { hide: !!channel.avatar_96})}>{avatarText}</span>
                         <span className="name ellipsis">
                           {channel.name}
                         </span>
@@ -151,10 +131,8 @@ export class ChannelList extends Component {
                     <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message no-user active" : "chat-message no-user" }>
                       <a className={channel.is_public? 'public-channel': 'private-channel'  }>
                         
-                          <img className="img-rounded" src="dist/images/user.png" title={channel.name} alt={channel.name} />
-                          <span className="avatar">{avatarText}
-
-                          </span>
+                        <img className={classNames("img-rounded", { hide: !channel.avatar_96})} src={channel.avatar_96 || ""} title={channel.name} alt={channel.name} />
+                        <span className={classNames("avatar", { hide: !!channel.avatar_96})}>{avatarText}</span>
                           <span className="name ellipsis">
                             <span>
                               {channel.name}

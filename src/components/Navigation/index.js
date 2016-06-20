@@ -23,14 +23,14 @@ export class NavigationView extends Component {
         <div className="org-list-wrapper">
           {
             this.props.orgs.orgs.map(org => {
-              let avatar = (org.user && org.user.avatar_96) ? org.user.avatar_96 : "dist/images/logo.png";
+              let orgName = (org.user.team && org.user.team.name) ? org.user.team.name : org.user.first_name;
               if(org.active){
                 return(
                   <ul className="org-list expanded" key={org.name}>  
                     <li className="logo">
                       <a className={classnames({ avatar: !org.user.avatar_96})}>
-                        <img className={classnames({ hide: !org.user.avatar_96})} src={avatar} title="Chat Center" />
-                        <span className={classnames({ hide: org.user.avatar_96})}>{ (org.user.first_name + "").charAt(0) || "CC"}</span>
+                        <img className={classnames({ hide: !org.user.avatar_96})} src={org.user.avatar_96} title="Chat Center" />
+                        <span className={classnames({ hide: org.user.avatar_96})}>{ (orgName + "").charAt(0) || "CC"}</span>
                       </a>
                     </li>
                     <li className="active"><a className="nav-link" href="javascript:;"><span  className="home-icon" aria-hidden="true"></span></a></li>
@@ -46,8 +46,8 @@ export class NavigationView extends Component {
                 <ul className="org-list" key={org.name}>  
                   <li onClick={this.switchOrganization.bind(this, org)} className="logo">
                     <a className={classnames({ avatar: !org.user.avatar_96})}>
-                      <img className={classnames({ hide: !org.user.avatar_96})} src={avatar} title="Chat Center" />
-                      <span className={classnames({ hide: org.user.avatar_96})}>{ (org.name + "").charAt(0) || "CC"}</span>
+                      <img className={classnames({ hide: !org.user.avatar_96})} src={org.user.avatar_96} title="Chat Center" />
+                      <span className={classnames({ hide: org.user.avatar_96})}>{ (orgName + "").charAt(0) || "CC"}</span>
                     </a>
                   </li>
                 </ul>

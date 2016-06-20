@@ -7,8 +7,7 @@ import { DefaultMessage } from './default-message';
 let classNames = require("classnames");
 
 export class ChatMessage extends Component {
-  componentDidMount (){
-      
+  componentDidMount (){      
     $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({ 
       theme:"dark-3"        
     });
@@ -18,6 +17,10 @@ export class ChatMessage extends Component {
     let time = moment(date),
     diff = moment().endOf("day").diff(time, "days", true);
     return (diff <= 1) ? "today" : (diff <= 2) ? "yesterday" : time.format("D MMM YYYY")
+  }
+  componentDidUpdate(){
+    $(".chat-messages-wrapper.mCustomScrollBar").mCustomScrollbar("update");
+    $(".chat-messages-wrapper.mCustomScrollBar").mCustomScrollbar("scrollTo", "bottom");
   }
   getMessages( messages ) {
     if( messages && messages.length  ) {

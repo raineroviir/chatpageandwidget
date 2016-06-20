@@ -24,6 +24,7 @@
             font-size: 17px;
             margin-bottom: 7px;
             font-family: Rubik-Medium;
+            text-transform: capitalize;
         }
         
     }
@@ -163,9 +164,9 @@
             border-radius: 2px;
             text-transform: uppercase;
         }
-        .img-rounded {
+        /*.img-rounded {
             display: none;
-        }
+        }*/
         .name {
             max-width: 100%;
             display: inline-block;
