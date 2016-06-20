@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 import DocumentMeta from 'react-document-meta';
 import Navigation from 'containers/Home/Navigation';
 import {WidgetNav} from '../../components/WidgetNav/index';
-import {Installation} from '../../components/widget/Installation';
+import {Installation} from '../../components/Widget/Installation';
 
 import * as WidgetActions from '../../actions/Widget'
 
