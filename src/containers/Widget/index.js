@@ -33,9 +33,9 @@ export class Widget extends Component {
         <DocumentMeta {...metaData} />
         <Navigation historyApi={this.props.historyApi} />
         <div className="widget-component">
-          <WidgetNav />
+          <WidgetNav state={this.props.state}/>
           <div className="widget-content">
-           <Installation />
+          <Installation />
           </div>
         </div>
       </div>

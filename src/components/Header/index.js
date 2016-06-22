@@ -30,7 +30,7 @@ export class HeaderView extends Component {
   }
 
   render() {
-    console.log( 'this.state', this.state );
+    //console.log( 'this.state', this.state );
     let user = this.props.user.userinfo,
       channel = this.props.channelInfo;
 

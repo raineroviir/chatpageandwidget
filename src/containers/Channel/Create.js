@@ -46,7 +46,12 @@ export class ChannelCreateContainer extends Component {
             <div>
               <DocumentMeta {...metaData} />
               <Navigation historyApi={this.props.historyApi} />
-              <ChannelCreate id={this.props.id} fetchChannel={this.fetchChannel.bind(this)} details={this.props.createChannel} handleBack={this.handleBack.bind(this)} handleNext={this.handleNext.bind(this)} />
+              <ChannelCreate 
+              id={this.props.id} 
+              fetchChannel={this.fetchChannel.bind(this)} 
+              details={this.props.createChannel} 
+              handleBack={this.handleBack.bind(this)} 
+              handleNext={this.handleNext.bind(this)} />
           </div>
     );
   }
