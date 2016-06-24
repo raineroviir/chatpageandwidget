@@ -295,7 +295,7 @@ function postMessage(message, conversationid, access_token) {
   if (typeof(Storage) !== "undefined" && !access_token) {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch( urlConfig.base + 'chats.postMessage', {
+  return fetch( urlConfig.base + 'messages.postMessage', {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json',

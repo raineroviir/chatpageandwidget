@@ -6,7 +6,6 @@ import DocumentMeta from 'react-document-meta';
 import Navigation from 'containers/Home/Navigation';
 import {WidgetNav} from '../../components/WidgetNav/index';
 import {Installation} from '../../components/Widget/Installation';
-
 import * as WidgetActions from '../../actions/Widget'
 
 // import App from './components';
@@ -23,19 +22,39 @@ const metaData = {
 };
 
 export class Widget extends Component {
+  
+
   constructor( props ){
     super( props );
   }
+  componentDidMount() {
+      $(document).keyup(this.keyupEvent);
+      this.props.actions.initWidget( this.props.conversations.channelid );
+  }
+  componentWillUnmount() {
+      //unbind the event keyup binded 
+      $(document).unbind( 'keyup', this.goToDashboard );
+  }
+  keyupEvent(e){
+      if (e.which==27){
+          window.location.hash = "#/dashboard";
+      }
+  }
+  componentWillMount() {
+    if( !this.props.conversations.channelid ) {
+      window.location.hash = "#/dashboard";
+    }
+  }
   render() {
-    const { actions } = this.props
+    const { actions } = this.props;
     return (
       <div>
         <DocumentMeta {...metaData} />
         <Navigation historyApi={this.props.historyApi} />
         <div className="widget-component">
-          <WidgetNav state={this.props.state}/>
+          <WidgetNav widget={this.props.widget} conversations={this.props.conversations} actions={this.props.actions}/>
           <div className="widget-content">
-          <Installation />
+          <Installation channelid={this.props.conversations.channelid} widget={this.props.widget}/>
           </div>
         </div>
       </div>
@@ -50,7 +69,9 @@ Widget.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    state: state
+    conversations: state.conversations,
+    widget: state.widget,
+    historyApi: state.historyApi
   }
 }
 

@@ -41,11 +41,11 @@ export class ChannelCreate extends Component {
       this.refs.nextButton.disabled = true;
       this.refs.saveButton.disabled = true;
     }
-    $('body').keydown(function(e){
+    /*$('body').keydown(function(e){
         if (e.which==27){
             window.location.hash = "#/dashboard";
         }
-    });
+    });*/
     var self = this;
     this.refs.description.value = this.props.details.payload.description;
     this.refs.channel.value = this.props.details.payload.channel;
@@ -58,6 +58,18 @@ export class ChannelCreate extends Component {
           self.refs.avatarPreview.style.display = 'block';
       };
     }
+    $(document).keyup(this.keyupEvent);
+  }
+
+  componentWillUnmount() {
+    //unbind the event keyup binded 
+    $(document).unbind( 'keyup', this.goToDashboard );
+  }
+  keyupEvent(e){
+      
+      if (e.which==27){
+          window.location.hash = "#/dashboard";
+      }
   }
 
   componentWillMount() { 

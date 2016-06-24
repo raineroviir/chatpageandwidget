@@ -22,12 +22,19 @@ const metaData = {
 
 export class Channel extends Component {
   componentDidMount() {
-    $('body').keydown(function(e){
-        if (e.which==27){
-            window.location.hash = "#/dashboard";
-        }
-    });
+    $(document).keyup(this.keyupEvent);
   }
+  componentWillUnmount() {
+    //unbind the event keyup binded 
+    $(document).unbind( 'keyup', this.goToDashboard );
+  }
+  keyupEvent(e){
+      
+      if (e.which==27){
+          window.location.hash = "#/dashboard";
+      }
+  }
+  
   render() {
     //const { actions } = this.props
     return (

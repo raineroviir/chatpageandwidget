@@ -72,7 +72,7 @@ export class ChatWidget extends Component {
                             </p>
                         </div>
                         <div className="chat-widget-welcome-msg">
-                            Hi there, thanks for checking out chat.center, if you have any questions  we will be happy to help, just let us know
+                            { this.props.widget.welcomeMessage}
                         </div>
                     </div>
                     <div className="">
@@ -91,20 +91,20 @@ export class ChatWidget extends Component {
                             </li>
                             <li className="chat-widget-message received">
                                 <div className={"chat-avatar " + ( this.state.src ? '' : 'default-icon')}>
-                                    <img src={this.state.src ? this.state.src : avatarImg} /
+                                    <img src={this.state.src ? this.state.src : this.props.widget.botAvatarUrl} /
                                     > 
                                 </div>
                                 <div className="chat-message-wrapper">
-                                    <p className="message-by">CC Bot</p>
+                                    <p className="message-by">{this.props.widget.botName}</p>
                                     <div className="chat-message">
-                                       We usually answer within  5 minutes during working  hours (PST).
+                                        {this.props.widget.autoAnswer}
                                     </div>
                                 </div>
                             </li>
                             <li className="chat-widget-message received same-user">
                                 <div className="chat-message-wrapper">
                                     <div className="chat-message">
-                                        Let us notify you via email:
+                                        {this.props.widget.emailPrompt}
                                     </div>
                                 </div>
                             </li>
@@ -112,7 +112,7 @@ export class ChatWidget extends Component {
                                 <div className="chat-message-wrapper">
                                     <div className="chat-message email-prompt-wrapper">
                                         <form className="email-prompt" onSubmit={this.emailPromptSubmit.bind(this)} >
-                                            <input type="text" className="email-promt-input" ref="emailPromptInput" placeholder="Your email" />
+                                            <input type="text" className="email-promt-input" ref="emailPromptInput" placeholder={this.props.widget.emailPlaceholder} />
                                             <button className="email-prompt-submit">
                                                 <span className="success-tick"></span>
                                             </button>
@@ -144,10 +144,10 @@ export class ChatWidget extends Component {
                         <span className="attach-button"></span>
                     </div>
                     <div className="post-input-wrapper cell">
-                        <input type="text" ref="postMsgInput" placeholder="Type message"/>
+                        <input type="text" ref="postMsgInput" placeholder={this.props.widget.inputMsgholder}/>
                     </div>
                     <div className="post-submit-wrapper cell">
-                        <button>Send</button>
+                        <button>{this.props.widget.sendBtnText}</button>
                     </div>
                 </form>
                 <div className="promo-section">

@@ -11,43 +11,70 @@ import previewImg from '../../images/preview.png';
 export class Appearance extends Component {
     constructor(props){
         super( props );
+        let colors = [
+            '#fdb22b',
+            '#45b166',
+            '#ef715e',
+            '#9b59b6',
+            '#1d97fa',
+            '#07cee3',
+            '#e96dae',
+            '#80c84a',
+            '#e74c3c',
+            '#3f51b5',
+            '#fb8c00'
+        ]
         this.state = {
-            selectedTheme: 'sea-green',
-            selectedCode: '#fdb22b',
             customThemeCode: '#fdb22c',
-            teamAvatar: false,
-            channelLogo:false
+            colors: colors
         };
-        //console.log( 'state', this.state );
+
+        this.state.isCustomCode = colors.indexOf(this.props.widget.keyColor) === -1 ? true : false;
+        //this.state.channelLogoUrl = this.props.widget.channelLogoUrl || '/dist/images/msg-env.png';
+
+        if( this.state.isCustomCode ) {
+            this.state.customThemeCode = this.props.widget.keyColor;
+        } 
 
     }
 
-    setSelectedTheme( e ) {
-        console.log( e.target.value );
-    }
-    selectTheme( color, e ) {
+    selectKeyColor( color, e ) {
         e.preventDefault();
         this.setState({
-            selectedCode: color.code
-        })
+            isCustomCode: false
+        });
+        this.props.actions.updateKey( {
+            key:'keyColor',
+            value: color
+        } );
     }
     selectCustomTheme( e ) {
         e.preventDefault();
         this.setState({
-            selectedCode: this.state.customThemeCode
-        })
+            isCustomCode: true
+        });
+        this.props.actions.updateKey( {
+            key:'keyColor',
+            value: this.state.customThemeCode
+        } );
     }
     toggleTeamAvatarStatus() {
-        
-        this.setState({
+        this.props.actions.updateKey( {
+            key:'teamAvatar',
+            value: !this.props.widget.teamAvatar
+        } );
+        /*this.setState({
             teamAvatar: !this.state.teamAvatar
-        })   
+        }) */  
     }
     toggleChannelLogoStatus() {
-        
-        this.setState({
+        this.props.actions.updateKey( {
+            key:'channelLogo',
+            value: !this.props.widget.channelLogo
+        } );
+        /*this.setState({
             channelLogo: !this.state.channelLogo
-        })   
+        })   */
     }
     openFileInput() {
         this.refs.channelLogo.click();
@@ -57,89 +84,61 @@ export class Appearance extends Component {
         if(type == 'file') {
           var oFReader = new FileReader();
           oFReader.readAsDataURL(this.refs.channelLogo.files[0]);
-          oFReader.onload = function (oFREvent) {
-                self.refs.channelLogoPreview.src = oFREvent.target.result;
-          };
+          oFReader.addEventListener("load",  (oFREvent) => {
+            /*this.setState({
+                channelLogoUrl : oFREvent.target.result
+            });*/
+            this.props.actions.updateKey( {
+                key: 'channelLogoUrl',
+                value: oFREvent.target.result
+            } );
+          }, false);
         }
     }
     render() {
         
-        let getColorsTiles = () => { 
-        let colors = [
-            {
-                code: '#fdb22b'
-            },
-            {
-                code: '#45b166'
-            },
-            {
-                code: '#ef715e'
-            },
-            {
-                code: '#9b59b6'
-            },
-            {
-                code: '#1d97fa'
-            },
-            {
-                code: '#07cee3'
-            },
-            {
-                code: '#e96dae'
-            },
-            {
-                code: '#80c84a'
-            },
-            {
-                code: '#e74c3c'
-            },
-            {
-                code: '#3f51b5'
-            },
-            {
-                code: '#fb8c00'
-            }
-        ];
-
-        return (
-            <div className="color-tile-wrapper">
-                {
-                    colors.map( (color, index)=> {
-                        return (<a 
-                                href="#" 
-                                key={index} 
-                                style={ {backgroundColor: color.code} } 
-                                className={'color-tile ' + (this.state.selectedCode === color.code ? ' selected' : '') }
-                                onClick={this.selectTheme.bind(this, color)}
-                                >
-                                </a> )
-                        } 
-                    )
-                }
-                <div className="custom-color-picker-wrapper">
-                    <div className="custom-color-picker">
-                        <a 
-                        href="#"
-                        style={ {backgroundColor: this.state.customThemeCode} } 
-                        className={'color-tile ' + (this.state.selectedCode === this.state.customThemeCode ? ' selected' : '') }
-                        onClick={this.selectCustomTheme.bind(this)}
-                        >
-                        </a>
-                        <span className="angle-down-arrow">
-                        </span>
+        let getColorsTiles = () => {
+        console.log('this.state.customThemeCode',this.state.customThemeCode); 
+            return (
+                <div className="color-tile-wrapper">
+                    {
+                        this.state.colors.map( (color, index)=> {
+                            return (<a 
+                                    href="#" 
+                                    key={index} 
+                                    style={ {backgroundColor: color} } 
+                                    className={'color-tile ' + (this.props.widget.keyColor === color ? ' selected' : '') }
+                                    onClick={this.selectKeyColor.bind(this, color)}
+                                    >
+                                    </a> )
+                            } 
+                        )
+                    }
+                    <div className="custom-color-picker-wrapper">
+                        <div className="custom-color-picker">
+                            <a 
+                            href="#"
+                            style={ {backgroundColor: this.state.customThemeCode} } 
+                            className={'color-tile ' + ( this.state.isCustomCode ? ' selected' : '') }
+                            onClick={this.selectCustomTheme.bind(this)}
+                            >
+                            </a>
+                            <span className="angle-down-arrow">
+                            </span>
+                        </div>
+                        <span>Custom</span>
                     </div>
-                    <span>Custom</span>
                 </div>
-            </div>
-        )
-    }
+            )
+        }
+
     let fileTemplate;
-    if( this.state.channelLogo ) {
+    if( this.props.widget.channelLogo ) {
         fileTemplate = (
             <div className="channel-logo-input-wrapper">
                 <input id="channelLogo" type="file"  accept="image/*" ref="channelLogo" placeholder="avatar" onChange={this.inputChange.bind(this, 'file')} aria-describedby="chatavatar-addon" />
                 <div className="channel-logo-preview">
-                    <img ref="channelLogoPreview" src="/dist/images/msg-env.png" />
+                    <img ref="channelLogoPreview" src={ this.props.widget.channelLogoUrl} />
                 </div>
                 <div className="cell">
                     <button type="button" onClick={this.openFileInput.bind(this)}>CHANGE</button>
@@ -149,7 +148,7 @@ export class Appearance extends Component {
     }
     return (
         <div className="widget-appearance">
-            <a href="#" className="widget-close">
+            <a href="#/dashboard" className="widget-close">
             </a>
             <div className="email-camp-channel">
                 <span className="email-icon-wrapper">
@@ -177,7 +176,7 @@ export class Appearance extends Component {
                 <div className="switchs-wrapper">
                     <div className="input-field-wrapper">
                         <span className="switch-label">Team  avatars</span>
-                        <span className={'widget-switch '+ (this.state.teamAvatar? 'switch-on' : '')}
+                        <span className={'widget-switch '+ (this.props.widget.teamAvatar? 'switch-on' : '')}
                         onClick={this.toggleTeamAvatarStatus.bind(this)}
                         >
                             <span className="switch-point"></span>
@@ -185,7 +184,7 @@ export class Appearance extends Component {
                     </div>
                     <div className="input-field-wrapper">
                         <span className="switch-label">Channel Logo</span>
-                        <span className={'widget-switch ' + (this.state.channelLogo? 'switch-on' : '')}
+                        <span className={'widget-switch ' + (this.props.widget.channelLogo? 'switch-on' : '')}
                         onClick={this.toggleChannelLogoStatus.bind(this)}>
                             <span className="switch-point"></span>
                         </span>

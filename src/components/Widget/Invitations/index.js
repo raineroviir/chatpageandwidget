@@ -13,7 +13,7 @@ export class Invitations extends Component {
         super( props );
         this.state = {
             proChatInvitation: false,
-            condList :[{}]
+            conditionList :[{}]
         }
     }
 
@@ -26,21 +26,21 @@ export class Invitations extends Component {
         this.setState( stateObject() );   
     }
     removeCondition( index ) {
-        this.state.condList.splice(index, 1);
+        this.state.conditionList.splice(index, 1);
         this.setState({
-            condList: this.state.condList
+            conditionList: this.state.conditionList
         });
     }
     addCondition() {
-        this.state.condList.push({});
+        this.state.conditionList.push({});
         this.setState({
-            condList: this.state.condList
+            conditionList: this.state.conditionList
         });
     }
     render(){
-        let conditionRows = this.state.condList.map( ( cond, index)=> {
+        let conditionRows = this.state.conditionList.map( ( cond, index)=> {
             return (<div className="condition-row" key={index}>
-                <div className="condition-row">
+                
                     <div className="condition-cell cell1">
                         <select>
                             <option>Condition1</option>
@@ -64,13 +64,12 @@ export class Invitations extends Component {
                             x
                         </span>
                     </div>
-                </div>
-            </div>)
+                </div>)
         });
         
         return (
             <div className="widget-invitation">
-                <a href="#" className="widget-close">
+                <a href="#/dashboard" className="widget-close">
                 </a>
                 <div className="email-camp-channel">
                     <span className="email-icon-wrapper">

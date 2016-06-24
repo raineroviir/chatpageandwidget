@@ -9,7 +9,8 @@ import { styles } from './styles.scss';
 export class Installation extends Component {
   
     getScriptText(){
-        return "<div id='chat-center-widget' data-chat-id='/cc'></div>\n<script>(function(d,s){var js,cjs=d.getElementsByTagName(s)[0];js=d.createElement(s);js.src='//chat.center/javascript/widget.js';cjs.parentNode.insertBefore(js,cjs);}(document,'script'))"
+
+        return "<div id='chat-center-widget' data-chat-id='"+this.props.channelid+"'></div>\n<script>(function(d,s){var js,cjs=d.getElementsByTagName(s)[0];js=d.createElement(s);js.src='//chat.center/javascript/widget.js';cjs.parentNode.insertBefore(js,cjs);}(document,'script'))"
     }
     render() {
         let getPluginTiles = ()=> {
@@ -55,7 +56,7 @@ export class Installation extends Component {
         }
         return (
             <div className="widget-installation">
-                <a href="#" className="widget-close">
+                <a href="#/dashboard" className="widget-close">
                 </a>
                 <div className="email-camp-channel">
                     <span className="email-icon-wrapper">

@@ -13,8 +13,13 @@ import { styles } from './styles.scss';
 
 
 export class WidgetNav extends Component {
-  render() {
-    console.log( 'widgetnav', this.props.state );
+
+    saveWidget( e ) {
+        e.preventDefault();
+        this.props.actions.saveWidget( this.props.widget, this.props.conversations.channelid );
+    }
+    render() {
+    //console.log( 'widgetnav', this.props.state );
     return (
         <div className="widget-nav">
             <ul className="nav-links">
@@ -31,28 +36,14 @@ export class WidgetNav extends Component {
                     <Link activeClassName="active-link" to="/widget/invitations">Proactive invitations</Link>
                 </li>
             </ul>
+
             <div className="widget-nav-footer">
+                <div className="text-center">
+                    <button className="cc-btn" onClick={this.saveWidget.bind(this)}>Save</button>
+                </div>
                 Questions? <a href="#">Chat with us</a>
             </div>
         </div>
     );
   }
 }
-
-
-function mapStateToProps(state) {
-  return {
-    state: state
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(WidgetActions, dispatch)
-  }
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(WidgetNav);

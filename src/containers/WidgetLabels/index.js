@@ -23,8 +23,16 @@ const metaData = {
 };
 
 export class WidgetLabels extends Component {
-  constructor( props ){
+   constructor( props ){
     super( props );
+  }
+  componentDidMount() {
+    this.props.actions.initWidget( this.props.conversations.channelid );
+  }
+  componentWillMount() {
+    if( !this.props.conversations.channelid ) {
+      window.location.hash = "#/dashboard";
+    }
   }
   render() {
     const { actions } = this.props
@@ -33,9 +41,9 @@ export class WidgetLabels extends Component {
         <DocumentMeta {...metaData} />
         <Navigation historyApi={this.props.historyApi} />
         <div className="widget-component">
-          <WidgetNav />
+          <WidgetNav widget={this.props.widget} conversations={this.props.conversations} actions={this.props.actions} />
           <div className="widget-content">
-           <Labels />
+           <Labels widget={this.props.widget} actions={this.props.actions}/>
           </div>
         </div>
       </div>
@@ -48,9 +56,12 @@ WidgetLabels.propTypes = {
   actions: PropTypes.object.isRequired
 }
 
+
 function mapStateToProps(state) {
   return {
-    state: state
+    conversations: state.conversations,
+    widget: state.widget,
+    historyApi: state.historyApi
   }
 }
 
@@ -59,7 +70,6 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(WidgetActions, dispatch)
   }
 }
-
 export default connect(
     mapStateToProps,
     mapDispatchToProps
