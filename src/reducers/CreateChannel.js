@@ -10,8 +10,11 @@ const initialState = {
       is_public:'',
       is_group:'',
       is_direct:'',
-      members:[]
+      members:[],
+      temp_members:[],
+      filtered_members:[]
     },
+    users:[],
     error:''
   }
 };
@@ -24,15 +27,16 @@ export function createChannel(state = initialState, action) {
   
     case 'CHAT_TYPE':
       var CreateChannel = initialState.CreateChannel;
-      CreateChannel.payload = (Object.assign({},initialState.CreateChannel.payload, {is_public:action.attr.is_public,is_direct:action.attr.is_direct,is_group:action.attr.is_group, team:action.attr.team}));
+      CreateChannel.payload = (Object.assign({},initialState.CreateChannel.payload, {channel:'',id:null,description:'',avatar:'', avatarPreview:'',is_public:action.attr.is_public,is_direct:action.attr.is_direct,is_group:action.attr.is_group, team:action.attr.team}));
       return {
         ...state,
         CreateChannel
       };
 
     case 'CHAT_DETAILS_FETCH':
-      var CreateChannel = {};
-      CreateChannel.payload = (Object.assign(initialState.CreateChannel.payload, {channel:action.attr.channel,id:action.attr.id,description:action.attr.description,avatar:action.attr.avatar, avatarPreview:action.attr.avatarPreview, is_public:action.attr.is_public,is_direct:action.attr.is_direct,is_group:action.attr.is_group, team:action.attr.team}));
+      var CreateChannel = initialState.CreateChannel;
+      CreateChannel = (Object.assign({},state.CreateChannel, {error:action.error}));
+      CreateChannel.payload = (Object.assign({},state.CreateChannel.payload, {channel:action.attr.channel,id:action.attr.id,description:action.attr.description,avatar:action.attr.avatar, avatarPreview:action.attr.avatarPreview, is_public:action.attr.is_public,is_direct:action.attr.is_direct,is_group:action.attr.is_group, team:action.attr.team}));
       return {
         ...state,
         CreateChannel
@@ -40,7 +44,36 @@ export function createChannel(state = initialState, action) {
 
     case 'CHAT_DETAILS':
       var CreateChannel = initialState.CreateChannel;
-      CreateChannel.payload = (Object.assign({},initialState.CreateChannel.payload, {channel:action.attr.channel,description:action.attr.description,avatar:action.attr.avatar}));
+      CreateChannel.payload = (Object.assign({},state.CreateChannel.payload, {channel:action.attr.channel,description:action.attr.description,avatar:action.attr.avatar}));
+      return {
+        ...state,
+        CreateChannel
+      };
+
+    case 'CHAT_MEMBERS_CREATE':
+      var CreateChannel = initialState.CreateChannel;
+      CreateChannel = (Object.assign({},initialState.CreateChannel, {users:action.attr}));
+      CreateChannel.payload = (Object.assign({},initialState.CreateChannel.payload, {temp_members:action.attr}));
+      return {
+        ...state,
+        CreateChannel
+      };
+
+    case 'TEAM_MEMBERS_EDIT':
+      var CreateChannel = initialState.CreateChannel;
+      CreateChannel = (Object.assign({},state.CreateChannel, {users:action.attr}));
+      if(state.CreateChannel.members) {
+        CreateChannel.payload = (Object.assign({},state.CreateChannel.payload, {members:state.CreateChannel.members}));
+      }
+      return {
+        ...state,
+        CreateChannel
+      };
+
+    case 'CHAT_MEMBERS_EDIT':
+      var CreateChannel = initialState.CreateChannel;
+      CreateChannel = (Object.assign({},state.CreateChannel, {users:state.CreateChannel.users}));
+      CreateChannel.payload = (Object.assign({},state.CreateChannel.payload, {members:action.attr}));
       return {
         ...state,
         CreateChannel
@@ -48,7 +81,7 @@ export function createChannel(state = initialState, action) {
 
     case 'CHAT_ERROR':
       var CreateChannel = initialState.CreateChannel;
-      CreateChannel = (Object.assign({},initialState.CreateChannel, {error:action.error}));
+      CreateChannel = (Object.assign({},state.CreateChannel, {error:action.error}));
       return {
         ...state,
         CreateChannel
@@ -65,7 +98,17 @@ export function createChannel(state = initialState, action) {
 
     case 'CHAT_MEMBERS':
       var CreateChannel = initialState.CreateChannel;
-      CreateChannel = (Object.assign({},initialState.CreateChannel, {members:action.members}));
+      CreateChannel = (Object.assign({},state.CreateChannel));
+      CreateChannel.payload = (Object.assign({},state.CreateChannel.payload, {temp_members:action.members}));
+      return {
+        ...state,
+        CreateChannel
+      };
+
+    case 'CHAT_MEMBERS_SUGGEST':
+      var CreateChannel = initialState.CreateChannel;
+      CreateChannel = (Object.assign({},state.CreateChannel));
+      CreateChannel.payload = (Object.assign({},state.CreateChannel.payload, {filtered_members:action.members}));
       return {
         ...state,
         CreateChannel
@@ -73,8 +116,8 @@ export function createChannel(state = initialState, action) {
 
     case 'RESET_CREATE_CHANNEL':
       var CreateChannel = initialState.CreateChannel;
-      CreateChannel = (Object.assign({},initialState.CreateChannel, {error:""}))
-      CreateChannel.payload = (Object.assign({},initialState.CreateChannel.payload, {channel:"",description:"",avatar:"",is_public:"",is_direct:"",is_group:""}));
+      CreateChannel = (Object.assign({},initialState.CreateChannel, {error:"",users:[]}))
+      CreateChannel.payload = (Object.assign({},initialState.CreateChannel.payload, {channel:"",description:"",avatar:"",is_public:"",is_direct:"",is_group:"",members:[],temp_members:[],filtered_members:[]}));
       return {
         ...state,
         CreateChannel

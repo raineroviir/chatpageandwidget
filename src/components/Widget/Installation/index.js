@@ -1,6 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 //let classnames = require('classnames');
+import { connect } from 'react-redux';
+import * as WidgetActions from '../../../actions/Widget';;
+import { bindActionCreators } from 'redux';
+import { TextSelection } from '../../../modules/TextSelection';
+
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -10,8 +15,38 @@ export class Installation extends Component {
   
     getScriptText(){
 
-        return "<div id='chat-center-widget' data-chat-id='"+this.props.channelid+"'></div>\n<script>(function(d,s){var js,cjs=d.getElementsByTagName(s)[0];js=d.createElement(s);js.src='//chat.center/javascript/widget.js';cjs.parentNode.insertBefore(js,cjs);}(document,'script'))"
+        return "<div id='chat-center-widget' data-chat-id='"+this.props.conversations.channelid+"'></div>\n<script>(function(d,s){var js,cjs=d.getElementsByTagName(s)[0];js=d.createElement(s);js.src='//chat.center/javascript/widget.js';cjs.parentNode.insertBefore(js,cjs);}(document,'script'))"
     }
+    componentDidMount() {
+
+        $(document).keyup(this.keyupEvent);
+        this.props.actions.initWidgetConfig( this.props.conversations.channelid );
+    }
+    componentWillUnmount() {
+        //unbind the event keyup binded 
+        $(document).unbind( 'keyup', this.goToDashboard );
+    }
+    keyupEvent(e){
+        if (e.which==27){
+            window.location.hash = "#/dashboard";
+        }
+    }
+    componentWillMount() {
+        this.props.actions.updateWidgetKey({
+            key: 'classId',
+            value: 'installation'
+        })
+        this.props.actions.updateWidgetKey({
+            key: 'widgetMenuState',
+            value: false
+        });
+    }
+    copyScript() {        
+        TextSelection( document.getElementById( 'installation-script') );
+        document.execCommand("copy");
+        
+    }
+
     render() {
         let getPluginTiles = ()=> {
             let platforms = [
@@ -55,18 +90,7 @@ export class Installation extends Component {
             )
         }
         return (
-            <div className="widget-installation">
-                <a href="#/dashboard" className="widget-close">
-                </a>
-                <div className="email-camp-channel">
-                    <span className="email-icon-wrapper">
-                        <span className="msg-env"></span>
-                    </span>
-                    Email Campaign channel
-                </div>
-                <h1 className="widget-title">
-                    Website widget setup
-                </h1>
+            <div>
                 <h3 className="widget-sub-title">
                     Installing Widget Code on Your Website
                 </h3>
@@ -77,14 +101,14 @@ insert this code on every page of your website after &lt;body&gt; tag.
 
                 <div className="wc-primary-section">
                     <div className="wc-primary-section-content">
-                        <pre className="installation-script-section">
+                        <pre className="installation-script-section" id="installation-script">
                             {
                                 this.getScriptText()
                             }
                         </pre>    
                     
                         <div className="buttons-wrapper">
-                            <button className="cc-btn cc-primary-btn" type="button">COPY</button>
+                            <button className="cc-btn cc-primary-btn" type="button" onClick={this.copyScript.bind(this)}>COPY</button>
                             <a className="link-email-instructions widget-link" href="#">Email instructions to webmaster</a>
                         </div>
                         <div className="tip-wrapper">
@@ -105,3 +129,26 @@ insert this code on every page of your website after &lt;body&gt; tag.
 
 
 
+Installation.propTypes = {
+  // todos: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+}
+
+
+function mapStateToProps(state) {
+  return {
+    conversations: state.conversations,
+    widgetConfig: state.widgetConfig,
+  }
+}
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(WidgetActions, dispatch)
+  }
+}
+
+export default connect(
+  mapStateToProps,mapDispatchToProps
+)(Installation)

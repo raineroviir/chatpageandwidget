@@ -26,6 +26,7 @@ export class ChannelMembersContainer extends Component {
 
   handleBack(){
     //console.log('Moving 1 step back'); 
+    this.props.actions.clearErrorMessage();
     window.history.back();
   }
 
@@ -33,18 +34,43 @@ export class ChannelMembersContainer extends Component {
     this.props.actions.updateMembers(members);
   }
 
+  updateAutoSuggest(members){
+    this.props.actions.updateAutoSuggest(members);
+  }
+
+  deleteMembers(user_id){
+    let yes = confirm("Are you sure, you want to remove the user?");
+    if(yes)
+    this.props.actions.deleteMembers(user_id);
+  }
+
   validateEmail(email){
     var allowed=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$)/; 
     return allowed.test(email);
   }
 
-  handleNext(members){
+  handleNext(){
     //store the value in STORE by dispatching event in action
     //this.props.actions.registerOrganisationName(RegisterOrganisationName);
 
     //navigate to next screen
    // window.location.hash = "#/signup/organization/domain";
-    this.props.actions.createChannel(members);
+   if(this.props.id){
+      this.props.actions.createChannel(true);
+    } else {
+      this.props.actions.createChannel();
+    }
+
+  }
+
+  fetchMembersList(){
+    if(this.props.id){
+      this.props.actions.getTeamMembers(true);
+      this.props.actions.getChannelMembers();
+      this.props.actions.fetchChannel(this.props.id);
+    } else  {
+      this.props.actions.getTeamMembers(false);
+    }
   }
 
   render() {
@@ -52,7 +78,16 @@ export class ChannelMembersContainer extends Component {
         <div>
           <DocumentMeta {...metaData} />
           <Navigation historyApi={this.props.historyApi} />
-          <ChannelMembers id={this.props.id} validateEmail={this.validateEmail.bind(this)} updateMembers={this.updateMembers.bind(this)} details={this.props.createChannel} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
+          <ChannelMembers 
+            id={this.props.id} 
+            validateEmail={this.validateEmail.bind(this)} 
+            updateMembers={this.updateMembers.bind(this)} 
+            deleteMembers={this.deleteMembers.bind(this)}
+            fetchMembersList={this.fetchMembersList.bind(this)}
+            updateAutoSuggest={this.updateAutoSuggest.bind(this)}
+            details={this.props.createChannel} 
+            handleBack={this.handleBack.bind(this)} 
+            handleNext={this.handleNext.bind(this)} />
         </div>
     );
   }

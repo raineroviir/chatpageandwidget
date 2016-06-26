@@ -49,12 +49,14 @@ export class Channels extends Component {
     window.location.hash = url;
   }
   render() {
+
     return (
         <ChannelList createChannel={this.createChannel.bind(this)} channels={this.props.channels.channels} user={this.props.user} selectChannel={this.selectChannel.bind(this)} activeChannel={this.props.activeChannel} org={this.props.org} />
     );
   }
   componentDidMount(){
     this.props.actions.getChannels();
+    this.props.createChannelActions.resetDetails();
   }
 }
 

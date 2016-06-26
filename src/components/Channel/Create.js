@@ -26,7 +26,8 @@ export class ChannelCreate extends Component {
           self.refs.avatarPreview.style.display = 'block';
       };
     }
-    this.refs.nextButton.disabled = !(this.refs.description.value && this.refs.channel.value)
+    this.refs.nextButton.disabled = !(this.refs.description.value && this.refs.channel.value);
+    this.refs.saveButton.disabled = !(this.refs.description.value && this.refs.channel.value);
   }
   openFileInput() {
     this.refs.avatar.click();
@@ -76,7 +77,9 @@ export class ChannelCreate extends Component {
     this.props.fetchChannel();
   }
 
-  componentWillUpdate() {
+  
+  componentDidUpdate() {
+    //this.forceUpdate();
     if(this.props.details.payload.id) {
       if(!(this.props.details.payload.description && this.props.details.payload.channel)) {
         this.refs.nextButton.disabled = true;
@@ -141,7 +144,7 @@ export class ChannelCreate extends Component {
                     This Chat address is not available.
                   </div>
                   <div className={classnames('error-message', { hide: !(this.props.details.error && this.props.details.error!='duplicate_channel')})}>
-                    Error in processing the request, please trying again.
+                    Error in processing the request, please trying again..
                   </div>
                   <div className="button-wrapper">
                     <button type="button" className="btn btn-default back" onClick={this.props.handleBack}>BACK</button>

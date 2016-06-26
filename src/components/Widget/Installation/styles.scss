@@ -6,6 +6,10 @@
     padding: 8px 28px 5px 28px;
     font-size: 14px;
     letter-spacing: 0.8px;
+    font-family: 'Rubik-Medium';
+    &.disabled {
+        background-color: #d5d6d8;
+    }
 }
 
 .widget-installation {
@@ -83,9 +87,17 @@
             line-height: 1.3;
         }
 
-    
+        
         
   
     }
     
+}
+/*just targetted for mobile resolution*/
+@media screen and (max-width: 767px) {
+    .widget-installation {
+        .pulgin-for-tile {
+            width: 100%;
+        }   
+    }
 }

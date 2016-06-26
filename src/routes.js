@@ -19,10 +19,18 @@ import RegisterIndividualDomain from 'components/Register/Individual/Domain';
 import Channel from 'containers/Channel/Index';
 import ChannelCreate from 'containers/Channel/Create';
 import ChannelMembers from 'containers/Channel/Members';
+
+import Installation from 'components/Widget/Installation';
+import Invitations from 'components/Widget/Invitations';
+import Appearance from 'components/Widget/Appearance';
+import Labels from 'components/Widget/Labels';
 import Widget from 'containers/Widget';
-import WidgetAppearance from 'containers/WidgetAppearance';
-import WidgetInvitations from 'containers/WidgetInvitations';
-import WidgetLabels from 'containers/WidgetLabels';
+
+import UpgradeVew from 'containers/Upgrade';
+import UpgradePlans from 'components/Upgrade/UpgradePlans';
+import UpgradeForm from 'components/Upgrade/UpgradeForm';
+
+
 
 
 export default (
@@ -50,10 +58,22 @@ export default (
     <Route path="channel/edit/:id" component={ChannelCreate} />
     <Route path="channel/members" component={ChannelMembers} />
     <Route path="channel/members/:id" component={ChannelMembers} />
-    <Route path="widget/installation" component={Widget}></Route>
-    <Route path="widget/appearance" component={WidgetAppearance}></Route>
-    <Route path="widget/invitations" component={WidgetInvitations}></Route>
-    <Route path="widget/labels" component={WidgetLabels}></Route>
+
+
+    <Route path="upgrade" component={UpgradeVew}>
+        <IndexRoute  component={UpgradePlans} />
+        <Route path="plans" component={UpgradePlans}/>
+        <Route path="form" component={UpgradeForm}/>
+    </Route>
+
+
+    <Route path="widget" component={Widget}>
+        <IndexRoute  component={Installation} />
+        <Route path="installation" component={Installation}/>
+        <Route path="appearance" component={Appearance}/>
+        <Route path="invitations" component={Invitations}/>
+        <Route path="labels" component={Labels}/>
+    </Route>
 
     <Route path=":user">
         <IndexRoute component={Home} />

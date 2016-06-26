@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import {ChatWidget} from '../ChatWidget/index';
 //let classnames = require('classnames');
-
+import { connect } from 'react-redux';
+import * as WidgetActions from '../../../actions/Widget';;
+import { bindActionCreators } from 'redux';
 /* component styles */
 import { styles } from './styles.scss';
 
@@ -11,16 +13,17 @@ import avatarImg  from '../../images/user-icon-black.svg';
 export class Labels extends Component {
     constructor( props ) {
         super( props );
-        /*this.state = {
-            welcomeMessage: 'Hi there, thanks for checking out chat.center, if you have any questions we will be happy to help, just let us know!',
-            autoAnswer: 'We normally answer within 60 minutes or less. Please leave your questions here and someone will be with you shortly.',
-            emailPrompt: 'Let us notify you via email:',
-            emailPlaceholder: 'Your email',
-            inputMsgholder: 'Type your message here',
-            sendBtnText: 'Send',
-            botName: 'Alex (Bot)',
-            ccBranding: false
-        };*/
+    }
+
+    componentWillMount() {
+        this.props.actions.updateWidgetKey({
+            key: 'classId',
+            value: 'labels'
+        })
+        this.props.actions.updateWidgetKey({
+            key: 'widgetMenuState',
+            value: false
+        });
     }
 
 
@@ -49,7 +52,7 @@ export class Labels extends Component {
         };*/
         this.props.actions.updateKey({
             key: key,
-            value: !this.props.widget[ key ]
+            value: !this.props.widgetConfig[ key ]
         })
 
         /*this.setState( stateObject() ); */  
@@ -74,19 +77,8 @@ export class Labels extends Component {
 
     render(){
         return (
-            <div className="widget-labels">
+            <div>
                 <div className="widget-label-main-content">
-                    <a href="#/dashboard" className="widget-close">
-                    </a>
-                    <div className="email-camp-channel">
-                        <span className="email-icon-wrapper">
-                            <span className="msg-env"></span>
-                        </span>
-                        Email Campaign channel
-                    </div>
-                    <h1 className="widget-title">
-                        Website widget setup
-                    </h1>
                     <h3 className="widget-sub-title">
                         Labels & Localization
                     </h3> 
@@ -100,7 +92,7 @@ export class Labels extends Component {
                                     Welcome message
                                 </label>
                                 <div className="input-field-wrapper">
-                                    <textarea className="input-field" value={this.props.widget.welcomeMessage}
+                                    <textarea className="input-field" value={this.props.widgetConfig.welcomeMessage}
                                     onChange={this.updateInputChange.bind(this,'welcomeMessage')}></textarea>
                                 </div>
                             </div>
@@ -110,7 +102,7 @@ export class Labels extends Component {
                                 </label>
                                 <div className="input-field-wrapper">
                                     <textarea className="input-field" 
-                                    value={this.props.widget.autoAnswer}
+                                    value={this.props.widgetConfig.autoAnswer}
                                     onChange={this.updateInputChange.bind(this,'autoAnswer')}
                                     ></textarea>
                                 </div>
@@ -122,7 +114,7 @@ export class Labels extends Component {
                                 </label>
                                 <div className="input-field-wrapper">
                                     <input className="input-field"
-                                    value={this.props.widget.emailPrompt}
+                                    value={this.props.widgetConfig.emailPrompt}
                                     onChange={this.updateInputChange.bind(this,'emailPrompt')}
                                     />
                                 </div>
@@ -137,7 +129,7 @@ export class Labels extends Component {
                                         <div className="input-field-wrapper">
                                             <input type="text" 
                                             className="input-field" 
-                                            value={this.props.widget.emailPlaceholder}
+                                            value={this.props.widgetConfig.emailPlaceholder}
                                             onChange={this.updateInputChange.bind(this,'emailPlaceholder')}
                                             />
                                         </div>
@@ -151,7 +143,7 @@ export class Labels extends Component {
                                         <div className="input-field-wrapper">
                                             <input type="text" 
                                             className="input-field"  
-                                            value={this.props.widget.inputMsgholder}
+                                            value={this.props.widgetConfig.inputMsgholder}
                                             onChange={this.updateInputChange.bind(this,'inputMsgholder')}
                                             />
                                         </div>
@@ -168,7 +160,7 @@ export class Labels extends Component {
                                         <div className="input-field-wrapper">
                                             <input type="text" 
                                             className="input-field"  
-                                            value={this.props.widget.sendBtnText}
+                                            value={this.props.widgetConfig.sendBtnText}
                                             onChange={this.updateInputChange.bind(this,'sendBtnText')}
                                             />
                                         </div>
@@ -176,7 +168,7 @@ export class Labels extends Component {
                                 </div>
                                 <div className="col-sm-6">
                                     <div className="input-wrapper cc-branding-wrapper">
-                                        <span className={'widget-switch '+ (this.props.widget.ccBranding? 'switch-on' : '')}
+                                        <span className={'widget-switch '+ (this.props.widgetConfig.ccBranding? 'switch-on' : '')}
                                         onClick={this.toggleSwitchStatus.bind(this, 'ccBranding')}
                                         >
                                             <span className="switch-point"></span>
@@ -199,7 +191,7 @@ export class Labels extends Component {
                                         <div className="input-field-wrapper">
                                             <input type="text" 
                                             className="input-field"  
-                                            value={this.props.widget.botName}
+                                            value={this.props.widgetConfig.botName}
                                             onChange={this.updateInputChange.bind(this,'botName')}
                                             />
                                         </div>
@@ -214,7 +206,7 @@ export class Labels extends Component {
                                             />
                                             <div className="bot-avatar-preview">
                                                 <img ref="botAvatarPreview" 
-                                                src={this.props.widget.botAvatarUrl}
+                                                src={this.props.widgetConfig.botAvatarUrl}
                                                 />
                                             </div>
                                             <div className="cell">
@@ -234,10 +226,33 @@ export class Labels extends Component {
                     </div>
                 </div>
                 <div className="widget-label-chat-preview">
-                   <ChatWidget widget={this.props.widget}/>
+                   <ChatWidget widgetConfig={this.props.widgetConfig}/>
                 </div>
         
             </div>
         );
     }
 }
+
+Labels.propTypes = {
+  actions: PropTypes.object.isRequired
+}
+
+
+function mapStateToProps(state) {
+  return {
+    conversations: state.conversations,
+    widgetConfig: state.widgetConfig,
+  }
+}
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(WidgetActions, dispatch)
+  }
+}
+
+export default connect(
+  mapStateToProps,mapDispatchToProps
+)(Labels)

@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 import DocumentMeta from 'react-document-meta';
 import Navigation from 'containers/Home/Navigation';
 import {WidgetNav} from '../../components/WidgetNav/index';
-import {Installation} from '../../components/Widget/Installation';
+//import {Installation} from '../../components/Widget/Installation';
 import * as WidgetActions from '../../actions/Widget'
 
 // import App from './components';
@@ -27,34 +27,51 @@ export class Widget extends Component {
   constructor( props ){
     super( props );
   }
-  componentDidMount() {
-      $(document).keyup(this.keyupEvent);
-      this.props.actions.initWidget( this.props.conversations.channelid );
-  }
-  componentWillUnmount() {
-      //unbind the event keyup binded 
-      $(document).unbind( 'keyup', this.goToDashboard );
-  }
-  keyupEvent(e){
-      if (e.which==27){
-          window.location.hash = "#/dashboard";
-      }
-  }
+  
   componentWillMount() {
+    //this.props.actions.initWidget();
     if( !this.props.conversations.channelid ) {
       window.location.hash = "#/dashboard";
     }
+
   }
+  saveWidget( e ) {
+      e.preventDefault();
+      this.props.actions.saveWidget( this.props.widgetConfig, this.props.conversations.channelid );
+  }
+
   render() {
-    const { actions } = this.props;
+    let classId = this.props.widget ? this.props.widget.classId : '';
     return (
       <div>
         <DocumentMeta {...metaData} />
         <Navigation historyApi={this.props.historyApi} />
-        <div className="widget-component">
-          <WidgetNav widget={this.props.widget} conversations={this.props.conversations} actions={this.props.actions}/>
-          <div className="widget-content">
-          <Installation channelid={this.props.conversations.channelid} widget={this.props.widget}/>
+        <div className={"widget-component " + (this.props.widget.widgetMenuState? 'open-widget-menu' : '') }  >
+          <WidgetNav 
+          widget={this.props.widget} 
+          conversations={this.props.conversations} 
+          actions={this.props.actions}/>
+          <div className="widget-content" >
+            <div className={ "widget-" + classId }>
+              <div className="widget-feature-buttons">
+                <button className="cc-btn save-button" onClick={this.saveWidget.bind(this)}>SAVE</button>
+                <a href="#/dashboard" className="widget-close">
+                </a>
+              </div>
+              <div className="email-camp-channel">
+                  <span className="email-icon-wrapper">
+                      <span className="msg-env"></span>
+                  </span>
+                  Email Campaign channel
+              </div>
+              <h1 className="widget-title">
+                  Website widget setup
+              </h1>
+              {this.props.children}
+            </div>
+            <div className="widget-save-button-bottom">
+                <button className="cc-btn save-button" onClick={this.saveWidget.bind(this)}>SAVE</button>
+            </div>
           </div>
         </div>
       </div>
@@ -70,8 +87,9 @@ Widget.propTypes = {
 function mapStateToProps(state) {
   return {
     conversations: state.conversations,
-    widget: state.widget,
-    historyApi: state.historyApi
+    widgetConfig: state.widgetConfig,
+    historyApi: state.historyApi,
+    widget: state.widget
   }
 }
 

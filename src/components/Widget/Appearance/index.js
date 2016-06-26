@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-//let classnames = require('classnames');
+import { SketchPicker } from 'react-color';
+import { connect } from 'react-redux';
+import * as WidgetActions from '../../../actions/Widget';;
+import { bindActionCreators } from 'redux';
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -26,16 +29,28 @@ export class Appearance extends Component {
         ]
         this.state = {
             customThemeCode: '#fdb22c',
-            colors: colors
+            colors: colors,
+            colorPickerStatus : false
         };
 
-        this.state.isCustomCode = colors.indexOf(this.props.widget.keyColor) === -1 ? true : false;
-        //this.state.channelLogoUrl = this.props.widget.channelLogoUrl || '/dist/images/msg-env.png';
+        this.state.isCustomCode = colors.indexOf(this.props.widgetConfig.keyColor) === -1 ? true : false;
+        //this.state.channelLogoUrl = this.props.widgetConfig.channelLogoUrl || '/dist/images/msg-env.png';
 
         if( this.state.isCustomCode ) {
-            this.state.customThemeCode = this.props.widget.keyColor;
+            this.state.customThemeCode = this.props.widgetConfig.keyColor;
         } 
 
+    }
+
+    componentWillMount() {
+        this.props.actions.updateWidgetKey({
+            key: 'classId',
+            value: 'appearance'
+        });
+        this.props.actions.updateWidgetKey({
+            key: 'widgetMenuState',
+            value: false
+        });
     }
 
     selectKeyColor( color, e ) {
@@ -61,7 +76,7 @@ export class Appearance extends Component {
     toggleTeamAvatarStatus() {
         this.props.actions.updateKey( {
             key:'teamAvatar',
-            value: !this.props.widget.teamAvatar
+            value: !this.props.widgetConfig.teamAvatar
         } );
         /*this.setState({
             teamAvatar: !this.state.teamAvatar
@@ -70,7 +85,7 @@ export class Appearance extends Component {
     toggleChannelLogoStatus() {
         this.props.actions.updateKey( {
             key:'channelLogo',
-            value: !this.props.widget.channelLogo
+            value: !this.props.widgetConfig.channelLogo
         } );
         /*this.setState({
             channelLogo: !this.state.channelLogo
@@ -95,8 +110,30 @@ export class Appearance extends Component {
           }, false);
         }
     }
+    setColorPickerStatus( status ) {
+        this.setState({
+            colorPickerStatus : status
+        })
+    }
+    handleChangeComplete( color ) {
+        this.setState({
+            colorPickerStatus : false,
+            isCustomCode : true,
+            customThemeCode: color.hex
+        });
+        this.props.actions.updateKey( {
+            key: 'keyColor',
+            value: color.hex
+        } );
+
+    }
     render() {
-        
+        let colorPicker = this.state.colorPickerStatus ? <SketchPicker 
+            color={ this.state.customThemeCode }
+            onChangeComplete={ this.handleChangeComplete.bind( this ) }
+            className="widget-color-picker"
+        />: <div></div>;
+
         let getColorsTiles = () => {
         console.log('this.state.customThemeCode',this.state.customThemeCode); 
             return (
@@ -107,7 +144,7 @@ export class Appearance extends Component {
                                     href="#" 
                                     key={index} 
                                     style={ {backgroundColor: color} } 
-                                    className={'color-tile ' + (this.props.widget.keyColor === color ? ' selected' : '') }
+                                    className={'color-tile ' + (this.props.widgetConfig.keyColor === color ? ' selected' : '') }
                                     onClick={this.selectKeyColor.bind(this, color)}
                                     >
                                     </a> )
@@ -123,8 +160,14 @@ export class Appearance extends Component {
                             onClick={this.selectCustomTheme.bind(this)}
                             >
                             </a>
-                            <span className="angle-down-arrow">
+                            <span className="angle-down-arrow" 
+                            onClick={this.setColorPickerStatus.bind(this, true)}>
                             </span>
+                            {
+                                colorPicker
+                            }
+                                                        
+                            
                         </div>
                         <span>Custom</span>
                     </div>
@@ -133,12 +176,12 @@ export class Appearance extends Component {
         }
 
     let fileTemplate;
-    if( this.props.widget.channelLogo ) {
+    if( this.props.widgetConfig.channelLogo ) {
         fileTemplate = (
             <div className="channel-logo-input-wrapper">
                 <input id="channelLogo" type="file"  accept="image/*" ref="channelLogo" placeholder="avatar" onChange={this.inputChange.bind(this, 'file')} aria-describedby="chatavatar-addon" />
                 <div className="channel-logo-preview">
-                    <img ref="channelLogoPreview" src={ this.props.widget.channelLogoUrl} />
+                    <img ref="channelLogoPreview" src={ this.props.widgetConfig.channelLogoUrl} />
                 </div>
                 <div className="cell">
                     <button type="button" onClick={this.openFileInput.bind(this)}>CHANGE</button>
@@ -147,18 +190,7 @@ export class Appearance extends Component {
         )
     }
     return (
-        <div className="widget-appearance">
-            <a href="#/dashboard" className="widget-close">
-            </a>
-            <div className="email-camp-channel">
-                <span className="email-icon-wrapper">
-                    <span className="msg-env"></span>
-                </span>
-                Email Campaign channel
-            </div>
-            <h1 className="widget-title">
-                Website widget setup
-            </h1>
+        <div>
             <h3 className="widget-sub-title">
                 Appearance of the widget
             </h3>
@@ -176,7 +208,7 @@ export class Appearance extends Component {
                 <div className="switchs-wrapper">
                     <div className="input-field-wrapper">
                         <span className="switch-label">Team  avatars</span>
-                        <span className={'widget-switch '+ (this.props.widget.teamAvatar? 'switch-on' : '')}
+                        <span className={'widget-switch '+ (this.props.widgetConfig.teamAvatar? 'switch-on' : '')}
                         onClick={this.toggleTeamAvatarStatus.bind(this)}
                         >
                             <span className="switch-point"></span>
@@ -184,7 +216,7 @@ export class Appearance extends Component {
                     </div>
                     <div className="input-field-wrapper">
                         <span className="switch-label">Channel Logo</span>
-                        <span className={'widget-switch ' + (this.props.widget.channelLogo? 'switch-on' : '')}
+                        <span className={'widget-switch ' + (this.props.widgetConfig.channelLogo? 'switch-on' : '')}
                         onClick={this.toggleChannelLogoStatus.bind(this)}>
                             <span className="switch-point"></span>
                         </span>
@@ -206,6 +238,28 @@ export class Appearance extends Component {
   }
 }
 
+Appearance.propTypes = {
+  // todos: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+}
 
+
+function mapStateToProps(state) {
+  return {
+    conversations: state.conversations,
+    widgetConfig: state.widgetConfig,
+  }
+}
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(WidgetActions, dispatch)
+  }
+}
+
+export default connect(
+  mapStateToProps,mapDispatchToProps
+)(Appearance)
 
 

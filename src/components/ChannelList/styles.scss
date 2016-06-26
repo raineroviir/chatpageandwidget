@@ -164,9 +164,10 @@
             border-radius: 2px;
             text-transform: uppercase;
         }
-        /*.img-rounded {
-            display: none;
-        }*/
+        .img-rounded {
+            /*display: none;*/
+            background-color: transparent;
+        }
         .name {
             max-width: 100%;
             display: inline-block;

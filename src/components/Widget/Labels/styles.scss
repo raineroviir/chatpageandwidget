@@ -1,17 +1,14 @@
 .widget-labels {
+    
+    position: relative;
+    margin-right: 320px;
+
     .wc-primary-section {
-        margin: 0 -50px;
+        margin: 0 0 0 -50px ;
         margin-top: 13px;
         padding-top: 27px;
     }
-    .widget-label-main-content {
-        position: relative;
-        margin-right: 320px;
-        .widget-close {
-            top: 0;
-            right: 0;
-        }
-    }
+    
     .widget-label-chat-preview {
         width: 320px;
         position: fixed;
@@ -124,3 +121,14 @@
     }
 }
 
+
+/*just targetted for mobile resolution*/
+@media screen and (max-width: 767px) {
+    .widget-labels {
+        margin-right: 0;
+        .widget-label-chat-preview {
+            right: -320px;
+        }
+    }
+
+}

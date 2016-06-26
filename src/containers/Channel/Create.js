@@ -41,7 +41,6 @@ export class ChannelCreateContainer extends Component {
   }
 
   render() {
-    
     return (
             <div>
               <DocumentMeta {...metaData} />

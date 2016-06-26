@@ -5,14 +5,13 @@ import { render } from 'react-dom';
 import DocumentMeta from 'react-document-meta';
 import Navigation from 'containers/Home/Navigation';
 import {WidgetNav} from '../../components/WidgetNav/index';
-import {Invitations} from '../../components/Widget/Invitations';
+//import {Installation} from '../../components/Widget/Installation';
+import * as UpgradeActions from '../../actions/Upgrade'
 
-import * as WidgetActions from '../../actions/Widget'
-
-// import App from './components';
+import { styles } from './styles.scss';
 // 
 const metaData = {
-  title: 'Wiget | Chat Center',
+  title: 'Upgrade | Chat Center',
   description: 'Widget Chat Center',
   meta: {
     charset: 'utf-8',
@@ -22,28 +21,31 @@ const metaData = {
   },
 };
 
-export class WidgetInvitations extends Component {
+export class UpgradeVew extends Component {
+  
+
   constructor( props ){
     super( props );
   }
-  componentDidMount() {
-    this.props.actions.initWidget( this.props.conversations.channelid );
-  }
+  
   componentWillMount() {
-    if( !this.props.conversations.channelid ) {
+    //this.props.actions.initWidget();
+    /*if( !this.props.conversations.channelid ) {
       window.location.hash = "#/dashboard";
     }
+    */
   }
+  
+
   render() {
-    const { actions } = this.props
+    //let classId = this.props.upgrade ? this.props.upgrade.classId : '';
     return (
       <div>
         <DocumentMeta {...metaData} />
         <Navigation historyApi={this.props.historyApi} />
-        <div className="widget-component">
-          <WidgetNav widget={this.props.widget} conversations={this.props.conversations} actions={this.props.actions} />
-          <div className="widget-content">
-           <Invitations widget={this.props.widget} actions={this.props.actions}/>
+        <div className="master-page-content">
+          <div className="upgrade-component">
+            {this.props.children}
           </div>
         </div>
       </div>
@@ -51,26 +53,25 @@ export class WidgetInvitations extends Component {
   }
 }
 
-WidgetInvitations.propTypes = {
+UpgradeVew.propTypes = {
   // todos: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
   return {
-    conversations: state.conversations,
-    widget: state.widget,
+    upgrade: state.upgrade,
     historyApi: state.historyApi
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(WidgetActions, dispatch)
+    actions: bindActionCreators(UpgradeActions, dispatch)
   }
 }
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(WidgetInvitations);
+)(UpgradeVew);

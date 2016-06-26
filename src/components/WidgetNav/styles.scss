@@ -41,24 +41,49 @@
         right: 24px;
         bottom: 20px;
     }
+    .widget-nav-menu-hamburger { 
+        display: none;
+    }
 }
 .widget-component {
     margin-left: 72px;
     position: relative;
+    .save-button {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
     .widget-content {
+
         min-height: 100vh;
         margin-left: 216px;
         padding: 48px 49px 0 49px;
         color: #474848;
+        position: relative;
+        .widget-feature-buttons {
+            position: absolute;
+            right: 48px;
+            top: 48px;
+            .cc-btn {
+                display:inline-block;
+                vertical-align: middle;
+                margin-right: 10px;
+            }
+        }
         .widget-close {
             background: url( '../images/widget-close.png' ) no-repeat center center;
             background-size: 100%;
             width: 48px;
             height: 48px;
-            position: absolute;
-            right: 48px;
-            top: 48px;
+            display:inline-block;
+            vertical-align: middle;
         }
+        .widget-labels  {
+            .widget-feature-buttons {
+                right: 0px;
+                top: 0px;
+            }   
+        }
+        
     }
     .email-camp-channel {
         font-size: 15px;
@@ -147,6 +172,7 @@
         transform: rotate(230deg);
         margin-top: 8px;
         position: relative;
+        cursor: pointer;
         &:after{
             position: absolute;
             content: '';
@@ -167,4 +193,103 @@
             transform: rotate(-19deg);
         }
     }
+    .widget-save-button-bottom {
+        display: none;
+        margin-top: 10px;
+        text-align: center;
+    }
+}
+
+
+/*just targetted for mobile resolution*/
+@media screen and (max-width: 767px) {
+    .widget-component {
+        margin-left:0;
+        .widget-title {
+            font-size: 24px;
+        }
+        .widget-sub-title {
+            font-size: 16px;   
+        }
+        .widget-content {
+            margin-left: 0;
+            padding: 15px;
+            padding-top: 5px;
+            .widget-feature-buttons {
+                top: 10px;
+                right: 10px;
+                .save-button {
+                    display: none;
+                }
+            }
+            .widget-close {
+                width: 20px;
+                height: 20px;
+            }
+        }
+        .wc-primary-section { 
+            margin: 0 -15px;
+            margin-top: 26px;
+            padding: 24px 15px 33px;
+        }
+        .email-camp-channel {
+            margin-left: 22px;   
+        }
+        &.open-widget-menu {
+            overflow: hidden;
+            .widget-content {
+                left: 216px;
+                position: relative;
+                overflow: hidden;
+            }
+            .widget-nav-wrapper {
+                left: 0;
+            }
+            
+        }
+        .widget-save-button-bottom {
+            display: block;
+        }
+    }
+    .widget-nav {
+        z-index: 2;
+        .nav-links {
+            margin-top: 0;
+            text-align: left;
+            a.active-link {
+                background: #fdb22b;
+                color: #fff;
+            }
+            
+        }
+
+
+    }
+    .widget-nav-wrapper {
+        position: absolute;
+        width: 100%;
+        min-height: 100vh;
+        left: -100%;
+        .widget-nav-menu-hamburger {
+            position: absolute;
+            right: -25px;
+            z-index: 3;
+            top: 10px;
+            display: inline-block;
+            font-size: 20px;
+        }
+    }
+        
+    .widget-nav-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        background: rgba(0,0,0,0.5);
+    }
+
+
+    
 }

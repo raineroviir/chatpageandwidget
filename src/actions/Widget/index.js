@@ -1,7 +1,7 @@
 const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
 import urlConfig from '../../url-config';
 
-export function initWidget( channelid ) {
+export function initWidgetConfig( channelid ) {
     
     return dispatch => (
         getWidgetConfig( channelid )
@@ -14,9 +14,28 @@ export function initWidget( channelid ) {
           }
         ).then( json => {
             dispatch({
-              type: 'INIT_WIDGET',
-              data: json
+              type: 'INIT_WIDGET_CONFIG',
+              data: json,
+              channelid: channelid
             })
+        })
+    )
+}
+
+export function initWidget() {
+    return dispatch => (
+        dispatch({
+          type: 'INIT_WIDGET'
+        })
+    )
+}
+
+export function updateWidgetKey( obj ) {
+  return dispatch => (
+        dispatch({
+          type: 'WIDGET_UPDATE_KEY',
+          key: obj.key,
+          value: obj.value
         })
     )
 }
@@ -33,10 +52,6 @@ export function saveWidget( config, channelid ) {
           }
         ).then( json => {
           alert( 'Successfully saved' );
-            /*dispatch({
-              type: 'INIT_WIDGET',
-              data: json
-            })*/
         })
   )
 }
@@ -44,7 +59,7 @@ export function saveWidget( config, channelid ) {
 export function updateKey ( obj ) {
   return dispatch => (
         dispatch({
-          type: 'UPDATE_KEY',
+          type: 'WIDGET_CONFIG_UPDATE_KEY',
           key: obj.key,
           value: obj.value
         })

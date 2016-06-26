@@ -13,35 +13,49 @@ import { styles } from './styles.scss';
 
 
 export class WidgetNav extends Component {
-
-    saveWidget( e ) {
-        e.preventDefault();
-        this.props.actions.saveWidget( this.props.widget, this.props.conversations.channelid );
+    setWidgetMenuState( value ) {
+        this.props.actions.updateWidgetKey({
+            key: 'widgetMenuState',
+            value: value
+        });
+    }
+    constructor( props ) {
+        super( props );
+        this.state = {
+            menuState: false
+        };
     }
     render() {
     //console.log( 'widgetnav', this.props.state );
     return (
-        <div className="widget-nav">
-            <ul className="nav-links">
-                <li>
-                    <Link activeClassName="active-link" to="/widget/installation">Installation</Link>
-                </li>
-                <li>
-                    <Link activeClassName="active-link" to="/widget/appearance">Appearance</Link>
-                </li>
-                <li>
-                    <Link activeClassName="active-link" to="/widget/labels">Labels & Localization</Link>
-                </li>
-                <li>
-                    <Link activeClassName="active-link" to="/widget/invitations">Proactive invitations</Link>
-                </li>
-            </ul>
+        <div className="widget-nav-wrapper" >
+            <div className="widget-nav-overlay"
+                onClick={this.setWidgetMenuState.bind(this, false)}></div>
+            <span 
+                className="glyphicon glyphicon-menu-hamburger widget-nav-menu-hamburger"
+                onClick={this.setWidgetMenuState.bind(this, true)}
+                ></span>
+            <div className="widget-nav" >
+                
+                
+                <ul className="nav-links">
+                    <li>
+                        <Link activeClassName="active-link" to="/widget/installation">Installation</Link>
+                    </li>
+                    <li>
+                        <Link activeClassName="active-link" to="/widget/appearance">Appearance</Link>
+                    </li>
+                    <li>
+                        <Link activeClassName="active-link" to="/widget/labels">Labels & Localization</Link>
+                    </li>
+                    <li>
+                        <Link activeClassName="active-link" to="/widget/invitations">Proactive invitations</Link>
+                    </li>
+                </ul>
 
-            <div className="widget-nav-footer">
-                <div className="text-center">
-                    <button className="cc-btn" onClick={this.saveWidget.bind(this)}>Save</button>
+                <div className="widget-nav-footer">
+                    Questions? <a href="#">Chat with us</a>
                 </div>
-                Questions? <a href="#">Chat with us</a>
             </div>
         </div>
     );

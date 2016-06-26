@@ -50,8 +50,14 @@
             border-radius: 100px;
             padding-right: 20px;
             margin-right: 8px;
+            position: relative;
             .color-tile  {
                 margin-right: 16px;
+            }
+            &>div {
+                position: absolute;
+                top: 0;
+                left: 0;
             }
             
         }
@@ -154,4 +160,26 @@
             width: 100%;
         }
     }
+}
+
+/*just targetted for mobile resolution*/
+@media screen and (max-width: 767px) {
+    .widget-appearance {
+        .preview-wrapper {
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+        .widget-preview-label-wrapper {
+            .preview-label {
+                font-size: 16px;
+            }
+        }
+        .color-tile-wrapper .color-tile {
+            margin-bottom: 10px;
+        }
+        .custom-color-picker .color-tile{
+            margin-bottom: 0;
+        }
+    }
+
 }

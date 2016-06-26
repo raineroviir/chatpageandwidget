@@ -27,6 +27,10 @@ export class ChannelContainer extends Component {
     window.location.hash = url;
   }
 
+  componentDidMount(){
+    this.props.actions.resetDetails();
+  }
+
   render() {
     const { actions } = this.props
     return (
@@ -39,6 +43,7 @@ export class ChannelContainer extends Component {
     );
   }
 }
+
 
 ChannelContainer.propTypes = {
   // todos: PropTypes.array.isRequired,

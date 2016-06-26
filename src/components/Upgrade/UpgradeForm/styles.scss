@@ -1,0 +1,18 @@
+.upgrade-form-view {
+    .selected-details {
+        margin-top: 17px;
+        font-size: 15px;
+        font-weight: normal;
+        line-height: 1.6;
+        letter-spacing: 0.1px;
+        .details-cell {
+            margin-top: 2px;
+            font-size: 20px;
+            font-weight: normal;
+            line-height: 1.2;
+        }
+    }   
+    .upgrade-form {
+        background-color: rgba(249, 249, 249, 0.99);
+    }
+}

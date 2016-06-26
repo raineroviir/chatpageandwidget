@@ -233,6 +233,10 @@ export function createChannelChatType(attr) {
   createChannelActions.chatType(attr);
 }
 
+export function createChannelDetailsReset() {
+  createChannelActions.resetDetails();
+}
+
 function fetchChannels() {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token"));
@@ -363,7 +367,7 @@ function processMemoizedConversationsHistoryForDispatch(conversationid) {
     posts: { conversationid},
     receivedAt: Date.now()
   }
-}
+} 
 
 function processMemoizedConversationsForDispatch(channelid) {
   return {
