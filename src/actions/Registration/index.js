@@ -85,7 +85,7 @@ function postActionConstruct(json, isIndividual) {
           password = payload.password;
 
         dispatch(LoginActions.loginUser(username, password));
-        dispatch(LoginActions.submitLogin("", !isIndividual));          
+        dispatch(LoginActions.submitLogin(getState().orgs.addOrg, !isIndividual));          
 
         if (typeof(Storage) !== "undefined") {
           localStorage.setItem("user_channel", payload.channel);

@@ -2,12 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration';
+import { browserHistory } from 'react-router';
 
 export class RegisterIndividualDomain extends Component {
 
   handleBack(){
     //console.log('Moving 1 step back');
-    window.location.hash = "#/login";
+    //window.location.hash = "#/login";
+    browserHistory.push("/login");
   }
 
   handleNext(e){

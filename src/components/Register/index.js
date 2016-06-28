@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as CCActions from '../../actions'
 import DocumentMeta from 'react-document-meta';
+import { Link } from 'react-router';
 
 /* components */
 //import { Register } from 'components/Register';
@@ -30,31 +31,31 @@ export class Register extends Component {
                 <h1 className="title text-center">chat.center</h1>
                 <div className="details text-center">Create a free chat.center for:</div>
                 <div className="user-type org col-sm-12 text-center">
-                <a href="#/signup/organization/name">
+                <Link to="/signup/organization/name">
                   <img src="dist/images/org-icon.svg" title="Organization" />
                   <span className="user-type-content">
                     <strong>Organization</strong>
                     <span>Great for teams and collaboration</span>
                   </span>
-                </a>
+                </Link>
                 </div>
 
                 <div className="user-type median col-sm-12 text-center">
                 </div>
 
                 <div className="user-type ind col-sm-12 text-center">
-                <a href="#/signup/individual">
+                <Link to="/signup/individual">
                   <img src="dist/images/ind-icon.svg" title="Organization" />
                   <span className="user-type-content">
                     <strong>Individual</strong>
                     <span>If you want to keep it nice and simple </span>
                   </span>
-                </a>
+                </Link>
                 </div>
                 <div className="col-sm-12 text-center">
                   <div className="sign-in-wrapper">
                     <span>Have an account?</span>
-                    <a href="#/login" title="Sign in" className="pull-right">Sign in.</a>
+                    <Link to="/login" title="Sign in" className="pull-right">Sign in.</Link>
                   </div>
                 </div>
             </form>

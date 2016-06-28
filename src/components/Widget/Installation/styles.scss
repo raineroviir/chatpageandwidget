@@ -7,6 +7,11 @@
     font-size: 14px;
     letter-spacing: 0.8px;
     font-family: 'Rubik-Medium';
+    text-decoration: none;
+    &:hover,&:focus{
+        color: #fff;
+        text-decoration: none;
+    }
     &.disabled {
         background-color: #d5d6d8;
     }

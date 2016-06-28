@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration';
 import { styles } from '../styles.scss';
+import { browserHistory } from 'react-router';
 
 export class RegisterIndividualDomain extends Component {  
 
@@ -14,7 +15,8 @@ export class RegisterIndividualDomain extends Component {
 
   handleBack(){
     //console.log('Moving 1 step back');
-    window.location.hash = "#/signup/individual/";
+    //window.location.hash = "#/signup/individual/";
+    browserHistory.push("/signup/individual");
   }
 
   handleNext(e){         
@@ -61,7 +63,8 @@ export class RegisterIndividualDomain extends Component {
       imgSrc = '-error';
     }
     if(this.props.registrationDetails.Organisation.payload.first_name === ''){
-      window.location.hash = "#/signup/individual";
+      //window.location.hash = "#/signup/individual";
+      browserHistory.push("/signup/individual");
     }
 
 

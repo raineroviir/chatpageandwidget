@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration';
 import classNames from 'classnames';
+import { browserHistory } from 'react-router';
 
 export class RegisterOrgDetailComp extends Component {
 
@@ -23,7 +24,8 @@ export class RegisterOrgDetailComp extends Component {
     //store the value in STORE by dispatching event in action
     this.props.handleNext(FirstName,LastName,Email);
     //console.log('Moving 1 step back');
-    window.location.hash = "#/signup/organization/address";
+    //window.location.hash = "#/signup/organization/address";
+    browserHistory.push("/signup/organization/address");
   }
 
   inputChange(){
@@ -48,7 +50,8 @@ export class RegisterOrgDetailComp extends Component {
 
     //redirect to first page if refreshed
     if(this.props.registrationDetails.Organisation.payload.team_description === ''){
-      window.location.hash = "#/signup/organization/name";
+      //window.location.hash = "#/signup/organization/name";
+      browserHistory.push("/signup/organization/name");
     }
 
     return (

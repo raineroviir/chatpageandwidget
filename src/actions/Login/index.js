@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import urlConfig from '../../url-config';
 //import postLoginRequest from '../services/common/login';
+import { browserHistory } from 'react-router';
 
 export function loginUser(Username,Password) {
   return (dispatch, getState) => {
@@ -18,15 +19,13 @@ export function submitLogin(addOrg,goToInvitePage) {
   }
 }
 
+export function addOrg (flag) {
+  return dispatch => dispatch({ type: "SET_ADD_ORG", posts: { addOrg: flag, receivedAt: Date.now()}})
+}
+
 function postActionConstruct(json, payload, addOrg, goToInvitePage) {
   
   if(json.token){
-    if(goToInvitePage){
-      window.location.hash = "#/organization/invite";
-    }
-    else{
-      window.location.hash = "#/dashboard/" + payload.username.split("/")[1];
-    }
     if (typeof(Storage) !== "undefined") {
       var orgs = JSON.parse(localStorage.getItem("orgs")) || [],
         org = orgs.filter(item => item.name == payload.username);
@@ -45,11 +44,24 @@ function postActionConstruct(json, payload, addOrg, goToInvitePage) {
       localStorage.setItem("token", JSON.stringify(json.token));
       localStorage.setItem("guest", null);
     }
+    if(goToInvitePage){
+      //window.location.hash = "#/organization/invite";
+      browserHistory.push("/organization/invite");
+    }
+    else{
+      //window.location.hash = "#/dashboard/" + payload.username.split("/")[1];
+      browserHistory.push('/dashboard/' + payload.username.split("/")[1]);
+    }
   }
   return (dispatch, getState) => {
     dispatch({
       type: 'RESET_CHANNELS',
       value:"Login Success",
+      receivedAt: Date.now()
+    });
+    dispatch({
+      type: 'SET_ADD_ORG',
+      posts: { addOrg: false },
       receivedAt: Date.now()
     });    
     dispatch({

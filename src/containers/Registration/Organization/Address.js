@@ -3,18 +3,21 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration'; 
 import {RegisterOrgAddressComp} from '../../../components/Register/Organization/Address';
+import { browserHistory } from 'react-router';
 
 export class RegisterOrgAddress extends Component {
 
   handleBack(){
-    window.location.hash = "#/signup/organization/detail";
+    //window.location.hash = "#/signup/organization/detail";
+    browserHistory.push("/signup/organization/detail");
   }
 
   handleNext(RegisterChannel){
     
     //store the value in STORE by dispatching event in action
     this.props.actions.registerChannel(RegisterChannel);
-    window.location.hash = "#/signup/organization/verify";
+    //window.location.hash = "#/signup/organization/verify";
+    browserHistory.push("/signup/organization/verify");
   }
 
   checkForChannelNameAvailability(CurrentChannelName, CurrentTeamName){

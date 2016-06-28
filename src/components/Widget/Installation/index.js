@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as WidgetActions from '../../../actions/Widget';;
 import { bindActionCreators } from 'redux';
 import { TextSelection } from '../../../modules/TextSelection';
+import { browserHistory } from 'react-router';
 
 
 /* component styles */
@@ -28,7 +29,8 @@ export class Installation extends Component {
     }
     keyupEvent(e){
         if (e.which==27){
-            window.location.hash = "#/dashboard";
+            //window.location.hash = "#/dashboard";
+            browserHistory.push("/dashboard");
         }
     }
     componentWillMount() {
@@ -112,7 +114,7 @@ insert this code on every page of your website after &lt;body&gt; tag.
                             <a className="link-email-instructions widget-link" href="#">Email instructions to webmaster</a>
                         </div>
                         <div className="tip-wrapper">
-                            Tip: You can change widget's <a className="widget-link" href="#/widget/appearance">appearance</a> at any time without reinstalling it
+                            Tip: You can change widget&#39;s <Link className="widget-link" to="/widget/appearance">appearance</Link> at any time without reinstalling it
                         </div>
                     </div>
                 </div>

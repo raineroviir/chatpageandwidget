@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';
 import * as CreateChannelActions from '../../actions/CreateChannel';
+import { browserHistory } from 'react-router';
 
 /* components */
 import { ChannelList } from 'components/ChannelList';
@@ -18,35 +19,41 @@ export class Channels extends Component {
         attr.is_public=false;
         attr.is_direct=false;
         attr.is_group=false;
-        url='#/channel/create';
+        //url='#/channel/create';
+        url='/channel/create';
         break;
       case 'public':
         attr.is_public=true;
         attr.is_direct=false;
         attr.is_group=false;
-        url='#/channel/type';
+        //url='#/channel/type';
+        url='/channel/type';
         break;
       case 'group':
         attr.is_public=false;
         attr.is_direct=false;
         attr.is_group=true;
-        url='#/channel/create';
+        //url='#/channel/create';
+        url='/channel/create';
         break;
       case 'chat':
         attr.is_public=false;
         attr.is_direct=false;
         attr.is_group=false;
-        url='#/channel/type';
+        //url='#/channel/type';
+        url='/channel/type';
         break;
       default:
         attr.is_public=false;
         attr.is_direct=false;
         attr.is_group=false;
-        url='#/channel/type';
+        //url='#/channel/type';
+        url='/channel/type';
         break;
     }
     this.props.createChannelActions.chatType(attr);
-    window.location.hash = url;
+    //window.location.hash = url;
+    browserHistory.push(url);
   }
   render() {
 

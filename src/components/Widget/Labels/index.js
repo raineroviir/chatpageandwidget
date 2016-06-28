@@ -76,16 +76,39 @@ export class Labels extends Component {
     }
 
     render(){
+        let user = 'free',  pageDesc;
+
+        if( user === 'free' ) {
+            pageDesc = (<div className="page-desc premium-user">
+                        
+                        <h3 className="widget-sub-title">
+                            Available on Plus and Premium plans.
+                        </h3> 
+                        <div className="buttons-wrapper">
+                            <Link className="cc-btn" to="/upgrade/plans">View plans and upgrade </Link>
+                        </div>
+                        
+                    </div>);
+        } else {
+            pageDesc = (<div className="page-desc free-user">
+                        <h3 className="widget-sub-title">
+                            Labels & Localization
+                        </h3> 
+
+                        <p className="widget-description">
+                            If you want to localize chat widget, simply edit app labels below
+                        </p>
+                    </div>);
+        }
         return (
             <div>
                 <div className="widget-label-main-content">
-                    <h3 className="widget-sub-title">
-                        Labels & Localization
-                    </h3> 
-                    <p className="widget-description">
-                        If you want to localize chat widget, simply edit app labels below
-                    </p>
+                    {
+                        pageDesc
+                    }
+                    
                     <div className="wc-primary-section">
+                        <div className="primary-section" className={ (user === 'free') ? 'mask-primary-section' : ''}></div>
                         <div className="labels-form">
                             <div className="input-wrapper">
                                 <label className="input-label">

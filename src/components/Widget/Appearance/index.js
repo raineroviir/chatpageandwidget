@@ -195,7 +195,7 @@ export class Appearance extends Component {
                 Appearance of the widget
             </h3>
             <p className="widget-description">
-                Tip: You can change widget's appearance at any time without reinstalling it
+                Tip: You can change widget&#39;s appearance at any time without reinstalling it
             </p>
             
             <div className="key-colors-section">
@@ -228,7 +228,7 @@ export class Appearance extends Component {
             </div>
             <div className="widget-preview-label-wrapper">
                 <span className="preview-label">Widget preview</span>
-                <a href="#/widget/labels" className="edit-label-link">Edit labels</a>
+                <Link to="/widget/labels" className="edit-label-link">Edit labels</Link>
             </div>
             <div className="preview-wrapper">
                 <img src={previewImg} />

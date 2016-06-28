@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import * as RegistrationActions from '../../../actions/Registration';
+import { browserHistory } from 'react-router';
 
 import {RegisterOrgNameComp} from '../../../components/Register/Organization/Name';
 
@@ -14,7 +15,8 @@ export class RegisterOrgName extends Component {
 
   handleBack(){
     //console.log('Moving 1 step back'); 
-    window.location.hash = "#/signup/organization";
+    //window.location.hash = "#/signup/organization";
+    browserHistory.push("/signup/organization");
   }
 
   handleNext(RegisterOrganisationName){
@@ -22,7 +24,8 @@ export class RegisterOrgName extends Component {
     this.props.actions.registerOrganisationName(RegisterOrganisationName);
 
     //navigate to next screen
-    window.location.hash = "#/signup/organization/domain";
+    //window.location.hash = "#/signup/organization/domain";
+    browserHistory.push("/signup/organization/domain");
 
   }
 

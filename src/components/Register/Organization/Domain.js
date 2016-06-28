@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration';
 import classNames from 'classnames';
+import { browserHistory } from 'react-router';
 
 export class RegisterOrgDomainComp extends Component {
 
@@ -13,7 +14,8 @@ export class RegisterOrgDomainComp extends Component {
   }
 
   handleBack(){
-    window.location.hash = "#/signup/organization/name";
+    //window.location.hash = "#/signup/organization/name";
+    browserHistory.push("/signup/organization/name");
   }
 
   handleNext(e){
@@ -102,7 +104,8 @@ export class RegisterOrgDomainComp extends Component {
     
     //redirect to first page if refreshed
     if(this.props.registrationDetails.Organisation.payload.team_description === ''){
-      window.location.hash = "#/signup/organization/name";
+      //window.location.hash = "#/signup/organization/name";
+      browserHistory.push("/signup/organization/name");
     }
 
     var availability = '';

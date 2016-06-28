@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { browserHistory, Route, IndexRoute } from 'react-router';
 
 /* containers */
 import { App } from 'containers/App';

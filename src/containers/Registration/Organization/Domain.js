@@ -2,20 +2,23 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration';
+import { browserHistory } from 'react-router';
 
 import {RegisterOrgDomainComp} from '../../../components/Register/Organization/Domain';
 
 export class RegisterOrgDomain extends Component {
 
   handleBack(){
-    window.location.hash = "#/signup/organization/name";
+    //window.location.hash = "#/signup/organization/name";
+    browserHistory.push("/signup/organization/name");
   }
 
   handleNext(RegisterTeam){
 
     //store the value in STORE by dispatching event in action
     this.props.actions.registerTeam(RegisterTeam);    
-    window.location.hash = "#/signup/organization/detail";
+    //window.location.hash = "#/signup/organization/detail";
+    browserHistory.push("/signup/organization/detail");
   }
 
   checkForTeamNameAvailability(CurrentTeamName){

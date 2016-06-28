@@ -73,7 +73,7 @@ export class LoginComponent extends Component {
                   <div className="support-signin-wrapper">
                     <div className="sign-up">
                       <span>New to chat.center?</span>
-                      <a href="#/signup" title="Sign up" className="pull-right">Sign up.</a>
+                      <Link to="/signup" title="Sign up" className="pull-right">Sign up.</Link>
                     </div>
                     <div className="forgot-password">
                       <a className="quick-link" href="javascript:;" title="Forgot password">Forgot password?</a>

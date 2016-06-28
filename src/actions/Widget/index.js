@@ -1,5 +1,6 @@
 const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
 import urlConfig from '../../url-config';
+import { browserHistory } from 'react-router';
 
 export function initWidgetConfig( channelid ) {
     
@@ -8,7 +9,8 @@ export function initWidgetConfig( channelid ) {
         .then(
           ( response ) => {
             if (response.status == 401) {
-              window.location.hash = "#";
+              //window.location.hash = "#";
+              browserHistory.push("/");
             } 
             return response.json();
           }
@@ -46,7 +48,8 @@ export function saveWidget( config, channelid ) {
         .then(
           ( response ) => {
             if (response.status == 401) {
-              window.location.hash = "#";
+              //window.location.hash = "#";
+              browserHistory.push("/");
             } 
             return response.json();
           }

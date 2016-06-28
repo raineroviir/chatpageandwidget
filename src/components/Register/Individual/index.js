@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration';
+import { browserHistory } from 'react-router';
 
 /* component styles */
 import { styles } from '../styles.scss';
@@ -19,7 +20,8 @@ export class RegisterIndividual extends Component {
 
   handleBack(){
     //console.log('Moving 1 step back');
-    window.location.hash = "#/signup/";
+    //window.location.hash = "#/signup/";
+    browserHistory.push("/signup");
   }
 
   handleNext(e){
@@ -32,7 +34,8 @@ export class RegisterIndividual extends Component {
     //store the value in STORE by dispatching event in action
     this.props.actions.registerIndividualDetails(FirstName,LastName,Email,Password);
     
-    window.location.hash = "#/signup/individual/domain";
+    //window.location.hash = "#/signup/individual/domain";
+    browserHistory.push("/signup/individual/domain");
   }
   inputChange(){
     this.refs.nextBtn.disabled = !(this.refs.FirstName.value && this.refs.LastName.value && this.refs.Password.value && this.refs.Password.value.length>=8 && this.validateEmail(this.refs.Email.value))

@@ -2,13 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration';
+import { browserHistory } from 'react-router';
 
 export class RegisterIndividualDomain extends Component {
 
   handleBack(){
     //console.log(this.props.registrationDetails);
     if (typeof(Storage) !== "undefined") {
-      window.location.hash = "#/" + localStorage.getItem("user_channel");
+      //window.location.hash = "#/" ;
+      browserHistory.push("/" + localStorage.getItem("user_channel"));
       localStorage.setItem("user_channel", "");
     }
   }

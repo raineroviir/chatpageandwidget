@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import urlConfig from '../../url-config';
+import { browserHistory } from 'react-router';
 
 export function chatType(attr) {
   return (dispatch, getState) => {
@@ -19,7 +20,8 @@ function postTeamFind(response, attr) {
       })
     }
   } else {
-    window.location.hash = "#/channel/members";
+    //window.location.hash = "#/channel/members";
+    browserHistory.push("/channel/members");
     return (dispatch, getState) => {
         dispatch({
           type: 'CHAT_DETAILS',
@@ -89,12 +91,18 @@ function postActionConstruct(json, action, channel) {
       dispatch({
         type: 'RESET_CREATE_CHANNEL'
       })
-      if(action == 'delete')
-        window.location.hash = "#/dashboard/";
-      else if(action == 'member-update')
-        window.location.hash = "#/dashboard/" + channel;
-      else
-        window.location.hash = "#/dashboard/" + json.channel.name;
+      if(action == 'delete'){
+        //window.location.hash = "#/dashboard/";
+        browserHistory.push("/dashboard/");
+      }
+      else if(action == 'member-update'){
+        //window.location.hash = "#/dashboard/" + channel;
+        browserHistory.push("/dashboard/" + channel);
+      }
+      else{
+        //window.location.hash = "#/dashboard/" + json.channel.name;
+        browserHistory.push("/dashboard/" + json.channel.name);
+      }
     }
   }
 }

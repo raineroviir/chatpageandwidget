@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch';
 import moment from 'moment';
 import * as loginActions from "../Login";
 import * as createChannelActions from "../CreateChannel";
+import { browserHistory } from 'react-router';
 let channels = require("json!./../../mocks/v1/channels.list.json");
 let conversations = require("json!./../../mocks/v1/conversations.list.json");
 
@@ -23,7 +24,8 @@ export function getChannels(channelid, old_token) {
         if(typeof(Storage) !== "undefined"){
           localStorage.setItem("token", old_token);
         } 
-        window.location.hash = "#";
+        //window.location.hash = "#";
+        browserHistory.push("/"); 
       }
       return response.json()
     })  
@@ -177,8 +179,8 @@ export function switchOrganization(org, orgs, history) {
     old_token = localStorage.getItem("token");
     localStorage.setItem("token", JSON.stringify(org.token));     
   }
-  window.location = "#/dashboard/" + org.name.split("/")[1];
-  //history.push("/dashboard/" + org.name.split("/")[1]);
+  //window.location = "/dashboard/" + org.name.split("/")[1];
+  browserHistory.push("/dashboard/" + org.name.split("/")[1])
   //dispatch(processOrgForDispatch(org, orgs));
   org.active = true;
   return dispatch => {
@@ -404,7 +406,7 @@ function processOrgsForDispatch(userinfo) {
       });
     orgs = orgs.filter(item => {item.active = false; return true; });
     if(!org){
-      let chname = window.location.hash.split("dashboard/")[1],
+      let chname = window.location.pathname.split("dashboard/")[1],
         name = (userinfo.user.team) ? userinfo.user.team.name + "/" + chname : "chat.center/" + chname,
           orgNew = orgs.find(item => {
         return item.name == name

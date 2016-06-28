@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration';
+import { browserHistory } from 'react-router';
 
 import {RegisterOrgDetailComp} from '../../../components/Register/Organization/Detail';
 
@@ -9,7 +10,8 @@ export class RegisterOrgDetail extends Component {
 
   handleBack(){
     //console.log('Moving 1 step back');
-    window.location.hash = "#/signup/organization/domain";
+    //window.location.hash = "#/signup/organization/domain";
+    browserHistory.push("/signup/organization/domain");
   }
 
   handleNext(FirstName,LastName,Email){
@@ -17,7 +19,8 @@ export class RegisterOrgDetail extends Component {
     //store the value in STORE by dispatching event in action
     this.props.actions.registerPersonalDetails(FirstName,LastName,Email);
     //console.log('Moving 1 step back');
-    window.location.hash = "#/signup/organization/address";
+    //window.location.hash = "#/signup/organization/address";
+    browserHistory.push("/signup/organization/address");
   }
 
   render() {

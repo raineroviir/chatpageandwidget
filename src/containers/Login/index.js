@@ -19,11 +19,14 @@ const metaData = {
 };
 
 export class Login extends Component {
+  componentWillMount(){
+    this.props.actions.addOrg(!!this.props.location.search);
+  }
   render() {
     return (
       <div>
           <DocumentMeta {...metaData} />
-          <LoginComponent addOrg={!!this.props.location.search} />
+          <LoginComponent addOrg={this.props.addOrg} />
       </div>
     );
   }
@@ -31,7 +34,8 @@ export class Login extends Component {
 
 function mapStateToProps(state) {
   return {
-    loginDetails: state.loginDetails
+    loginDetails: state.loginDetails,
+    addOrg: state.orgs.addOrg
   }
 }
 

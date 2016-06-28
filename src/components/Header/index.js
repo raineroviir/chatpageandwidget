@@ -68,7 +68,7 @@ export class HeaderView extends Component {
             <div className={"settings-menu" + (this.state.showSettingsMenu ? ' show-menu': '')} >
               <ul>
                 <li>
-                  <a href="#/widget/installation">Website widget setup</a>
+                  <Link to="/widget/installation">Website widget setup</Link>
                 </li>
                 <li>
                   <a>Click to Chat button setup</a>
@@ -77,13 +77,13 @@ export class HeaderView extends Component {
                   <a>Chat page setup</a>
                 </li>
                 <li className="separator">
-                  <a href={channel ? '#/channel/edit/' + channel.id : 'javascript:;'}>Channel name and URL</a>
+                  <Link to={channel ? '/channel/edit/' + channel.id : 'javascript:;'}>Channel name and URL</Link>
                 </li>
                 <li>
                   <a>Channel notification preferances</a>
                 </li>
                 <li>
-                  <a href={channel ? '#/channel/members/' + channel.id : 'javascript:;'}>Channel members</a>
+                  <Link to={channel ? '/channel/members/' + channel.id : 'javascript:;'}>Channel members</Link>
                 </li>
                 <li>
                   <a>Channel responces</a>

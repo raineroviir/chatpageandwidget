@@ -2,13 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration';
+import { browserHistory } from 'react-router';
 
 import {RegisterOrgVerifyComp} from '../../../components/Register/Organization/Verify';
 
 export class RegisterOrgVerify extends Component {
 
   handleBack(){
-    window.location.hash = "#/signup/organization/address";
+    //window.location.hash = "#/signup/organization/address";
+    browserHistory.push("/signup/organization/address");
   }
 
   handleNext(RegisterPassword){

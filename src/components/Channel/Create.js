@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as ChannelActions from '../../actions/Channels';
 import classnames from 'classnames';
+import { Link, browserHistory } from 'react-router';
 
 export class ChannelCreate extends Component {
 
@@ -36,7 +37,8 @@ export class ChannelCreate extends Component {
   componentDidMount() {
 
     if(!this.props.id && (this.props.details.payload.is_public === "" || this.props.details.payload.is_direct=== "" || this.props.details.payload.is_group==="")) {
-      window.location.hash = "#/channel/type";
+      //window.location.hash = "#/channel/type";
+      browserHistory.push("/channel/type");
     }
     if(!(this.props.details.payload.description && this.props.details.payload.channel)) {
       this.refs.nextButton.disabled = true;
@@ -44,7 +46,8 @@ export class ChannelCreate extends Component {
     }
     /*$('body').keydown(function(e){
         if (e.which==27){
-            window.location.hash = "#/dashboard";
+            //window.location.hash = "#/dashboard";
+            browserHistory.push("/dashboard");
         }
     });*/
     var self = this;
@@ -69,7 +72,8 @@ export class ChannelCreate extends Component {
   keyupEvent(e){
       
       if (e.which==27){
-          window.location.hash = "#/dashboard";
+          //window.location.hash = "#/dashboard";
+          browserHistory.push("/dashboard");
       }
   }
 
@@ -111,9 +115,9 @@ export class ChannelCreate extends Component {
     //let channel = this.props.details.payload;
     return (
             <div id="create-ext-chat-form"  className="create-ext-chat create-ext-chat-form chat-name-address" >
-              <a href="#/dashboard" className="close-wrapper">
+              <Link to="/dashboard" className="close-wrapper">
                 <span className="glyphicon glyphicon-remove"></span>
-              </a>
+              </Link>
               <div className="section-content">
                 <h1 className="section-title-1" style={{display:((this.props.details.payload.is_public && this.props.details.payload.is_group) ? "" : "none")}}>External group chat</h1>
                 <h1 className="section-title-1" style={{display:((this.props.details.payload.is_public && !this.props.details.payload.is_group) ? "" : "none")}}>External Team-to-One chat channel</h1>

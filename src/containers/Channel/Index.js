@@ -7,6 +7,7 @@ import DocumentMeta from 'react-document-meta';
 /* components */
 import Navigation from 'containers/Home/Navigation';
 import { Channel } from '../../components/Channel/Index';
+import { browserHistory } from 'react-router';
 
 const metaData = {
   title: 'Channel | Chat Center',
@@ -24,7 +25,8 @@ export class ChannelContainer extends Component {
   chatType(attr, url){
     attr.team = this.props.org ? this.props.org.name.split('/')[0] : ''
     this.props.actions.chatType(attr);
-    window.location.hash = url;
+    //window.location.hash = url;
+    browserHistory.push(url);
   }
 
   componentDidMount(){

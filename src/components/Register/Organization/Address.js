@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import * as RegistrationActions from '../../../actions/Registration'; 
+import * as RegistrationActions from '../../../actions/Registration';
+import { browserHistory } from 'react-router'; 
 
 export class RegisterOrgAddressComp extends Component {
 
@@ -12,7 +13,8 @@ export class RegisterOrgAddressComp extends Component {
   }
 
   handleBack(){
-    window.location.hash = "#/signup/organization/detail";
+    //window.location.hash = "#/signup/organization/detail";
+    browserHistory.push("/signup/organization/detail");
   }
 
   handleNext(e){
@@ -26,7 +28,8 @@ export class RegisterOrgAddressComp extends Component {
 
     //store the value in STORE by dispatching event in action
     this.props.handleNext(RegisterChannel);
-    window.location.hash = "#/signup/organization/verify";
+    //window.location.hash = "#/signup/organization/verify";
+    browserHistory.push("/signup/organization/verify");
   }
 
   inputChange(){
@@ -55,7 +58,8 @@ export class RegisterOrgAddressComp extends Component {
     
     //redirect to first page if refreshed
     if(this.props.registrationDetails.Organisation.payload.team_description === ''){
-      window.location.hash = "#/signup/organization/name";
+      //window.location.hash = "#/signup/organization/name";
+      browserHistory.push("/signup/organization/name");
     }
     const Organisation = this.props.registrationDetails.Organisation;
     

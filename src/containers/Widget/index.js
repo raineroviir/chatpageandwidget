@@ -6,7 +6,8 @@ import DocumentMeta from 'react-document-meta';
 import Navigation from 'containers/Home/Navigation';
 import {WidgetNav} from '../../components/WidgetNav/index';
 //import {Installation} from '../../components/Widget/Installation';
-import * as WidgetActions from '../../actions/Widget'
+import * as WidgetActions from '../../actions/Widget';
+import { browserHistory } from 'react-router';
 
 // import App from './components';
 // 
@@ -31,7 +32,8 @@ export class Widget extends Component {
   componentWillMount() {
     //this.props.actions.initWidget();
     if( !this.props.conversations.channelid ) {
-      window.location.hash = "#/dashboard";
+      //window.location.hash = "#/dashboard";
+      browserHistory.push("/dashboard");
     }
 
   }
@@ -55,7 +57,7 @@ export class Widget extends Component {
             <div className={ "widget-" + classId }>
               <div className="widget-feature-buttons">
                 <button className="cc-btn save-button" onClick={this.saveWidget.bind(this)}>SAVE</button>
-                <a href="#/dashboard" className="widget-close">
+                <a href="/dashboard" className="widget-close">
                 </a>
               </div>
               <div className="email-camp-channel">
