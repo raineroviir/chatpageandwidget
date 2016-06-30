@@ -8,6 +8,7 @@ import {WidgetNav} from '../../components/WidgetNav/index';
 //import {Installation} from '../../components/Widget/Installation';
 import * as WidgetActions from '../../actions/Widget';
 import { browserHistory } from 'react-router';
+import { Link } from 'react-router';
 
 // import App from './components';
 // 
@@ -57,8 +58,8 @@ export class Widget extends Component {
             <div className={ "widget-" + classId }>
               <div className="widget-feature-buttons">
                 <button className="cc-btn save-button" onClick={this.saveWidget.bind(this)}>SAVE</button>
-                <a href="/dashboard" className="widget-close">
-                </a>
+                <Link to="/dashboard" className="widget-close">
+                </Link>
               </div>
               <div className="email-camp-channel">
                   <span className="email-icon-wrapper">

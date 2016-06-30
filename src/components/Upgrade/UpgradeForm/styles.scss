@@ -12,7 +12,185 @@
             line-height: 1.2;
         }
     }   
-    .upgrade-form {
+    .upgrade-form-wrapper {
+        padding: 24px 55px;
         background-color: rgba(249, 249, 249, 0.99);
+        margin-top: 24px;
+        color: #474848;
+        .upgrade-form {
+            max-width:  464px;
+        }
+        .form-header {
+            font-size: 15px;
+            font-weight: normal;
+            letter-spacing: 0.1px;
+            background-image: url(../../images/password-icon.svg);  
+            padding-left: 32px;
+            background-repeat: no-repeat;
+            background-size: 20px;
+            line-height: 24px;
+        }
+        .form-row {
+            overflow: auto;
+        }
+        .field-wrapper {
+            margin-top: 28px;
+            label {
+                margin: 0;
+                font-family: Rubik;
+                font-size: 18px;
+                letter-spacing: 0.1px;
+                color: #474848;
+                display: block;
+                margin-left: 11px;
+            }
+            .input-field {
+                font-size: 18px;
+                letter-spacing: 0.1px;
+                color: #000000;
+                box-shadow: inset 0 -2px 0 0 #474848;
+                width: 100%;
+                border: 0;
+                background: none;
+                padding: 14px 11px 25px 11px;
+                outline: none;
+            }
+        }
+        .promo-link {
+            font-size: 15px;
+            font-weight: normal;
+            line-height: 1.4;
+            letter-spacing: 0.1px;
+            color: #fdb22b;
+        }
+        .cc-btn.submit-btn {
+            font-size: 20px;
+            padding: 13px 26px 13px 25px;
+            width: 250px;
+            .cc-btn {
+                position: absolute;
+            }
+        }
+        .double-field-wrapper {
+            .field-wrapper {
+                width: 45%;
+                float: left;
+            }
+            .second-field {
+                float: right;
+            }
+        }
+        .promo-code-row {
+            
+            .field-wrapper {
+                position: relative;
+            }
+            .cc-btn {
+                position: absolute;
+                bottom: 20px;
+                right: 0px;
+            }
+            .promo-success {
+                position: absolute;
+                bottom: 28px;
+                -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+                right: 16px;
+                position: relative;
+                display: none;
+                &:after {
+                    position: absolute;
+                    width: 6px;
+                    height: 2px;
+                    background-color: #45b166;
+                    left: 11px;
+                    top: 19px;
+                    content: '';
+                }
+                &:before{
+                    position: absolute;
+                    width: 2px;
+                    height: 12px;
+                    background-color: #45b166;
+                    left: 16px;
+                    top: 8px;
+                    content: "";
+                }
+            }
+            &.promo-status-success {
+                .promo-success {
+                    display: inline-block;
+                }            
+                .cc-btn {
+                    display: none;
+                }
+            }
+            .promo-status-error-msg {
+                display: none;
+            }
+            .promo-status-error-msg {
+                margin-top: 5px;
+                margin-left: 11px;
+                display: none;
+            }
+            &.promo-status-error {
+                .input-field {
+                    color: red;
+                    box-shadow: inset 0 -2px 0 0 red;
+                }
+                .promo-status-error-msg {
+                    display: block;
+                    color: red;
+                }
+            }
+        }
+        .promo-link-wrapper {
+            margin-top: 28px;
+            margin-left: 11px;
+        }
+        .buttons-wrapper {
+            margin-top: 22px;
+            margin-left: 11px;
+        }
+        .powered-by {
+            float: right;
+            margin-top: 18px;
+        }
+    }
+    .card-number-wrapper {
+        position: relative;
+        .card-logo {
+            height: 17px;
+            width: 46px;
+            position: absolute;
+            right: 0px;
+            bottom: 28px;
+            background-repeat:no-repeat;
+            background-size: contain;
+            background-position: center center;
+            height: 28px;
+        }
+        .visa {
+            background-image: url('../../images/cards/visa.png');
+        }
+        .mastercard {
+            background-image: url('../../images/cards/mastercard.png');
+            
+        }
+        .amex {
+            background-image: url('../../images/cards/amex.png');
+        }
+        .visa-electron {
+            background-image: url('../../images/cards/visa-electron.png');
+        }
+        .jcb {
+            background-image: url('../../images/cards/jcb.png');
+        }
+        .disover {
+            background-image: url('../../images/cards/disover.png');
+        }
+        .diners {
+            background-image: url('../../images/cards/diners.png');
+        }
     }
 }

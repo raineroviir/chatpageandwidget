@@ -10,7 +10,8 @@ export class HeaderView extends Component {
     super(props);
     this.state = {
       openFeature: false,
-      showSettingsMenu: false
+      showSettingsMenu: false,
+      settingsMenuLeft: '0px'
     };
   }
 
@@ -27,6 +28,10 @@ export class HeaderView extends Component {
     this.setState({
       showSettingsMenu: !this.state.showSettingsMenu
     });
+    let ele = e.currentTarget;
+    this.setState({
+       settingsMenuLeft : ( ele.offsetLeft - 46 )  + 'px'
+    })
   }
 
   render() {
@@ -65,7 +70,13 @@ export class HeaderView extends Component {
                 <span className="channel-setting" aria-hidden="true"></span>
               </a>
             </h1>
-            <div className={"settings-menu" + (this.state.showSettingsMenu ? ' show-menu': '')} >
+            <div className={"settings-menu" + (this.state.showSettingsMenu ? ' show-menu': '')} 
+            style={
+              {
+                left:this.state.settingsMenuLeft
+              }
+            }
+            >
               <ul>
                 <li>
                   <Link to="/widget/installation">Website widget setup</Link>

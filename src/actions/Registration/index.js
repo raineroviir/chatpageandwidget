@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 //import postLoginRequest from '../services/common/login';
 import * as LoginActions from '../Login';
 import urlConfig from '../../url-config';
+import { browserHistory } from 'react-router';
 
 export function registerOrganisationName(RegisterOrganisationName) {
   //alert(dispatch);
@@ -60,16 +61,66 @@ export function registerIndividualDetails(FirstName,LastName,Email,Password) {
   }
 }
 
-export function submitRegistration(isIndividual) {
+export function submitRegistration(isIndividual, emails) {
   //alert('submitRegistration');
   return (dispatch, getState) => {
-      return dispatch(postRegistration(getState().registrationDetails.Organisation.payload, isIndividual))
+    return dispatch(postRegistration(getState().registrationDetails.Organisation.payload, isIndividual))
   }
+}
+export function inviteMembers (emails) {
+  
+  return (dispatch, getState) => {
+    try{
+      var token = getState().loginDetails.User.token.access_token;
+        fetchUserInfo(token).then(response => {return response.json()})
+          .then(json => {
+            return addMembers(json.user.team.id, emails, token).then(response => {return response.json()})   
+          })
+          .then(json => {
+            if(json.ok){
+              dispatch(inviteStatus(true));
+            }
+          });
+    }
+    catch(e){
+      
+    }
+  }
+}
+function inviteStatus(status) {
+  return {
+    type: "SHOW_SUCCESS_MESSAGE",
+    posts: { showSuccess: status},
+    recievedAt: Date.now()
+  }
+};
+export function dispatchInviteStatus (status) {
+  return dispatch => dispatch(inviteStatus(status))
+}
+function fetchUserInfo(token) {
+  return fetch( urlConfig.base + 'users.me', {
+    method: 'GET',
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    }
+  })
+}
+function addMembers(team, emails, token) {
+  return fetch( urlConfig.base + '/teams.members.create', {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: JSON.stringify({ user_emails: emails, team_id: team})
+  })
 }
 
 function postActionConstruct(json, isIndividual) {
  
   return (dispatch, getState) => {
+    
     dispatch({
       type: 'REGISTER_ORGANISATION_DETAILS',
       value:{"error":json.error}

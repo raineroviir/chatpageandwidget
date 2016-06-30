@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as UpgradeActions from '../../../actions/Upgrade';;
 import { bindActionCreators } from 'redux';
 import { styles } from './styles.scss';
+import { Link } from 'react-router';
 
 export class UpgradePlans extends Component {
     constructor( props ) {
@@ -16,7 +17,7 @@ export class UpgradePlans extends Component {
         return (
             <div className="upgrade-plans">
                 <div className="upgrade-breadcrumb">
-                  <a className="back-link" href="#/dashboard"> Widget Appearence </a>
+                  <Link className="back-link" to="/dashboard"> Widget Appearence </Link>
                 </div>
                 <h1 className="upgrade-title">Chat Center plans</h1>
                 <div className="plan-term">
@@ -85,9 +86,9 @@ export class UpgradePlans extends Component {
                           </p>
                         </div>
                         <div className="buttons-wrapper">
-                          <button className="cc-btn">
+                          <Link to="/upgrade/form" className="cc-btn">
                             UPGRADE
-                          </button>
+                          </Link>
                         </div>
 
                       </div>
@@ -116,9 +117,9 @@ export class UpgradePlans extends Component {
                           </p>
                         </div>
                         <div className="buttons-wrapper">
-                          <button className="cc-btn">
+                          <Link to="/upgrade/form" className="cc-btn">
                             UPGRADE
-                          </button>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -130,14 +131,14 @@ export class UpgradePlans extends Component {
                       </button>
                     </div>
                     <div className="col-sm-4">
-                      <button className="cc-btn">
+                      <Link to="/upgrade/form" className="cc-btn">
                         UPGRADE
-                      </button>
+                      </Link>
                     </div>
                     <div className="col-sm-4">
-                      <button className="cc-btn">
+                      <Link to="/upgrade/form" className="cc-btn">
                         UPGRADE
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

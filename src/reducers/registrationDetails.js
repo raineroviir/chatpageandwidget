@@ -10,6 +10,7 @@ const initialState = {
       password:''
     },
     error:'',
+    showSuccess: false,
     TeamAvailable:{},
     ChannelAvailable:{}
   }
@@ -131,6 +132,14 @@ export function registrationDetails(state = initialState, action) {
       Organisation
   };
 
+  case 'SHOW_SUCCESS_MESSAGE':
+    return {
+      ...state,
+      Organisation: { 
+        ...state.Organisation, 
+        showSuccess: action.posts.showSuccess
+      }
+  };
   default:
     return state;
   }
