@@ -77,6 +77,7 @@ export class HeaderView extends Component {
               }
             }
             >
+              <span className="menu-traingle"></span>
               <ul>
                 <li>
                   <Link to="/widget/installation">Website widget setup</Link>

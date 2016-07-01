@@ -141,7 +141,7 @@ export class UpgradeForm extends Component {
                     </div>
 
                     <div className={"form-row promo-code-row " + 
-                      (this.state.showPromoInput ? '' : ' hide' ) +
+                      (this.state.showPromoInput ? '' : ' hide ' ) +
                       'promo-status-' + this.state.promoStatus
                     } >
                       <div className="field-wrapper">

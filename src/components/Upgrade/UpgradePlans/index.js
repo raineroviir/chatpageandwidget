@@ -17,7 +17,7 @@ export class UpgradePlans extends Component {
         return (
             <div className="upgrade-plans">
                 <div className="upgrade-breadcrumb">
-                  <Link className="back-link" to="/dashboard"> Widget Appearence </Link>
+                  <Link className="back-link" to="/widget/appearance"> Widget Appearence </Link>
                 </div>
                 <h1 className="upgrade-title">Chat Center plans</h1>
                 <div className="plan-term">

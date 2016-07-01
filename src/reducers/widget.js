@@ -1,7 +1,8 @@
 const initialState = {
     channelid: '',
     classId: '',
-    widgetMenuState : false
+    widgetMenuState : false,
+    isNewChannelConfig: false
 };
 
 export function widget(state = initialState, action) {
@@ -17,14 +18,13 @@ export function widget(state = initialState, action) {
             return state;
           }
       case 'INIT_WIDGET': 
-
             return state;
       case 'WIDGET_UPDATE_KEY':
         return {
           ...state,
           [action.key]: action.value
         };
-          
+      
       default: return state;
     }
 }

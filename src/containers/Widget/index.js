@@ -40,7 +40,7 @@ export class Widget extends Component {
   }
   saveWidget( e ) {
       e.preventDefault();
-      this.props.actions.saveWidget( this.props.widgetConfig, this.props.conversations.channelid );
+      this.props.actions.saveWidget( this.props.widgetConfig, this.props.conversations.channelid, this.props.widget.isNewChannelConfig );
   }
 
   render() {

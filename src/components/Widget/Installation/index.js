@@ -20,6 +20,11 @@ export class Installation extends Component {
     }
     componentDidMount() {
 
+        if( !this.props.conversations.channelid ) {
+            browserHistory.push("/dashboard");
+            return;
+        }
+
         $(document).keyup(this.keyupEvent);
         this.props.actions.initWidgetConfig( this.props.conversations.channelid );
     }

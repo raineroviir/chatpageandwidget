@@ -29,6 +29,7 @@ import Widget from 'containers/Widget';
 import UpgradeVew from 'containers/Upgrade';
 import UpgradePlans from 'components/Upgrade/UpgradePlans';
 import UpgradeForm from 'components/Upgrade/UpgradeForm';
+import UpgradeSuccess from 'components/Upgrade/UpgradeSuccess';
 
 
 
@@ -64,6 +65,7 @@ export default (
         <IndexRoute  component={UpgradePlans} />
         <Route path="plans" component={UpgradePlans}/>
         <Route path="form" component={UpgradeForm}/>
+        <Route path="success" component={UpgradeSuccess}/>
     </Route>
 
 

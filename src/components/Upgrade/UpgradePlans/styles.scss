@@ -1,4 +1,5 @@
 .upgrade-plans {
+    max-width: 759px;
     .plan-term {
         ul {
             margin: 0;
@@ -84,7 +85,11 @@
     }
     .buttons-wrapper {
         margin-top: 18px;
+        .cc-btn {
+            font-family: 'Rubik-Medium';
+        }
     }
+
     
 }
 
@@ -98,6 +103,12 @@
         }
         .bottom-row-buttons{
             display: none;
+        }
+        .plan-title { 
+            font-size: 24px;
+        }
+        .plan-title-wrapper {
+            min-height: auto;
         }
     }
 }

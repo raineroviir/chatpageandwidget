@@ -124,8 +124,7 @@
         &.show-menu {
             display: block;
         }
-        &:before {
-            content: '';
+        .menu-traingle {
             width: 0;
             height: 0;
             border-style: solid;
@@ -134,7 +133,6 @@
             position: absolute;
             top: -10px;
             left: 20px;
-
         }
         ul {
             list-style: none;
@@ -195,6 +193,17 @@
             .feature-list {
                 display: inline-block;
                 position: static;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .header {
+        .settings-menu {
+            left: 0 !important;
+            .menu-traingle {
+                display: none;
             }
         }
     }

@@ -1,4 +1,5 @@
 .upgrade-form-view {
+    max-width: 759px;
     .selected-details {
         margin-top: 17px;
         font-size: 15px;
@@ -17,6 +18,7 @@
         background-color: rgba(249, 249, 249, 0.99);
         margin-top: 24px;
         color: #474848;
+        margin-left: -55px;
         .upgrade-form {
             max-width:  464px;
         }
@@ -89,6 +91,7 @@
                 position: absolute;
                 bottom: 20px;
                 right: 0px;
+                font-family: 'Rubik-Medium';
             }
             .promo-success {
                 position: absolute;
@@ -191,6 +194,33 @@
         }
         .diners {
             background-image: url('../../images/cards/diners.png');
+        }
+    }
+}
+
+
+/*just targetted for mobile resolution*/
+@media screen and (max-width: 767px) {
+    .upgrade-form-view {
+        .upgrade-form-wrapper {
+            padding: 10px;
+            margin-left: 0;
+            .double-field-wrapper .field-wrapper {
+                width: 100%;
+            }
+            .cc-btn.submit-btn {
+                width: 100%;
+            }
+            .promo-code-row .cc-btn {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .buttons-wrapper {
+                margin-left: 0;
+            }
+            .promo-link-wrapper {
+                margin-left: 0;   
+            }
         }
     }
 }

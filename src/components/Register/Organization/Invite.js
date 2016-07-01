@@ -11,6 +11,7 @@ export class RegisterIndividualDomain extends Component {
     super(props);
     this.state = {};
     this.state.inputs = [1];
+    this.state.isAvoidUpate = !1;
   }
 
   handleBack(){
@@ -30,10 +31,15 @@ export class RegisterIndividualDomain extends Component {
   componentDidMount() {
     this.refs.submitButton.disabled = true;    
   }
-  componentDidMount() {
-    if(this.props.registrationDetails.Organisation.showSuccess){
-      this.state.inputs = [];
+  componentDidUpdate() {
+    if(this.props.registrationDetails.Organisation.showSuccess && !this.state.isAvoidUpate){
+      this.state.inputs.splice(1);
+      this.setState({inputs: this.state.inputs, isAvoidUpate: !0});
     }
+    if(this.state.isAvoidUpate){
+      this.refs["input1"].value = "";
+      this.state.isAvoidUpate = !1;
+    } 
   }
 
   inputChange(event){
@@ -80,7 +86,7 @@ export class RegisterIndividualDomain extends Component {
             <form id="signupform" className="form-horizontal" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Invite your team</h1>
-                <p className={classNames({"hide": !this.props.registrationDetails.Organisation.showSuccess})}>Members are invited successfully. Do you want to invite more members ?</p>
+                <p className={classNames("sucess-msg", {"hide": !this.props.registrationDetails.Organisation.showSuccess})}>Members are invited successfully. Do you want to invite more members ?</p>
                 <div className="chat-address">Email addresses</div>
                                 
                 {this.state.inputs.map(function (result) {
