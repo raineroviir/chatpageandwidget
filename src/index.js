@@ -8,6 +8,9 @@ import configureStore from './store/configureStore';
 import routes from './routes';
 require("containers/App/scripts/chatcenter.js");
 
+import ApiService from './api.service';
+
+
 //const history = useRouterHistory(createHashHistory)({ queryKey: false });
 /*const history = useRouterHistory(createHistory)({
   basename: '/'

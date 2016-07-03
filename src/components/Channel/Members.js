@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ChannelActions from '../../actions/Channels';
 import classnames from 'classnames';
@@ -164,9 +164,9 @@ export class ChannelMembers extends Component {
                     <div className="moderator-item" key={member.id}>
                       <div className="avatar-wrapper">
                         <img  className="avatar-img" />
-                        <span className="avatar-text">{member.first_name[0].toUpperCase()}</span>
+                        <span className="avatar-text">{member.first_name ? member.first_name[0].toUpperCase() : member.email[0].toUpperCase()}</span>
                       </div>
-                      <span className="user-name">{member.first_name + ' ' + member.last_name}</span>
+                      <span className="user-name">{(member.first_name ? member.first_name :  member.email) + ' ' + (member.last_name ? member.last_name : '')}</span>
 
                       <div className="user-chat-address-wrapper">
                         <span className="user-chat-address">{member.email}</span>

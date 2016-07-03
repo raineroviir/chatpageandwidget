@@ -13,7 +13,7 @@ import { Link } from 'react-router';
 // import App from './components';
 // 
 const metaData = {
-  title: 'Wiget | Chat Center',
+  title: 'Widget | Chat Center',
   description: 'Widget Chat Center',
   meta: {
     charset: 'utf-8',
@@ -31,16 +31,16 @@ export class Widget extends Component {
   }
   
   componentWillMount() {
-    //this.props.actions.initWidget();
+
     if( !this.props.conversations.channelid ) {
       //window.location.hash = "#/dashboard";
       browserHistory.push("/dashboard");
     }
 
   }
-  saveWidget( e ) {
+  saveWidgetConfig( e ) {
       e.preventDefault();
-      this.props.actions.saveWidget( this.props.widgetConfig, this.props.conversations.channelid, this.props.widget.isNewChannelConfig );
+      this.props.actions.saveWidgetConfig( this.props.widgetConfig, this.props.conversations.channelid, this.props.widget.isNewChannelConfig );
   }
 
   render() {
@@ -57,7 +57,7 @@ export class Widget extends Component {
           <div className="widget-content" >
             <div className={ "widget-" + classId }>
               <div className="widget-feature-buttons">
-                <button className="cc-btn save-button" onClick={this.saveWidget.bind(this)}>SAVE</button>
+                <button className="cc-btn save-button" onClick={this.saveWidgetConfig.bind(this)}>SAVE</button>
                 <Link to="/dashboard" className="widget-close">
                 </Link>
               </div>
@@ -73,7 +73,7 @@ export class Widget extends Component {
               {this.props.children}
             </div>
             <div className="widget-save-button-bottom">
-                <button className="cc-btn save-button" onClick={this.saveWidget.bind(this)}>SAVE</button>
+                <button className="cc-btn save-button" onClick={this.saveWidgetConfig.bind(this)}>SAVE</button>
             </div>
           </div>
         </div>

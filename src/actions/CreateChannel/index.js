@@ -21,12 +21,12 @@ function postTeamFind(response, attr) {
     }
   } else {
     //window.location.hash = "#/channel/members";
-    browserHistory.push("/channel/members");
     return (dispatch, getState) => {
         dispatch({
           type: 'CHAT_DETAILS',
           attr
         })
+        browserHistory.push("/channel/members");
     }
   }
 }
@@ -198,9 +198,9 @@ export function clearErrorMessage() {
   }
 }
 
-export function getChannelMembers() {
+export function getChannelMembers(id) {
   return (dispatch, getState) => {
-    channelMembersList().then(response => {return response.json()}) 
+    channelMembersList(id).then(response => {return response.json()}) 
       .then(json => dispatch(postActionChannelMembers(json)))
   }
 }
@@ -378,8 +378,8 @@ function teamMembersList(){
     })
 }
 
-function channelMembersList(){
-    var url =  urlConfig.base + 'teams.members.list';
+function channelMembersList(id){
+    var url =  urlConfig.base + 'channels.members.list?channel_id=' + id;
     if (typeof(Storage) !== "undefined") {
       var token = JSON.parse(localStorage.getItem("token"));
     }

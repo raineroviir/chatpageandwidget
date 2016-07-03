@@ -2,89 +2,146 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as UpgradeActions from '../../../actions/Upgrade';;
 import { bindActionCreators } from 'redux';
+import { MaterialInput } from '../../MaterialInput';
 import { styles } from './styles.scss';
 import { Link } from 'react-router';
-
 import { AutoDetectCard } from '../../../modules/AutoDetectCard';
-
+import { LoadStripe } from '../../../modules/LoadStripe';
+import { browserHistory } from 'react-router';
 export class UpgradeForm extends Component {
     constructor( props ) {
       super( props );
       this.state = {
         showPromoInput : false,
-        promoCode: '',
-        cardLogo: '',
-        cardNumber: '',
-        promoStatus: ''
+        errorMessage: ''
       };
-
     }
 
     togglePromoInput( e ) {
+
       e.preventDefault();
       this.setState({
         showPromoInput : !this.state.showPromoInput
       });
+      setTimeout( ()=> {
+        this.refs.promoCode.focus();  
+      }, 10 );
+    }
+    
+    validateForm( obj ) {
+      
+      let expDateRegEx = /^(0[1-9]|1[012])\/\d{2}$/;
+      let cvcNumberRegEx = /^\d{3}$/;
+      let cardNumberRegEx = /^(((\d{4})( \d{4}){2,4})$)|(^\d{12,20})$/
+      return cardNumberRegEx.test( obj.cardNumber ) 
+      && expDateRegEx.test( obj.expDate ) &&
+      cvcNumberRegEx.test( obj.cvcNumber );
+
     }
 
     inputChange( key, e ) {
-      
-      this.setState({
-        [key]: e.target.value
-      });
-
+      let newState = {};
+      let value = e.target.value;
       if( key === 'cardNumber' ) {
-        this.setState({
-          cardLogo: AutoDetectCard( e.target.value )
+         this.setState({
+          cardLogo: AutoDetectCard( value )
         });
-        console.log( 'this.state.cardLogo', this.state.cardLogo );
       }
-
       if( key === 'promoCode' ) {
-        this.setState({
-            promoStatus : '' 
-        });  
+        newState.promoStatus = '';
+        if( value.length ) {
+          newState.promoBtnState = true;
+        } else {
+          newState.promoBtnState = false;
+        }
       } 
+      newState[key] = value;  
+      
+      if( key === 'cardNumber' || key === 'expDate' || key === 'cvcNumber'  ){
+        let validateObj = {
+          cardNumber : this.props.upgradeForm.cardNumber,
+          expDate : this.props.upgradeForm.expDate,
+          cvcNumber : this.props.upgradeForm.cvcNumber,
+        }
+        validateObj[ key ] = value;
+        newState.enableFormSubmit = this.validateForm( validateObj );  
+      }
+      
+      this.props.actions.updateUpgradeFormKey(newState);
+      
     }
 
     submitPromoCode( e ) {
       if( e ) {
         e.preventDefault();  
       }
-      if( this.state.promoCode.length === 0 ) {
-        return;
+
+      if( this.props.upgradeForm.promoBtnState ) {
+        this.props.actions.validateCoupon( this.props.upgradeForm.promoCode );  
+        this.props.actions.updateUpgradeFormKey({
+          promoBtnState: false,
+          couponReqStatus: true
+        });
+
       }
-
-      this.setState({
-        promoStatus : 'error',
-        promoError: 'Invalid Promocode'
-      });
-
-
     }
+    submitPayment(  e ) {      
+      e.preventDefault();
+      if( this.props.upgradeForm.enableFormSubmit ) {
+        this.setState({
+          errorMessage: ''
+        });
+        
+        let $form = $('#payment-form');
+        this.props.actions.updateUpgradeFormKey({
+          paymentReqStatus: true,
+          enableFormSubmit: false
+        });
+        this.props.actions.submitPayment( $form[0], {
+          planId: this.props.upgradePlan.choosedPlan.stripe_id,
+          coupon: this.props.upgradeForm.promoCod
+        },  ( status, res ) => {
 
+            this.props.actions.updateUpgradeFormKey({
+              paymentReqStatus: false
+            });
+            if( status === 'error' ) {
+              this.setState({
+                errorMessage: res
+              });
+            } else {
+              browserHistory.push('/upgrade/success');
+            }
+        } )
+      }
+      
+      
+      
+    }
     handleEnterPressPromo( e ) {
       if( e.keyCode == 13 ) {
-        this.submitPromoCode( e );
-        setTimeout(()=>{
-          this.setState({
-            promoStatus : 'success' 
-          });  
-        }, 100);
-        
+        this.submitPromoCode( e );       
       }
     }
 
     componentWillMount() {
+      LoadStripe();
     }
 
     render(){
+        
+        
         return (
             <div className="upgrade-form-view">
                 <div className="upgrade-breadcrumb">
                   <Link className="back-link" to="/upgrade/plans"> Chat Center Plans </Link>
                 </div>
-                <h1 className="upgrade-title">Upgrade to Chat Center Premium</h1>
+                <h1 className="upgrade-title">
+                  Upgrade to Chat Center &nbsp;
+                  <span className="choosed-plan-name">
+                    {this.props.upgradePlan.choosedPlan.name}
+                  </span>
+                </h1>
                 <div className="row selected-details">
                   <div className="col-sm-4">
                     <div className="details-head">
@@ -112,58 +169,81 @@ export class UpgradeForm extends Component {
                   </div>
                 </div>
                 <div className="upgrade-form-wrapper">
-                  <form className="upgrade-form">
+                  <form className="upgrade-form" id="payment-form" method="post" onSubmit={this.submitPayment.bind(this)}>
                     <div className="form-header">
                       All transactions are secure and encrypted.
                     </div>
+                    <div className={"error-message" + (this.state.errorMessage?'':' hide') }>
+                      Error: { this.state.errorMessage }
+                    </div>
                     <div className="form-row">
                       <div className="field-wrapper card-number-wrapper">
-                        <label>Card number</label>
-                        <input type="text" 
-                        className="input-field" 
-                        value = {this.state.cardNumber}
-                        autoFocus
-                        onChange={this.inputChange.bind(this,'cardNumber')}
-                        /> 
-                        <span className={"card-logo " + this.state.cardLogo} >
-                        </span>
+                        <MaterialInput>
+                          <label>Card number</label>
+                          <input type="text" 
+                          className="input-field" 
+                          value = {this.props.upgradeForm.cardNumber}
+                          autoFocus
+                          onChange={this.inputChange.bind(this,'cardNumber')}
+                          data-stripe="number"
+                          /> 
+                          <span className={"card-logo " + this.state.cardLogo} >
+                          </span>
+                        </MaterialInput>
                       </div>
                     </div>
                     <div className="form-row double-field-wrapper">
                       <div className="field-wrapper">
-                        <label>Valid Thru</label>
-                        <input type="text" className="input-field" /> 
+                        <MaterialInput>
+                          <label>Valid Thru ( MM/YY )</label>
+                          <input type="text" className="input-field" 
+                          data-stripe="exp"
+                          onChange={this.inputChange.bind(this,'expDate')}
+                          value = {this.props.upgradeForm.expDate}/> 
+                        </MaterialInput>
                       </div>
                       <div className="field-wrapper second-field">
-                        <label>Secure code (CVC)</label>
-                        <input type="text" className="input-field" /> 
+                        <MaterialInput>
+                          <label>Secure code (CVC)</label>
+                          <input type="text" className="input-field" 
+                          data-stripe="cvc"
+                          onChange={this.inputChange.bind(this,'cvcNumber')}
+                          value = {this.props.upgradeForm.cvcNumber}/> 
+                        </MaterialInput>
                       </div>
                     </div>
 
                     <div className={"form-row promo-code-row " + 
                       (this.state.showPromoInput ? '' : ' hide ' ) +
-                      'promo-status-' + this.state.promoStatus
+                      'promo-status-' + this.props.upgradeForm.promoStatus
                     } >
                       <div className="field-wrapper">
-                        <input 
-                        type="text" 
-                        className="input-field" 
-                        placeholder="Promo code" 
-                        value = {this.state.promoCode}
-                        onChange={
-                          this.inputChange.bind(this, 'promoCode')
-                        }
-                        onKeyDown= {
-                          this.handleEnterPressPromo.bind(this) 
-                        }
-                        />
+                        <MaterialInput>
+                          <label>Promo code</label>
+                          <input 
+                          type="text" 
+                          className="input-field" 
+                          value = {this.props.upgradeForm.promoCode}
+                          onChange={
+                            this.inputChange.bind(this, 'promoCode')
+                          }
+                          ref="promoCode"
+                          onKeyDown= {
+                            this.handleEnterPressPromo.bind(this) 
+                          }
+                          />
+                        </MaterialInput>
                         <a href="#" 
                           className={
-                            "cc-btn" + (this.state.promoCode.length === 0 ? ' disabled' : '' )
+                            "cc-btn" + 
+                            (this.props.upgradeForm.promoBtnState === false ? ' disabled' : '' ) +
+                            ( this.props.upgradeForm.couponReqStatus === true ? ' wait' : '')
+
                           }
                           onClick={
                             this.submitPromoCode.bind(this)
                           }
+
                         > 
                           APPLY CODE
                         </a>
@@ -171,7 +251,7 @@ export class UpgradeForm extends Component {
                         </span>
                       </div>
                       <span className="promo-status-error-msg">
-                        {this.state.promoError}
+                        {this.props.upgradeForm.promoError}
                       </span>
                     </div>
                     <div className={"promo-link-wrapper " + ( this.state.showPromoInput ? ' hide' : '' )}>
@@ -181,12 +261,18 @@ export class UpgradeForm extends Component {
                         >I have a promo code</a>
                     </div>
                     <div className="form-row buttons-wrapper">
-                      <button className="cc-btn submit-btn">Pay $239.98</button>
+                      <button 
+                        className={
+                          "cc-btn submit-btn " + (this.props.upgradeForm.paymentReqStatus ? ' wait': '')
+                        }
+                        disabled = { !this.props.upgradeForm.enableFormSubmit }
+                      >Pay $239.98</button>
                       <div className="powered-by">
                         Powered by stripe
                       </div>
                     </div>
                   </form>
+
                 </div>
             </div>
         );
@@ -194,19 +280,21 @@ export class UpgradeForm extends Component {
 }
 
 UpgradeForm.propTypes = {
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
 }
 
 
 function mapStateToProps(state) {
   return {
+    upgradeForm: state.upgradeForm,
+    upgradePlan: state.upgradePlan
   }
 }
 
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(UpgradeActions, dispatch)
+    actions: bindActionCreators( UpgradeActions, dispatch )
   }
 }
 

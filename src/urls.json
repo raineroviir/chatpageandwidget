@@ -1,0 +1,28 @@
+{
+    "widget": {
+        "details": {
+            "method": "get",
+            "url": "widget"
+        },
+        "create": {
+            "method": "post",
+            "url": "widget.create"
+        },
+        "update": {
+            "method": "put",
+            "url": "widget.update"  
+        },
+        "plan-list": {
+            "method": "get",
+            "url": "plans.list"
+        },
+        "coupon-validate": {
+            "method": "get",
+            "url":"coupon.validate"
+        },
+        "plans-switch" : {
+            "method": "post",
+            "url": "plans.switch"
+        }
+    }
+}

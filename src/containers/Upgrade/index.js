@@ -29,11 +29,7 @@ export class UpgradeVew extends Component {
   }
   
   componentWillMount() {
-    //this.props.actions.initWidget();
-    /*if( !this.props.conversations.channelid ) {
-      window.location.hash = "#/dashboard";
-    }
-    */
+
   }
   
 

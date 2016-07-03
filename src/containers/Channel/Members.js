@@ -66,9 +66,9 @@ export class ChannelMembersContainer extends Component {
   fetchMembersList(){
     if(this.props.id){
       this.props.actions.getTeamMembers(true);
-      this.props.actions.getChannelMembers();
+      this.props.actions.getChannelMembers(this.props.id);
       this.props.actions.fetchChannel(this.props.id);
-    } else  {
+    } else if(this.props.userInfo.team)  {
       this.props.actions.getTeamMembers(false);
     }
   }
@@ -102,6 +102,7 @@ ChannelMembersContainer.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
     createChannel: state.createChannel.CreateChannel,
+    userInfo: state.userinfo.userinfo,
     id: ownProps.params.id
   }
 }

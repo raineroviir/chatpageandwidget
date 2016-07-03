@@ -14,7 +14,8 @@ import { channelDetails } from './ChannelDetails';
 import { createChannel } from './CreateChannel';
 import { widget } from './widget';
 import { widgetConfig } from './widget-config';
-import { upgrade } from './upgrade';
+import { upgradeForm } from './upgradeForm';
+import { upgradePlan } from './upgradePlan';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -33,7 +34,8 @@ const rootReducer = combineReducers({
   createChannel,
   widget,
   widgetConfig,
-  upgrade
+  upgradePlan,
+  upgradeForm
 });
 
 export default rootReducer;
