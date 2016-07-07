@@ -15,7 +15,6 @@ export class PlanDetails extends Component {
         e.preventDefault();
         return;  
       }
-      debugger;
       this.props.updateUpgradePlanKey({
           choosedPlan: plan
       });
@@ -63,10 +62,11 @@ export class PlanDetails extends Component {
               <div className="row">
                 {
                   this.props.plans.map( (plan, index) => {
+                    let planAmount = this.props.activePlanTab === 'monthly' ? plan.amount : plan.amount -1;
                     return (<div className="col-sm-4" key={index}> 
                       <div className="plan-title-wrapper">
                         <div className="plan-title">
-                          { ( plan.amount !=0 ? "$" + (plan.amount) + "/mo" : "Free") }
+                          { ( planAmount >0 ? "$" + (planAmount) + "/mo" : "Free") }
                         </div>
                       </div>
                       <div className="plan-details">

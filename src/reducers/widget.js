@@ -17,8 +17,7 @@ export function widget(state = initialState, action) {
           } else {
             return state;
           }
-      case 'INIT_WIDGET': 
-            return state;
+          
       case 'WIDGET_UPDATE_KEY':
         return {
           ...state,

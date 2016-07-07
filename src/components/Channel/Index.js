@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as CCActions from '../../actions'
 import DocumentMeta from 'react-document-meta';
 import { Link, browserHistory } from 'react-router';
+import classnames from 'classnames';
 
 import { styles } from './styles.scss';
 
@@ -45,7 +46,8 @@ export class Channel extends Component {
           <span className="glyphicon glyphicon-remove"></span>
         </Link>
         <div className="section-content">
-          <h1 className="section-title">Create external chat</h1>
+          <h1 className={classnames('section-title', { hide: this.props.isTeam})}>Create public chat</h1>
+          <h1 className={classnames('section-title', { hide: !this.props.isTeam})}>Create external chat</h1>
           <p className="title-desc">What kind of chat would you like to create?</p>
           <div className="chat-type-wrapper">
             <div className="master-tile">

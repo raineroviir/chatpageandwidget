@@ -13,15 +13,12 @@ export class ChannelMembers extends Component {
   }
 
   inputChange(){
-
-    if(this.props.details.users.filter(u => u.email.indexOf(this.refs.membersName.value) != -1).length) {
+    if(this.refs.membersName.value && this.props.details.users.filter(u => u.email.indexOf(this.refs.membersName.value) != -1).length) {
       this.props.details.payload.filtered_members = this.props.details.users.filter(u => u.email.indexOf(this.refs.membersName.value) != -1);
     } else {
-      this.props.details.payload.filtered_members = [{prefix: 'Invite ', first_name:this.refs.membersName.value,email:this.refs.membersName.value}];
+      this.props.details.payload.filtered_members = [];
     }
-    
     this.props.updateAutoSuggest(this.props.details.payload.filtered_members)
-    
   }
 
   removeMember(member) {
@@ -81,7 +78,9 @@ export class ChannelMembers extends Component {
           <span className="glyphicon glyphicon-remove"></span>
         </Link>
         <div className="section-content">
-          <h1 className="section-title-1" style={{display:((this.props.details.payload.is_public && !this.props.details.payload.is_group) ? "" : "none")}}>External Team-to-One chat channel</h1>
+          
+          <h1 className="section-title-1" style={{display:((!this.props.details.payload.team && this.props.details.payload.is_public && !this.props.details.payload.is_group) ? "" : "none")}}>External Team-to-One chat channel</h1>
+          <h1 className="section-title-1" style={{display:((this.props.details.payload.team && this.props.details.payload.is_public && !this.props.details.payload.is_group) ? "" : "none")}}>External One-to-One chat channel</h1>
           <h1 className="section-title-1" style={{display:((this.props.details.payload.is_public && this.props.details.payload.is_group) ? "" : "none")}}>External group chat</h1>
           <h1 className="section-title-1" style={{display:((!this.props.details.payload.is_public) ? "" : "none")}}>Internal group chat</h1>
           <h1 className="section-title" style={{display:((this.props.details.payload.is_public && this.props.details.payload.is_group) ? "" : "none")}}>Who can delete unwanted messages and block for bad behaviour?</h1>
@@ -109,7 +108,7 @@ export class ChannelMembers extends Component {
                       <span className="user-name">{(filtered_member.prefix ? filtered_member.prefix : '') + filtered_member.first_name + ' ' + (filtered_member.last_name ? filtered_member.last_name : '')}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{filtered_member.email}</span>
+                        <span className="user-chat-address">{filtered_member.team.name + '/' +filtered_member.username}</span>
                       </div>
                     </div>
                   );
@@ -119,8 +118,8 @@ export class ChannelMembers extends Component {
             </div>
 
             <div className={classnames('moderators-count', { hide: this.props.id})}>
-              <div className={classnames('desc', { hide: !this.props.details.payload.is_public})}>{temp_members.length} Moderators</div>
-              <div className={classnames('desc', { hide: this.props.details.payload.is_public})}>{temp_members.length} Members</div>
+              <div className={classnames('desc', { hide: !(this.props.details.payload.is_public && this.props.details.payload.is_group)})}>{temp_members.length} Moderators</div>
+              <div className={classnames('desc', { hide: (this.props.details.payload.is_public && this.props.details.payload.is_group)})}>{temp_members.length} Members</div>
             </div>
 
             
@@ -136,7 +135,7 @@ export class ChannelMembers extends Component {
                       <span className="user-name">{temp_member.first_name + ' ' + (temp_member.last_name ? temp_member.last_name : '')}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{temp_member.email}</span>
+                        <span className="user-chat-address">{temp_member.team.name + '/' +temp_member.username}</span>
                         <button className="remove-button" onClick={this.removeMember.bind(this, temp_member)}>X</button>
                       </div>
                     </div>
@@ -169,7 +168,7 @@ export class ChannelMembers extends Component {
                       <span className="user-name">{(member.first_name ? member.first_name :  member.email) + ' ' + (member.last_name ? member.last_name : '')}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{member.email}</span>
+                        <span className="user-chat-address">{member.team.name + '/' +member.username}</span>
                         <button className="remove-button" onClick={this.props.deleteMembers.bind(this, member.id)}>X</button>
                       </div>
                     </div>

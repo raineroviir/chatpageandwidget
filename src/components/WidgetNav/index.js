@@ -54,7 +54,7 @@ export class WidgetNav extends Component {
                 </ul>
 
                 <div className="widget-nav-footer">
-                    Questions? <a href="#">Chat with us</a>
+                    Questions? <a href="javascript:;">Chat with us</a>
                 </div>
             </div>
         </div>

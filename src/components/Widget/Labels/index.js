@@ -13,6 +13,9 @@ import avatarImg  from '../../images/user-icon-black.svg';
 export class Labels extends Component {
     constructor( props ) {
         super( props );
+        this.state = {
+            userPlan:  this.props.userinfo.plan.stripe_id || 'free'
+        }
     }
 
     componentWillMount() {
@@ -50,10 +53,16 @@ export class Labels extends Component {
             returnObj[key] = !this.state[ key ]
             return returnObj;
         };*/
+        if( key === 'ccBranding' && this.state.userPlan != 'premium'  ) {
+            return;
+        }
+
         this.props.actions.updateKey({
             key: key,
             value: !this.props.widgetConfig[ key ]
         })
+
+        
 
         /*this.setState( stateObject() ); */  
     }
@@ -76,9 +85,9 @@ export class Labels extends Component {
     }
 
     render(){
-        let user = 'free',  pageDesc;
+        let userPlan = this.state.userPlan,  pageDesc;
 
-        if( user === 'free' ) {
+        if( userPlan === 'free' ) {
             pageDesc = (<div className="page-desc premium-user">
                         
                         <h3 className="widget-sub-title">
@@ -108,7 +117,9 @@ export class Labels extends Component {
                     }
                     
                     <div className="wc-primary-section">
-                        <div className="primary-section" className={ (user === 'free') ? 'mask-primary-section' : ''}></div>
+                        <div className="primary-section" 
+                        className={ (userPlan === 'free') ? 'mask-primary-section' : ''
+                        }></div>
                         <div className="labels-form">
                             <div className="input-wrapper">
                                 <label className="input-label">
@@ -249,7 +260,7 @@ export class Labels extends Component {
                     </div>
                 </div>
                 <div className="widget-label-chat-preview">
-                   <ChatWidget widgetConfig={this.props.widgetConfig}/>
+                   <ChatWidget channelInfo={this.props.channelInfo} widgetConfig={this.props.widgetConfig}/>
                 </div>
         
             </div>
@@ -265,7 +276,9 @@ Labels.propTypes = {
 function mapStateToProps(state) {
   return {
     conversations: state.conversations,
+    userinfo: state.userinfo.userinfo,
     widgetConfig: state.widgetConfig,
+    channelInfo: state.channels.channels.all.find(channel => channel.id == state.conversations.channelid)
   }
 }
 
@@ -273,6 +286,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(WidgetActions, dispatch)
+    
   }
 }
 

@@ -13,7 +13,8 @@ export class UpgradeForm extends Component {
       super( props );
       this.state = {
         showPromoInput : false,
-        errorMessage: ''
+        errorMessage: '',
+        memberCount: 2
       };
     }
 
@@ -30,7 +31,7 @@ export class UpgradeForm extends Component {
     
     validateForm( obj ) {
       
-      let expDateRegEx = /^(0[1-9]|1[012])\/\d{2}$/;
+      let expDateRegEx = /^((0[1-9]|1[012])(\s*)\/(\s*)\d{2}$)/;
       let cvcNumberRegEx = /^\d{3}$/;
       let cardNumberRegEx = /^(((\d{4})( \d{4}){2,4})$)|(^\d{12,20})$/
       return cardNumberRegEx.test( obj.cardNumber ) 
@@ -48,6 +49,9 @@ export class UpgradeForm extends Component {
         });
       }
       if( key === 'promoCode' ) {
+        if( this.props.upgradeForm.couponReqStatus ) {
+          return;
+        }
         newState.promoStatus = '';
         if( value.length ) {
           newState.promoBtnState = true;
@@ -60,10 +64,14 @@ export class UpgradeForm extends Component {
       if( key === 'cardNumber' || key === 'expDate' || key === 'cvcNumber'  ){
         let validateObj = {
           cardNumber : this.props.upgradeForm.cardNumber,
-          expDate : this.props.upgradeForm.expDate,
+          expDate : this.props.upgradeForm.expDate.trim(),
           cvcNumber : this.props.upgradeForm.cvcNumber,
         }
-        validateObj[ key ] = value;
+        if( key === 'expDate' ) {
+          validateObj[ key ] = value.trim();  
+        } else {
+          validateObj[ key ] = value;
+        }
         newState.enableFormSubmit = this.validateForm( validateObj );  
       }
       
@@ -98,8 +106,9 @@ export class UpgradeForm extends Component {
           enableFormSubmit: false
         });
         this.props.actions.submitPayment( $form[0], {
-          planId: this.props.upgradePlan.choosedPlan.stripe_id,
-          coupon: this.props.upgradeForm.promoCod
+          plan_id: this.props.upgradePlan.choosedPlan.stripe_id,
+          coupon: this.props.upgradeForm.promoCode,
+          emailId: this.props.userinfo.userinfo.email
         },  ( status, res ) => {
 
             this.props.actions.updateUpgradeFormKey({
@@ -126,11 +135,20 @@ export class UpgradeForm extends Component {
 
     componentWillMount() {
       LoadStripe();
+      if( !this.props.upgradePlan.choosedPlan.stripe_id ) {
+        browserHistory.push("/upgrade/plans");
+      }
+
+      this.props.actions.resetUpgradeForm();
+
     }
 
     render(){
-        
-        
+        let pricePerTeamMember = this.props.upgradePlan.choosedPlan.amount;
+        if( this.props.upgradePlan.activePlanTab === 'annual' ) {
+          pricePerTeamMember -=  1;
+          pricePerTeamMember *= 12;
+        }
         return (
             <div className="upgrade-form-view">
                 <div className="upgrade-breadcrumb">
@@ -148,7 +166,7 @@ export class UpgradeForm extends Component {
                       Team members
                     </div>
                     <div className="details-cell">
-                      2 people
+                      {this.state.memberCount} people
                     </div>
                   </div>
                   <div className="col-sm-4">
@@ -156,7 +174,11 @@ export class UpgradeForm extends Component {
                       Price per team member
                     </div>
                     <div className="details-cell">
-                      $119.99/year
+                      ${pricePerTeamMember}/
+                      { 
+                        this.props.upgradePlan.activePlanTab === 'monthly' ?
+                        'month' : 'year' 
+                      }              
                     </div>
                   </div>
                   <div className="col-sm-4">
@@ -164,7 +186,10 @@ export class UpgradeForm extends Component {
                       Total
                     </div>
                     <div className="details-cell">
-                      $239.98/year
+                      ${pricePerTeamMember * this.state.memberCount }/{ 
+                        this.props.upgradePlan.activePlanTab === 'monthly' ?
+                        'month' : 'year' 
+                      } 
                     </div>
                   </div>
                 </div>
@@ -287,7 +312,8 @@ UpgradeForm.propTypes = {
 function mapStateToProps(state) {
   return {
     upgradeForm: state.upgradeForm,
-    upgradePlan: state.upgradePlan
+    upgradePlan: state.upgradePlan,
+    userinfo: state.userinfo
   }
 }
 

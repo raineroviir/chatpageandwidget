@@ -11,6 +11,22 @@ export function updateUpgradePlanKey( obj ) {
 }
 
 
+export function  getTeamMemberCount() {
+  return dispatch => {
+    ApiService.api({
+      action: "api.team.members-list"
+    })
+    .then( 
+      res=> {
+        console.log( 'Res...' , res );
+      }, 
+      err => {
+        console.log( 'Error...' , err );
+      }
+    )
+  }
+}
+
 export function submitPayment (form, settings, callback ) {
     
     return dispatch => (
@@ -29,7 +45,7 @@ export function submitPayment (form, settings, callback ) {
               ApiService.api({
                 action: "widget.plans-switch",
                 payload: {
-                  "stripe_email": "customer@chat.center",
+                  "stripe_email": settings.emailId,
                   "stripe_token": newState.stripeToken,
                   "plan_id": settings.plan_id,
                   "coupon": settings.coupon
@@ -114,7 +130,7 @@ export function getPlanDetails() {
         dispatch({
           type: 'UPGRADE_PLAN_UPDATE_KEY',
           newState: {
-            plans: res.plans.reverse()
+            plans: res.plans.sort( (a,b) => a.amount > b.amount)
           }
         }) 
         //console.log( 'plan-list', res );
@@ -126,3 +142,13 @@ export function getPlanDetails() {
 
   }
 }
+
+
+export function  resetUpgradeForm() {
+  return dispatch => (
+        dispatch({
+          type: 'UPGRADE_FORM_RESET'
+        })
+    )
+}
+

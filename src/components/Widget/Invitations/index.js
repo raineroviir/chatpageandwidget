@@ -32,7 +32,7 @@ export class Invitations extends Component {
             value: !this.props.widgetConfig.proChatInvitation
         } );
     }
-    primeConditionChange( key, e ) {
+    /*primeConditionChange( key, e ) {
         let value = {
             ...this.props.widgetConfig.primeCondition,
             [key]: e.target.value
@@ -41,7 +41,7 @@ export class Invitations extends Component {
             key: 'primeCondition',
             value: value
         } );
-    }
+    }*/
     removeCondition( index ) {
         let propsConds = this.props.widgetConfig.conditionList;
         let conditionList = [
@@ -55,7 +55,11 @@ export class Invitations extends Component {
         } );
     }
     addCondition() {
-        let conditionList = [...this.props.widgetConfig.conditionList, {}];
+        let conditionList = [...this.props.widgetConfig.conditionList, {
+            varaible: 'time_on_current_page',
+            operator: 'more_than',
+            value: ''
+        }];
         //this.props.widgetConfig.conditionList.push({});
         this.props.actions.updateKey( {
             key:'conditionList',
@@ -90,12 +94,19 @@ export class Invitations extends Component {
 
     render(){
         let conditionRows = this.props.widgetConfig.conditionList.map( ( cond, index)=> {
-            return (<div className="condition-row" key={index}>
+            return (<div className={"condition-row " +
+                    ( 
+                     ( cond.variable == 'time_on_current_page' || cond.variable =='time_on_website')  ?
+                     'seconds-input' : ''
+                    ) 
+                    } key={index} >
                         <div className="condition-cell cell1">
                             <div className="cell-content">
-                                <select value={cond.condition1}
-                                onChange={this.conditionListChange.bind(this, index, 'condition1')}
+                                <select defaultValue={cond.variable}
+                                onChange={this.conditionListChange.bind(this, index, 'variable')}
                                 >
+                                    <option value="time_on_current_page">Time on current page </option>
+                                    <option value="time_on_website">Time on website </option>
                                     <option value="current_page_url">Current page URL</option>
                                     <option value="website_url">website URL</option>
                                 </select>
@@ -103,19 +114,48 @@ export class Invitations extends Component {
                         </div>
                         <div className="condition-cell cell2">
                             <div className="cell-content">
-                                <select value={cond.condition2}
-                                onChange={this.conditionListChange.bind(this, index, 'condition2')}>
-                                    <option value="contains">Contains</option>
-                                    <option value="starts_with">Starts With</option>
-                                    <option value="ends_with">Ends with</option>
-                                </select>
+                                {
+                                    ( cond.variable == 'time_on_current_page' || cond.variable =='time_on_website')
+                                    ? 
+                                    <select defaultValue={cond.operator}
+                                        onChange={this.conditionListChange.bind(this, index, 'operator')}>
+                                        <option value="more_than">More than</option>
+                                        <option value="less_than">Less than</option>
+                                        <option value="equal">Equal to</option>
+                                    </select> :
+                                    <select defaultValue={cond.operator}
+                                        onChange={this.conditionListChange.bind(this, index, 'operator')}>
+                                        <option value="contains">Contains</option>
+                                        <option value="equal">Equal to</option>
+                                        <option value="does_not_contain">Doesn't Contain</option>
+
+                                    </select>
+
+                                }
+                                
                             </div>
                         </div>
                         <div className="condition-cell cell3">
                             <div className="cell-content">
-                                <input type="text" value={cond.value} 
-                                onChange={this.conditionListChange.bind(this, index, 'value')}
-                                className="input-field"/>
+                                {
+                                    ( cond.variable == 'time_on_current_page' || cond.variable =='time_on_website')
+                                    ? 
+                                    <span>
+                                    <input type="text" 
+                                    value={cond.value} 
+                                    className="input-field seconds"
+                                    onChange={this.conditionListChange.bind(this, 'value')}
+                                    />
+                                    seconds
+                                    </span>
+                                    :
+                                    <input type="text" value={cond.value} 
+                                    onChange={this.conditionListChange.bind(this, index, 'value')}
+                                    className="input-field"/>
+
+
+                                }
+                                
                                 <span onClick={
                                     this.removeCondition.bind(this, index)
                                 }
@@ -151,41 +191,9 @@ export class Invitations extends Component {
                         <select className="select-condition-criteria" value={this.props.widgetConfig.conditionCriteria}
                         onChange={this.updateInputChange.bind(this,'conditionCriteria')}>
                             <option value="all">All</option>
-                            <option value="atleast_one">Atleast one</option>
+                            <option value="any">any</option>
                         </select>
                         of the following conditions are met:
-                    </div>
-                    
-                    <div className="condition-row primary-condition-row">
-                        <div className="condition-cell cell1">
-                            <div className="cell-content">
-                                <select value={this.props.widgetConfig.primeCondition.condition1} 
-                                onChange={this.primeConditionChange.bind(this, 'condition1')}>
-                                    <option  value="time_on_current_page">Time on current page </option>
-                                    <option value="time_on_website">Time on website </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="condition-cell cell2">
-                            <div className="cell-content">
-                                <select value={this.props.widgetConfig.primeCondition.condition2}
-                                onChange={this.primeConditionChange.bind(this,'condition2')}>
-                                    <option value="more_then">More than</option>
-                                    <option value="less_then">Less than</option>
-                                    <option value="equals">Equals to</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="condition-cell cell3">
-                            <div className="cell-content">
-                                <input type="text" 
-                                value={this.props.widgetConfig.primeCondition.value} 
-                                className="input-field seconds"
-                                onChange={this.primeConditionChange.bind(this, 'value')}
-                                />
-                                seconds
-                            </div>
-                        </div>
                     </div>
                     {
                         conditionRows

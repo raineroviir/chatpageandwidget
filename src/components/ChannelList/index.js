@@ -42,7 +42,7 @@ export class ChannelList extends Component {
             
             <ul className="chat-list" style={{display:((!user.team) ? "none" : "")}}>
               <li className="chat-list-title">
-                  <span className="title-text ellipsis">PUBLIC CHATS</span>
+                  <span className="title-text ellipsis">EXTERNAL CHATS</span>
                   <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'public')}>
                   </span>
               </li>
@@ -68,7 +68,7 @@ export class ChannelList extends Component {
             </ul>
             <ul className="chat-list" style={{display:((!user.team) ? "none" : "")}}>
               <li className="chat-list-title">
-                  <span className="title-text ellipsis">PRIVATE CHATS</span>
+                  <span className="title-text ellipsis">INTERNAL CHATS</span>
                   <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'private')}>
                     
                   </span>
@@ -94,7 +94,7 @@ export class ChannelList extends Component {
             </ul>
             <ul className="chat-list" style={{display:((user.team) ? "none" : "")}}>
               <li className="chat-list-title">
-                  <span className="title-text ellipsis">CHATS</span>
+                  <span className="title-text ellipsis">PUBLIC CHATS</span>
                   <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'chat')}>
                     
                   </span>
@@ -119,7 +119,7 @@ export class ChannelList extends Component {
             </ul>
             <ul className="chat-list group-chat-list" style={{display:((user.team) ? "none" : "")}}>
               <li className="chat-list-title">
-                  <span className="title-text ellipsis">GROUP CHATS</span>
+                  <span className="title-text ellipsis">PRIVATE GROUP CHATS</span>
                   <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'group')}>
                     
                   </span>

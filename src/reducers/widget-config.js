@@ -13,13 +13,12 @@ const initialState = {
     ccBranding: false,
     botAvatarUrl: "/dist/images/user-icon-black.svg",
     proChatInvitation: false,
-    conditionList: [],
-    channelid: '',
-    primeCondition: {
-      condition1: 'time_on_website',
-      condition2: 'more_then',
+    conditionList: [{
+      variable: 'time_on_website',
+      operator: 'more_then',
       value: '' 
-    },
+    }],
+    channelid: '',
     conditionCriteria: 'all'
 
 };

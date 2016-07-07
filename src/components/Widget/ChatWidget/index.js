@@ -44,7 +44,7 @@ export class ChatWidget extends Component {
                 <span className="angle-down-arrow">
                     
                 </span>
-                <a href="#">
+                <a href="javascript:">
                     Sign in to chat.center
                 </a>
             </div>
@@ -67,8 +67,8 @@ export class ChatWidget extends Component {
                         
                             <div className="chat-center-team-name">Chat Center Team</div>
                             <p className="chat-center-team-link">
-                                <a href="https://team.chat.center/cc">
-                                    https://team.chat.center/cc
+                                <a href={"https://team.chat.center/" + this.props.channelInfo.address.channel }>
+                                    https://team.chat.center/{this.props.channelInfo.address.channel}
                                 </a>
                             </p>
                         </div>

@@ -32,7 +32,7 @@ export class UpgradeSuccess extends Component {
                   </div>
                 </div>
                 <div className="buttons-wrapper">
-                  <Link className="cc-btn" to="/widget/installation">Finish</Link>
+                  <Link className="cc-btn" to="/dashboard">Finish</Link>
                 </div>
             </div>
         );

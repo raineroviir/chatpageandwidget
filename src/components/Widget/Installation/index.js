@@ -20,13 +20,7 @@ export class Installation extends Component {
     }
     componentDidMount() {
 
-        if( !this.props.conversations.channelid ) {
-            browserHistory.push("/dashboard");
-            return;
-        }
-
         $(document).keyup(this.keyupEvent);
-        this.props.actions.initWidgetConfig( this.props.conversations.channelid );
     }
     componentWillUnmount() {
         //unbind the event keyup binded 
@@ -116,7 +110,7 @@ insert this code on every page of your website after &lt;body&gt; tag.
                     
                         <div className="buttons-wrapper">
                             <button className="cc-btn cc-primary-btn" type="button" onClick={this.copyScript.bind(this)}>COPY</button>
-                            <a className="link-email-instructions widget-link" href="#">Email instructions to webmaster</a>
+                            <a className="link-email-instructions widget-link" href="javascript:;">Email instructions to webmaster</a>
                         </div>
                         <div className="tip-wrapper">
                             Tip: You can change widget&#39;s <Link className="widget-link" to="/widget/appearance">appearance</Link> at any time without reinstalling it

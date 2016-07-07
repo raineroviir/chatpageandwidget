@@ -16,7 +16,11 @@ export class UpgradePlans extends Component {
     }
 
     componentDidMount() {
-      this.props.actions.getPlanDetails();
+      if( !this.props.upgradePlan.plans.length ) {
+        this.props.actions.getPlanDetails();  
+        this.props.actions.getTeamMemberCount();
+      }
+      
     }
 
     setActiveTab( value, e ) {
@@ -55,6 +59,7 @@ export class UpgradePlans extends Component {
                 currentPlan={this.props.upgradePlan.currentPlan} 
                 plans={this.props.upgradePlan.plans}
                 updateUpgradePlanKey={this.props.actions.updateUpgradePlanKey}
+                activePlanTab= {this.props.upgradePlan.activePlanTab}
                 />
             </div>
         );

@@ -34,13 +34,14 @@ export class ChannelContainer extends Component {
   }
 
   render() {
+    let isTeam = this.props.org ? this.props.org.name.split('/')[0] : ''
     const { actions } = this.props
     return (
       <div>
 
           <DocumentMeta {...metaData} />
           <Navigation historyApi={this.props.historyApi} />
-          <Channel actions={actions} chatType={this.chatType.bind(this)}/>
+          <Channel isTeam={this.isTeam} actions={actions} chatType={this.chatType.bind(this)}/>
       </div>
     );
   }

@@ -31,10 +31,10 @@ export class Widget extends Component {
   }
   
   componentWillMount() {
-
     if( !this.props.conversations.channelid ) {
-      //window.location.hash = "#/dashboard";
       browserHistory.push("/dashboard");
+    } else {
+       this.props.actions.initWidgetConfig( this.props.conversations.channelid );
     }
 
   }

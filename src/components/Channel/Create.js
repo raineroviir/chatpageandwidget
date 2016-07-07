@@ -120,7 +120,8 @@ export class ChannelCreate extends Component {
               </Link>
               <div className="section-content">
                 <h1 className="section-title-1" style={{display:((this.props.details.payload.is_public && this.props.details.payload.is_group) ? "" : "none")}}>External group chat</h1>
-                <h1 className="section-title-1" style={{display:((this.props.details.payload.is_public && !this.props.details.payload.is_group) ? "" : "none")}}>External Team-to-One chat channel</h1>
+                <h1 className="section-title-1" style={{display:((!this.props.details.payload.team && this.props.details.payload.is_public && !this.props.details.payload.is_group) ? "" : "none")}}>External Team-to-One chat channel</h1>
+                <h1 className="section-title-1" style={{display:((this.props.details.payload.team && this.props.details.payload.is_public && !this.props.details.payload.is_group) ? "" : "none")}}>External One-to-One chat channel</h1>
                 <h1 className="section-title-1" style={{display:((!this.props.details.payload.is_public) ? "" : "none")}}>Internal group chat</h1>
                 <h2 className="section-title">Chat name and address</h2>
                 <p className="desc" style={{display:((!this.props.details.payload.is_public) ? "" : "none")}}>Private group chat. Only designated members have access. </p>
