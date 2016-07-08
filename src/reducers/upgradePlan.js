@@ -2,7 +2,8 @@ const initialState = {
     activePlanTab: 'annual',
     currentPlan: 'free',
     plans: [],
-    choosedPlan:{}
+    choosedPlan:{},
+    memberCount: 2
 };
 
 export function upgradePlan(state = initialState, action) {

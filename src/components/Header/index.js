@@ -46,7 +46,6 @@ export class HeaderView extends Component {
     <span className="glyphicon glyphicon-user visible-xs" aria-hidden="true">
               </span>
     */
-    
     return (
 
       <div className="header">
@@ -79,9 +78,13 @@ export class HeaderView extends Component {
             >
               <span className="menu-traingle"></span>
               <ul>
-                <li>
-                  <Link to="/widget/installation">Website widget setup</Link>
-                </li>
+                {
+                  channel&&channel.is_group ? '':
+                  (<li>
+                    <Link to="/widget/installation">Website widget setup</Link>
+                  </li>)  
+                }
+                
                 <li>
                   <a>Click to Chat button setup</a>
                 </li>

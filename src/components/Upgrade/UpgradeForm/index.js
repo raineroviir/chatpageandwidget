@@ -13,8 +13,7 @@ export class UpgradeForm extends Component {
       super( props );
       this.state = {
         showPromoInput : false,
-        errorMessage: '',
-        memberCount: 2
+        errorMessage: ''
       };
     }
 
@@ -166,7 +165,7 @@ export class UpgradeForm extends Component {
                       Team members
                     </div>
                     <div className="details-cell">
-                      {this.state.memberCount} people
+                      {this.props.upgradePlan.memberCount} people
                     </div>
                   </div>
                   <div className="col-sm-4">
@@ -186,7 +185,7 @@ export class UpgradeForm extends Component {
                       Total
                     </div>
                     <div className="details-cell">
-                      ${pricePerTeamMember * this.state.memberCount }/{ 
+                      ${pricePerTeamMember * this.props.upgradePlan.memberCount }/{ 
                         this.props.upgradePlan.activePlanTab === 'monthly' ?
                         'month' : 'year' 
                       } 

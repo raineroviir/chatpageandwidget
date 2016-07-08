@@ -18,6 +18,12 @@ export function  getTeamMemberCount() {
     })
     .then( 
       res=> {
+        dispatch({
+          action: 'UPGRADE_PLAN_UPDATE_KEY',
+          newState: {
+            memberCount: ( res && res.users && res.users.length || 2 )
+          }
+        })
         console.log( 'Res...' , res );
       }, 
       err => {

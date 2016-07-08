@@ -43,6 +43,13 @@ export function registerChannel(RegisterChannel) {
   }
 }
 
+export function fetchMemebers () {
+  return dispatch => {
+    teamMembersList().then(response => response.json())
+      .then(json => dispatch(membersListDispatch(json.users)))
+  }
+}
+
 export function registerPassword(RegisterPassword) {
   return (dispatch, getState) => {
       dispatch({
@@ -68,35 +75,97 @@ export function submitRegistration(isIndividual, emails) {
   }
 }
 export function inviteMembers (emails) {
-  
   return (dispatch, getState) => {
     try{
-      var token = getState().loginDetails.User.token.access_token;
-        fetchUserInfo(token).then(response => {return response.json()})
-          .then(json => {
-            return addMembers(json.user.team.id, emails, token).then(response => {return response.json()})   
-          })
-          .then(json => {
-            if(json.ok){
-              dispatch(inviteStatus(true));
-            }
-          });
+      var token;
+      if (typeof(Storage) !== "undefined") {
+        token = JSON.parse(localStorage.getItem("token")).access_token;
+      }
+      else{
+        token = getState().loginDetails.User.token.access_token;
+      } 
+      fetchUserInfo(token).then(response => {return response.json()})
+        .then(json => {
+          return addMembers(json.user.team.id, emails, token).then(response => {return response.json()})   
+        })
+        .then(json => {
+          if(json.ok){
+            dispatch(inviteStatus(true));
+          }
+        });
     }
     catch(e){
       
     }
   }
 }
-function inviteStatus(status) {
+export function clearMessages () {
+  return dispatch => dispatch({
+    type: "CLEAR_MESSAGE",
+    recievedAt: Date.now()
+  })
+}
+
+export function deleteMember(member) {
+  return dispatch => {
+    deleteteamMember(member.id).then(response => response.json())
+      .then(json => dispatch(deleteMemberDispatch(json.ok, member)))
+  }
+}
+
+function deleteMemberDispatch (status, member) {
+  return {
+    type: "DELETE_SUCCESS",
+    posts: { status, member},
+    recievedAt: Date.now()
+  }
+}
+
+function teamMembersList(){
+    var url =  urlConfig.base + 'teams.members.list';
+    if (typeof(Storage) !== "undefined") {
+      var token = JSON.parse(localStorage.getItem("token"));
+    }
+    return fetch(url,
+      {
+        method: 'GET',
+        headers:{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token.access_token
+        }
+    })
+}
+function deleteteamMember(id){
+    var url =  urlConfig.base + 'teams.members.delete';
+    if (typeof(Storage) !== "undefined") {
+      var token = JSON.parse(localStorage.getItem("token"));
+    }
+    return fetch(url,
+      {
+        method: 'DELETE',
+        headers:{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token.access_token
+        },
+        body: JSON.stringify({ user_id: id})
+    })
+}
+
+function membersListDispatch (users) {
+  return {
+    type: "TEAM_MEMBERS",
+    posts: users,
+    recievedAt: Date.now()
+  }
+}
+
+function inviteStatus() {
   return {
     type: "SHOW_SUCCESS_MESSAGE",
-    posts: { showSuccess: status},
+    posts: { showSuccess: true},
     recievedAt: Date.now()
   }
 };
-export function dispatchInviteStatus (status) {
-  return dispatch => dispatch(inviteStatus(status))
-}
 function fetchUserInfo(token) {
   return fetch( urlConfig.base + 'users.me', {
     method: 'GET',
@@ -236,7 +305,6 @@ function postChannelName(register_channel, team_description){
 } 
 
 function postChannelAvailabilityResponse(json) {
-  console.log(JSON.stringify(json));
   return {
     type: 'CHANNEL_AVAILABILITY_RESULT',
     posts: json

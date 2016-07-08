@@ -74,6 +74,8 @@ export class ChannelMembersContainer extends Component {
   }
 
   render() {
+    let teamName = this.props.org ? this.props.org.name.split('/')[0] : '';
+    let isTeam = (teamName == 'chat.center' || teamName == '') ? false : true;
     return (
         <div>
           <DocumentMeta {...metaData} />
@@ -83,6 +85,7 @@ export class ChannelMembersContainer extends Component {
             validateEmail={this.validateEmail.bind(this)} 
             updateMembers={this.updateMembers.bind(this)} 
             deleteMembers={this.deleteMembers.bind(this)}
+            isTeam={isTeam}
             fetchMembersList={this.fetchMembersList.bind(this)}
             updateAutoSuggest={this.updateAutoSuggest.bind(this)}
             details={this.props.createChannel} 
@@ -103,7 +106,8 @@ function mapStateToProps(state, ownProps) {
   return {
     createChannel: state.createChannel.CreateChannel,
     userInfo: state.userinfo.userinfo,
-    id: ownProps.params.id
+    id: ownProps.params.id,
+    org: state.orgs.orgs.find(org => org.active)
   }
 }
 

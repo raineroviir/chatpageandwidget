@@ -11,8 +11,10 @@ const initialState = {
     },
     error:'',
     showSuccess: false,
+    deleteSuccess: false,
     TeamAvailable:{},
-    ChannelAvailable:{}
+    ChannelAvailable:{},
+    members: []
   }
 };
 
@@ -137,9 +139,40 @@ export function registrationDetails(state = initialState, action) {
       ...state,
       Organisation: { 
         ...state.Organisation, 
-        showSuccess: action.posts.showSuccess
+        showSuccess: true
       }
   };
+
+  case 'CLEAR_MESSAGE':
+    return {
+      ...state,
+      Organisation: { 
+        ...state.Organisation,
+        deleteSuccess: false, 
+        showSuccess: false
+      }
+  };
+
+  case 'TEAM_MEMBERS':
+    return {
+      ...state,
+      Organisation: {
+        ...state.Organisation,
+        members: action.posts
+      }
+    }
+  
+  case 'DELETE_SUCCESS':
+    if(!action.posts.status) return state;
+    return {
+      ...state,
+      Organisation: {
+        ...state.Organisation,
+        members: state.Organisation.members.filter(member => member.id != action.posts.member.id),
+        deleteSuccess: true
+      }
+    }
+
   default:
     return state;
   }

@@ -41,12 +41,15 @@ export class ChannelCreateContainer extends Component {
   }
 
   render() {
+    let teamName = this.props.org ? this.props.org.name.split('/')[0] : '';
+    let isTeam = (teamName == 'chat.center' || teamName == '') ? false : true;
     return (
             <div>
               <DocumentMeta {...metaData} />
               <Navigation historyApi={this.props.historyApi} />
               <ChannelCreate 
               id={this.props.id} 
+              isTeam={isTeam} 
               fetchChannel={this.fetchChannel.bind(this)} 
               details={this.props.createChannel} 
               handleBack={this.handleBack.bind(this)} 
@@ -65,7 +68,8 @@ ChannelCreateContainer.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
     createChannel: state.createChannel.CreateChannel,
-    id: ownProps.params.id
+    id: ownProps.params.id,
+    org: state.orgs.orgs.find(org => org.active)
   }
 }
 

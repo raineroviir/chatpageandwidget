@@ -10,7 +10,7 @@ export class RegisterIndividualDomain extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.state.inputs = [1];
+    this.state.inputs = [1, 2, 3];
     this.state.isAvoidUpate = !1;
   }
 
@@ -22,29 +22,37 @@ export class RegisterIndividualDomain extends Component {
       localStorage.setItem("user_channel", "");
     }
   }
-
+  deleteMember(member){
+    this.props.actions.clearMessages();
+    this.props.actions.deleteMember(member);
+  }
   handleNext(e){
     e.preventDefault();
-    this.props.actions.inviteMembers((this.validInputs(this.state.inputs, true)).join());
+    this.props.actions.inviteMembers((this.validInputs(this.state.inputs, true)));
   }
 
   componentDidMount() {
     this.refs.submitButton.disabled = true;    
   }
+  componentWillMount() {
+    this.props.actions.fetchMemebers();
+  }
   componentDidUpdate() {
     if(this.props.registrationDetails.Organisation.showSuccess && !this.state.isAvoidUpate){
-      this.state.inputs.splice(1);
+      this.state.inputs.splice(3);
       this.setState({inputs: this.state.inputs, isAvoidUpate: !0});
     }
     if(this.state.isAvoidUpate){
-      this.refs["input1"].value = "";
+      for(var i=0;i<this.state.inputs.length;i++){
+        this.refs["input" + this.state.inputs[i]].value = "";
+      }
       this.state.isAvoidUpate = !1;
     } 
   }
 
   inputChange(event){
-    if(this.props.registrationDetails.Organisation.showSuccess) {
-      this.props.actions.dispatchInviteStatus(false);
+    if(this.props.registrationDetails.Organisation.showSuccess || this.props.registrationDetails.Organisation.deleteSuccess) {
+      this.props.actions.clearMessages();
     }
 
     var emptyFields = 0;
@@ -54,7 +62,7 @@ export class RegisterIndividualDomain extends Component {
         emptyFields++;
       }
     }
-    if(event.target.value === '' && emptyFields>1 ){     
+    if(event.target.value === '' && emptyFields>1 && this.state.inputs.length >3){     
       var elm = event.target.id.slice(event.target.id.length-1, event.target.id.length);
       this.state.inputs.splice(this.state.inputs.indexOf(elm),1);
       this.setState({inputs: this.state.inputs});
@@ -63,8 +71,8 @@ export class RegisterIndividualDomain extends Component {
       this.state.inputs.push(this.state.inputs.length+1);
       this.setState({inputs: this.state.inputs});
     }
-
-    this.refs.submitButton.disabled = (this.validInputs(this.state.inputs).length > 1);
+    let valInp = this.validInputs(this.state.inputs);
+    this.refs.submitButton.disabled = (valInp.join("") !== "" || valInp.length === this.state.inputs.length);
   }
   validInputs(inputs, isValid){
     let re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -87,13 +95,14 @@ export class RegisterIndividualDomain extends Component {
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Invite your team</h1>
                 <p className={classNames("sucess-msg", {"hide": !this.props.registrationDetails.Organisation.showSuccess})}>Members are invited successfully. Do you want to invite more members ?</p>
+                <p className={classNames("sucess-msg", {"hide": !this.props.registrationDetails.Organisation.deleteSuccess})}>Member deleted invited successfully.</p>
                 <div className="chat-address">Email addresses</div>
                                 
                 {this.state.inputs.map(function (result) {
                     if(result === 0){
                       return;
                     }
-                     return (<div className="input-group input-group-lg">
+                     return (<div className="input-group input-group-lg" key={result}>
                       <span className="input-group-addon email" id="email-addon"><img src="dist/images/user-icon.svg" /></span>
                       <input type="email" className="form-control" id={'input'+result} ref={'input'+result} onChange={comp.inputChange.bind(comp)} placeholder="email@domain.com" aria-describedby="email-addon" />
                     </div>);
@@ -108,6 +117,28 @@ export class RegisterIndividualDomain extends Component {
                   </div>
                 </div>
             </form>
+            <h2>Members</h2>
+            <div className="moderator-item-wrapper filter-result">
+              {
+                this.props.registrationDetails.Organisation.members.map(member => {
+                  return (
+                    <div className="moderator-item" key={member.id}>
+                      <div className="avatar-wrapper">
+                        <img  className="avatar-img" />
+                        <span className="avatar-text">{member.first_name ? member.first_name[0].toUpperCase() : ''}</span>
+                      </div>
+                      <span className="user-name">{(member.prefix ? member.prefix : '') + member.first_name + ' ' + (member.last_name ? member.last_name : '')}</span>
+
+                      <span className="close-wrapper" onClick={this.deleteMember.bind(this, member)}><span className="glyphicon glyphicon-remove"></span></span>
+                      <div className="user-chat-address-wrapper">
+                        <span className="user-chat-address">{member.email}</span>
+                      </div>
+                    </div>
+                  );
+                })
+              }
+              
+            </div>
        </div> 
     );
   }
