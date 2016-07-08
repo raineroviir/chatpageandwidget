@@ -94,8 +94,8 @@ export class RegisterIndividualDomain extends Component {
             <form id="signupform" className="form-horizontal" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Invite your team</h1>
-                <p className={classNames("sucess-msg", {"hide": !this.props.registrationDetails.Organisation.showSuccess})}>Members are invited successfully. Do you want to invite more members ?</p>
-                <p className={classNames("sucess-msg", {"hide": !this.props.registrationDetails.Organisation.deleteSuccess})}>Member deleted invited successfully.</p>
+                <p className={classNames("sucess-msg", {"hide": !this.props.registrationDetails.Organisation.showSuccess})}>Members are invited successfully.</p>
+                <p className={classNames("sucess-msg", {"hide": !this.props.registrationDetails.Organisation.deleteSuccess})}>Members deleted successfully.</p>
                 <div className="chat-address">Email addresses</div>
                                 
                 {this.state.inputs.map(function (result) {
@@ -125,13 +125,13 @@ export class RegisterIndividualDomain extends Component {
                     <div className="moderator-item" key={member.id}>
                       <div className="avatar-wrapper">
                         <img  className="avatar-img" />
-                        <span className="avatar-text">{member.first_name ? member.first_name[0].toUpperCase() : ''}</span>
+                        <span className="avatar-text">{member.first_name ? member.first_name[0].toUpperCase() : member.email[0].toUpperCase()}</span>
                       </div>
-                      <span className="user-name">{(member.prefix ? member.prefix : '') + member.first_name + ' ' + (member.last_name ? member.last_name : '')}</span>
+                      <span className="user-name">{member.first_name ? (member.first_name + ' ' + (member.last_name ? member.last_name : '')) : member.email}</span>
 
                       <span className="close-wrapper" onClick={this.deleteMember.bind(this, member)}><span className="glyphicon glyphicon-remove"></span></span>
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{member.email}</span>
+                        <span className="user-chat-address">{member.username ? (member.team.name + '/' + member.username) : 'NA'}</span>
                       </div>
                     </div>
                   );

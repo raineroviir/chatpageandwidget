@@ -103,12 +103,12 @@ export class ChannelMembers extends Component {
                     <div className="moderator-item" key={filtered_member.id}  onClick={this.addMember.bind(this, filtered_member)}>
                       <div className="avatar-wrapper">
                         <img  className="avatar-img" />
-                        <span className="avatar-text">{filtered_member.first_name ? filtered_member.first_name[0].toUpperCase() : ''}</span>
+                        <span className="avatar-text">{filtered_member.first_name ? filtered_member.first_name[0].toUpperCase() : filtered_member.email[0].toUpperCase()}</span>
                       </div>
-                      <span className="user-name">{(filtered_member.prefix ? filtered_member.prefix : '') + filtered_member.first_name + ' ' + (filtered_member.last_name ? filtered_member.last_name : '')}</span>
+                      <span className="user-name">{filtered_member.first_name ? (filtered_member.first_name + ' ' + (filtered_member.last_name ? filtered_member.last_name : '')): filtered_member.email}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{filtered_member.team.name + '/' +filtered_member.username}</span>
+                        <span className="user-chat-address">{filtered_member.username ? (filtered_member.team.name + '/' +filtered_member.username) : 'NA'}</span>
                       </div>
                     </div>
                   );
@@ -130,12 +130,12 @@ export class ChannelMembers extends Component {
                     <div className="moderator-item" key={temp_member.id}>
                       <div className="avatar-wrapper">
                         <img  className="avatar-img" />
-                        <span className="avatar-text">{temp_member.first_name ? temp_member.first_name[0].toUpperCase() : ''}</span>
+                        <span className="avatar-text">{temp_member.first_name ? temp_member.first_name[0].toUpperCase() : temp_member.email[0].toUpperCase()}</span>
                       </div>
-                      <span className="user-name">{temp_member.first_name + ' ' + (temp_member.last_name ? temp_member.last_name : '')}</span>
+                      <span className="user-name">{temp_member.first_name ? (temp_member.first_name + ' ' + (temp_member.last_name ? temp_member.last_name : '')):temp_member.email}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{temp_member.team.name + '/' +temp_member.username}</span>
+                        <span className="user-chat-address">{temp_member.username ? (temp_member.team.name + '/' +temp_member.username) : 'NA'}</span>
                         <button className="remove-button" onClick={this.removeMember.bind(this, temp_member)}>X</button>
                       </div>
                     </div>
@@ -165,10 +165,10 @@ export class ChannelMembers extends Component {
                         <img  className="avatar-img" />
                         <span className="avatar-text">{member.first_name ? member.first_name[0].toUpperCase() : member.email[0].toUpperCase()}</span>
                       </div>
-                      <span className="user-name">{(member.first_name ? member.first_name :  member.email) + ' ' + (member.last_name ? member.last_name : '')}</span>
+                      <span className="user-name">{member.first_name ? (member.first_name + ' ' + (member.last_name ? member.last_name : '')) :  member.email}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{member.team.name + '/' +member.username}</span>
+                        <span className="user-chat-address">{member.username ? (member.team.name + '/' +member.username) : 'NA'}</span>
                         <button className="remove-button" onClick={this.props.deleteMembers.bind(this, member.id)}>X</button>
                       </div>
                     </div>
