@@ -144,10 +144,10 @@ export class UpgradeForm extends Component {
 
     render(){
         let pricePerTeamMember = this.props.upgradePlan.choosedPlan.amount;
-        if( this.props.upgradePlan.activePlanTab === 'annual' ) {
+       /* if( this.props.upgradePlan.activePlanTab === 'year' ) {
           pricePerTeamMember -=  1;
           pricePerTeamMember *= 12;
-        }
+        }*/
         return (
             <div className="upgrade-form-view">
                 <div className="upgrade-breadcrumb">
@@ -175,7 +175,7 @@ export class UpgradeForm extends Component {
                     <div className="details-cell">
                       ${pricePerTeamMember}/
                       { 
-                        this.props.upgradePlan.activePlanTab === 'monthly' ?
+                        this.props.upgradePlan.activePlanTab === 'month' ?
                         'month' : 'year' 
                       }              
                     </div>
@@ -186,7 +186,7 @@ export class UpgradeForm extends Component {
                     </div>
                     <div className="details-cell">
                       ${pricePerTeamMember * this.props.upgradePlan.memberCount }/{ 
-                        this.props.upgradePlan.activePlanTab === 'monthly' ?
+                        this.props.upgradePlan.activePlanTab === 'month' ?
                         'month' : 'year' 
                       } 
                     </div>
@@ -290,7 +290,7 @@ export class UpgradeForm extends Component {
                           "cc-btn submit-btn " + (this.props.upgradeForm.paymentReqStatus ? ' wait': '')
                         }
                         disabled = { !this.props.upgradeForm.enableFormSubmit }
-                      >Pay $239.98</button>
+                      >Pay ${pricePerTeamMember * this.props.upgradePlan.memberCount}</button>
                       <div className="powered-by">
                         Powered by stripe
                       </div>

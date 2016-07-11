@@ -13,8 +13,9 @@ import avatarImg  from '../../images/user-icon-black.svg';
 export class Labels extends Component {
     constructor( props ) {
         super( props );
+        let plan = this.props.userinfo; 
         this.state = {
-            userPlan:  this.props.userinfo.plan.stripe_id || 'free'
+            userPlan:  plan && plan.stripe_id || 'free'
         }
     }
 

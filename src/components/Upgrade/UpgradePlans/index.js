@@ -16,7 +16,7 @@ export class UpgradePlans extends Component {
     }
 
     componentDidMount() {
-      if( !this.props.upgradePlan.plans.length ) {
+      if( !this.props.upgradePlan.plans.month.length ) {
         this.props.actions.getPlanDetails();  
         this.props.actions.getTeamMemberCount();
       }
@@ -42,14 +42,14 @@ export class UpgradePlans extends Component {
                   <ul>
                     <li>
                       <a href="#" 
-                      onClick={this.setActiveTab.bind(this, 'annual')} 
-                      className={ this.props.upgradePlan.activePlanTab  === 'annual' ? 'active-link' : '' }  
+                      onClick={this.setActiveTab.bind(this, 'year')} 
+                      className={ this.props.upgradePlan.activePlanTab  === 'year' ? 'active-link' : '' }  
                       >Annual</a>
                     </li>
                     <li>
                       <a href="#" 
-                      onClick={this.setActiveTab.bind(this, 'monthly')} 
-                      className={ this.props.upgradePlan.activePlanTab  === 'monthly' ? 'active-link' : '' }  
+                      onClick={this.setActiveTab.bind(this, 'month')} 
+                      className={ this.props.upgradePlan.activePlanTab  === 'month' ? 'active-link' : '' }  
                       >Monthly</a>
                     </li>
                   </ul>
@@ -57,7 +57,7 @@ export class UpgradePlans extends Component {
                 
                 <PlanDetails  
                 currentPlan={this.props.upgradePlan.currentPlan} 
-                plans={this.props.upgradePlan.plans}
+                plans={ this.props.upgradePlan.plans[ this.props.upgradePlan.activePlanTab ]  }
                 updateUpgradePlanKey={this.props.actions.updateUpgradePlanKey}
                 activePlanTab= {this.props.upgradePlan.activePlanTab}
                 />

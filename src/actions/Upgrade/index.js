@@ -133,10 +133,25 @@ export function getPlanDetails() {
     })
     .then(
       res => {
+        let plans = {
+          month: [],
+          year: []
+        };
+        for( let plan in res.plans ) {
+          let planItem = res.plans[ plan ];
+          if( planItem.interval === 'month' ) {
+            plans.month.push( planItem );
+          } else {
+            plans.year.push( planItem );
+          }
+        }
+        plans.month = plans.month.sort( (a, b) => a.amount > b.amount );
+        plans.year = plans.year.sort( (a, b) => a.amount > b.amount );
+        
         dispatch({
           type: 'UPGRADE_PLAN_UPDATE_KEY',
           newState: {
-            plans: res.plans.sort( (a,b) => a.amount > b.amount)
+            plans
           }
         }) 
         //console.log( 'plan-list', res );

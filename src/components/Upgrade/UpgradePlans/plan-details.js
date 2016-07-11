@@ -56,13 +56,16 @@ export class PlanDetails extends Component {
                     </div>
         };
 
+        planDesc.plus_yearly = planDesc.plus;
+        planDesc.premium_yearly = planDesc.premium;
+
         return (
             <div className={"plans-details"}>
 
               <div className="row">
                 {
                   this.props.plans.map( (plan, index) => {
-                    let planAmount = this.props.activePlanTab === 'monthly' ? plan.amount : plan.amount -1;
+                    let planAmount =  plan.amount;
                     return (<div className="col-sm-4" key={index}> 
                       <div className="plan-title-wrapper">
                         <div className="plan-title">
@@ -74,7 +77,7 @@ export class PlanDetails extends Component {
                           {plan.name}
                         </div>
                         {
-                          planDesc[ plan.name.toLowerCase() ]
+                          planDesc[ plan.stripe_id.toLowerCase() ]
                         }
                         <div className="buttons-wrapper">
                           <Link to="/upgrade/form"  
