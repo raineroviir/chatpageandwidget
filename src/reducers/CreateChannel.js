@@ -12,7 +12,8 @@ const initialState = {
       is_direct:'',
       members:[],
       temp_members:[],
-      filtered_members:[]
+      filtered_members:[],
+      findDirectAddress:false
     },
     users:[],
     error:''
@@ -117,7 +118,15 @@ export function createChannel(state = initialState, action) {
     case 'RESET_CREATE_CHANNEL':
       var CreateChannel = initialState.CreateChannel;
       CreateChannel = (Object.assign({},initialState.CreateChannel, {error:"",users:[]}))
-      CreateChannel.payload = (Object.assign({},initialState.CreateChannel.payload, {channel:"",description:"",avatar:"",is_public:"",is_direct:"",is_group:"",members:[],temp_members:[],filtered_members:[]}));
+      CreateChannel.payload = (Object.assign({},initialState.CreateChannel.payload, {channel:"",description:"",avatar:"",is_public:"",is_direct:"",is_group:"",members:[],temp_members:[],filtered_members:[],findDirectAddress:false}));
+      return {
+        ...state,
+        CreateChannel
+      };
+    case 'TOGGLE_FIND':
+      var CreateChannel = initialState.CreateChannel;
+      CreateChannel = (Object.assign({},state.CreateChannel, {error:""}))
+      CreateChannel.payload = (Object.assign({},state.CreateChannel.payload, {findDirectAddress:action.attr}));
       return {
         ...state,
         CreateChannel

@@ -2,15 +2,15 @@
     "widget": {
         "details": {
             "method": "get",
-            "url": "widget"
+            "url": "widgets"
         },
         "create": {
             "method": "post",
-            "url": "widget.create"
+            "url": "widgets.create"
         },
         "update": {
             "method": "put",
-            "url": "widget.update"  
+            "url": "widgets.update"  
         },
         "plan-list": {
             "method": "get",
@@ -18,7 +18,7 @@
         },
         "coupon-validate": {
             "method": "get",
-            "url":"coupon.validate"
+            "url":"coupons.validate"
         },
         "plans-switch" : {
             "method": "post",

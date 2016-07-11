@@ -13,8 +13,10 @@ export class ChannelMembers extends Component {
   }
 
   inputChange(){
-    if(this.refs.membersName.value && this.props.details.users.filter(u => u.email.indexOf(this.refs.membersName.value) != -1).length) {
-      this.props.details.payload.filtered_members = this.props.details.users.filter(u => u.email.indexOf(this.refs.membersName.value) != -1);
+    if(this.props.details.payload.findDirectAddress) {
+      this.props.getDirectUser(this.refs.DirectMembersName.value);
+    } else if(this.refs.membersName.value && this.props.details.users.filter(u => (u.username.toLowerCase().indexOf(this.refs.membersName.value.toLowerCase()) != -1 || u.first_name.toLowerCase().indexOf(this.refs.membersName.value.toLowerCase()) != -1  || u.last_name.toLowerCase().indexOf(this.refs.membersName.value.toLowerCase()) != -1)).length) {
+      this.props.details.payload.filtered_members = this.props.details.users.filter(u => (u.username.toLowerCase().indexOf(this.refs.membersName.value.toLowerCase()) != -1 || u.first_name.toLowerCase().indexOf(this.refs.membersName.value.toLowerCase()) != -1  || u.last_name.toLowerCase().indexOf(this.refs.membersName.value.toLowerCase()) != -1));
     } else {
       this.props.details.payload.filtered_members = [];
     }
@@ -40,6 +42,10 @@ export class ChannelMembers extends Component {
     }
   }
 
+  toggleFind(bool){
+    this.props.toggleFind(bool);
+  }
+
   componentWillMount() {
     this.props.fetchMembersList();
   }
@@ -55,6 +61,7 @@ export class ChannelMembers extends Component {
     if(!(this.props.details.payload.temp_members && this.props.details.payload.temp_members.length)) {
       this.refs.createButton.disabled = true;
     }
+    
   }
 
   componentDidUpdate() { 
@@ -71,6 +78,7 @@ export class ChannelMembers extends Component {
     let temp_members = this.props.details.payload.temp_members;
     let filtered_members = this.props.details.payload.filtered_members;
     let users = this.props.details.users;
+    let findDirectAddress = this.props.details.payload.findDirectAddress;
     
     return (
       <div id="create-ext-chat-form"  className="create-ext-chat create-ext-chat-form moderators-form " >
@@ -86,13 +94,12 @@ export class ChannelMembers extends Component {
           <h1 className="section-title" style={{display:((this.props.details.payload.is_public && this.props.details.payload.is_group) ? "" : "none")}}>Who can delete unwanted messages and block for bad behaviour?</h1>
           <h1 className="section-title" style={{display:((this.props.details.payload.is_public && !this.props.details.payload.is_group) ? "" : "none")}}>Who can see and answer incoming chats?</h1>
           <h1 className="section-title" style={{display:((!this.props.details.payload.is_public) ? "" : "none")}}>Channel Members</h1>
-          <div className={classnames('error-message', { hide: !(this.props.details.error)})}>
-                    Error in processing the request, please trying again..
-                  </div>
+          
           <div className="form-wrapper">
             <div className="input-wrapper">
-              <input id="membersName" type="text" className="input-field" ref="membersName" placeholder={'Invite people' + (this.props.details.payload.team ? ' from ' + this.props.details.payload.team : '')} onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
-              <a href="javascript:;" title="add" className="add-via-chat-link">Add via chat address </a>
+              <input id="membersName" type="text" className={classnames('input-field', { hide: findDirectAddress})} ref="membersName" placeholder={'Invite people' + (this.props.details.payload.team ? ' from ' + this.props.details.payload.team : '')} onChange={this.inputChange.bind(this, 'membersName')} aria-describedby="username-addon" />
+              <input id="DirectMembersName" type="text" className={classnames('input-field', { hide: !findDirectAddress})} ref="DirectMembersName" placeholder="http://chat address" onChange={this.inputChange.bind(this, 'DirectMembersName')} aria-describedby="username-addon" />
+              <a href="javascript:;" onClick={this.toggleFind.bind(this, !findDirectAddress)} title="add" className={classnames('add-via-chat-link', { hide: this.props.details.payload.team == 'chat.center'})}>{findDirectAddress ? 'Add from team member' : 'Add via chat address'}</a>
               
             </div>
 
@@ -108,7 +115,7 @@ export class ChannelMembers extends Component {
                       <span className="user-name">{filtered_member.first_name ? (filtered_member.first_name + ' ' + (filtered_member.last_name ? filtered_member.last_name : '')): filtered_member.email}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{filtered_member.username ? (filtered_member.team.name + '/' +filtered_member.username) : 'NA'}</span>
+                        <span className="user-chat-address">{(filtered_member.username && filtered_member.team) ? (filtered_member.team.name + '/' +filtered_member.username) : 'NA'}</span>
                       </div>
                     </div>
                   );
@@ -135,8 +142,8 @@ export class ChannelMembers extends Component {
                       <span className="user-name">{temp_member.first_name ? (temp_member.first_name + ' ' + (temp_member.last_name ? temp_member.last_name : '')):temp_member.email}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{temp_member.username ? (temp_member.team.name + '/' +temp_member.username) : 'NA'}</span>
-                        <button className="remove-button" onClick={this.removeMember.bind(this, temp_member)}>X</button>
+                        <span className="user-chat-address">{(temp_member.username && temp_member.team)  ? (temp_member.team.name + '/' +temp_member.username) : 'NA'}</span>
+                        <button className={classnames('remove-button', { hide: temp_members.length ==  1})} onClick={this.removeMember.bind(this, temp_member)}>X</button>
                       </div>
                     </div>
                   );
@@ -144,16 +151,18 @@ export class ChannelMembers extends Component {
               }
               
             </div>
-            
             <div className="button-wrapper">
+              <div className={classnames('error-message', { hide: !(this.props.details.error)})}>
+                Error in processing the request, please trying again...
+              </div>
               <button type="button" className={classnames('btn btn-default back', { hide: !this.props.id})} onClick={this.clearMember.bind(this)}>Clear</button>
               <button type="button" className={classnames('btn btn-default back', { hide: this.props.id})} onClick={this.props.handleBack.bind(this)}>Back</button>
               <button type="submit" ref="createButton" className="btn btn-default sign-in pull-right" onClick={this.handleNext.bind(this)}>CREATE</button>
             </div> 
 
             <div className={classnames('moderators-count', { hide: !this.props.id})}>
-              <div className={classnames('desc', { hide: !this.props.details.payload.is_public})}>{members.length} Moderators</div>
-              <div className={classnames('desc', { hide: this.props.details.payload.is_public})}>{members.length} Members</div>
+              <div className={classnames('desc', { hide: !(this.props.details.payload.is_public && this.props.details.payload.is_group)})}>{members.length} Moderators</div>
+              <div className={classnames('desc', { hide: (this.props.details.payload.is_public && this.props.details.payload.is_group)})}>{members.length} Members</div>
             </div>
 
             <div className={classnames('moderator-item-wrapper', { hide: !this.props.id})}>
@@ -168,8 +177,8 @@ export class ChannelMembers extends Component {
                       <span className="user-name">{member.first_name ? (member.first_name + ' ' + (member.last_name ? member.last_name : '')) :  member.email}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{member.username ? (member.team.name + '/' +member.username) : 'NA'}</span>
-                        <button className="remove-button" onClick={this.props.deleteMembers.bind(this, member.id)}>X</button>
+                        <span className="user-chat-address">{(member.username && member.team) ? (member.team.name + '/' +member.username) : 'NA'}</span>
+                        <button className={classnames('remove-button', { 'remove-button': members.length ==  1})} onClick={this.props.deleteMembers.bind(this, member.id)}>X</button>
                       </div>
                     </div>
                   );

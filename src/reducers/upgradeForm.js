@@ -23,6 +23,7 @@ export function upgradeForm(state = initialState, action) {
         case 'UPGRADE_FORM_RESET': {
             return initialState
         }
+
       default: return state;
     }
 }

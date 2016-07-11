@@ -59,6 +59,48 @@ export function updateAutoSuggest(members) {
       })
   }
 }
+export function toggleFind(attr) {
+  return (dispatch, getState) => {
+    dispatch({
+        type: 'TOGGLE_FIND',
+        attr
+      })
+  }
+}
+
+export function getDirectUser(user) {
+  return (dispatch, getState) => {
+    findUser(user).then(response => {return response.json()}) 
+      .then(json => dispatch(postActionFindUser(json)))
+  }
+}
+
+function postActionFindUser(json) {
+  return (dispatch, getState) => {
+    if(json.ok) {
+      dispatch({
+        type: 'CHAT_MEMBERS_SUGGEST',
+        members: [json.user]
+      })
+    }
+  }
+}
+
+function findUser(user){
+    var url =  urlConfig.base + 'users.find?chat_url=' + user;
+    if (typeof(Storage) !== "undefined") {
+      var token = JSON.parse(localStorage.getItem("token"));
+    }
+    return fetch(url,
+      {
+        method: 'GET',
+        headers:{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token.access_token
+        }
+    })
+}
+
 export function createChannel(isEdit) {
   return (dispatch, getState) => {
     if(isEdit) {
@@ -74,10 +116,25 @@ export function createChannel(isEdit) {
 export function deleteMembers(user_id) {
   return (dispatch, getState) => {
       deleteMembersRequest(getState().createChannel.CreateChannel.payload, user_id).then(response => {return response.json()}) 
-      .then(json => dispatch(postActionChannelMembers(json,'member-update',getState().createChannel.CreateChannel.payload.channel)))
+      .then(json => dispatch(postActionDeleteMembers(json, getState().createChannel.CreateChannel.payload.id)))
   }
 }
 
+function postActionDeleteMembers(res, id) {
+  return (dispatch, getState) => {
+    if(res.error) {
+      dispatch({
+        type: 'CHAT_ERROR',
+        error: res.error
+      })
+    } else {
+      //return (dispatch, getState) => {
+        channelMembersList(id).then(response => {return response.json()}) 
+          .then(json => dispatch(postActionChannelMembers(json)))
+      //}
+    }
+  }
+}
 
 
 function postActionConstruct(json, action, channel) {
@@ -135,6 +192,12 @@ function postActionFetch(json) {
         error: json.error
       })
     } else {
+      if(!json.channel.address.team_id) {
+        dispatch({
+          type: 'TOGGLE_FIND',
+          attr: true
+        })
+      }
       dispatch({
           type: 'CHAT_DETAILS_FETCH',
           attr: {
@@ -177,12 +240,12 @@ function postActionTeamMembers(json, isEdit) {
       if(isEdit) {
         dispatch({
             type: 'TEAM_MEMBERS_EDIT',
-            attr: json.users
+            attr: json.users.filter(user => user.username)
           })
       } else {
         dispatch({
             type: 'CHAT_MEMBERS_CREATE',
-            attr: json.users
+            attr: json.users.filter(user => user.username)
           })
       }
     }
@@ -215,7 +278,7 @@ function postActionChannelMembers(json) {
     } else {
       dispatch({
           type: 'CHAT_MEMBERS_EDIT',
-          attr: json.users
+          attr: json.users.filter(user => user.username)
         })
     }
   }
@@ -234,8 +297,16 @@ function createRequest(payload){
     data.append('is_public', payload.is_public);
     data.append('is_group', payload.is_group);
     data.append('is_direct', payload.is_direct);
-    if(payload.temp_members && payload.temp_members.length) {
-      data.append('user_emails', payload.temp_members.map(value => value['email']).join(','));
+    if(payload.temp_members && payload.temp_members.length && payload.is_group && payload.is_public) {
+      data.append('moderator_ids', JSON.stringify(payload.temp_members.map(value => value['id'])));
+      data.append('moderator_chat_urls', JSON.stringify(payload.temp_members.map(value => ((value['team'] ? value['team']['name'] : 'chat.center') + '/' +value['username']))));
+      data.append('member_ids' ,[]);
+      data.append('member_chat_urls', []);
+    } else {
+      data.append('member_ids', JSON.stringify(payload.temp_members.map(value => value['id'])));
+      data.append('member_chat_urls', JSON.stringify(payload.temp_members.map(value => ((value['team'] ? value['team']['name'] : 'chat.center') + '/' +value['username']))));
+      data.append('moderator_ids' ,[]);
+      data.append('moderator_chat_urls', []);
     }
     return fetch(urlConfig.base + '/channels.create',
       {
@@ -274,14 +345,14 @@ function updateMembersRequest(payload){
     if (typeof(Storage) !== "undefined") {
       var token = JSON.parse(localStorage.getItem("token"));
     }
-    if(payload.is_public)
+    if(payload.is_public && payload.is_group)
       var url = urlConfig.base + '/channels.moderators.create';
     else 
       var url = urlConfig.base + '/channels.members.create';
     var data = new FormData();
     data.append('channel_id', payload.id);
     if(payload.temp_members && payload.temp_members.length) {
-      data.append('user_emails', payload.temp_members.map(value => value['email']).join(','));
+      data.append('user_ids', JSON.stringify(payload.temp_members.map(value => value['id'])));
     }
     return fetch(url ,
       {
@@ -298,7 +369,7 @@ function deleteMembersRequest(payload, user_id){
     if (typeof(Storage) !== "undefined") {
       var token = JSON.parse(localStorage.getItem("token"));
     }
-    if(payload.is_public)
+    if(payload.is_public && payload.is_group)
       var url = urlConfig.base + '/channels.moderators.delete';
     else 
       var url = urlConfig.base + '/channels.members.delete';

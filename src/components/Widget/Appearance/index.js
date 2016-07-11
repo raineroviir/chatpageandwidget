@@ -34,7 +34,6 @@ export class Appearance extends Component {
         };
 
         this.state.isCustomCode = colors.indexOf(this.props.widgetConfig.keyColor) === -1 ? true : false;
-        //this.state.channelLogoUrl = this.props.widgetConfig.channelLogoUrl || '/dist/images/msg-env.png';
 
         if( this.state.isCustomCode ) {
             this.state.customThemeCode = this.props.widgetConfig.keyColor;
@@ -78,18 +77,14 @@ export class Appearance extends Component {
             key:'teamAvatar',
             value: !this.props.widgetConfig.teamAvatar
         } );
-        /*this.setState({
-            teamAvatar: !this.state.teamAvatar
-        }) */  
     }
     toggleChannelLogoStatus() {
-        this.props.actions.updateKey( {
-            key:'channelLogo',
-            value: !this.props.widgetConfig.channelLogo
+        this.props.actions.updateWigetConfigState( {
+            channel: {
+                ...this.props.widgetConfig.channel,
+                avatar: !this.props.widgetConfig.channel.avatar
+            }
         } );
-        /*this.setState({
-            channelLogo: !this.state.channelLogo
-        })   */
     }
     openFileInput() {
         this.refs.channelLogo.click();
@@ -100,12 +95,11 @@ export class Appearance extends Component {
           var oFReader = new FileReader();
           oFReader.readAsDataURL(this.refs.channelLogo.files[0]);
           oFReader.addEventListener("load",  (oFREvent) => {
-            /*this.setState({
-                channelLogoUrl : oFREvent.target.result
-            });*/
-            this.props.actions.updateKey( {
-                key: 'channelLogoUrl',
-                value: oFREvent.target.result
+            this.props.actions.updateWigetConfigState( {
+                channel: {
+                    ...this.props.widgetConfig.channel,
+                    avatarUrl: oFREvent.target.result
+                }
             } );
           }, false);
         }
@@ -152,7 +146,7 @@ export class Appearance extends Component {
                         )
                     }
                     <div className="custom-color-picker-wrapper">
-                        <div className="custom-color-picker">
+                        <div className="custom-color-picker" onClick={this.setColorPickerStatus.bind(this, true)}>
                             <a 
                             href="#"
                             style={ {backgroundColor: this.state.customThemeCode} } 
@@ -161,7 +155,7 @@ export class Appearance extends Component {
                             >
                             </a>
                             <span className="angle-down-arrow" 
-                            onClick={this.setColorPickerStatus.bind(this, true)}>
+                            >
                             </span>
                             {
                                 colorPicker
@@ -176,12 +170,21 @@ export class Appearance extends Component {
         }
 
     let fileTemplate;
-    if( this.props.widgetConfig.channelLogo ) {
+    if( this.props.widgetConfig.channel.avatar ) {
+
         fileTemplate = (
             <div className="channel-logo-input-wrapper">
-                <input id="channelLogo" type="file"  accept="image/*" ref="channelLogo" placeholder="avatar" onChange={this.inputChange.bind(this, 'file')} aria-describedby="chatavatar-addon" />
+                <input id="channelLogo" type="file"  
+                accept="image/*" ref="channelLogo" 
+                placeholder="avatar" 
+                onChange={this.inputChange.bind(this, 'file')} 
+                aria-describedby="chatavatar-addon" 
+                />
                 <div className="channel-logo-preview">
-                    <img ref="channelLogoPreview" src={ this.props.widgetConfig.channelLogoUrl} />
+                    <img 
+                    ref="channelLogoPreview" 
+                    src={ this.props.widgetConfig.channel.avatarUrl} 
+                    />
                 </div>
                 <div className="cell">
                     <button type="button" onClick={this.openFileInput.bind(this)}>CHANGE</button>
@@ -216,7 +219,7 @@ export class Appearance extends Component {
                     </div>
                     <div className="input-field-wrapper">
                         <span className="switch-label">Channel Logo</span>
-                        <span className={'widget-switch ' + (this.props.widgetConfig.channelLogo? 'switch-on' : '')}
+                        <span className={'widget-switch ' + (this.props.widgetConfig.channel.avatar? 'switch-on' : '')}
                         onClick={this.toggleChannelLogoStatus.bind(this)}>
                             <span className="switch-point"></span>
                         </span>

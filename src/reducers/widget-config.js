@@ -1,25 +1,34 @@
 const initialState = {
     keyColor: '#fdb22b',
     teamAvatar: false,
-    channelLogo: false,
-    channelLogoUrl: '/dist/images/preview.png',
-    welcomeMessage: 'Hi there, thanks for checking out chat.center, if you have any questions we will be happy to help, just let us know!',
-    autoAnswer: 'We normally answer within 60 minutes or less. Please leave your questions here and someone will be with you shortly.',
-    emailPrompt: 'Let us notify you via email:',
-    emailPlaceholder: 'Your email',
-    inputMsgholder: 'Type your message here',
-    sendBtnText: 'Send',
-    botName: 'Alex (Bot)',
+    channel: {
+      avatar: false, // boolean 
+      avatarUrl: '/dist/images/preview.png', // url || datauri 
+      id: '', //string 
+    },
+    
+    content: {
+      welcomeMessage: 'Hi there, thanks for checking out chat.center, if you have any questions we will be happy to help, just let us know!',
+      autoAnswer: 'We normally answer within 60 minutes or less. Please leave your questions here and someone will be with you shortly.',
+      emailPrompt: 'Let us notify you via email:',
+      emailPlaceholder: 'Your email',
+      inputMsgholder: 'Type your message here',
+      sendBtnText: 'Send',
+    },
+    bot: {
+      name: '(Bot)', // string 
+      avatarUrl: "/dist/images/msg-env.png", // url || datauri 
+    },
     ccBranding: false,
-    botAvatarUrl: "/dist/images/user-icon-black.svg",
     proChatInvitation: false,
-    conditionList: [{
-      variable: 'time_on_website',
-      operator: 'more_then',
-      value: '' 
-    }],
-    channelid: '',
-    conditionCriteria: 'all'
+    renderRuleSet: [
+      {
+        variable: 'time_on_website',
+        operator: 'more_then',
+        value: '' 
+      }
+    ]   
+
 
 };
 
@@ -27,12 +36,15 @@ export function widgetConfig(state = initialState, action) {
     switch (action.type) {
 
       case 'INIT_WIDGET_CONFIG': 
+        debugger;
           if( action.data && !action.data.error ) {
-            return {
+            let returnState = {
               ...initialState,
-              ...action.data,
-              channelid: action.channelid
-            }
+              ...action.data
+            };
+            returnState.channel.id = action.channelid;
+            return returnState;
+            
           } else {
             return state;
           }
@@ -42,6 +54,11 @@ export function widgetConfig(state = initialState, action) {
           ...state,
           [action.key]: action.value
         };
+      case 'WIDGET_CONFIG_UPDATE_STATE': 
+            return {
+                ...state,
+                ...action.newState
+            }
 
       default: return state;
     }

@@ -31,18 +31,15 @@ export class Labels extends Component {
     }
 
 
-    updateInputChange( key, e) {
+    updateInputChange( key, parentKey,  e) {
+        let newState = {
+            [parentKey] : {
+                ...this.props.widgetConfig[parentKey],
+                [key]: e.target.value
+            }
+        };
 
-        /*var stateObject = () => {
-            var returnObj = {};
-            returnObj[key] = e.target.value;
-            return returnObj;
-        };*/
-
-        this.props.actions.updateKey({
-            key: key,
-            value: e.target.value
-        })
+        this.props.actions.updateWigetConfigState( newState );
 
         //this.setState( stateObject() );   
 
@@ -73,9 +70,11 @@ export class Labels extends Component {
         var oFReader = new FileReader();
         oFReader.readAsDataURL(this.refs.botAvatar.files[0]);
         oFReader.onload = (oFREvent) => {
-            this.props.actions.updateKey( {
-                key: 'botAvatarUrl',
-                value: oFREvent.target.result
+            this.props.actions.updateWigetConfigState( {
+                bot : {
+                    ...this.props.widgetConfig.bot,
+                    avatarUrl: oFREvent.target.result
+                }
             } );
             //self.refs.botAvatarPreview.src = oFREvent.target.result;
         };
@@ -127,8 +126,8 @@ export class Labels extends Component {
                                     Welcome message
                                 </label>
                                 <div className="input-field-wrapper">
-                                    <textarea className="input-field" value={this.props.widgetConfig.welcomeMessage}
-                                    onChange={this.updateInputChange.bind(this,'welcomeMessage')}></textarea>
+                                    <textarea className="input-field" value={this.props.widgetConfig.content.welcomeMessage}
+                                    onChange={this.updateInputChange.bind(this,'welcomeMessage', 'content')}></textarea>
                                 </div>
                             </div>
                             <div className="input-wrapper auto-answer-wrapper">
@@ -137,8 +136,8 @@ export class Labels extends Component {
                                 </label>
                                 <div className="input-field-wrapper">
                                     <textarea className="input-field" 
-                                    value={this.props.widgetConfig.autoAnswer}
-                                    onChange={this.updateInputChange.bind(this,'autoAnswer')}
+                                    value={this.props.widgetConfig.content.autoAnswer}
+                                    onChange={this.updateInputChange.bind(this,'autoAnswer', 'content')}
                                     ></textarea>
                                 </div>
                                 <p className="input-desc">Initial answer is a great way to set expectations.</p>
@@ -149,8 +148,8 @@ export class Labels extends Component {
                                 </label>
                                 <div className="input-field-wrapper">
                                     <input className="input-field"
-                                    value={this.props.widgetConfig.emailPrompt}
-                                    onChange={this.updateInputChange.bind(this,'emailPrompt')}
+                                    value={this.props.widgetConfig.content.emailPrompt}
+                                    onChange={this.updateInputChange.bind(this,'emailPrompt', 'content')}
                                     />
                                 </div>
                             </div>
@@ -164,8 +163,8 @@ export class Labels extends Component {
                                         <div className="input-field-wrapper">
                                             <input type="text" 
                                             className="input-field" 
-                                            value={this.props.widgetConfig.emailPlaceholder}
-                                            onChange={this.updateInputChange.bind(this,'emailPlaceholder')}
+                                            value={this.props.widgetConfig.content.emailPlaceholder}
+                                            onChange={this.updateInputChange.bind(this,'emailPlaceholder', 'content')}
                                             />
                                         </div>
                                     </div>
@@ -178,8 +177,8 @@ export class Labels extends Component {
                                         <div className="input-field-wrapper">
                                             <input type="text" 
                                             className="input-field"  
-                                            value={this.props.widgetConfig.inputMsgholder}
-                                            onChange={this.updateInputChange.bind(this,'inputMsgholder')}
+                                            value={this.props.widgetConfig.content.inputMsgholder}
+                                            onChange={this.updateInputChange.bind(this,'inputMsgholder', 'content')}
                                             />
                                         </div>
                                     </div>
@@ -195,8 +194,8 @@ export class Labels extends Component {
                                         <div className="input-field-wrapper">
                                             <input type="text" 
                                             className="input-field"  
-                                            value={this.props.widgetConfig.sendBtnText}
-                                            onChange={this.updateInputChange.bind(this,'sendBtnText')}
+                                            value={this.props.widgetConfig.content.sendBtnText}
+                                            onChange={this.updateInputChange.bind(this,'sendBtnText', 'content')}
                                             />
                                         </div>
                                     </div>
@@ -226,8 +225,8 @@ export class Labels extends Component {
                                         <div className="input-field-wrapper">
                                             <input type="text" 
                                             className="input-field"  
-                                            value={this.props.widgetConfig.botName}
-                                            onChange={this.updateInputChange.bind(this,'botName')}
+                                            value={this.props.widgetConfig.bot.name}
+                                            onChange={this.updateInputChange.bind(this,'name', 'bot')}
                                             />
                                         </div>
                                     </div>
@@ -241,7 +240,7 @@ export class Labels extends Component {
                                             />
                                             <div className="bot-avatar-preview">
                                                 <img ref="botAvatarPreview" 
-                                                src={this.props.widgetConfig.botAvatarUrl}
+                                                src={this.props.widgetConfig.bot.avatarUrl}
                                                 />
                                             </div>
                                             <div className="cell">

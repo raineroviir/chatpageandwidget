@@ -101,7 +101,7 @@ class ApiService {
               }
             ).then( json => {
 
-                if( json && (json.ok  || typeof json.ok === 'undefined' )  ) {
+                if( json && !json.error && (json.ok  || typeof json.ok === 'undefined' )  ) {
                     resolve( json );    
                 } else {
                     console.log( 'status is not 200' );

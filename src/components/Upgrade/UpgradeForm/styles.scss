@@ -95,6 +95,16 @@
         }
         .field-wrapper {
             margin-top: 28px;
+            &.error-field {
+                .material-input label {
+                    color: red;
+                }
+                .material-input .input-field {
+                    color: red;
+                    box-shadow: inset 0 -2px 0 0 red;
+                }
+                
+            }
         }
         .promo-link {
             font-size: 15px;
@@ -124,6 +134,7 @@
             
             .field-wrapper {
                 position: relative;
+
             }
             .cc-btn {
                 position: absolute;
@@ -174,6 +185,7 @@
                 margin-left: 11px;
                 display: none;
             }
+
             &.promo-status-error {
                 .input-field {
                     color: red;

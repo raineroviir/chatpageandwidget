@@ -38,6 +38,14 @@ export class ChannelMembersContainer extends Component {
     this.props.actions.updateAutoSuggest(members);
   }
 
+  toggleFind(bool){
+    this.props.actions.toggleFind(bool);
+  }
+
+  getDirectUser(user){
+    this.props.actions.getDirectUser(user);
+  }
+
   deleteMembers(user_id){
     let yes = confirm("Are you sure, you want to remove the user?");
     if(yes)
@@ -71,6 +79,11 @@ export class ChannelMembersContainer extends Component {
     } else if(this.props.userInfo.team)  {
       this.props.actions.getTeamMembers(false);
     }
+    let teamName = this.props.org ? this.props.org.name.split('/')[0] : '';
+    let isTeam = (teamName == 'chat.center' || teamName == '') ? false : true;
+    if(!isTeam){
+      this.props.actions.toggleFind(true);
+    }
   }
 
   render() {
@@ -86,6 +99,8 @@ export class ChannelMembersContainer extends Component {
             updateMembers={this.updateMembers.bind(this)} 
             deleteMembers={this.deleteMembers.bind(this)}
             isTeam={isTeam}
+            toggleFind={this.toggleFind.bind(this)} 
+            getDirectUser={this.getDirectUser.bind(this)} 
             fetchMembersList={this.fetchMembersList.bind(this)}
             updateAutoSuggest={this.updateAutoSuggest.bind(this)}
             details={this.props.createChannel} 

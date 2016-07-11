@@ -73,7 +73,7 @@ export class ChatWidget extends Component {
                             </p>
                         </div>
                         <div className="chat-widget-welcome-msg">
-                            { this.props.widgetConfig.welcomeMessage}
+                            { this.props.widgetConfig.content.welcomeMessage}
                         </div>
                     </div>
                     <div className="">
@@ -91,21 +91,21 @@ export class ChatWidget extends Component {
                                 </div>
                             </li>
                             <li className="chat-widget-message received">
-                                <div className={"chat-avatar " + ( this.props.widgetConfig.botAvatarUrl ? '' : 'default-icon')}>
-                                    <img src={this.props.widgetConfig.botAvatarUrl ? this.props.widgetConfig.botAvatarUrl : this.props.widgetConfig.botAvatarUrl} /
+                                <div className={"chat-avatar " + ( this.props.widgetConfig.bot.avatarUrl ? '' : 'default-icon')}>
+                                    <img src={this.props.widgetConfig.bot.avatarUrl ? this.props.widgetConfig.bot.avatarUrl : this.props.widgetConfig.bot.avatarUrl} /
                                     > 
                                 </div>
                                 <div className="chat-message-wrapper">
-                                    <p className="message-by">{this.props.widgetConfig.botName}</p>
+                                    <p className="message-by">{this.props.widgetConfig.bot.name}</p>
                                     <div className="chat-message">
-                                        {this.props.widgetConfig.autoAnswer}
+                                        {this.props.widgetConfig.content.autoAnswer}
                                     </div>
                                 </div>
                             </li>
                             <li className="chat-widget-message received same-user">
                                 <div className="chat-message-wrapper">
                                     <div className="chat-message">
-                                        {this.props.widgetConfig.emailPrompt}
+                                        {this.props.widgetConfig.content.emailPrompt}
                                     </div>
                                 </div>
                             </li>
@@ -113,7 +113,7 @@ export class ChatWidget extends Component {
                                 <div className="chat-message-wrapper">
                                     <div className="chat-message email-prompt-wrapper">
                                         <form className="email-prompt" onSubmit={this.emailPromptSubmit.bind(this)} >
-                                            <input type="text" className="email-promt-input" ref="emailPromptInput" placeholder={this.props.widgetConfig.emailPlaceholder} />
+                                            <input type="text" className="email-promt-input" ref="emailPromptInput" placeholder={this.props.widgetConfig.content.emailPlaceholder} />
                                             <button className="email-prompt-submit">
                                                 <span className="success-tick"></span>
                                             </button>
@@ -145,10 +145,10 @@ export class ChatWidget extends Component {
                         <span className="attach-button"></span>
                     </div>
                     <div className="post-input-wrapper cell">
-                        <input type="text" ref="postMsgInput" placeholder={this.props.widgetConfig.inputMsgholder}/>
+                        <input type="text" ref="postMsgInput" placeholder={this.props.widgetConfig.content.inputMsgholder}/>
                     </div>
                     <div className="post-submit-wrapper cell">
-                        <button>{this.props.widgetConfig.sendBtnText}</button>
+                        <button>{this.props.widgetConfig.content.sendBtnText}</button>
                     </div>
                 </form>
                 <div className="promo-section">

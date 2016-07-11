@@ -13,8 +13,21 @@ export class UpgradeForm extends Component {
       super( props );
       this.state = {
         showPromoInput : false,
-        errorMessage: ''
+        errorMessage: '',
+        cardNumberValidation:false,
+        expDateValidation: false,
+        cvcNumberValidation: false,
+        promoCodeValidation: false,
+        cardNumberTouched : false,
+        expDateTouched : false,
+        cvcNumberTouched : false,
       };
+    }
+
+    inputBlur( key, e ) {
+      let newState = {};
+      newState[ key + 'Touched' ] = true;
+      this.setState(newState);
     }
 
     togglePromoInput( e ) {
@@ -30,12 +43,21 @@ export class UpgradeForm extends Component {
     
     validateForm( obj ) {
       
-      let expDateRegEx = /^((0[1-9]|1[012])(\s*)\/(\s*)\d{2}$)/;
-      let cvcNumberRegEx = /^\d{3}$/;
-      let cardNumberRegEx = /^(((\d{4})( \d{4}){2,4})$)|(^\d{12,20})$/
-      return cardNumberRegEx.test( obj.cardNumber ) 
-      && expDateRegEx.test( obj.expDate ) &&
-      cvcNumberRegEx.test( obj.cvcNumber );
+      let reg ={
+        expDate : /^((0[1-9]|1[012])(\s*)\/(\s*)\d{2}$)/,
+        cvcNumber : /^\d{3}$/,
+        cardNumber : /^(((\d{4})( \d{4}){2,4})$)|(^\d{12,20})$/
+      };
+
+      let validate = true;
+      for( let key in obj ) {
+        validate = validate & reg[ key ].test( obj[ key ] );
+        this.setState({
+          [key + 'Validation'] : reg[ key ].test( obj[ key ] )
+        });
+      }
+      
+      return validate;
 
     }
 
@@ -43,7 +65,7 @@ export class UpgradeForm extends Component {
       let newState = {};
       let value = e.target.value;
       if( key === 'cardNumber' ) {
-         this.setState({
+        this.setState({
           cardLogo: AutoDetectCard( value )
         });
       }
@@ -58,13 +80,14 @@ export class UpgradeForm extends Component {
           newState.promoBtnState = false;
         }
       } 
+
       newState[key] = value;  
       
-      if( key === 'cardNumber' || key === 'expDate' || key === 'cvcNumber'  ){
+      if( key === 'cardNumber' || key === 'expDate' || key === 'cvcNumber'  ) {
         let validateObj = {
           cardNumber : this.props.upgradeForm.cardNumber,
           expDate : this.props.upgradeForm.expDate.trim(),
-          cvcNumber : this.props.upgradeForm.cvcNumber,
+          cvcNumber : this.props.upgradeForm.cvcNumber
         }
         if( key === 'expDate' ) {
           validateObj[ key ] = value.trim();  
@@ -72,7 +95,10 @@ export class UpgradeForm extends Component {
           validateObj[ key ] = value;
         }
         newState.enableFormSubmit = this.validateForm( validateObj );  
+
       }
+
+      
       
       this.props.actions.updateUpgradeFormKey(newState);
       
@@ -201,7 +227,15 @@ export class UpgradeForm extends Component {
                       Error: { this.state.errorMessage }
                     </div>
                     <div className="form-row">
-                      <div className="field-wrapper card-number-wrapper">
+                      <div className={ ("field-wrapper card-number-wrapper" )
+                        + 
+                         ((this.state.cardNumberTouched && 
+                         !this.state.cardNumberValidation)
+                         ? 
+                        ' error-field' : 
+                        '')  
+                      }
+                      >
                         <MaterialInput>
                           <label>Card number</label>
                           <input type="text" 
@@ -209,6 +243,7 @@ export class UpgradeForm extends Component {
                           value = {this.props.upgradeForm.cardNumber}
                           autoFocus
                           onChange={this.inputChange.bind(this,'cardNumber')}
+                          onBlur={this.inputBlur.bind(this, 'cardNumber')}
                           data-stripe="number"
                           /> 
                           <span className={"card-logo " + this.state.cardLogo} >
@@ -217,21 +252,39 @@ export class UpgradeForm extends Component {
                       </div>
                     </div>
                     <div className="form-row double-field-wrapper">
-                      <div className="field-wrapper">
+                      <div className={
+                        "field-wrapper" +
+                         ((this.state.expDateTouched && 
+                         !this.state.expDateValidation)
+                         ? 
+                        ' error-field' : 
+                        '')  
+                      }
+                      >
                         <MaterialInput>
                           <label>Valid Thru ( MM/YY )</label>
                           <input type="text" className="input-field" 
                           data-stripe="exp"
                           onChange={this.inputChange.bind(this,'expDate')}
+                          onBlur={this.inputBlur.bind(this, 'expDate')}
                           value = {this.props.upgradeForm.expDate}/> 
                         </MaterialInput>
                       </div>
-                      <div className="field-wrapper second-field">
+                      <div className={
+                        ('field-wrapper second-field ') +
+                         ((this.state.cvcNumberTouched && 
+                         !this.state.cvcNumberValidation)
+                         ? 
+                        ' error-field' : 
+                        '')  
+                      }
+                      >
                         <MaterialInput>
                           <label>Secure code (CVC)</label>
                           <input type="text" className="input-field" 
                           data-stripe="cvc"
                           onChange={this.inputChange.bind(this,'cvcNumber')}
+                          onBlur={this.inputBlur.bind(this, 'cvcNumber')}
                           value = {this.props.upgradeForm.cvcNumber}/> 
                         </MaterialInput>
                       </div>

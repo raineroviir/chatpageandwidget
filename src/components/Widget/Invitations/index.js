@@ -43,27 +43,27 @@ export class Invitations extends Component {
         } );
     }*/
     removeCondition( index ) {
-        let propsConds = this.props.widgetConfig.conditionList;
-        let conditionList = [
+        let propsConds = this.props.widgetConfig.renderRuleSet;
+        let renderRuleSet = [
             ...propsConds.slice(0,index),
             ...propsConds.slice( index + 1)
         ];
-        //this.props.widgetConfig.conditionList.splice(index, 1);
+        //this.props.widgetConfig.renderRuleSet.splice(index, 1);
         this.props.actions.updateKey( {
-            key:'conditionList',
-            value: conditionList
+            key:'renderRuleSet',
+            value: renderRuleSet
         } );
     }
     addCondition() {
-        let conditionList = [...this.props.widgetConfig.conditionList, {
+        let renderRuleSet = [...this.props.widgetConfig.renderRuleSet, {
             varaible: 'time_on_current_page',
             operator: 'more_than',
             value: ''
         }];
-        //this.props.widgetConfig.conditionList.push({});
+        //this.props.widgetConfig.renderRuleSet.push({});
         this.props.actions.updateKey( {
-            key:'conditionList',
-            value: conditionList
+            key:'renderRuleSet',
+            value: renderRuleSet
         } );
 
     }
@@ -74,9 +74,9 @@ export class Invitations extends Component {
         } );
     }
     
-    conditionListChange( index, key, e ){
-        let propsConds = this.props.widgetConfig.conditionList;
-        let conditionList = [
+    renderRuleSetChange( index, key, e ){
+        let propsConds = this.props.widgetConfig.renderRuleSet;
+        let renderRuleSet = [
             ...propsConds.slice(0,index),
             {
                 ...propsConds[index],
@@ -85,15 +85,15 @@ export class Invitations extends Component {
             ...propsConds.slice( index+1 )
         ];
 
-        //this.props.widgetConfig.conditionList[index][key] = e.target.value;    
+        //this.props.widgetConfig.renderRuleSet[index][key] = e.target.value;    
         this.props.actions.updateKey( {
-            key:'conditionList',
-            value: conditionList
+            key:'renderRuleSet',
+            value: renderRuleSet
         } );
     }
 
     render(){
-        let conditionRows = this.props.widgetConfig.conditionList.map( ( cond, index)=> {
+        let conditionRows = this.props.widgetConfig.renderRuleSet.map( ( cond, index)=> {
             return (<div className={"condition-row " +
                     ( 
                      ( cond.variable == 'time_on_current_page' || cond.variable =='time_on_website')  ?
@@ -103,7 +103,7 @@ export class Invitations extends Component {
                         <div className="condition-cell cell1">
                             <div className="cell-content">
                                 <select defaultValue={cond.variable}
-                                onChange={this.conditionListChange.bind(this, index, 'variable')}
+                                onChange={this.renderRuleSetChange.bind(this, index, 'variable')}
                                 >
                                     <option value="time_on_current_page">Time on current page </option>
                                     <option value="time_on_website">Time on website </option>
@@ -118,13 +118,13 @@ export class Invitations extends Component {
                                     ( cond.variable == 'time_on_current_page' || cond.variable =='time_on_website')
                                     ? 
                                     <select defaultValue={cond.operator}
-                                        onChange={this.conditionListChange.bind(this, index, 'operator')}>
+                                        onChange={this.renderRuleSetChange.bind(this, index, 'operator')}>
                                         <option value="more_than">More than</option>
                                         <option value="less_than">Less than</option>
                                         <option value="equal">Equal to</option>
                                     </select> :
                                     <select defaultValue={cond.operator}
-                                        onChange={this.conditionListChange.bind(this, index, 'operator')}>
+                                        onChange={this.renderRuleSetChange.bind(this, index, 'operator')}>
                                         <option value="contains">Contains</option>
                                         <option value="equal">Equal to</option>
                                         <option value="does_not_contain">Doesn't Contain</option>
@@ -144,13 +144,13 @@ export class Invitations extends Component {
                                     <input type="text" 
                                     value={cond.value} 
                                     className="input-field seconds"
-                                    onChange={this.conditionListChange.bind(this, 'value')}
+                                    onChange={this.renderRuleSetChange.bind(this, 'value')}
                                     />
                                     seconds
                                     </span>
                                     :
                                     <input type="text" value={cond.value} 
-                                    onChange={this.conditionListChange.bind(this, index, 'value')}
+                                    onChange={this.renderRuleSetChange.bind(this, index, 'value')}
                                     className="input-field"/>
 
 
@@ -188,8 +188,8 @@ export class Invitations extends Component {
                 <div className="conditions-form">
                     <div className="conditions-title">
                         Show Invitations if 
-                        <select className="select-condition-criteria" value={this.props.widgetConfig.conditionCriteria}
-                        onChange={this.updateInputChange.bind(this,'conditionCriteria')}>
+                        <select className="select-condition-criteria" value={this.props.widgetConfig.ruleExpression}
+                        onChange={this.updateInputChange.bind(this,'ruleExpression')}>
                             <option value="all">All</option>
                             <option value="any">any</option>
                         </select>

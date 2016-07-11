@@ -15,9 +15,9 @@ export function initWidgetConfig( channelid ) {
             dispatch({
               type: 'WIDGET_UPDATE_KEY',
               key: 'isNewChannelConfig',
-              value: !(res && res.channelid)
+              value: !(res && res.channel)
             })
-
+            debugger;
             dispatch({
               type: 'INIT_WIDGET_CONFIG',
               data: res,
@@ -25,7 +25,10 @@ export function initWidgetConfig( channelid ) {
             })
           },
           err => {  
-            console.log('Error: ', err );
+            /*dispatch({
+              type: 'INIT_WIDGET_CONFIG',
+              channelid: channelid
+            })*/
           }
         )
     )
@@ -79,6 +82,16 @@ export function updateKey ( obj ) {
           type: 'WIDGET_CONFIG_UPDATE_KEY',
           key: obj.key,
           value: obj.value
+        })
+    )
+}
+
+
+export function updateWigetConfigState ( obj ) {
+  return dispatch => (
+        dispatch({
+          type: 'WIDGET_CONFIG_UPDATE_STATE',
+          newState: obj
         })
     )
 }
