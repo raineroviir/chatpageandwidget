@@ -178,7 +178,7 @@ export class ChannelMembers extends Component {
 
                       <div className="user-chat-address-wrapper">
                         <span className="user-chat-address">{(member.username && member.team) ? (member.team.name + '/' +member.username) : 'NA'}</span>
-                        <button className={classnames('remove-button', { 'remove-button': members.length ==  1})} onClick={this.props.deleteMembers.bind(this, member.id)}>X</button>
+                        <button className={classnames('remove-button', { 'hide': members.length ==  1})} onClick={this.props.deleteMembers.bind(this, member.id)}>X</button>
                       </div>
                     </div>
                   );
