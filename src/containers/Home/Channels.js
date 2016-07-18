@@ -4,9 +4,25 @@ import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';
 import * as CreateChannelActions from '../../actions/CreateChannel';
 import { browserHistory } from 'react-router';
+import { fetchSocket } from '../../actions/Channels';
+
 
 /* components */
 import { ChannelList } from 'components/ChannelList';
+
+/*import io from 'socket.io-client';
+const socket = io("ws://ec2-54-169-64-117.ap-southeast-1.compute.amazonaws.com:28080");
+socket.on("connect", () => {
+  socket.emit("message", JSON.stringify({
+    command: "subscribe",
+    identifier: { channel:"UserChannel", user_token:"3dec870e2c5b51a10cdf" }
+  }));
+})
+socket.on('message', state => {
+  console.log(state);
+});*/
+
+
 export class Channels extends Component {
   selectChannel(channelid){
     this.props.actions.getConversations(channelid, this.props.channels.channels.all);
@@ -64,6 +80,10 @@ export class Channels extends Component {
   componentDidMount(){
     this.props.actions.getChannels();
     this.props.createChannelActions.resetDetails();
+    this.props.actions.fetchSocket();    
+  }
+  componentDidUpdate(){
+    //window.setTimeout(() => this.props.actions.testSocket(), 2000);
   }
 }
 

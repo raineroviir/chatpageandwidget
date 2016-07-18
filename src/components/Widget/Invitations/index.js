@@ -144,7 +144,7 @@ export class Invitations extends Component {
                                     <input type="text" 
                                     value={cond.value} 
                                     className="input-field seconds"
-                                    onChange={this.renderRuleSetChange.bind(this, 'value')}
+                                    onChange={this.renderRuleSetChange.bind(this, index, 'value')}
                                     />
                                     seconds
                                     </span>

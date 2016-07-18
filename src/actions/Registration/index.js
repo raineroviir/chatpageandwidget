@@ -190,35 +190,44 @@ function postActionConstruct(json, isIndividual) {
  
   return (dispatch, getState) => {
     
-    dispatch({
-      type: 'REGISTER_ORGANISATION_DETAILS',
-      value:{"error":json.error}
-    })
+    // dispatch({
+    //   type: 'REGISTER_ORGANISATION_DETAILS',
+    //   value:{"error":json.error}
+    // })
 
     dispatch({
       type:'RESET_USER_DETAILS'
-    })
+    });
 
-    if(json.ok){
-        var payload = getState().registrationDetails.Organisation.payload, 
-          username = ((payload.team) ? (payload.team + '.chat.center/') : 'chat.center/' ) + payload.channel,
-          password = payload.password;
+    if(json){
 
-        dispatch(LoginActions.loginUser(username, password));
-        dispatch(LoginActions.submitLogin(getState().orgs.addOrg, !isIndividual));          
-
-        if (typeof(Storage) !== "undefined") {
-          localStorage.setItem("user_channel", payload.channel);
-        }
-        // TODO: Need to reset org details after successful registration followed by successful login
+      if(!json.ok){
         dispatch({
-          type:'RESET_ORGANISATION_DETAILS'
-        })
+          type: 'REGISTER_ORGANISATION_DETAILS',
+          value:{"error":json.error}
+        });
+        return;
+      }
 
-        dispatch({
-          type:'SUCCESSFUL_REGISTRATION_ACK'
-        })       
-    }    
+      var payload = getState().registrationDetails.Organisation.payload, 
+        username = ((payload.team) ? (payload.team + '.chat.center/') : 'chat.center/' ) + payload.channel,
+        password = payload.password;
+
+      dispatch(LoginActions.loginUser(username, password));
+      dispatch(LoginActions.submitLogin(getState().orgs.addOrg, !isIndividual));          
+
+      if (typeof(Storage) !== "undefined") {
+        localStorage.setItem("user_channel", payload.channel);
+      }
+      // TODO: Need to reset org details after successful registration followed by successful login
+      dispatch({
+        type:'RESET_ORGANISATION_DETAILS'
+      })
+
+      dispatch({
+        type:'SUCCESSFUL_REGISTRATION_ACK'
+      })       
+    }   
   }
 }
 

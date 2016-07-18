@@ -42,7 +42,7 @@ export class RegisterOrgDetailComp extends Component {
   }
 
   validateEmail(email){
-    var re = /\S+@\S+\.\S+/;
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
 
@@ -61,11 +61,11 @@ export class RegisterOrgDetailComp extends Component {
                 <h1 className="inner-title">Your Personal Details</h1>                
                 <div className="input-group input-group-lg">
                   <label htmlFor="firstName" className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" /></label>
-                  <input autoFocus type="text" className="form-control" ref="FirstName" placeholder="First Name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
+                  <input autoFocus type="text" className="form-control first-name" ref="FirstName" placeholder="First Name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
                 </div>
                 <div className="input-group input-group-lg">
                   <label htmlFor="lastName" className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" /></label>
-                  <input id="lastName" type="text" className="form-control" ref="LastName" placeholder="Last Name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
+                  <input id="lastName" type="text" className="form-control last-name" ref="LastName" placeholder="Last Name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
                 </div>
                 <div className="input-group input-group-lg">
                   <label  htmlFor="email" className="input-group-addon email" id="email-addon"><img src="dist/images/iconMail.svg" /></label>

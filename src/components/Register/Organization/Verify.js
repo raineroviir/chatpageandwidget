@@ -14,10 +14,10 @@ export class RegisterOrgVerifyComp extends Component {
 
     this.refs.submitButton.disabled = true;
     
-    if(RegisterPassword === ''){
-      alert('please enter password');
-      return;
-    } 
+    // if(RegisterPassword === ''){
+    //   alert('please enter password');
+    //   return;
+    // } 
 
     //store the value in STORE by dispatching event in action
     this.props.handleNext(RegisterPassword);
@@ -31,7 +31,7 @@ export class RegisterOrgVerifyComp extends Component {
 
   componentDidMount() {
     this.refs.submitButton.disabled = true;
-    console.log(this.props.registrationDetails.Organisation);
+    //console.log(this.props.registrationDetails.Organisation);
   }
 
   render() {

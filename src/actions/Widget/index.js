@@ -17,11 +17,14 @@ export function initWidgetConfig( channelid ) {
               key: 'isNewChannelConfig',
               value: !(res && res.channel)
             })
-            debugger;
             dispatch({
               type: 'INIT_WIDGET_CONFIG',
               data: res,
               channelid: channelid
+            });
+            dispatch({
+              type: 'INIT_WIDGET_CONFIG_INITIAL_STATE',
+              data: res
             })
           },
           err => {  
@@ -65,12 +68,18 @@ export function saveWidgetConfig( config, channelid, isNewChannelConfig ) {
             type: 'WIDGET_UPDATE_KEY',
             key: 'isNewChannelConfig',
             value: false
-          })
+          });
         }
         let message = 'Updated Successfully';
         if( isNewChannelConfig ) {
           message = 'Created Successfully';
         }
+
+        dispatch({
+          type: 'INIT_WIDGET_CONFIG_INITIAL_STATE',
+          data: config
+        })
+
         alert( message );
       })
   )

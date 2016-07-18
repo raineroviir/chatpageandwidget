@@ -239,6 +239,68 @@ export function createChannelDetailsReset() {
   createChannelActions.resetDetails();
 }
 
+export function fetchSocket () {
+  return dispatch => {
+    let getSocket = getSocketURL();
+    if(getSocket){
+      getSocket.then(response => response.json()).then(json => initializeSocket(json, dispatch));
+    }
+  }  
+}
+
+function getSocketURL (argument) {
+  if (typeof(Storage) === "undefined") return null;
+  var token = JSON.parse(localStorage.getItem("token"));
+  return fetch( urlConfig.base + 'users.websocket.url', {
+    method: 'GET',
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token.access_token,
+    }
+  });
+}
+
+function initializeSocket(socket, dispatch) {
+  const ws = new WebSocket(socket.url);
+  ws.onopen = function(){
+    ws.send(JSON.stringify(socket.subscription));
+  }
+  ws.onmessage = function(msg){
+    if(msg && msg.data && JSON.parse(msg.data)){
+      let data = JSON.parse(msg.data);
+      if(!data.message || !data.message.type) return;
+      switch (data.message.type){
+        case "message": 
+        dispatch(dispatchMessageStream(data.message));
+      }
+    }
+  };
+  
+};
+
+export function testSocket () {
+  return dispatch => {
+    dispatch(dispatchMessageStream({
+      "payload": {
+        "conversation_id": 97,
+        "message_id": 63323,
+        "text": "dummy hardcoded socket message",
+        "user_id": 53
+      },
+      "timestamp": 1468657146,
+      "type": "message"
+    }))
+  }
+}
+
+function dispatchMessageStream (message) {
+  return {
+    type: "MESSAGE_STREAM",
+    posts: { message },
+    receivedAt: Date.now()
+  }
+}
+
 function fetchChannels() {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token"));

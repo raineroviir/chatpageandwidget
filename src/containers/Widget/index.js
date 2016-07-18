@@ -45,6 +45,35 @@ export class Widget extends Component {
 
   render() {
     let classId = this.props.widget ? this.props.widget.classId : '';
+    let unsavedChanges = 0;
+    let originalConfig = this.props.widget.initialConfig;
+    let currentConfig = this.props.widgetConfig;
+    
+    let checkObjDiff = ( currentInner, orgInner ) => {
+      for( let key in currentInner ) {
+        
+        if( key === 'renderRuleSet' ) {
+          if( !orgInner[key]  ) {
+            unsavedChanges++;
+          } else {
+            if( JSON.stringify(orgInner.renderRuleSet ) != JSON.stringify(currentInner.renderRuleSet ) ) {
+              unsavedChanges++;
+            }
+          }
+        } else if( typeof currentInner[ key ] === 'object' && typeof orgInner[ key ] === 'object' ) {
+          checkObjDiff( currentInner[ key ], orgInner[ key ]  );
+        }
+        else if( orgInner[ key ] != currentInner[ key ] ) {
+          unsavedChanges++;
+        }
+      }  
+    };
+    if( currentConfig && originalConfig ) {
+      checkObjDiff( currentConfig, originalConfig );  
+    }
+    
+
+
     return (
       <div>
         <DocumentMeta {...metaData} />
@@ -57,7 +86,11 @@ export class Widget extends Component {
           <div className="widget-content" >
             <div className={ "widget-" + classId }>
               <div className="widget-feature-buttons">
-                <button className="cc-btn save-button" onClick={this.saveWidgetConfig.bind(this)}>SAVE</button>
+                {
+                  unsavedChanges>0?<p className="form-change-status" >{unsavedChanges} unsaved changes</p>:''
+                }
+                
+                <button className="cc-btn save-button" onClick={this.saveWidgetConfig.bind(this)}>PUBLISH CHANGES</button>
                 <Link to="/dashboard" className="widget-close">
                 </Link>
               </div>
@@ -73,7 +106,10 @@ export class Widget extends Component {
               {this.props.children}
             </div>
             <div className="widget-save-button-bottom">
-                <button className="cc-btn save-button" onClick={this.saveWidgetConfig.bind(this)}>SAVE</button>
+                {
+                  unsavedChanges>0?<p className="form-change-status" >{unsavedChanges} unsaved changes</p>:''
+                }
+                <button className="cc-btn save-button" onClick={this.saveWidgetConfig.bind(this)}>PUBLISH CHANGES</button>
             </div>
           </div>
         </div>

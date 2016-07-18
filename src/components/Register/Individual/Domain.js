@@ -46,9 +46,9 @@ export class RegisterIndividualDomain extends Component {
     }
 
     if(this.refs.Channel.value  === ''){
-      this.refs.nextButton.disabled = true;
+      this.refs.createBtn.disabled = true;
     }else{
-      this.refs.nextButton.disabled = false;
+      this.refs.createBtn.disabled = false;
     }
     
   }

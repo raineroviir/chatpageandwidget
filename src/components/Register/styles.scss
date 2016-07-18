@@ -57,6 +57,12 @@
 	    margin-bottom: 30px;
 	    line-height: 48px;
 	}
+	.first-name,.last-name{
+		text-transform: capitalize;
+	}
+	.channel-field{
+		text-transform: lowercase;
+	}
 	.domain-form {
 		.inner-title {
 			margin-right: 10px;
@@ -72,9 +78,7 @@
 		}
 		.user-name {
 			padding-right: 0;
-		}
-			
-		
+		}		
 	}
 	.ind-details-from {
 		.button-wrapper {

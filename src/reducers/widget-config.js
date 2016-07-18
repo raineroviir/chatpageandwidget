@@ -36,7 +36,6 @@ export function widgetConfig(state = initialState, action) {
     switch (action.type) {
 
       case 'INIT_WIDGET_CONFIG': 
-        debugger;
           if( action.data && !action.data.error ) {
             let returnState = {
               ...initialState,
@@ -44,7 +43,6 @@ export function widgetConfig(state = initialState, action) {
             };
             returnState.channel.id = action.channelid;
             return returnState;
-            
           } else {
             return state;
           }

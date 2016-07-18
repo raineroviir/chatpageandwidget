@@ -19,7 +19,7 @@ export class RegisterOrgNameComp extends Component {
   }
 
   inputChange(){
-    this.refs.nextButton.disabled = !(this.refs.RegisterOrganisationName.value)
+    this.refs.nextButton.disabled = !(this.refs.RegisterOrganisationName.value);
   }
 
   capitalizeFirstLetter(str) {
