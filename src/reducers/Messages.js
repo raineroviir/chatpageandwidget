@@ -50,7 +50,6 @@ export function messages(state = initialState, action) {
     return {
       ...state,
       messages: updatedMessages,
-      conversationid: action.posts.conversationid,
       memoized: {
         ...state.memoized,
         [action.posts.conversationid]: updatedMessages
