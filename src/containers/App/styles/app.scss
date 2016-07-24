@@ -120,10 +120,6 @@ html, body, .wrapper, .wrapper > .row, .main, .sidebar{
   margin: auto;
 }
 .leftmenu .navbar-nav>li>a>span{ font-size:1.3em;}
-.leftmenu .navbar-nav>li>a:hover {
-  color: #fff;
-  background-color: #45b166;
-}
 .leftmenu .navbar-nav>li.logo>a:hover,.leftmenu .navbar-nav>li.logo>a:focus{
   background-color: transparent;
 }
@@ -300,7 +296,6 @@ li.available .user-presence::before {
 
 .pull-right + .bubble  {
   &:after {
-    border-color: transparent transparent transparent #45b166;
     right: -4px;
     left: auto;
     border-width: 7px 0 7px 8px;
@@ -310,9 +305,7 @@ li.available .user-presence::before {
 
 
 .bubble--alt {
-  background-color: #45b166;
   float: right;
-  color: #fff;
 }
 
 .bubble.combine {
@@ -322,18 +315,13 @@ li.available .user-presence::before {
 .bubble.combine:after {
   border: none;
 }
-.badge {
-  background-color: #45b166;
-}
+
 .leftmenu {
   .nav>li>a:focus, .nav>li>a:hover, .nav>li>a.active {
-    background-color: #45b166;
-    color: #fff;
     cursor:pointer;
   }  
 }
 
-.channel-list .messages .user-item li:hover a, .channel-list .messages .user-item li.active a{ background-color:#45b166; }
 .nav.user-item > li > a:hover, .nav.user-item > li > a:focus{ background-color:transparent; 
 cursor: pointer;
 }
@@ -356,10 +344,7 @@ cursor: pointer;
 .user-item li .badge {
   margin-top: 4px;
 }
-.user-item li a:hover .badge, .user-item li a.active .badge {
-  background: #fff;
-  color: #45b166;
-}
+
 .user-item li.header {
   color: #a8b1ab;
   padding: 28px 14px 0;
@@ -396,38 +381,10 @@ cursor: pointer;
   display: block;
 }
 .chat-contacts .user-item li a:focus{ color: inherit;}
-.chat-contacts .user-item li:hover, .chat-contacts .user-item li.active{
-  background-color: #45b166;
-}
-.chat-contacts .user-item li:hover a .name, .chat-contacts .user-item li.active a .name {
-  color: #fff;
-}
-.chat-contacts .user-item li:hover a .user-presence, .chat-contacts .user-item li.active a .user-presence{
-  color: #fff;
-}
 .chat-contacts .user-item li:hover a .message, .chat-contacts .user-item li.active a .message{
-  color: #fff;
   display: block;
 }
-.chat-contacts .user-item li:hover a .user-presence.online:before, .chat-contacts .user-item li.active a .user-presence.online:before {
-  background-color: #fff;
-}
-a:hover .avatar, li.active .avatar, a:focus .avatar{
-  background-color: #fff;
-  color: #45b166;
-}
-/*.avatar{
-  float: left;
-  width: 40px;
-  text-align: center;
-  font-size: 1.6em;
-  vertical-align: middle;
-  line-height: 40px;
-  background-color: #45b166;
-  color: #fff;
-  border-radius: 40px;
-  text-transform:uppercase;
-}*/
+
 .channel-list .avatar{ width:28px; line-height:28px; border-radius:28px; font-size:1.2em }
 .chat .avatar{ margin-top:5px; }
 .chat-flow {
@@ -659,11 +616,6 @@ a:hover .avatar, li.active .avatar, a:focus .avatar{
     width: 36px;
 }
 
-.leftmenu .navbar-nav>li.active>a {
-    color: #fff;
-    background-color: #45b166;
-}
-
 .horizontal-list{
   list-style-type: none;
 }
@@ -878,7 +830,7 @@ footer {
   .messages .badge{
     font-weight: normal;
     padding: 4px 4px;
-    background: #138536;
+    /*background: #138536;*/
     margin-top: -4px;
     min-width: 20px;
   }
@@ -898,9 +850,7 @@ footer {
     background: rgba(171, 173, 179, 0.1);
     cursor: pointer;
   }
-  .messages .nav.user-item > li.active:hover > a{
-    background: #45b166;
-  }
+  
   .chat-contacts .user-item li span.middle-content {
 
     .name {
@@ -942,3 +892,6 @@ footer {
   }
   
 }
+
+
+@import './theme.scss';

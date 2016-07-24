@@ -30,9 +30,7 @@
             &.active-link, &:hover {
                 opacity: 1;
             }
-            &.active-link {
-                box-shadow: inset -4px 0px 0 0 #fdb22b;
-            }
+        
         }
     }
     .widget-nav-footer {
@@ -164,8 +162,6 @@
             left: 3px;
         }
         &.switch-on {
-            border: solid 1px #fdb22b;
-            background: #fdb22b;
             .switch-point{
                 right: 2px;
                 left: auto;
@@ -265,10 +261,6 @@
         .nav-links {
             margin-top: 0;
             text-align: left;
-            a.active-link {
-                background: #fdb22b;
-                color: #fff;
-            }
             
         }
 

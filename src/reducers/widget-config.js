@@ -21,13 +21,17 @@ const initialState = {
     },
     ccBranding: false,
     proChatInvitation: false,
-    renderRuleSet: [
-      {
-        variable: 'time_on_website',
-        operator: 'more_then',
-        value: '' 
-      }
-    ]   
+    renderRuleSet: {
+      rules: [
+        {
+          variable: 'time_on_website',
+          operator: 'more_then',
+          value: '' 
+        }
+      ],
+      ruleExpression: "any"
+    }
+    
 
 
 };

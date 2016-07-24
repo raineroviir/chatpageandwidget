@@ -34,11 +34,11 @@
         margin:7px 12px; 
         &.sent-message  {
             .message-bubble {
-                background-color: #138536;
+                /*background-color: #138536;
                 color: #fff;
                 &:after{
                     border-color: transparent transparent transparent #138536;
-                }
+                }*/
             }
         }
     }
@@ -82,7 +82,7 @@
         bottom: 0px;
         border-radius: 50%;
         color: #fff;
-        background: #138536;
+        /*background: #138536;*/
         text-align: center;
         line-height: 28px;
         font-size: 13px;
@@ -149,4 +149,4 @@
     text-align: right;
 }
 .time-bubble{text-align:right; clear:both; margin-right: 40px; font-size: 13px; color: #999; padding-top: 5px; }
-.today .img-circle,.avatar{ bottom:2.5em; } 
+.today .img-circle,.today .avatar{ bottom:2.5em; } 

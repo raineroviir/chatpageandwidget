@@ -55,8 +55,8 @@
             border-radius: 9px;
             position: relative;
             max-width: 236px;
-            background-color: #138536;
-            color: #fff;
+            /*background-color: #138536;
+            color: #fff;*/
             &:after {
                 content: '';
                 width: 0;
@@ -69,11 +69,10 @@
                 content: '';
                 display: inline-block;
                 transition: all ease-in 0.5s;
-                border-color: transparent transparent transparent #eeeff0;
                 right: -4px;
                 left: auto;
                 border-width: 7px 0 7px 8px;
-                border-color: transparent transparent transparent #138536;
+                /*border-color: transparent transparent transparent #138536;*/
             }
         }
         .chat-widget-message.received {
@@ -133,7 +132,7 @@
             display: inline-block;
             margin-left: 8px;
             vertical-align: middle;
-            background-color: #138536;
+            /*background-color: #138536;*/
             border: 0;
             overflow: hidden;
             .success-tick {
@@ -182,10 +181,6 @@
         font-family: 'Rubik-Medium';
         font-size: 13px;
         line-height: 1.85;
-        color: #45b166;
-        a {
-            color: #45b166;
-        }
         .angle-down-arrow {
             float: left;
             margin-top: 15px;
@@ -256,7 +251,7 @@
                 margin-right: 8px;
             }
             a {
-                color: #fdb22b;
+                /*color: #fdb22b;*/
             }
         } 
     }
@@ -285,9 +280,7 @@
             font-weight: normal;
             line-height: 1.54;
             letter-spacing: 0.1px;
-            a {
-                color: #45b166;
-            }
+           
             margin: 0;
         }
         

@@ -28,7 +28,7 @@ export class RegisterOrgAddressComp extends Component {
   }
 
   inputChange(){  
-    this.refs.RegisterChannel.value = this.refs.RegisterChannel.value.replace(/[^a-zA-Z0-9-._]/gi, '');
+    this.refs.RegisterChannel.value = this.refs.RegisterChannel.value.replace(/[^a-zA-Z0-9\-\_]/gi, '');
   }
 
   componentDidMount() {

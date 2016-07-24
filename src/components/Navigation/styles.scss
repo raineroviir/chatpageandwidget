@@ -14,9 +14,9 @@
 .available-status.online {
     background-color: #45b166;
 }
+
 .master-nav {
     width: 72px;
-    background: #222d26;
     height: 100vh;
     float: left;
     padding: 12px 10px;
@@ -68,8 +68,6 @@
                 }
             }
             &.logo .avatar {
-                background-color: #45b166;
-                color: #fff;
                 font-size:2em;
                 text-transform: uppercase;
                 text-align: center;
@@ -79,12 +77,7 @@
                 width:48px;
             }
             &.active,&:hover {
-                .nav-link {
-                    background: #138536;
-                }
                 .avatar {
-                    background-color: #fff;
-                    color: #45b166;
                     text-decoration:none;
                     cursor:pointer;
                 }
@@ -169,9 +162,9 @@
                 background-repeat: no-repeat;
                 background-size: 100%; 
             }
-            &:hover {
+            /*&:hover {
                 background: #138536;
-            }
+            }*/
         }
         
     }

@@ -1,14 +1,14 @@
 .cc-btn {
     border-radius: 5px;
-    background-color: #fdb22b;
+    /*background-color: #fdb22b;*/
     border: 0;
-    color: #fff;
+    /*color: #fff;*/
     padding: 8px 28px 5px 28px;
     font-size: 14px;
     letter-spacing: 0.8px;
     text-decoration: none;
     &:hover,&:focus{
-        color: #fff;
+        /*color: #fff;*/
         text-decoration: none;
     }
     &.disabled,&[disabled] {
@@ -38,7 +38,7 @@
         line-height: 2.2;
     }
     .widget-link {
-        color: #fdb22b;
+        /*color: #fdb22b;*/
     }
     .link-email-instructions {
         float: right;
@@ -63,8 +63,8 @@
         .pulgin-for {
             padding: 11px 16px 8px 16px;
             border-radius: 5px;
-            background-color: #fdb22b;
-            color: #fff;
+            /*background-color: #fdb22b;
+            color: #fff;*/
             margin-right: 16px;
             
         }

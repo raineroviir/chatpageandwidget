@@ -52,14 +52,14 @@ export class Widget extends Component {
     let checkObjDiff = ( currentInner, orgInner ) => {
       for( let key in currentInner ) {
         
-        if( key === 'renderRuleSet' ) {
-          if( !orgInner[key]  ) {
+        if( key === 'rules' ) {
+
+          if( JSON.stringify(orgInner.rules ) != JSON.stringify(currentInner.rules ) ) {
             unsavedChanges++;
-          } else {
-            if( JSON.stringify(orgInner.renderRuleSet ) != JSON.stringify(currentInner.renderRuleSet ) ) {
-              unsavedChanges++;
-            }
           }
+
+        
+          
         } else if( typeof currentInner[ key ] === 'object' && typeof orgInner[ key ] === 'object' ) {
           checkObjDiff( currentInner[ key ], orgInner[ key ]  );
         }
@@ -73,8 +73,10 @@ export class Widget extends Component {
     }
     
 
+    let isNewChannelConfig = this.props.widget.isNewChannelConfig;
 
     return (
+
       <div>
         <DocumentMeta {...metaData} />
         <Navigation historyApi={this.props.historyApi} />
@@ -86,11 +88,18 @@ export class Widget extends Component {
           <div className="widget-content" >
             <div className={ "widget-" + classId }>
               <div className="widget-feature-buttons">
+
                 {
-                  unsavedChanges>0?<p className="form-change-status" >{unsavedChanges} unsaved changes</p>:''
+                  unsavedChanges > 0 && !isNewChannelConfig ? 
+                  <p className="form-change-status" >{unsavedChanges} unsaved changes</p>
+                  :
+                  ''
                 }
                 
-                <button className="cc-btn save-button" onClick={this.saveWidgetConfig.bind(this)}>PUBLISH CHANGES</button>
+                <button 
+                className="cc-btn save-button" 
+                disabled={unsavedChanges==0}
+                onClick={this.saveWidgetConfig.bind(this)}>PUBLISH CHANGES</button>
                 <Link to="/dashboard" className="widget-close">
                 </Link>
               </div>
@@ -107,9 +116,13 @@ export class Widget extends Component {
             </div>
             <div className="widget-save-button-bottom">
                 {
-                  unsavedChanges>0?<p className="form-change-status" >{unsavedChanges} unsaved changes</p>:''
+                  unsavedChanges>0 && !isNewChannelConfig
+                  ?<p className="form-change-status" >{unsavedChanges} unsaved changes</p>:
+                  ''
                 }
-                <button className="cc-btn save-button" onClick={this.saveWidgetConfig.bind(this)}>PUBLISH CHANGES</button>
+                <button className="cc-btn save-button" 
+                  disabled={unsavedChanges==0}
+                 onClick={this.saveWidgetConfig.bind(this)}>PUBLISH CHANGES</button>
             </div>
           </div>
         </div>
@@ -127,6 +140,7 @@ function mapStateToProps(state) {
   return {
     conversations: state.conversations,
     widgetConfig: state.widgetConfig,
+    widget: state.widget,
     historyApi: state.historyApi,
     widget: state.widget
   }

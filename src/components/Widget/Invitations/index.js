@@ -43,57 +43,75 @@ export class Invitations extends Component {
         } );
     }*/
     removeCondition( index ) {
-        let propsConds = this.props.widgetConfig.renderRuleSet;
-        let renderRuleSet = [
+        let propsConds = this.props.widgetConfig.renderRuleSet.rules;
+        let rules = [
             ...propsConds.slice(0,index),
             ...propsConds.slice( index + 1)
         ];
-        //this.props.widgetConfig.renderRuleSet.splice(index, 1);
+
         this.props.actions.updateKey( {
             key:'renderRuleSet',
-            value: renderRuleSet
+            value: {
+                ...this.props.widgetConfig.renderRuleSet,
+                rules: rules
+            }
         } );
     }
     addCondition() {
-        let renderRuleSet = [...this.props.widgetConfig.renderRuleSet, {
+        let rules = [...this.props.widgetConfig.renderRuleSet.rules, {
             varaible: 'time_on_current_page',
             operator: 'more_than',
             value: ''
         }];
-        //this.props.widgetConfig.renderRuleSet.push({});
+        
         this.props.actions.updateKey( {
             key:'renderRuleSet',
-            value: renderRuleSet
+            value: {
+                ...this.props.widgetConfig.renderRuleSet,
+                rules: rules
+            }
         } );
 
     }
-    updateInputChange( key, e ) {
+    updateRuleExpChange( key, e ) {
         this.props.actions.updateKey( {
-            key:key,
-            value: e.target.value
+            key:'renderRuleSet',
+            value : {
+                ...this.props.widgetConfig.renderRuleSet,
+                ruleExpression: e.target.value
+            }
         } );
     }
     
-    renderRuleSetChange( index, key, e ){
-        let propsConds = this.props.widgetConfig.renderRuleSet;
-        let renderRuleSet = [
+    renderRuleSetChange( index, key, isNumber, e ){
+        let propsConds = this.props.widgetConfig.renderRuleSet.rules;
+        let value =  e.target.value;
+        if( isNumber && value ) {
+            value = +value;
+        }
+        let rules = [
             ...propsConds.slice(0,index),
             {
                 ...propsConds[index],
-                [key]: e.target.value
+                [key]: value
             },
             ...propsConds.slice( index+1 )
         ];
 
-        //this.props.widgetConfig.renderRuleSet[index][key] = e.target.value;    
+           
         this.props.actions.updateKey( {
             key:'renderRuleSet',
-            value: renderRuleSet
+            value: {
+                ...this.props.widgetConfig.renderRuleSet,
+                rules: rules
+            }
         } );
     }
 
     render(){
-        let conditionRows = this.props.widgetConfig.renderRuleSet.map( ( cond, index)=> {
+        let conditionRows
+        if( this.props.widgetConfig.renderRuleSet && this.props.widgetConfig.renderRuleSet.rules ) {
+            conditionRows = this.props.widgetConfig.renderRuleSet.rules.map( ( cond, index)=> {
             return (<div className={"condition-row " +
                     ( 
                      ( cond.variable == 'time_on_current_page' || cond.variable =='time_on_website')  ?
@@ -144,7 +162,7 @@ export class Invitations extends Component {
                                     <input type="text" 
                                     value={cond.value} 
                                     className="input-field seconds"
-                                    onChange={this.renderRuleSetChange.bind(this, index, 'value')}
+                                    onChange={this.renderRuleSetChange.bind(this, index, 'value', true)}
                                     />
                                     seconds
                                     </span>
@@ -165,7 +183,9 @@ export class Invitations extends Component {
                             </div>
                         </div>
                     </div>)
-        });
+    
+                });
+            }
         
         return (
             <div>
@@ -188,10 +208,10 @@ export class Invitations extends Component {
                 <div className="conditions-form">
                     <div className="conditions-title">
                         Show Invitations if 
-                        <select className="select-condition-criteria" value={this.props.widgetConfig.ruleExpression}
-                        onChange={this.updateInputChange.bind(this,'ruleExpression')}>
+                        <select className="select-condition-criteria" value={this.props.widgetConfig.renderRuleSet.ruleExpression}
+                        onChange={this.updateRuleExpChange.bind(this,'ruleExpression')}>
                             <option value="all">All</option>
-                            <option value="any">any</option>
+                            <option value="any">Any</option>
                         </select>
                         of the following conditions are met:
                     </div>

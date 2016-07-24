@@ -73,13 +73,13 @@
 		padding:10px 0;
 		height: 48px;
 		border-radius: 5px;
-		background-color: #fdb22b;
+		/*background-color: #fdb22b;*/
 		text-align:center;
 		border-color:transparent;
 		box-sizing:border-box;
 		font-size:20px;
 		margin:1;
-		color: #fff;
+		/*color: #fff;*/
 		opacity:0.9;
 		&:hover {
 			opacity:1;
@@ -132,7 +132,6 @@
 		font-size: 14px;
 	    line-height: 1.3;
 	    letter-spacing: 0.1px;
-	    color: #fdb22b;
 	    opacity:0.9;
 	    white-space: nowrap;
 	    text-overflow: ellipsis;
@@ -196,9 +195,7 @@
 			.avatar-text, avatar-img {
 				width: 28px;
 				height: 28px;
-				background-color: #fdb22b;
 				opacity:0.9;
-	            color: #fff;
 	            text-align: center;
 	            line-height: 29px;
 	            display: inline-block;
@@ -305,17 +302,11 @@
 		display: inline-block;
 		width: 235px;
 		height: 220px;
-		background: #fdb22b;
-		color: #fff;
 		border-radius: 5px;
 		text-decoration: none;
-		opacity:0.9;
+		opacity:0.8;
 		&:hover{
-			background: #fdb22b;
 			opacity:1;
-			.icon-wapper {
-				color:  #fdb22b;
-			}	
 		}
 		.icon-wapper {
 			width: 120px;
@@ -324,7 +315,6 @@
 			background: #fff;
 			border-radius: 50%;
 			margin-top: 30px;
-			color: #fdb22b;
 			.glyphicon {
 				line-height: 120px;
 				font-size: 60px;

@@ -220,9 +220,9 @@ function postActionConstruct(json, isIndividual) {
         localStorage.setItem("user_channel", payload.channel);
       }
       // TODO: Need to reset org details after successful registration followed by successful login
-      dispatch({
-        type:'RESET_ORGANISATION_DETAILS'
-      })
+      // dispatch({
+      //   type:'RESET_ORGANISATION_DETAILS'
+      // })
 
       dispatch({
         type:'SUCCESSFUL_REGISTRATION_ACK'

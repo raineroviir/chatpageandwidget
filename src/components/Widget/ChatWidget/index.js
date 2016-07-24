@@ -92,7 +92,7 @@ export class ChatWidget extends Component {
                             </li>
                             <li className="chat-widget-message received">
                                 <div className={"chat-avatar " + ( this.props.widgetConfig.bot.avatarUrl ? '' : 'default-icon')}>
-                                    <img src={this.props.widgetConfig.bot.avatarUrl ? this.props.widgetConfig.bot.avatarUrl : this.props.widgetConfig.bot.avatarUrl} /
+                                    <img src={this.props.widgetConfig.bot.avatarUrl ? this.props.widgetConfig.bot.avatarUrl : avatarImg} /
                                     > 
                                 </div>
                                 <div className="chat-message-wrapper">
