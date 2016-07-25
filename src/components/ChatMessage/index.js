@@ -30,7 +30,7 @@ export class ChatMessage extends Component {
               let user = this.props.user.userinfo,
                 combineMessage = !!ind && msgs[ind - 1].user_id == message.user_id,
                 displayDate = this.computeDate(message.created_at),
-                avatarText = "U" + ((message.user_id) ? (message.user_id + "").charAt(0) : ""),
+                avatarText = message.sender_name ? _.reduce(message.sender_name.split(" "), (res, a) => res + (a + "").charAt(0), "") : ("U" + ((message.user_id) ? (message.user_id + "").charAt(0) : "")),
                 isShowDate = !!ind && this.computeDate(msgs[ind - 1].created_at) == displayDate,
                 relative_time = displayDate == "today" && moment(message.created_at).format("LT");
               
@@ -39,12 +39,9 @@ export class ChatMessage extends Component {
                   <li key={message.id} className="received-message fade-in">
                     <div className={classNames("text-center", { hide: isShowDate })}>{ displayDate}</div>
                     <div className="chat-message">
-                      <span className={classNames("avatar", { hide: false })}>{avatarText}</span>
-                      <img className={classNames("img-circle", { hide: true })} 
-                      src="dist/images/user.png" 
-                      title="{message.user_id}" 
-                      alt="{user_id.user_id}" />
-                      <div className={classNames("user-name-display", { hide: combineMessage })}>{ "User " + message.user_id}</div>
+                      <span className={classNames("avatar", { hide: !!message.sender_avatar })}>{avatarText}</span>
+                      <img className={classNames("img-circle", { hide: !message.sender_avatar })} src={message.sender_avatar} title={message.sender_name} alt={message.sender_name} />
+                      <div className={classNames("user-name-display", { hide: combineMessage })}>{ message.sender_name || ("User " + message.user_id)}</div>
                       <div className="message-bubble">
                         {message.text}
                       </div>

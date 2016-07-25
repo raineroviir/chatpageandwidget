@@ -24,8 +24,9 @@ socket.on('message', state => {
 
 
 export class Channels extends Component {
-  selectChannel(channelid){
-    this.props.actions.getConversations(channelid, this.props.channels.channels.all);
+  selectChannel(channel){
+    this.props.actions.getConversations(channel.id, this.props.channels.channels.all);
+    browserHistory.push("/dashboard/" + (channel.address.channel || ""))    
   }
   createChannel(type){
     let attr = {}
@@ -80,7 +81,10 @@ export class Channels extends Component {
   componentDidMount(){
     this.props.actions.getChannels();
     this.props.createChannelActions.resetDetails();
-    this.props.actions.fetchSocket();    
+    this.props.actions.fetchSocket();
+    if(this.props.channelname){
+      this.props.actions.selectChannel(this.props.channelname, this.props.conversationname);
+    }
   }
   componentDidUpdate(){
     //window.setTimeout(() => this.props.actions.testSocket(), 2000);

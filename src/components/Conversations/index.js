@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import classNames from 'classnames';
 /* component styles */
 import { styles } from './styles.scss';
 
@@ -26,8 +27,8 @@ export class ConversationsView extends Component {
           <ul>
             { this.props.conversations.map(conversation => {
               let activeConversation = this.props.activeConversation,
-              userName = (conversation.last_message) ? conversation.last_message.user_id : "User",
-              avatarText = "U" + (userName + "").charAt(0),
+              userName = (conversation.last_message) ? (conversation.last_message.sender_name || conversation.last_message.user_id) : "User",
+              avatarText = (conversation.last_message && conversation.last_message.sender_name) ? _.reduce(conversation.last_message.sender_name.split(" "), (res, a) => res + (a + "").charAt(0), "") : ("U" + (userName + "").charAt(0)),
               time = moment(conversation.updated_at),
               diff = moment().endOf("day").diff(moment(conversation.updated_at), "days", true),
               displayTime = (diff <= 1) ? time.format("LT") : (diff <= 2) ? "yesterday" : time.format("D MMM YYYY");
@@ -36,14 +37,11 @@ export class ConversationsView extends Component {
                 onClick={this.selectConversation.bind(this, conversation)} 
                 className={ (activeConversation == conversation.id) ? "active" : ""}>
                   <a>
-                    <img className="img-circle" 
-                    src="dist/images/user.png" 
-                    title={conversation.name} 
-                    alt={conversation.name} />
-                    <span className="avatar">{avatarText}</span>
+                    <img className={classNames("img-circle", { hide: !(conversation.last_message && conversation.last_message.sender_avatar)})} src={(conversation.last_message) ? conversation.last_message.sender_avatar : ""} title={conversation.name} alt={conversation.name} />
+                    <span className={classNames("avatar", { hide: !!(conversation.last_message && conversation.last_message.sender_avatar)})}>{avatarText}</span>
                     
                     <p className="name">
-                      User { (conversation.last_message) ? conversation.last_message.user_id : "User"}
+                      { (conversation.last_message) ? conversation.last_message.sender_name || ("User" + conversation.last_message.user_id) : "User user"}
                       <span className="time-wrapper">{displayTime}</span>
                     </p>
                     <p className="message">

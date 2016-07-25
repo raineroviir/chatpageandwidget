@@ -30,7 +30,7 @@ export class HomeView extends Component {
           <DocumentMeta {...metaData} />
           <div>
             <Navigation historyApi={this.props.historyApi} />
-            <Channels />
+            <Channels channelname={this.props.channelname} conversationname={this.props.conversationname} />
           </div>
           <div className="main-section">
             <Header />

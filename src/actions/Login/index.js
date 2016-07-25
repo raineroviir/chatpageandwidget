@@ -47,7 +47,6 @@ function postActionConstruct(json, payload, addOrg, goToInvitePage) {
     if(goToInvitePage){
       //window.location.hash = "#/organization/invite";
       browserHistory.push("/organization/invite");
-
     }
     else{
       //window.location.hash = "#/dashboard/" + payload.username.split("/")[1];
@@ -83,9 +82,6 @@ function postActionConstruct(json, payload, addOrg, goToInvitePage) {
     dispatch({
       type: 'LOGIN_USER_RESPONSE',
       value:{"error":json.error,"token":json.token}
-    });    
-    dispatch({
-      type:'RESET_ORGANISATION_DETAILS'
     })
   }
 }

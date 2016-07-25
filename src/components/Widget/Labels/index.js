@@ -200,10 +200,7 @@ export class Labels extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                
-                            </div>
-                            <div className="row">
-                                <div className="col-sm-12">
+                                <div className="col-sm-6">
                                     <div className="input-wrapper cc-branding-wrapper">
                                         <span className={'widget-switch '+ (this.props.widgetConfig.ccBranding? 'switch-on' : '')}
                                         onClick={this.toggleSwitchStatus.bind(this, 'ccBranding')}
@@ -216,15 +213,6 @@ export class Labels extends Component {
                                         <p className="input-desc">
                                             Premium plan is needed  to remove
                                         </p>
-                                        {
-                                            this.state.userPlan != 'premium' ? 
-                                            <div >
-                                                <Link className="cc-btn" to="/upgrade/plans">View plans</Link>
-                                            </div>
-                                            :
-                                            ''
-                                        }
-                                        
                                     </div>
                                 </div>
                             </div>

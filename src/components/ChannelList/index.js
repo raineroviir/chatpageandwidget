@@ -11,7 +11,7 @@ export class ChannelList extends Component {
     });
   }
   selectChannel(channel){
-    this.props.selectChannel(channel.id);
+    this.props.selectChannel(channel);
   }
   render() {
     let user = this.props.user.userinfo, activeChannel = this.props.activeChannel;

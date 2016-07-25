@@ -38,9 +38,10 @@ export default (
     
 <Route path="/" component={App} > 
     <IndexRoute component={Login} />
-    <Route path="dashboard/:user">
+    <Route path="dashboard">
         <IndexRoute component={Home} />
-        <Route path="/dashboard/:user/:channel" component={Home}/>
+        <Route path="/dashboard/:channel" component={Home}/>
+        <Route path="/dashboard/:channel/:conversation" component={Home}/>
     </Route>
     <Route path="login" component={Login} />
     <Route path="signup" component={Registration} />

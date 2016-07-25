@@ -4,9 +4,7 @@ import { browserHistory } from 'react-router';
 import ApiService  from '../../api.service';
 
 export function initWidgetConfig( channelid ) {
-    return ( dispatch, getState ) => {
-      let state = getState();
-      return (
+    return dispatch => (
         ApiService.api( {
           action: "widget.details",
           payload: {
@@ -14,19 +12,6 @@ export function initWidgetConfig( channelid ) {
           }
         } )
         .then( res => {
-            let plan = state.userinfo.userinfo.plan;
-            let userPlan = 'free';
-            if( plan && plan.stripe_id ) {
-              userPlan = plan.stripe_id;
-            } 
-            
-            if( res && res.channel ) {
-              if( userPlan != 'premium' ) {
-                res.ccBranding = false;
-              }
-            }
-
-
             dispatch({
               type: 'WIDGET_UPDATE_KEY',
               key: 'isNewChannelConfig',
@@ -49,8 +34,7 @@ export function initWidgetConfig( channelid ) {
             })*/
           }
         )
-      )
-    }
+    )
 }
 
 export function updateWidgetKey( obj ) {

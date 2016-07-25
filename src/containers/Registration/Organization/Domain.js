@@ -22,7 +22,7 @@ export class RegisterOrgDomain extends Component {
   }
 
   checkForTeamNameAvailability(CurrentTeamName){
-    this.props.actions.checkTeamName(CurrentTeamName + '.chat.center');
+    this.props.actions.checkTeamName(CurrentTeamName);
   }
 
   render() {

@@ -88,16 +88,18 @@ export class Home extends Component {
     }
     else {
       return (
-        <HomeView urlparams={this.props.params} historyApi={this.props.history} isGroupChat={this.props.isGroupChat} />
+        <HomeView urlparams={this.props.params} historyApi={this.props.history} isGroupChat={this.props.isGroupChat} channelname={this.props.channelname} conversationname={this.props.conversationname} />
       );
     }
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     isGroupChat: state.channels.channels.isGroupChat,
-    isGuest: state.guest.guest
+    isGuest: state.guest.guest,
+    channelname: ownProps.params.channel,
+    conversationname: ownProps.params.conversation
   }
 }
 

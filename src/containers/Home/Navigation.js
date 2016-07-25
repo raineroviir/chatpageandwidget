@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as ChannelsActions from '../../actions/Channels';
+import * as ChannelsActions from '../../actions/Navigation';
 
 /* components */
 import { NavigationView } from 'components/Navigation';
@@ -11,6 +11,9 @@ export class Navigation extends Component {
   }
   addOrganization(org){
     this.props.actions.addOrganization(org)
+  }
+  componentWillMount(){
+    this.props.actions.populateUserInfo()
   }
   render() {
     return (
