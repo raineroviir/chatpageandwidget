@@ -11,7 +11,7 @@
 }
 .chats-contacts-wrapper {
     height: 100%;
-    width: 312px;
+    width: 100%;
     float: left;
     border-right: 1px solid #e5e5e5;
     .chats-contacts {
@@ -33,9 +33,6 @@
                 text-decoration: none;
                 color: #acaeb3; 
 
-            }
-            .img-circle {
-                display: none;
             }
             .img-circle,.avatar {
                 height:48px;

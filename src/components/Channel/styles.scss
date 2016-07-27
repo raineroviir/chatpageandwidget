@@ -315,10 +315,19 @@
 			background: #fff;
 			border-radius: 50%;
 			margin-top: 30px;
-			.glyphicon {
-				line-height: 120px;
-				font-size: 60px;
+			.cc-icon {
+				position: relative;
+			    top: 1px;
+			    display: inline-block;
+			    text-align: center;
+			    display: inline-block;
+			    height: 120px;
+			    width: 120px;
+			    background-repeat: no-repeat;
+			    background-position: center center;
 			}
+			
+
 
 		}
 

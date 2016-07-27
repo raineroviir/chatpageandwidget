@@ -3,6 +3,8 @@ import urlConfig from '../../url-config';
 import { browserHistory } from 'react-router';
 import ApiService  from '../../api.service';
 
+
+
 export function initWidgetConfig( channelid ) {
     return dispatch => (
         ApiService.api( {
@@ -47,7 +49,7 @@ export function updateWidgetKey( obj ) {
     )
 }
 
-export function saveWidgetConfig( config, channelid, isNewChannelConfig ) {
+export function saveWidgetConfig( config, channelid, isNewChannelConfig, activeChannelName ) {
   let payload = {
     channel_id: channelid,
     widget_configuration: config
@@ -79,8 +81,8 @@ export function saveWidgetConfig( config, channelid, isNewChannelConfig ) {
           type: 'INIT_WIDGET_CONFIG_INITIAL_STATE',
           data: config
         })
-
-        alert( message );
+        browserHistory.push("/dashboard/" + activeChannelName );
+        //alert( message );
       })
   )
 }

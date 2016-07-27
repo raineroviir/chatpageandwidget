@@ -75,11 +75,18 @@ export class Channels extends Component {
   render() {
 
     return (
-        <ChannelList createChannel={this.createChannel.bind(this)} channels={this.props.channels.channels} user={this.props.user} selectChannel={this.selectChannel.bind(this)} activeChannel={this.props.activeChannel} org={this.props.org} />
+        <ChannelList 
+        createChannel={this.createChannel.bind(this)} 
+        channels={this.props.channels.channels} 
+        user={this.props.user} 
+        selectChannel={this.selectChannel.bind(this)} 
+        activeChannel={this.props.activeChannel} 
+        org={this.props.org} />
     );
   }
   componentDidMount(){
-    this.props.actions.getChannels();
+
+    this.props.actions.getChannels( this.props.activeChannel );
     this.props.createChannelActions.resetDetails();
     this.props.actions.fetchSocket();
     if(this.props.channelname){

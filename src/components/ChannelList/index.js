@@ -15,6 +15,7 @@ export class ChannelList extends Component {
   }
   render() {
     let user = this.props.user.userinfo, activeChannel = this.props.activeChannel;
+
     return (
         <aside className="secondary-nav mCustomScrollBar">
           <div className="layer1">
@@ -30,7 +31,10 @@ export class ChannelList extends Component {
                   { this.props.org && this.props.org.name }
                 </p>
               </div>
-              <div className="direct-message" onClick={this.selectChannel.bind(this, this.props.channels.directChannel)}>
+              <div className={"direct-message" + 
+              (this.props.channels.directChannel && this.props.channels.directChannel.id === this.props.activeChannel ? ' active' : '')
+              } 
+              onClick={this.selectChannel.bind(this, this.props.channels.directChannel)}>
                 <h3 className="title ellipsis">Direct Messages</h3>
                 <div className="item-features">
                   <span className="msg-count">{ this.props.channels.count }</span>
@@ -52,7 +56,10 @@ export class ChannelList extends Component {
                       let avatarText = (channel.name) ? channel.name.charAt(0) : "";
                       return (
                         
-                        <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message active" : "chat-message" }>
+                        <li onClick={this.selectChannel.bind(this, channel)} 
+                        key={channel.id} 
+                        className={ (channel.id == activeChannel) ? "chat-message active" : 
+                        "chat-message" }>
                           <a>
                             <img className={classNames("img-rounded", { hide: !channel.avatar_96})} src={channel.avatar_96 || ""} title={channel.name} alt={channel.name} />
                             <span className={classNames("avatar", { hide: !!channel.avatar_96})}>{avatarText}</span>

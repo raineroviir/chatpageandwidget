@@ -51,7 +51,7 @@ export function getConversations(channelid, channels, conversationname) {
     fetchConversations(channelid).then(response => {return response.json()})  
       .then(json => {
         /* Invoke Channels Service when we recieve new channels */
-        if(json.conversations.length){
+        if(json && json.conversations && json.conversations.length){
           let conversations = _.sortBy(json.conversations, a => parseInt(moment(a.updated_at).format("x"))).reverse();
           dispatch(getConversationHistory(conversationname || conversations[0].id));
         }

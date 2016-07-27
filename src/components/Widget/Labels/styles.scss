@@ -1,7 +1,7 @@
 .widget-labels {
     
     position: relative;
-    margin-right: 320px;
+    /*margin-right: 320px;*/
 
     .wc-primary-section {
         margin: 0 0 0 -50px ;
@@ -17,6 +17,7 @@
         background: #f9f9f9;
         height: 100vh;
         border-left: solid 1px #e5e7e9;
+        display: none;
         .chat-widget {
             height: 100%;
         }
@@ -153,4 +154,16 @@
         }
     }
 
+}
+
+
+
+@media screen and (min-width: 1000px) {
+    .widget-labels {
+    
+        margin-right: 320px;
+        .widget-label-chat-preview {
+            display: block
+        }
+    }
 }

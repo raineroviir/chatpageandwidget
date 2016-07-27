@@ -30,7 +30,7 @@ export class DefaultMessage extends Component {
                     We will be happy to show you around, and help you make sure you are using Chat center to its full potential. Any feedback is very welcome too.
                 </div>
                 <div className="link-section">
-                    <a href="#">chat.center</a>
+                    <a href="javascript:;">chat.center</a>
                 </div>
             </div>
         </div>

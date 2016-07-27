@@ -120,7 +120,7 @@ export class RegisterIndividualDomain extends Component {
             <h2>Members</h2>
             <div className="moderator-item-wrapper filter-result">
               {
-                this.props.registrationDetails.Organisation.members.map(member => {
+                this.props.registrationDetails.Organisation.members&&this.props.registrationDetails.Organisation.members.map(member => {
                   return (
                     <div className="moderator-item" key={member.id}>
                       <div className="avatar-wrapper">

@@ -40,7 +40,11 @@ export class Widget extends Component {
   }
   saveWidgetConfig( e ) {
       e.preventDefault();
-      this.props.actions.saveWidgetConfig( this.props.widgetConfig, this.props.conversations.channelid, this.props.widget.isNewChannelConfig );
+      let activeChannelDetails = {};
+      if( this.props.channels ){
+        activeChannelDetails = this.props.channels.channels.all.find( channel => channel.id == this.props.conversations.channelid );
+      }
+      this.props.actions.saveWidgetConfig( this.props.widgetConfig, this.props.conversations.channelid, this.props.widget.isNewChannelConfig, activeChannelDetails.name );
   }
 
   render() {
@@ -74,7 +78,12 @@ export class Widget extends Component {
     
 
     let isNewChannelConfig = this.props.widget.isNewChannelConfig;
-
+    let activeChannelDetails = {};
+    if( this.props.channels ){
+      activeChannelDetails = this.props.channels.channels.all.find( channel => channel.id == this.props.conversations.channelid );
+    }
+    
+    
     return (
 
       <div>
@@ -88,19 +97,21 @@ export class Widget extends Component {
           <div className="widget-content" >
             <div className={ "widget-" + classId }>
               <div className="widget-feature-buttons">
+                <span className="save-button-wrapper">
+                  {
+                    unsavedChanges > 0 && !isNewChannelConfig ? 
+                    <p className="form-change-status" >{unsavedChanges} unsaved changes</p>
+                    :
+                    ''
+                  }
+                  
+                  <button 
+                  className="cc-btn save-button" 
+                  disabled={unsavedChanges==0}
+                  onClick={this.saveWidgetConfig.bind(this)}>PUBLISH CHANGES</button>
+                </span>
 
-                {
-                  unsavedChanges > 0 && !isNewChannelConfig ? 
-                  <p className="form-change-status" >{unsavedChanges} unsaved changes</p>
-                  :
-                  ''
-                }
-                
-                <button 
-                className="cc-btn save-button" 
-                disabled={unsavedChanges==0}
-                onClick={this.saveWidgetConfig.bind(this)}>PUBLISH CHANGES</button>
-                <Link to="/dashboard" className="widget-close">
+                <Link to={"/dashboard/" + activeChannelDetails.name } className="widget-close">
                 </Link>
               </div>
               <div className="email-camp-channel">
@@ -142,7 +153,8 @@ function mapStateToProps(state) {
     widgetConfig: state.widgetConfig,
     widget: state.widget,
     historyApi: state.historyApi,
-    widget: state.widget
+    widget: state.widget,
+    channels: state.channels
   }
 }
 

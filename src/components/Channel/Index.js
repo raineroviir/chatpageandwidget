@@ -53,7 +53,7 @@ export class Channel extends Component {
             <div className="master-tile">
               <a className="master-link" href="javascript:;" onClick={this.props.chatType.bind(this, {is_public:true,is_group:false,is_direct:false}, '/channel/create')}>
                 <span className="icon-wapper">
-                  <span className="glyphicon glyphicon-user"></span>
+                  <span className="cc-icon individual-chat"></span>
                 </span>
                 <span className="master-link-title">Individual Chat</span>
               </a>
@@ -63,7 +63,9 @@ export class Channel extends Component {
             </div>
             <div className="master-tile">
               <a className="master-link" href="javascript:;" onClick={this.props.chatType.bind(this, {is_public:true,is_group:true,is_direct:false}, '/channel/create')}>
-                <span className="icon-wapper"><span className="glyphicon glyphicon-qrcode"></span></span>
+                <span className="icon-wapper">
+                  <span className="cc-icon individual-group"></span>
+                </span>
                 <span className="master-link-title">Group Chat</span>
               </a>
               <p className="master-tile-desc">

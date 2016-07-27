@@ -206,17 +206,27 @@
             display:block;
         }
     }
+    
 }
-@media screen and (max-width: 1000px) {
-    .chats-contacts-wrapper {
-        display: none;
-    }
+@media screen and (min-width: 768px) {
+    
     .main-section {
         .chat-panel {
-            width: 100%;
+            width: calc(100% - 250px);
         }
         .chats-contacts-wrapper {
-            width: 100%;
+            width: 250px;
+        }
+    }
+}
+@media screen and (min-width: 1001px) {
+    
+    .main-section {
+        .chat-panel {
+            width: calc(100% - 312px);
+        }
+        .chats-contacts-wrapper {
+            width: 312px;
         }
     }
 }
