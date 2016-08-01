@@ -27,6 +27,10 @@ export class ChannelCreate extends Component {
           self.refs.avatarPreview.style.display = 'block';
       };
     }
+    if( type === 'description' ) {
+      // capitalize chatname 
+      this.refs.description.value = this.refs.description.value.replace(/\b\w/g , function(m){ return m.toUpperCase(); } );
+    }    
     this.refs.nextButton.disabled = !(this.refs.description.value && this.refs.channel.value);
     this.refs.saveButton.disabled = !(this.refs.description.value && this.refs.channel.value);
   }
@@ -139,7 +143,12 @@ export class ChannelCreate extends Component {
                   </div>
                   <div className="input-wrapper">
                     <label htmlFor="chatname">Chat Name</label>
-                    <input id="chatname" type="text" className="input-field" ref="description" placeholder="i.e. Sales, Support, etc " onChange={this.inputChange.bind(this)} aria-describedby="chatname-addon" />
+                    <input id="chatname" type="text" 
+                    className="input-field" 
+                    ref="description" 
+                    placeholder="i.e. Sales, Support, etc " 
+                    onChange={this.inputChange.bind(this, 'description')} 
+                    aria-describedby="chatname-addon" />
                   </div>
                   <div className="input-wrapper">
                     <label htmlFor="chataddress-addon">Chat address</label>

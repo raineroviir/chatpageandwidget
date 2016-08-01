@@ -3,12 +3,13 @@
     position: relative;
     /*margin-right: 320px;*/
 
-    .wc-primary-section {
-        margin: 0 0 0 -50px ;
-        margin-top: 13px;
-        padding-top: 27px;
+    .free-user + .wc-primary-section {
+        margin-top: 0;
+        background: #fff;
+        box-shadow: none;
+        padding-top: 17px;
     }
-    
+        
     .widget-label-chat-preview {
         width: 320px;
         position: fixed;
@@ -115,6 +116,11 @@
             .widget-switch {
                 float: right;
             }
+            &.active-remove-ccbrand {
+                .input-label {
+                    color: #000;
+                }
+            }
         }
         .email-placeholder-row {
             margin-top: 7px;
@@ -127,7 +133,8 @@
         .cc-btn {
             display: inline-block;
             font-size: 20px;
-            padding: 12px 27px;
+            padding: 10px 29px;
+            letter-spacing: normal;
         }
     }
     .mask-primary-section {
@@ -136,7 +143,8 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 0.9);
+
         z-index: 1;
     }
     .wc-primary-section {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { ChannelMenu } from './channel-menu';
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -25,27 +26,21 @@ export class HeaderView extends Component {
 
   toggleSettingsMenu( e ){
     e.preventDefault();
-    this.setState({
-      showSettingsMenu: !this.state.showSettingsMenu
-    });
-    let ele = e.currentTarget;
-    this.setState({
-       settingsMenuLeft : ( ele.offsetLeft - 46 )  + 'px'
-    })
+    let el = e.currentTarget;
+    this.props.poptartActions.setPoptartComponent(
+      <ChannelMenu channel = {this.props.channelInfo} 
+      posX = {$(el).offset().left} 
+      posY = {$(el).offset().top}
+      poptartActions = {this.props.poptartActions}
+      />
+    )
   }
 
   render() {
-    //console.log( 'this.state', this.state );
     let user = this.props.user.userinfo,
       channel = this.props.channelInfo;
 
-    /*
-    
-    <span className="glyphicon glyphicon-circle-arrow-left arrow-left-icon" aria-hidden="true"></span> 
-
-    <span className="glyphicon glyphicon-user visible-xs" aria-hidden="true">
-              </span>
-    */
+   
     return (
 
       <div className="header">
@@ -55,67 +50,56 @@ export class HeaderView extends Component {
           <div className= { this.state.openFeature ? "feature-panel open-feature" : "feature-panel"} >
             <a href="#" className="glyphicon glyphicon-menu-hamburger  feature-panel-menu" onClick={this.toggleFeturePanel.bind(this)}> </a>
             <ul className="feature-list">
-              <li className="button-search"></li>
-              <li className="button-new"></li>
-              <li className="button-mention"></li>
-              <li className="button-tag"></li>
+              <li className="button-user-li">
+                <a className="button-user">
+                  <span className="count">4</span>
+                </a>
+              </li>
+              <li>
+                <a className="button-search"></a>
+              </li>
+              <li>
+                <a className="button-new"></a>
+              </li>
+              <li>
+                <a className="button-mention"></a>
+              </li>
+              <li>
+                <a className="button-tag"></a>
+              </li>
             </ul>
           </div>
-          <div className="title-section">
-
-            <h1 className="title">
-              { channel && channel.name}
-              <a href="#" onClick={this.toggleSettingsMenu.bind(this)}>
-                <span className="channel-setting" aria-hidden="true"></span>
-              </a>
-            </h1>
-            <div className={"settings-menu" + (this.state.showSettingsMenu ? ' show-menu': '')} 
-            style={
-              {
-                left:this.state.settingsMenuLeft
-              }
-            }
-            >
-              <span className="menu-traingle"></span>
-              <ul>
-                {
-                  channel&&channel.is_group ? '':
-                  (<li>
-                    <Link to="/widget/installation">Website widget setup</Link>
-                  </li>)  
-                }
-                
-                <li>
-                  <a>Click to Chat button setup</a>
-                </li>
-                <li>
-                  <a>Chat page setup</a>
-                </li>
-                <li className="separator">
-                  <Link to={channel ? '/channel/edit/' + channel.id : 'javascript:;'}>Channel name and URL</Link>
-                </li>
-                <li>
-                  <a>Channel notification preferances</a>
-                </li>
-                <li>
-                  <Link to={channel ? '/channel/members/' + channel.id : 'javascript:;'}>Channel members</Link>
-                </li>
-                <li>
-                  <a>Channel responces</a>
-                </li>
-              </ul>
+          {
+            channel&&channel.is_direct ? <div className="title-section">
+              <h1 className="title">
+                Direct Messages
+              </h1>
+              <div>
+                <a href="javascript:;" className="new-message-btn">
+                  <span className="glyphicon glyphicon-pencil"></span>
+                  NEW MESSAGE
+                </a>
+              </div>
             </div>
-            <p className="channel-name-wrapper">
-              <span className="channel-name">
-              {
-                channel ? (channel.address.domain + "/" + channel.address.channel) : ""
-              }
-              </span>
-              <span className="label label-default">SHARE</span>
-              </p>
-          </div>
+          :
+            <div className="title-section">
 
-         
+              <h1 className="title">
+                { channel && channel.name}
+                <a href="#" className="channel-setting-gear" onClick={this.toggleSettingsMenu.bind(this)}>
+                  <span className="channel-setting" aria-hidden="true"></span>
+                </a>
+              </h1>
+              <p className="channel-name-wrapper">
+                <span className="channel-name">
+                {
+                  channel ? (channel.address.domain + "/" + channel.address.channel) : ""
+                }
+                </span>
+                <span className="label label-default">SHARE</span>
+                </p>
+            </div>
+          }         
       </div>
     );
   }

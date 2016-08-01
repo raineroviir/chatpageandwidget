@@ -8,6 +8,8 @@ import './styles/app.scss';
 /* Import all files in images folder */
 require.context("./images", true, /.*/);
 
+import Poptart from '../poptart';
+
 /* application components */
 //import { Header } from 'components/Header';
 //import { Footer } from 'components/Footer';
@@ -22,6 +24,7 @@ export class App extends Component {
     return (
       <div className="row">
         {this.props.children}
+        <Poptart />
       </div>
     );
   }

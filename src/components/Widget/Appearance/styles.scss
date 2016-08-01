@@ -51,6 +51,7 @@
             padding-right: 20px;
             margin-right: 8px;
             position: relative;
+            cursor: pointer;
             .color-tile  {
                 margin-right: 16px;
             }
@@ -182,4 +183,8 @@
         }
     }
 
+}
+
+.color-picker-model {
+    position: absolute;
 }

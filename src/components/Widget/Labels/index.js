@@ -86,9 +86,9 @@ export class Labels extends Component {
 
     render(){
         let userPlan = this.state.userPlan,  pageDesc;
-
+        
         if( userPlan === 'free' ) {
-            pageDesc = (<div className="page-desc premium-user">
+            pageDesc = (<div className="page-desc free-user">
                         
                         <h3 className="widget-sub-title">
                             Available on Plus and Premium plans.
@@ -99,7 +99,7 @@ export class Labels extends Component {
                         
                     </div>);
         } else {
-            pageDesc = (<div className="page-desc free-user">
+            pageDesc = (<div className="page-desc premium-user">
                         <h3 className="widget-sub-title">
                             Labels & Localization
                         </h3> 
@@ -200,21 +200,42 @@ export class Labels extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-sm-6">
+                            </div>
+                            <div>
+                                {
+                                    ( userPlan === 'plus' || userPlan === 'free' )    
+                                    ?
+                                    (
                                     <div className="input-wrapper cc-branding-wrapper">
-                                        <span className={'widget-switch '+ (this.props.widgetConfig.ccBranding? 'switch-on' : '')}
-                                        onClick={this.toggleSwitchStatus.bind(this, 'ccBranding')}
-                                        >
-                                            <span className="switch-point"></span>
+
+                                        <span className="pull-right">
+                                            <Link className="cc-btn" to="/upgrade/plans">Upgrade plan</Link>
                                         </span>
                                         <label className="input-label">
-                                            Chat Center Branding
+                                            Remove Chat Center Branding
                                         </label>
                                         <p className="input-desc">
                                             Premium plan is needed  to remove
                                         </p>
-                                    </div>
-                                </div>
+                                    </div> )
+                                    : 
+                                    (
+                                        <div className="input-wrapper cc-branding-wrapper active-remove-ccbrand">
+
+                                            <span className={'widget-switch '+ (this.props.widgetConfig.ccBranding? 'switch-on' : '')}
+                                            onClick={this.toggleSwitchStatus.bind(this, 'ccBranding')}
+                                            >
+                                                <span className="switch-point"></span>
+                                            </span>
+                                            <label className="input-label">
+                                                Remove Chat Center Branding
+                                            </label>
+                                            <p className="input-desc">
+                                                Premium plan is needed  to remove
+                                            </p>
+                                        </div> 
+                                    )
+                                }
                             </div>
                             <div className="row">
                                 <div className="col-sm-6">

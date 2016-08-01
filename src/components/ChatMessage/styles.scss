@@ -2,8 +2,25 @@
     width: 100%;
     float: left;
     height: 100%;
+    position: relative;
     .chat-messages-wrapper {
         height: calc( 100% - 48px );
+    }
+    .unread-message-notification {
+        font-size: 13px;
+        font-weight: 400;
+        color: #474848;
+        opacity: 0.9;
+        position : absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        padding: 13px 13px 12px 13px;
+        a {
+            float: right;
+            font-family: 'Rubik-Bold';
+        }
     }
 }
 

@@ -75,9 +75,16 @@ export class ChatMessage extends Component {
   }
   render() {
     return (
-      <div className="chat-messages-wrapper mCustomScrollBar">
-        <div>
-          {this.getMessages(this.props.messages)} 
+      <div>
+        <div className="unread-message-notification">
+          54 new messages since 24 Nov 2015
+          <a href="javascript:;">Mark as read</a>
+        </div>
+        <div className="chat-messages-wrapper mCustomScrollBar">
+          
+          <div>
+            {this.getMessages(this.props.messages)} 
+          </div>
         </div>
       </div>
     );

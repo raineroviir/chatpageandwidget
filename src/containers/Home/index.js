@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';
 
 
+
+
 export class Home extends Component {
   componentDidMount() {
     $('.mCustomScrollBar').mCustomScrollbar({ 
@@ -79,6 +81,17 @@ export class Home extends Component {
       theme:"dark-3"        
     });
   });
+
+    /*$( 'body' ).on( 'click', function ( e ) {
+        let target = e.target;
+        let settingsMenu = $( target ).closest( '.channel-setting-link' );
+        if( settingsMenu.length ) {
+          e.preventDefault();
+          $( '.settings-menu' ).toggleClass( 'show-menu' );  
+        } else {
+          $( '.settings-menu' ).removeClass( 'show-menu' );  
+        }
+    } )*/
   }
   render() {
     if(this.props.isGuest){
@@ -88,7 +101,12 @@ export class Home extends Component {
     }
     else {
       return (
-        <HomeView urlparams={this.props.params} historyApi={this.props.history} isGroupChat={this.props.isGroupChat} channelname={this.props.channelname} conversationname={this.props.conversationname} />
+        <HomeView 
+        urlparams={this.props.params} 
+        historyApi={this.props.history} 
+        isGroupChat={this.props.isGroupChat} 
+        channelname={this.props.channelname} 
+        conversationname={this.props.conversationname} />
       );
     }
   }

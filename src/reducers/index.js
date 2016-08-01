@@ -16,6 +16,7 @@ import { widget } from './widget';
 import { widgetConfig } from './widget-config';
 import { upgradeForm } from './upgradeForm';
 import { upgradePlan } from './upgradePlan';
+import { poptart } from './poptart';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -35,7 +36,8 @@ const rootReducer = combineReducers({
   widget,
   widgetConfig,
   upgradePlan,
-  upgradeForm
+  upgradeForm,
+  poptart
 });
 
 export default rootReducer;

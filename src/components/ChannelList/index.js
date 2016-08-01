@@ -64,7 +64,7 @@ export class ChannelList extends Component {
                             <img className={classNames("img-rounded", { hide: !channel.avatar_96})} src={channel.avatar_96 || ""} title={channel.name} alt={channel.name} />
                             <span className={classNames("avatar", { hide: !!channel.avatar_96})}>{avatarText}</span>
                             <span className="name ellipsis">
-                              {channel.name}
+                              <span className="channel-name-text">{channel.name}</span>
                             </span>
                             <span className="msg-count">2</span>
                           </a>
@@ -91,7 +91,7 @@ export class ChannelList extends Component {
                             <img className={classNames("img-rounded", { hide: !channel.avatar_96})} src={channel.avatar_96 || ""} title={channel.name} alt={channel.name} />
                             <span className={classNames("avatar", { hide: !!channel.avatar_96})}>{avatarText}</span>
                             <span className="name ellipsis">
-                              {channel.name}
+                              <span className="channel-name-text">{channel.name}</span>
                             </span>
                             <span className="msg-count">2</span>
                           </a>
@@ -116,7 +116,7 @@ export class ChannelList extends Component {
                             <img className={classNames("img-rounded", { hide: !channel.avatar_96})} src={channel.avatar_96 || ""} title={channel.name} alt={channel.name} />
                             <span className={classNames("avatar", { hide: !!channel.avatar_96})}>{avatarText}</span>
                             <span className="name ellipsis">
-                              {channel.name}
+                              <span className="channel-name-text">{channel.name}</span>
                             </span>
                             <span className="msg-count">2</span>
                           </a>
@@ -143,7 +143,7 @@ export class ChannelList extends Component {
                             <span className={classNames("avatar", { hide: !!channel.avatar_96})}>{avatarText}</span>
                               <span className="name ellipsis">
                                 <span>
-                                  {channel.name}
+                                  <span className="channel-name-text">{channel.name}</span>
                                   <span className="groups-icon"></span>
                                   {!channel.is_public&&<span className="lock-icon"></span>}
                                 </span>
@@ -170,7 +170,7 @@ export class ChannelList extends Component {
                           <a>
                             <img className="img-rounded" src="dist/images/user.png" title={channel.name} alt={channel.name} />
                             <span className="name ellipsis">
-                              {channel.name}
+                              <span className="channel-name-text">{channel.name}</span>
                             </span>
                             <span className="msg-count">2</span>
                           </a>

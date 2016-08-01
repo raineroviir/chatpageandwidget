@@ -16,7 +16,7 @@
         display: inline-block;
         border-radius: 10px;
         font-size: 12px;
-        padding: 0 5px 0 5px;
+        padding: 0 5px 0 4px;
         vertical-align: middle;
     }
     .user-info {
@@ -64,7 +64,8 @@
 
     .direct-message {
         padding: 15px 12px;
-        margin-bottom: -10px;
+        padding-bottom: 17px;
+        margin-bottom: -14px;
         position: relative;
         cursor: pointer;
         .title {
@@ -98,7 +99,7 @@
         
     }
     .chat-lists-wrapper {
-        padding: 10px 14px;
+        padding: 10px 12px;
     }
     .chat-list {
         margin: 0;
@@ -111,17 +112,21 @@
                 text-decoration: none;
             }
         }
+        .channel-name-text {
+            opacity: 0.87;
+        }
     }
     .chat-list-title {
         font-size: 12px;
         letter-spacing: 1.4px;
         position: relative;
         margin-bottom: 7px;
-        color:#a8b1ab;
+        color: #fff;
         .title-text {
             display: block;
             padding-right: 18px;
             font-family: Rubik-Medium;
+            opacity: 0.6;
 
         }
         .plus-icon {
@@ -131,7 +136,7 @@
             width: 20px;
             position: absolute;
             top: -2px;
-            right: -3px;
+            right: 0px;
             opacity: 0.6;
             cursor: pointer;
             &:hover {
@@ -156,12 +161,12 @@
         }
         .img-rounded, .avatar {
             position: absolute;
-            height: 26px;
+            height: 28px;
             width: 28px;
             top: 6px;
             left: 13px;
             text-align: center;
-            line-height: 26px;
+            line-height: 28px;
             border-radius: 2px;
             text-transform: uppercase;
         }
@@ -177,7 +182,7 @@
         .msg-count {
             position: absolute;
             top: 10px;
-            right: 11px;
+            right: 13px;
         }
         
         &:hover {
@@ -190,8 +195,8 @@
     .group-chat-list {
         .groups-icon, .lock-icon {
             background-image: url(../images/password-icon-white.svg);   
-            height: 16px;
-            width: 16px;
+            height: 13px;
+            width: 13px;
             display: inline-block;
             background-size: 100%;
             background-repeat: no-repeat;
@@ -199,13 +204,14 @@
             vertical-align: middle;
             position: absolute;
             top: 2px;
-            right: 2px;
+            right: 4px;
         }
+        
         .groups-icon {
             background-image: url(../images/groups.svg);   
         }
         .private-channel {
-            padding-right: 55px;
+            padding-right: 38px;
             .groups-icon {
                 right: 20px;
             }
@@ -215,7 +221,7 @@
         }
         .name {
             position: relative;
-            padding-right: 20px;
+            padding-right: 25px;
         }
     }
 

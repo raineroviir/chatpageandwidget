@@ -72,6 +72,12 @@
                 right: 0px;
                 font-size: 13px;
                 color: #acaeb3;
+                .available-status {
+                    height: 9px;
+                    width: 9px;
+                    border-radius: 100%;
+                    margin-right: 4px;
+                }
             }
             li.active, li:hover {
                 /*a {

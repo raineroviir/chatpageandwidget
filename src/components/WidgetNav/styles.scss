@@ -69,6 +69,8 @@
             .form-change-status {
                 display: inline-block;
                 margin-right: 20px;
+                color: #555860;
+                opacity: 0.5;
             }
         }
         .widget-close {
@@ -135,7 +137,7 @@
         background-color: rgba(249, 249, 249, 0.99);
         box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.1);
         padding-top: 23.6px;
-        margin: 0 -49px;
+        margin: 0 -50px;
         padding:  24px 51px 33px 51px;
         margin-top: 26px;
         .wc-primary-section-content {
@@ -293,4 +295,12 @@
 
 
     
+}
+
+@media screen and (min-width: 768px) { 
+    .widget-nav-wrapper {
+        .widget-nav-menu-hamburger {
+            display: none;
+        }
+    }
 }

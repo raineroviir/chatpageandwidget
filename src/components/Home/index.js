@@ -33,7 +33,7 @@ export class HomeView extends Component {
             <Channels channelname={this.props.channelname} conversationname={this.props.conversationname} />
           </div>
           <div className="main-section">
-            <Header />
+            <Header poptartActons= {this.props.poptartActons}/>
             <section className={ this.props.isGroupChat ? "group-chat conversations-panel" : "conversations-panel"}>
               <Conversations />
               <div className="chat-panel">

@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { SketchPicker } from 'react-color';
 import { connect } from 'react-redux';
-import * as WidgetActions from '../../../actions/Widget';;
+import * as WidgetActions from '../../../actions/Widget';
+import * as PoptartActions from '../../../actions/Poptart';
 import { bindActionCreators } from 'redux';
 
 /* component styles */
@@ -29,8 +30,7 @@ export class Appearance extends Component {
         ]
         this.state = {
             customThemeCode: '#fdb22c',
-            colors: colors,
-            colorPickerStatus : false
+            colors: colors
         };
 
         this.state.isCustomCode = colors.indexOf(this.props.widgetConfig.keyColor) === -1 ? true : false;
@@ -104,14 +104,26 @@ export class Appearance extends Component {
           }, false);
         }
     }
-    setColorPickerStatus( status ) {
-        this.setState({
-            colorPickerStatus : status
-        })
+    openCustomColorPicker( e ) {
+
+        this.props.poptartActions.setPoptartComponent(
+            <div className="color-picker-model"
+            style = {
+                {
+                    left: $(e.currentTarget).offset().left + 4,
+                    top: $(e.target).offset().top + 50
+                }
+            }
+            >
+                <SketchPicker 
+                    color={ this.state.customThemeCode }
+                    onChangeComplete={ this.handleChangeComplete.bind( this ) }
+                    />
+            </div>
+        )
     }
     handleChangeComplete( color ) {
         this.setState({
-            colorPickerStatus : false,
             isCustomCode : true,
             customThemeCode: color.hex
         });
@@ -122,12 +134,7 @@ export class Appearance extends Component {
 
     }
     render() {
-        let colorPicker = this.state.colorPickerStatus ? <SketchPicker 
-            color={ this.state.customThemeCode }
-            onChangeComplete={ this.handleChangeComplete.bind( this ) }
-            className="widget-color-picker"
-        />: <div></div>;
-
+        
         let getColorsTiles = () => {
         console.log('this.state.customThemeCode',this.state.customThemeCode); 
             return (
@@ -146,7 +153,7 @@ export class Appearance extends Component {
                         )
                     }
                     <div className="custom-color-picker-wrapper">
-                        <div className="custom-color-picker" onClick={this.setColorPickerStatus.bind(this, true)}>
+                        <div className="custom-color-picker" onClick={this.openCustomColorPicker.bind(this)}>
                             <a 
                             href="#"
                             style={ {backgroundColor: this.state.customThemeCode} } 
@@ -157,10 +164,6 @@ export class Appearance extends Component {
                             <span className="angle-down-arrow" 
                             >
                             </span>
-                            {
-                                colorPicker
-                            }
-                                                        
                             
                         </div>
                         <span>Custom</span>
@@ -257,7 +260,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(WidgetActions, dispatch)
+    actions: bindActionCreators(WidgetActions, dispatch),
+    poptartActions : bindActionCreators(PoptartActions, dispatch)
   }
 }
 

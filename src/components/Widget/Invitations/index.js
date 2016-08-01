@@ -121,7 +121,7 @@ export class Invitations extends Component {
                         <div className="condition-cell cell1">
                             <div className="cell-content">
                                 <select defaultValue={cond.variable}
-                                onChange={this.renderRuleSetChange.bind(this, index, 'variable')}
+                                onChange={this.renderRuleSetChange.bind(this, index, 'variable', false)}
                                 >
                                     <option value="time_on_current_page">Time on current page </option>
                                     <option value="time_on_website">Time on website </option>
@@ -136,13 +136,13 @@ export class Invitations extends Component {
                                     ( cond.variable == 'time_on_current_page' || cond.variable =='time_on_website')
                                     ? 
                                     <select defaultValue={cond.operator}
-                                        onChange={this.renderRuleSetChange.bind(this, index, 'operator')}>
+                                        onChange={this.renderRuleSetChange.bind(this, index, 'operator', false)}>
                                         <option value="more_than">More than</option>
                                         <option value="less_than">Less than</option>
                                         <option value="equal">Equal to</option>
                                     </select> :
                                     <select defaultValue={cond.operator}
-                                        onChange={this.renderRuleSetChange.bind(this, index, 'operator')}>
+                                        onChange={this.renderRuleSetChange.bind(this, index, 'operator', false)}>
                                         <option value="contains">Contains</option>
                                         <option value="equal">Equal to</option>
                                         <option value="does_not_contain">Doesn't Contain</option>
@@ -168,7 +168,7 @@ export class Invitations extends Component {
                                     </span>
                                     :
                                     <input type="text" value={cond.value} 
-                                    onChange={this.renderRuleSetChange.bind(this, index, 'value')}
+                                    onChange={this.renderRuleSetChange.bind(this, index, 'value', false)}
                                     className="input-field"/>
 
 
