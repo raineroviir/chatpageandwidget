@@ -58,7 +58,7 @@ export class NavigationView extends Component {
         </div>
         <div className="add-org-btn-wrapper">
             <Link  onClick={this.addOrganization.bind(this, this.props.orgs.orgs)} to="/?add">
-              <span className="glyphicon glyphicon-plus add-icon" aria-hidden="true"></span>
+              <span className="add-icon" aria-hidden="true"></span>
             </Link>
         </div>
       </nav>

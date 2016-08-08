@@ -24,7 +24,7 @@ export class ChatWidget extends Component {
         if(!this.refs.emailPromptInput.value) {
             return;
         }
-        console.log('emailPromptSubmit functionality');
+        //console.log('emailPromptSubmit functionality');
     }
 
     postMessage( e ) {
@@ -33,7 +33,7 @@ export class ChatWidget extends Component {
             return;
         }
         
-        console.log('postMessage functionality');
+        //console.log('postMessage functionality');
         this.refs.postMsgInput.value = '';
     }
 

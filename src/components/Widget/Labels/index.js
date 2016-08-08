@@ -5,6 +5,7 @@ import {ChatWidget} from '../ChatWidget/index';
 import { connect } from 'react-redux';
 import * as WidgetActions from '../../../actions/Widget';;
 import { bindActionCreators } from 'redux';
+let classNames = require("classnames");
 /* component styles */
 import { styles } from './styles.scss';
 
@@ -13,7 +14,7 @@ import avatarImg  from '../../images/user-icon-black.svg';
 export class Labels extends Component {
     constructor( props ) {
         super( props );
-        let plan = this.props.userinfo; 
+        let plan = this.props.userinfo.plan;
         this.state = {
             userPlan:  plan && plan.stripe_id || 'free'
         }
@@ -51,7 +52,8 @@ export class Labels extends Component {
             returnObj[key] = !this.state[ key ]
             return returnObj;
         };*/
-        if( key === 'ccBranding' && this.state.userPlan != 'premium'  ) {
+        let userPlan = this.state.userPlan;
+        if( key === 'ccBranding' && ( userPlan === 'plus' ||  userPlan === 'plus_yearly' || userPlan === 'free' ) ) {
             return;
         }
 
@@ -203,13 +205,14 @@ export class Labels extends Component {
                             </div>
                             <div>
                                 {
-                                    ( userPlan === 'plus' || userPlan === 'free' )    
+                                    !( userPlan === 'plus' || userPlan === 'plus_yearly' || userPlan === 'free' )    
                                     ?
                                     (
                                     <div className="input-wrapper cc-branding-wrapper">
-
-                                        <span className="pull-right">
-                                            <Link className="cc-btn" to="/upgrade/plans">Upgrade plan</Link>
+                                        <span className={'widget-switch '+ (this.props.widgetConfig.ccBranding? 'switch-on' : '')}
+                                        onClick={this.toggleSwitchStatus.bind(this, 'ccBranding')}
+                                        >
+                                            <span className="switch-point"></span>
                                         </span>
                                         <label className="input-label">
                                             Remove Chat Center Branding
@@ -217,22 +220,34 @@ export class Labels extends Component {
                                         <p className="input-desc">
                                             Premium plan is needed  to remove
                                         </p>
+                                        <div>
+                                            <Link to="/upgrade/plans" className="cc-btn">View plans</Link>
+                                        </div>
                                     </div> )
                                     : 
                                     (
                                         <div className="input-wrapper cc-branding-wrapper active-remove-ccbrand">
-
-                                            <span className={'widget-switch '+ (this.props.widgetConfig.ccBranding? 'switch-on' : '')}
-                                            onClick={this.toggleSwitchStatus.bind(this, 'ccBranding')}
-                                            >
-                                                <span className="switch-point"></span>
-                                            </span>
-                                            <label className="input-label">
-                                                Remove Chat Center Branding
-                                            </label>
-                                            <p className="input-desc">
-                                                Premium plan is needed  to remove
-                                            </p>
+                                            <div className={
+                                                classNames({
+                                                    'disable-remove-ccbrand': (userPlan === 'plus' || userPlan === 'plus_yearly')
+                                                })
+                                            } >
+                                                <div className="layer"></div>
+                                                <span className={'widget-switch '+ (this.props.widgetConfig.ccBranding? 'switch-on' : '')}
+                                                onClick={this.toggleSwitchStatus.bind(this, 'ccBranding')}
+                                                >
+                                                    <span className="switch-point"></span>
+                                                </span>
+                                                <label className="input-label">
+                                                    Remove Chat Center Branding
+                                                </label>
+                                                <p className="input-desc">
+                                                    Premium plan is needed  to remove
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <Link to="/upgrade/plans" className="cc-btn">View plans</Link>
+                                            </div>
                                         </div> 
                                     )
                                 }

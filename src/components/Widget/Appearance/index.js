@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as WidgetActions from '../../../actions/Widget';
 import * as PoptartActions from '../../../actions/Poptart';
 import { bindActionCreators } from 'redux';
+import { CustomColorPicker } from './custom-color-picker';
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -105,38 +106,37 @@ export class Appearance extends Component {
         }
     }
     openCustomColorPicker( e ) {
-
+        let left = $(e.currentTarget).offset().left + 4;
+        let top = $(e.target).offset().top + 50;
         this.props.poptartActions.setPoptartComponent(
-            <div className="color-picker-model"
-            style = {
-                {
-                    left: $(e.currentTarget).offset().left + 4,
-                    top: $(e.target).offset().top + 50
-                }
-            }
-            >
-                <SketchPicker 
-                    color={ this.state.customThemeCode }
-                    onChangeComplete={ this.handleChangeComplete.bind( this ) }
-                    />
-            </div>
+            <CustomColorPicker 
+            left = {left} 
+            top = {top}
+            color={ this.state.customThemeCode }
+            onSelect={ this.handleChangeComplete.bind( this ) }
+            closeColorPicker = { this.props.poptartActions.hidePoptart} 
+            />
         )
     }
     handleChangeComplete( color ) {
         this.setState({
             isCustomCode : true,
-            customThemeCode: color.hex
+            customThemeCode: color
         });
         this.props.actions.updateKey( {
             key: 'keyColor',
-            value: color.hex
+            value: color
+        } );
+        this.props.actions.updateKey( {
+            key:'keyColor',
+            value: this.state.customThemeCode
         } );
 
     }
     render() {
         
         let getColorsTiles = () => {
-        console.log('this.state.customThemeCode',this.state.customThemeCode); 
+        //console.log('this.state.customThemeCode',this.state.customThemeCode); 
             return (
                 <div className="color-tile-wrapper">
                     {
@@ -155,10 +155,8 @@ export class Appearance extends Component {
                     <div className="custom-color-picker-wrapper">
                         <div className="custom-color-picker" onClick={this.openCustomColorPicker.bind(this)}>
                             <a 
-                            href="#"
                             style={ {backgroundColor: this.state.customThemeCode} } 
                             className={'color-tile ' + ( this.state.isCustomCode ? ' selected' : '') }
-                            onClick={this.selectCustomTheme.bind(this)}
                             >
                             </a>
                             <span className="angle-down-arrow" 

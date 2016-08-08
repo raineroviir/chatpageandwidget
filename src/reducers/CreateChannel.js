@@ -115,6 +115,15 @@ export function createChannel(state = initialState, action) {
         CreateChannel
       };
 
+    case 'CHAT_MEMBERS_SUGGEST_DIRECT':
+      var CreateChannel = initialState.CreateChannel;
+      CreateChannel = (Object.assign({},state.CreateChannel));
+      CreateChannel.payload = (Object.assign({},state.CreateChannel.payload, {filtered_members:_.filter(action.members, function(obj){ return !_.findWhere(state.CreateChannel.payload.temp_members, obj); }) }));
+      return {
+        ...state,
+        CreateChannel
+      };
+
     case 'RESET_CREATE_CHANNEL':
       var CreateChannel = initialState.CreateChannel;
       CreateChannel = (Object.assign({},initialState.CreateChannel, {error:"",users:[]}))

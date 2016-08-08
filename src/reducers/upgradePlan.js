@@ -1,6 +1,5 @@
 const initialState = {
-    activePlanTab: 'year',
-    currentPlan: 'free',
+    activePlanTab: 'year',    
     plans: {
         month: [],
         year: []

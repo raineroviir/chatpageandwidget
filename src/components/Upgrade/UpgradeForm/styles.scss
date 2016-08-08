@@ -20,8 +20,8 @@
     &.float-label {
         label {
             color: #474848;
-            -webkit-transform: translate3d(0,-28px,0);
-            transform: translate3d(0,-28px,0);
+            -webkit-transform: translate3d(0,-38px,0);
+            transform: translate3d(0,-38px,0);
             transition: -webkit-transform cubic-bezier(0.25,.8,.25,1) .25s;
             transition: transform cubic-bezier(0.25,.8,.25,1) .25s;
             -webkit-transform-origin: left top;
@@ -36,7 +36,7 @@
         width: 100%;
         border: 0;
         background: none;
-        padding: 14px 11px 25px 11px;
+        padding: 37px 11px 25px 11px;
         outline: none;
         position: relative;
         z-index: 2;
@@ -45,7 +45,7 @@
 }
 
 .upgrade-form-view {
-    max-width: 759px;
+    max-width: 705px;
     .choosed-plan-name {
         text-transform: capitalize;
     }
@@ -76,7 +76,8 @@
         background-color: rgba(249, 249, 249, 0.99);
         margin-top: 24px;
         color: #474848;
-        margin-left: -55px;
+        margin-left: -54px;
+        padding-left: 42px;
         .upgrade-form {
             max-width:  464px;
         }
@@ -89,6 +90,7 @@
             background-repeat: no-repeat;
             background-size: 20px;
             line-height: 24px;
+            margin-left: 11px;
         }
         .form-row {
             overflow: auto;
@@ -114,7 +116,7 @@
         }
         .cc-btn.submit-btn {
             font-size: 20px;
-            padding: 13px 26px 13px 25px;
+            padding: 12px 26px 9px 25px;
             width: 250px;
             .cc-btn {
                 position: absolute;
@@ -122,7 +124,7 @@
         }
         .double-field-wrapper {
             .field-wrapper {
-                width: 45%;
+                width: 44%;
                 float: left;
             }
             .second-field {
@@ -133,7 +135,7 @@
             
             .field-wrapper {
                 position: relative;
-
+                margin-top: 16px;
             }
             .cc-btn {
                 position: absolute;
@@ -147,7 +149,7 @@
                 bottom: 58px;
                 -webkit-transform: rotate(45deg);
                 transform: rotate(45deg);
-                right: 16px;
+                right: 30px;
                 display: none;
                 &:after {
                     position: absolute;
@@ -199,7 +201,7 @@
             margin-left: 11px;
         }
         .buttons-wrapper {
-            margin-top: 22px;
+            margin-top: 32px;
             margin-left: 11px;
         }
         .powered-by {
@@ -214,8 +216,8 @@
             height: 17px;
             width: 46px;
             position: absolute;
-            right: 0px;
-            bottom: 28px;
+            right: 10px;
+            bottom: 24px;
             background-repeat:no-repeat;
             background-size: contain;
             background-position: center center;
@@ -249,10 +251,12 @@
 
 /*just targetted for mobile resolution*/
 @media screen and (max-width: 767px) {
+
     .upgrade-form-view {
         .upgrade-form-wrapper {
             padding: 10px;
             margin-left: 0;
+            margin-top: 10px;
             .double-field-wrapper .field-wrapper {
                 width: 100%;
             }
@@ -268,6 +272,11 @@
             }
             .promo-link-wrapper {
                 margin-left: 0;   
+            }
+        }
+        .selected-details {
+            .col-sm-4 {
+                margin-bottom: 10px;
             }
         }
     }

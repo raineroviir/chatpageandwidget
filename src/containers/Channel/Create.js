@@ -49,6 +49,7 @@ export class ChannelCreateContainer extends Component {
               <Navigation historyApi={this.props.historyApi} />
               <ChannelCreate 
               id={this.props.id} 
+              teamName={teamName}
               isTeam={isTeam} 
               fetchChannel={this.fetchChannel.bind(this)} 
               details={this.props.createChannel} 

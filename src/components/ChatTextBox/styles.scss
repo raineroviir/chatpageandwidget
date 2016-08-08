@@ -1,10 +1,13 @@
 .post-form-wrapper {
-    position: fixed;
+    position: absolute;;
     bottom: 0px;
     padding: 8px 12px;
     border-top: 1px solid #eee;
     background: #f8f8f8;
     color: #555;
+    left: 0;
+    right: 0;
+
     .post-form {
         margin: 0;
         position: relative;

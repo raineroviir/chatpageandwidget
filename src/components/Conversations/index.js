@@ -43,7 +43,9 @@ export class ConversationsView extends Component {
                     <p className="name">
                       { (conversation.last_message) ? conversation.last_message.sender_name || ("User" + conversation.last_message.user_id) : "User user"}
                       <span className="time-wrapper">
-                        <span className="available-status online"></span>
+                        {
+                         /* <span className="available-status online"></span>*/
+                        }
                         {displayTime}
                       </span>
                     </p>

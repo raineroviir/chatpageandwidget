@@ -1,6 +1,6 @@
 let URLS = require("json!./urls.json");
 import fetch from 'isomorphic-fetch';
-import { browserHistory } from 'react-router';
+
 
 let ApiConfig = {
     api: "http://ec2-54-169-64-117.ap-southeast-1.compute.amazonaws.com:1111/v1",

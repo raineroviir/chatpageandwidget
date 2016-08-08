@@ -159,16 +159,23 @@ export class UpgradeForm extends Component {
     }
 
     componentWillMount() {
+      
+      this.props.actions.resetUpgradeForm();
       LoadStripe();
       if( !this.props.upgradePlan.choosedPlan.stripe_id ) {
         browserHistory.push("/upgrade/plans");
       }
 
-      this.props.actions.resetUpgradeForm();
+      
 
+    }
+    componentWillUnmount() {
+      
+      this.props.actions.resetUpgradeForm();
     }
 
     render(){
+      
         let pricePerTeamMember = this.props.upgradePlan.choosedPlan.amount;
        /* if( this.props.upgradePlan.activePlanTab === 'year' ) {
           pricePerTeamMember -=  1;
@@ -180,7 +187,7 @@ export class UpgradeForm extends Component {
                   <Link className="back-link" to="/upgrade/plans"> Chat Center Plans </Link>
                 </div>
                 <h1 className="upgrade-title">
-                  Upgrade to Chat Center &nbsp;
+                  Upgrade to Chat Center&nbsp;
                   <span className="choosed-plan-name">
                     {this.props.upgradePlan.choosedPlan.name}
                   </span>

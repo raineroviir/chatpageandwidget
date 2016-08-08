@@ -79,8 +79,13 @@ function postActionFindUser(json) {
   return (dispatch, getState) => {
     if(json.ok) {
       dispatch({
-        type: 'CHAT_MEMBERS_SUGGEST',
+        type: 'CHAT_MEMBERS_SUGGEST_DIRECT',
         members: [json.user]
+      })
+    } else {
+      dispatch({
+        type: 'CHAT_MEMBERS_SUGGEST_DIRECT',
+        members: []
       })
     }
   }

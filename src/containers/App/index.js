@@ -9,7 +9,7 @@ import './styles/app.scss';
 require.context("./images", true, /.*/);
 
 import Poptart from '../poptart';
-
+import Loader from '../loader';
 /* application components */
 //import { Header } from 'components/Header';
 //import { Footer } from 'components/Footer';
@@ -25,6 +25,7 @@ export class App extends Component {
       <div className="row">
         {this.props.children}
         <Poptart />
+        <Loader />
       </div>
     );
   }

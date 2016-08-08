@@ -119,6 +119,7 @@ export class ChannelCreate extends Component {
     //let channel = this.props.details.payload;
     return (
             <div id="create-ext-chat-form"  className="create-ext-chat create-ext-chat-form chat-name-address" >
+              <form id="channelCreateForm" role="form">
               <Link to="/dashboard" className="close-wrapper">
                 <span className="glyphicon glyphicon-remove"></span>
               </Link>
@@ -126,7 +127,11 @@ export class ChannelCreate extends Component {
                 <h1 className="section-title-1" style={{display:((this.props.details.payload.is_public && this.props.details.payload.is_group) ? "" : "none")}}>External group chat</h1>
                 <h1 className="section-title-1" style={{display:((this.props.isTeam && this.props.details.payload.is_public && !this.props.details.payload.is_group) ? "" : "none")}}>External Team-to-One chat channel</h1>
                 <h1 className="section-title-1" style={{display:((!this.props.isTeam && this.props.details.payload.is_public && !this.props.details.payload.is_group) ? "" : "none")}}>External One-to-One chat channel</h1>
-                <h1 className="section-title-1" style={{display:((!this.props.details.payload.is_public) ? "" : "none")}}>Internal group chat</h1>
+                <h1 className="section-title-1" style={{display:((!this.props.details.payload.is_public) ? "" : "none")}}>
+                Internal group chat
+                <span className="lock-icon"></span>
+
+                </h1>
                 <h2 className="section-title">Chat name and address</h2>
                 <p className="desc" style={{display:((!this.props.details.payload.is_public) ? "" : "none")}}>Private group chat. Only designated members have access. </p>
                 
@@ -137,22 +142,26 @@ export class ChannelCreate extends Component {
                       <img ref="avatarPreview" src="" title="Channel Avatar" style={{display:'none'}} />
                     </div>
                     <div className="browse" onClick={this.openFileInput.bind(this)}>
-                      Browse Image
+                      Browse...
                     </div>
                     
                   </div>
                   <div className="input-wrapper">
-                    <label htmlFor="chatname">Chat Name</label>
+                    <label htmlFor="chatname">Chat name</label>
                     <input id="chatname" type="text" 
-                    className="input-field" 
+                    className="input-field" autofocus
                     ref="description" 
                     placeholder="i.e. Sales, Support, etc " 
                     onChange={this.inputChange.bind(this, 'description')} 
+                    autoFocus
                     aria-describedby="chatname-addon" />
                   </div>
                   <div className="input-wrapper">
                     <label htmlFor="chataddress-addon">Chat address</label>
+                    <span className="chataddress-addon-label">http://{this.props.teamName}</span>
+                    <span className="chataddress-addon-slash">/</span>
                     <input id="chataddress-addon" type="text" className="input-field" ref="channel" placeholder="address" onChange={this.inputChange.bind(this)} aria-describedby="chataddress-addon" />
+
                   </div>
                   <div className={classnames('error-message', { hide: this.props.details.error!='duplicate_channel'})}>
                     This Chat address is not available.
@@ -168,6 +177,7 @@ export class ChannelCreate extends Component {
                 </div>
 
               </div>
+              </form>
             </div>
       
     );

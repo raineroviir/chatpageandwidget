@@ -152,19 +152,8 @@
             font-size: 16px;
             border-radius: 50%;
             color: #fff;
-            .add-icon {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                -webkit-transform: translate(-50%, -50%);
-                -ms-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-                background-repeat: no-repeat;
-                background-size: 100%; 
-            }
-            /*&:hover {
-                background: #138536;
-            }*/
+            background: url( '../images/plus_button.svg' ) no-repeat center center;
+            
         }
         
     }

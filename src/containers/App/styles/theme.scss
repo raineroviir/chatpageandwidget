@@ -111,7 +111,7 @@ $primaryInvertColor: #fff;
     .add-org-btn-wrapper {        
         a {
             &:hover {
-                background: $primaryColor;
+                background-color: $primaryColor;
             }
         }
         
@@ -502,5 +502,13 @@ footer {
         a {
             color: $primaryColor;
         }
+    }
+}
+
+
+.loader-wrapper {
+    .double-bounce1, .double-bounce2 {
+      
+        background-color: $primaryColor ;
     }
 }

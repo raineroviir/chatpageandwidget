@@ -88,6 +88,7 @@ export class ChannelMembersContainer extends Component {
 
   render() {
     let teamName = this.props.org ? this.props.org.name.split('/')[0] : '';
+    let teamDesc = this.props.org && this.props.org.user && this.props.org.user.team ? this.props.org.user.team.description : '';
     let isTeam = (teamName == 'chat.center' || teamName == '') ? false : true;
     return (
         <div>
@@ -99,6 +100,7 @@ export class ChannelMembersContainer extends Component {
             updateMembers={this.updateMembers.bind(this)} 
             deleteMembers={this.deleteMembers.bind(this)}
             isTeam={isTeam}
+            teamDesc={teamDesc}
             toggleFind={this.toggleFind.bind(this)} 
             getDirectUser={this.getDirectUser.bind(this)} 
             fetchMembersList={this.fetchMembersList.bind(this)}

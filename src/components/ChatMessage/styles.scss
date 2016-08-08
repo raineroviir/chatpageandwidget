@@ -3,24 +3,41 @@
     float: left;
     height: 100%;
     position: relative;
+    padding-bottom: 49px;
     .chat-messages-wrapper {
-        height: calc( 100% - 48px );
+        /*height: calc( 100% - 48px );*/
     }
-    .unread-message-notification {
-        font-size: 13px;
-        font-weight: 400;
-        color: #474848;
-        opacity: 0.9;
-        position : absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1;
-        padding: 13px 13px 12px 13px;
-        a {
-            float: right;
-            font-family: 'Rubik-Bold';
+    .chat-message-tabel {
+        width: 100%;
+        height: 100%;
+        font-size: 14px;
+        line-height: 1.42857;
+        td {
+            vertical-align: bottom;
         }
+        &.default-message-table {
+            td {
+                vertical-align: top;   
+            }
+            
+        }  
+    }
+}
+.unread-message-notification {
+    font-size: 13px;
+    font-weight: 400;
+    color: #474848;
+    opacity: 0.9;
+    position : absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    padding: 13px 13px 12px 13px;
+    display: none;
+    a {
+        float: right;
+        font-family: 'Rubik-Bold';
     }
 }
 
@@ -47,8 +64,10 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    margin-top: 9px;
+    margin-bottom: 9px;
     &>li {
-        margin:7px 12px; 
+        margin:7px 12px 0px 12px; 
         &.sent-message  {
             .message-bubble {
                 /*background-color: #138536;
@@ -58,10 +77,23 @@
                 }*/
             }
         }
+        &.same-user {
+            margin-top: 2px;
+            .img-circle, .avatar {
+                display: none;
+            }
+            .message-bubble:after {
+                content: none;
+            }
+        }
     }
     .chat-message {
         position: relative;
         overflow: auto;
+    }
+    .separation-text {
+        color: #9a9da1;
+        font-size: 13px;
     }
     .message-bubble {
         background-color: #eeeff0;
@@ -150,6 +182,21 @@
         a {
             text-decoration: none;
         }
+    }
+    .chat-message-tabel {
+        width: 100%;
+        height: 100%;
+        font-size: 14px;
+        line-height: 1.42857;
+        td {
+            vertical-align: bottom;
+        }
+        &.default-message-table {
+            td {
+                vertical-align: top;   
+            }
+            
+        }  
     }
 
 }

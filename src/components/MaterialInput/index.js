@@ -13,8 +13,6 @@ export class MaterialInput extends Component {
     
     this.inputEle = $( ReactDOM.findDOMNode(  this ) ).find( 'input' );
 
-
-
     if( this.inputEle.val() || this.inputEle.is(':focus')) {
       this.setState({
         floatLabel : true

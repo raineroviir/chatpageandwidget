@@ -24,7 +24,7 @@ export function  getTeamMemberCount() {
             memberCount: ( res && res.users && res.users.length || 2 )
           }
         })
-        console.log( 'Res...' , res );
+        //console.log( 'Res...' , res );
       }, 
       err => {
         console.log( 'Error...' , err );
@@ -35,42 +35,50 @@ export function  getTeamMemberCount() {
 
 export function submitPayment (form, settings, callback ) {
     
-    return dispatch => (
+    return dispatch => {
+      dispatch({
+        type: 'SHOW_LOADER'
+      });
+      Stripe.card.createToken(form, (status, res) => {
+        let newState = {};
 
-
-        Stripe.card.createToken(form, (status, res) => {
-            let newState = {};
-
-            if( res&&res.error ) {
-              callback( 'error', res.error.message );
-            } else {
-              newState.stripeToken = res && res.id;
-              if( !newState.stripeToken ) {
-                return;
-              }
-              ApiService.api({
-                action: "widget.plans-switch",
-                payload: {
-                  "stripe_email": settings.emailId,
-                  "stripe_token": newState.stripeToken,
-                  "plan_id": settings.plan_id,
-                  "coupon": settings.coupon
-                }
-              })
-              .then( 
-                res => {
-                  callback( 'success', res );
-                },
-                err => {
-                  callback( 'error', err.message );
-                }
-              )
+        if( res&&res.error ) {
+          dispatch({
+            type: 'HIDE_LOADER'
+          });
+          callback( 'error', res.error.message );
+        } else {
+          newState.stripeToken = res && res.id;
+          if( !newState.stripeToken ) {
+            return;
+          }
+          ApiService.api({
+            action: "widget.plans-switch",
+            payload: {
+              "stripe_email": settings.emailId,
+              "stripe_token": newState.stripeToken,
+              "plan_id": settings.plan_id,
+              "coupon": settings.coupon
             }
-            
+          })
+          .then( 
+            res => {
+              dispatch({
+                type: 'HIDE_LOADER'
+              });
+              callback( 'success', res );
+            },
+            err => {
+              dispatch({
+                type: 'HIDE_LOADER'
+              });
+              callback( 'error', err.message );
+            }
+          )
+        }            
+      })
+    }
 
-            
-        })
-    )
 }
 
 
@@ -91,7 +99,9 @@ export function  updateUpgradeFormKey( obj ) {
 export function validateCoupon ( coupon ) {
 
   return dispatch => {
-
+    dispatch({
+      type: 'SHOW_LOADER'
+    });
     ApiService.api({
       action: "widget.coupon-validate",
       payload: {
@@ -99,6 +109,9 @@ export function validateCoupon ( coupon ) {
       }
     }).then(
       res=> {
+        dispatch({
+          type: 'HIDE_LOADER'
+        });
         dispatch({
           type: 'UPGRADE_FORM_UPDATE_KEY',
           newState : {
@@ -118,7 +131,10 @@ export function validateCoupon ( coupon ) {
             }
           });
         }
-        console.log( 'Error', err );
+        dispatch({
+          type: 'HIDE_LOADER'
+        });
+        //console.log( 'Error', err );
       }
     )
   }

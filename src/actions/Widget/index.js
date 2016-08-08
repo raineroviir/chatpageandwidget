@@ -7,50 +7,50 @@ import ApiService  from '../../api.service';
 
 export function initWidgetConfig( channelid ) {
     return ( dispatch, getState ) => {
+
       let state = getState();
-      return (
-        ApiService.api( {
-          action: "widget.details",
-          payload: {
-            channel_id: channelid
-          }
-        } )
-        .then( res => {
-            let plan = state.userinfo.userinfo.plan;
-            let userPlan = 'free';
-            if( plan && plan.stripe_id ) {
-              userPlan = plan.stripe_id;
-            } 
-            
-            if( res && res.channel ) {
-              if( userPlan != 'premium' ) {
-                res.ccBranding = false;
-              }
+      dispatch({
+        type: 'SHOW_LOADER'
+      });
+      ApiService.api( {
+        action: "widget.details",
+        payload: {
+          channel_id: channelid
+        }
+      } )
+      .then( res => {
+          let plan = state.userinfo.userinfo.plan;
+          let userPlan = 'free';
+          if( plan && plan.stripe_id ) {
+            userPlan = plan.stripe_id;
+          } 
+          
+          if( res && res.channel ) {
+            if( userPlan != 'premium' ) {
+              res.ccBranding = false;
             }
-
-
-            dispatch({
-              type: 'WIDGET_UPDATE_KEY',
-              key: 'isNewChannelConfig',
-              value: !(res && res.channel)
-            })
-            dispatch({
-              type: 'INIT_WIDGET_CONFIG',
-              data: res,
-              channelid: channelid
-            });
-            dispatch({
-              type: 'INIT_WIDGET_CONFIG_INITIAL_STATE',
-              data: res
-            })
-          },
-          err => {  
-            /*dispatch({
-              type: 'INIT_WIDGET_CONFIG',
-              channelid: channelid
-            })*/
           }
-        )
+
+          dispatch({
+            type: 'WIDGET_UPDATE_KEY',
+            key: 'isNewChannelConfig',
+            value: !(res && res.channel)
+          })
+          dispatch({
+            type: 'INIT_WIDGET_CONFIG',
+            data: res,
+            channelid: channelid
+          });
+          dispatch({
+            type: 'INIT_WIDGET_CONFIG_INITIAL_STATE',
+            data: res
+          });
+          dispatch({
+            type: 'HIDE_LOADER'
+          });
+        },
+        err => {  
+        }
       )
     }
 }
@@ -75,13 +75,16 @@ export function saveWidgetConfig( config, channelid, isNewChannelConfig, activeC
     method = 'widget.create';
   } 
 
-  return dispatch => (
+  return dispatch => {
+      dispatch({
+        type: 'SHOW_LOADER'
+      });
       ApiService.api({
         action : method,
         payload: payload
       })
       .then( json => {
-        if( isNewChannelConfig ) {
+        /*if( isNewChannelConfig ) {
           dispatch({
             type: 'WIDGET_UPDATE_KEY',
             key: 'isNewChannelConfig',
@@ -92,15 +95,22 @@ export function saveWidgetConfig( config, channelid, isNewChannelConfig, activeC
         if( isNewChannelConfig ) {
           message = 'Created Successfully';
         }
-
         dispatch({
           type: 'INIT_WIDGET_CONFIG_INITIAL_STATE',
           data: config
-        })
+        })*/
+        dispatch({
+          type: 'HIDE_LOADER'
+        });
         browserHistory.push("/dashboard/" + activeChannelName );
         //alert( message );
-      })
-  )
+      }, err => {
+        dispatch({
+          type: 'HIDE_LOADER'
+        });
+      } )
+  }
+    
 }
 
 export function updateKey ( obj ) {

@@ -56,7 +56,7 @@ export class UpgradePlans extends Component {
                 </div>
                 
                 <PlanDetails  
-                currentPlan={this.props.upgradePlan.currentPlan} 
+                currentPlan={this.props.currentPlan} 
                 plans={ this.props.upgradePlan.plans[ this.props.upgradePlan.activePlanTab ]  }
                 updateUpgradePlanKey={this.props.actions.updateUpgradePlanKey}
                 activePlanTab= {this.props.upgradePlan.activePlanTab}
@@ -73,7 +73,8 @@ UpgradePlans.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    upgradePlan: state.upgradePlan
+    upgradePlan: state.upgradePlan,
+    currentPlan: state.userinfo.userinfo.plan
   }
 }
 

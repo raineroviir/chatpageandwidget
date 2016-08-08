@@ -281,7 +281,7 @@ function postTeamName(team_description){
 } 
 
 function postTeamAvailabilityResponse(json) {
-  console.log(JSON.stringify(json));
+  //console.log(JSON.stringify(json));
   // if(!json.ok){
   //   return {
   //     type: 'TEAM_AVAILABILITY_RESULT',
@@ -302,7 +302,7 @@ export function checkChannelName(register_channel, team_description) {
 }
 
 function channelNameAvailable(register_channel, team_description) {  
-  console.log('channelNameAvailable');
+  //console.log('channelNameAvailable');
   return dispatch => {
     postChannelName(register_channel, team_description).then(response => {return response.json()})  
       .then(json => dispatch(postChannelAvailabilityResponse(json)))

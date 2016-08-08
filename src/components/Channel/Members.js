@@ -13,14 +13,40 @@ export class ChannelMembers extends Component {
   }
 
   inputChange(){
-    if(this.props.details.payload.findDirectAddress) {
-      this.props.getDirectUser(this.refs.DirectMembersName.value);
-    } else if(this.refs.membersName.value && this.props.details.users.filter(u => (u.username.toLowerCase().indexOf(this.refs.membersName.value.toLowerCase()) != -1 || u.first_name.toLowerCase().indexOf(this.refs.membersName.value.toLowerCase()) != -1  || u.last_name.toLowerCase().indexOf(this.refs.membersName.value.toLowerCase()) != -1)).length) {
-      this.props.details.payload.filtered_members = this.props.details.users.filter(u => (u.username.toLowerCase().indexOf(this.refs.membersName.value.toLowerCase()) != -1 || u.first_name.toLowerCase().indexOf(this.refs.membersName.value.toLowerCase()) != -1  || u.last_name.toLowerCase().indexOf(this.refs.membersName.value.toLowerCase()) != -1));
-    } else {
-      this.props.details.payload.filtered_members = [];
+    var _this = this;
+    var userDiff = _.filter(_this.props.details.users, function(obj){ return !_.findWhere(_this.props.details.payload.temp_members, obj); });
+    //var userDiff = _this.props.details.users;
+    if(_this.props.details.payload.findDirectAddress) {
+      _this.props.getDirectUser(_this.refs.DirectMembersName.value);
+    } else if(_this.refs.membersName.value && userDiff.length && userDiff.filter(u => (u.username.toLowerCase().indexOf(_this.refs.membersName.value.toLowerCase()) != -1 || u.first_name.toLowerCase().indexOf(_this.refs.membersName.value.toLowerCase()) != -1  || u.last_name.toLowerCase().indexOf(_this.refs.membersName.value.toLowerCase()) != -1)).length) {
+      _this.props.details.payload.filtered_members = userDiff.filter(u => (u.username.toLowerCase().indexOf(_this.refs.membersName.value.toLowerCase()) != -1 || u.first_name.toLowerCase().indexOf(_this.refs.membersName.value.toLowerCase()) != -1  || u.last_name.toLowerCase().indexOf(_this.refs.membersName.value.toLowerCase()) != -1));
+      _this.props.updateAutoSuggest(_this.props.details.payload.filtered_members)
+    } else if(!_this.refs.membersName.value)  {
+      _this.props.details.payload.filtered_members = userDiff;
+      _this.props.updateAutoSuggest(_this.props.details.payload.filtered_members)
+    } else  {
+      _this.props.details.payload.filtered_members = [];
+      _this.props.updateAutoSuggest(_this.props.details.payload.filtered_members)
     }
-    this.props.updateAutoSuggest(this.props.details.payload.filtered_members)
+    
+  }
+
+  inputFocus(){
+    var _this = this;
+    var userDiff = _.filter(_this.props.details.users, function(obj){ return !_.findWhere(_this.props.details.payload.temp_members, obj); });
+    var userDiff = _this.props.details.users;
+    if(_this.props.details.payload.findDirectAddress) {
+      _this.props.getDirectUser(_this.refs.DirectMembersName.value);
+    } else if(_this.refs.membersName.value && userDiff.length && userDiff.filter(u => (u.username.toLowerCase().indexOf(_this.refs.membersName.value.toLowerCase()) != -1 || u.first_name.toLowerCase().indexOf(_this.refs.membersName.value.toLowerCase()) != -1  || u.last_name.toLowerCase().indexOf(_this.refs.membersName.value.toLowerCase()) != -1)).length) {
+      _this.props.details.payload.filtered_members = userDiff.filter(u => (u.username.toLowerCase().indexOf(_this.refs.membersName.value.toLowerCase()) != -1 || u.first_name.toLowerCase().indexOf(_this.refs.membersName.value.toLowerCase()) != -1  || u.last_name.toLowerCase().indexOf(_this.refs.membersName.value.toLowerCase()) != -1));
+      _this.props.updateAutoSuggest(_this.props.details.payload.filtered_members)
+    } else if(!_this.refs.membersName.value)  {
+      _this.props.details.payload.filtered_members = userDiff;
+      _this.props.updateAutoSuggest(_this.props.details.payload.filtered_members)
+    } else  {
+      _this.props.details.payload.filtered_members = [];
+      _this.props.updateAutoSuggest(_this.props.details.payload.filtered_members)
+    }
   }
 
   removeMember(member) {
@@ -37,13 +63,23 @@ export class ChannelMembers extends Component {
     if(this.props.details.payload.temp_members.indexOf(user) == -1 && this.props.validateEmail(user.email)) {
       this.props.details.payload.temp_members.push(user);
       this.props.updateMembers(this.props.details.payload.temp_members)
-      this.props.updateAutoSuggest([])
-      this.refs.membersName.value = "";
     }
+    this.refs.DirectMembersName.value = "";
+    this.refs.membersName.value = "";
+    this.props.updateAutoSuggest([]);
   }
 
   toggleFind(bool){
     this.props.toggleFind(bool);
+    this.refs.DirectMembersName.value = '';
+    this.refs.membersName.value = '';
+    this.props.details.payload.filtered_members = [];
+    this.props.updateAutoSuggest(this.props.details.payload.filtered_members);
+  }
+
+  removeAutoSuggest(){
+    this.props.details.payload.filtered_members = [];
+    this.props.updateAutoSuggest(this.props.details.payload.filtered_members);
   }
 
   componentWillMount() {
@@ -51,6 +87,7 @@ export class ChannelMembers extends Component {
   }
 
   componentDidMount() {
+    var _this = this;
     if(!this.props.id && (this.props.details.payload.is_public === "" || this.props.details.payload.is_direct==="" || this.props.details.payload.is_group==="")) {
       //window.location.hash = "#/channel/type";
       browserHistory.push("/channel/type");
@@ -61,6 +98,11 @@ export class ChannelMembers extends Component {
     if(!(this.props.details.payload.temp_members && this.props.details.payload.temp_members.length)) {
       this.refs.createButton.disabled = true;
     }
+
+     $('body').on('click', function (e) {
+        if(!$(e.target).closest('#channelMemberForm .input-wrapper').length && !$(e.target).closest('#channelMemberForm .filter-result').length)
+          _this.removeAutoSuggest();
+      });
     
   }
 
@@ -82,6 +124,7 @@ export class ChannelMembers extends Component {
     
     return (
       <div id="create-ext-chat-form"  className="create-ext-chat create-ext-chat-form moderators-form " >
+        
         <Link to="/dashboard" className="close-wrapper">
           <span className="glyphicon glyphicon-remove"></span>
         </Link>
@@ -96,10 +139,11 @@ export class ChannelMembers extends Component {
           <h1 className="section-title" style={{display:((!this.props.details.payload.is_public) ? "" : "none")}}>Channel Members</h1>
           
           <div className="form-wrapper">
+          <form name="channelMemberForm" id="channelMemberForm" role="form">
             <div className="input-wrapper">
-              <input id="membersName" type="text" className={classnames('input-field', { hide: findDirectAddress})} ref="membersName" placeholder={'Invite people' + (this.props.details.payload.team ? ' from ' + this.props.details.payload.team : '')} onChange={this.inputChange.bind(this, 'membersName')} aria-describedby="username-addon" />
-              <input id="DirectMembersName" type="text" className={classnames('input-field', { hide: !findDirectAddress})} ref="DirectMembersName" placeholder="http://chat address" onChange={this.inputChange.bind(this, 'DirectMembersName')} aria-describedby="username-addon" />
-              <a href="javascript:;" onClick={this.toggleFind.bind(this, !findDirectAddress)} title="add" className={classnames('add-via-chat-link', { hide: this.props.details.payload.team == 'chat.center'})}>{findDirectAddress ? 'Add from team member' : 'Add via chat address'}</a>
+              <input id="membersName" type="text" className={classnames('input-field', { hide: findDirectAddress})} ref="membersName" placeholder={'Invite people' + (this.props.teamDesc ? ' from ' + this.props.teamDesc : '')} onChange={this.inputChange.bind(this, 'membersName')} onFocus={this.inputChange.bind(this, 'membersName')} aria-describedby="username-addon" />
+              <input id="DirectMembersName" type="text" className={classnames('input-field', { hide: !findDirectAddress})} ref="DirectMembersName" placeholder="http://chat address of any chat.center user" onChange={this.inputChange.bind(this, 'DirectMembersName')} onFocus={this.inputChange.bind(this, 'DirectMembersName')} aria-describedby="username-addon" />
+              <a href="javascript:;" onClick={this.toggleFind.bind(this, !findDirectAddress)} title="add" className={classnames('add-via-chat-link', { hide: this.props.details.payload.team == 'chat.center'})}>{findDirectAddress ? 'Add team members' : 'Add via chat address'}</a>
               
             </div>
 
@@ -115,7 +159,7 @@ export class ChannelMembers extends Component {
                       <span className="user-name">{filtered_member.first_name ? (filtered_member.first_name + ' ' + (filtered_member.last_name ? filtered_member.last_name : '')): filtered_member.email}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{(filtered_member.username && filtered_member.team) ? (filtered_member.team.name + '/' +filtered_member.username) : 'NA'}</span>
+                        <span className="user-chat-address">{(filtered_member.username && filtered_member.team) ? (filtered_member.team.name + '/' +filtered_member.username) : ('chat.center/' +filtered_member.username)}</span>
                       </div>
                     </div>
                   );
@@ -125,8 +169,8 @@ export class ChannelMembers extends Component {
             </div>
 
             <div className={classnames('moderators-count', { hide: this.props.id})}>
-              <div className={classnames('desc', { hide: !(this.props.details.payload.is_public && this.props.details.payload.is_group)})}>{temp_members.length} Moderators</div>
-              <div className={classnames('desc', { hide: (this.props.details.payload.is_public && this.props.details.payload.is_group)})}>{temp_members.length} Members</div>
+              <div className={classnames('desc', { hide: !(this.props.details.payload.is_public && this.props.details.payload.is_group)})}>{temp_members.length > 1 ? (temp_members.length + ' moderators') : (temp_members.length + ' moderator')}</div>
+              <div className={classnames('desc', { hide: (this.props.details.payload.is_public && this.props.details.payload.is_group)})}>{temp_members.length > 1 ? (temp_members.length + ' members') : (temp_members.length + ' member')}</div>
             </div>
 
             
@@ -142,8 +186,8 @@ export class ChannelMembers extends Component {
                       <span className="user-name">{temp_member.first_name ? (temp_member.first_name + ' ' + (temp_member.last_name ? temp_member.last_name : '')):temp_member.email}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{(temp_member.username && temp_member.team)  ? (temp_member.team.name + '/' +temp_member.username) : 'NA'}</span>
-                        <button className={classnames('remove-button', { hide: temp_members.length ==  1})} onClick={this.removeMember.bind(this, temp_member)}>X</button>
+                        <span className="user-chat-address">{(temp_member.username && temp_member.team)  ? (temp_member.team.name + '/' +temp_member.username) : ('chat.center/' +temp_member.username)}</span>
+                        <button type="button" className={classnames('remove-button', { hide: temp_members.length ==  1})} onClick={this.removeMember.bind(this, temp_member)}>X</button>
                       </div>
                     </div>
                   );
@@ -161,8 +205,8 @@ export class ChannelMembers extends Component {
             </div> 
 
             <div className={classnames('moderators-count', { hide: !this.props.id})}>
-              <div className={classnames('desc', { hide: !(this.props.details.payload.is_public && this.props.details.payload.is_group)})}>{members.length} Moderators</div>
-              <div className={classnames('desc', { hide: (this.props.details.payload.is_public && this.props.details.payload.is_group)})}>{members.length} Members</div>
+              <div className={classnames('desc', { hide: !(this.props.details.payload.is_public && this.props.details.payload.is_group)})}>{members.length > 1 ? members.length + ' moderators' : members.length + ' moderator'}</div>
+              <div className={classnames('desc', { hide: (this.props.details.payload.is_public && this.props.details.payload.is_group)})}>{members.length > 1 ? members.length + ' members' : members.length + ' member'}</div>
             </div>
 
             <div className={classnames('moderator-item-wrapper', { hide: !this.props.id})}>
@@ -177,8 +221,8 @@ export class ChannelMembers extends Component {
                       <span className="user-name">{member.first_name ? (member.first_name + ' ' + (member.last_name ? member.last_name : '')) :  member.email}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{(member.username && member.team) ? (member.team.name + '/' +member.username) : 'NA'}</span>
-                        <button className={classnames('remove-button', { 'hide': members.length ==  1})} onClick={this.props.deleteMembers.bind(this, member.id)}>X</button>
+                        <span className="user-chat-address">{(member.username && member.team) ? (member.team.name + '/' +member.username) : ('chat.center/' +member.username)}</span>
+                        <button type="button" className={classnames('remove-button', { 'hide': members.length ==  1})} onClick={this.props.deleteMembers.bind(this, member.id)}>X</button>
                       </div>
                     </div>
                   );
@@ -192,8 +236,10 @@ export class ChannelMembers extends Component {
                 <Link to="/login" title="Sign in">Chat with us</Link>
               </div>
             </div> 
+            </form> 
           </div>
-        </div>  
+        </div> 
+        
        </div>  
     );
   }

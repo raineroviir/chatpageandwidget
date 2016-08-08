@@ -1,7 +1,8 @@
 .header {
-    padding: 16px;
-    padding-bottom: 21px;
-    border-bottom: 1px solid #eee;
+    padding: 16px 12px;
+    padding-bottom: 17px;
+    padding-right:0;
+    box-shadow: 0 0.5px 0 0 rgba(0, 0, 0, 0.2);
 
     .title-section {
         margin-left: 20px;
@@ -15,7 +16,7 @@
             font-size: 16px;
             letter-spacing: -0.5px;
             color: #474848;
-            margin-bottom: 10px;
+            margin-bottom: 14px;
             text-transform: capitalize;
             max-width: 100%;
             text-overflow: ellipsis;
@@ -66,13 +67,15 @@
             border-radius: 2px;
             background-color: #acaeb3;
             letter-spacing:0.6px;
-            margin-left: 10px;
+            margin-left: 5px;
+            vertical-align: middle;
         }
     }
     .feature-panel {
         float: right;
         position: relative;
         z-index: 3;
+        display: none;
         .feature-panel-menu {
             text-decoration: none;
             color: #474848;
@@ -102,9 +105,10 @@
             display: inline-block;
             vertical-align: middle;
             &.button-user-li {
-                
                 border-right: solid 2px #d5d6d8;
-                padding-right: 20px;
+                
+                padding-right: 23px;
+                margin-right: 4px;
                 a {
                     width: 24px;
                     height: 24px;
@@ -118,7 +122,7 @@
                     border-radius: 100px;
                     background-color: #ffffff;
                     border: solid 1px #474848;
-                    padding: 0px 4px;
+                    padding: 0px 5px;
                     color: #000;
                     position: absolute;
                     left: 16px;
@@ -188,7 +192,8 @@
             
         }
         .feature-panel {
-
+            margin-top: 12px;
+            margin-right: -8px;
             ul {
                 li {
                     &.button-user-li {

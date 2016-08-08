@@ -5,6 +5,12 @@
 	.section-content {
 		max-width: 626px;
 		margin: 0 auto;
+		.desc {
+			font-weight: 400;
+			line-height: 1.43;
+			letter-spacing: 0.1px;
+			color: #9a9da1;
+		}
 	}
 	.error-message {
 		color:#c91913;
@@ -27,9 +33,24 @@
 		color: #9a9da1;
 		margin: 0;
 		font-weight: normal;
+		.lock-icon {
+			background: url(/dist/images/password-icon.svg);
+		    height: 24px;
+		    width: 24px;
+		    display: inline-block;
+		    background-size: 100%;
+		    background-repeat: no-repeat;
+		    background-position: 50%;
+		    vertical-align: middle;
+		    margin-left: 3px;
+		    margin-top: -4px;
+		    opacity: 0.5;
+
+		}
 	}
 	.input-wrapper {
 		margin-top: 27px;
+		position: relative;
 		label {
 			font-size: 18px;
 			letter-spacing: 0.1px;
@@ -38,6 +59,28 @@
 			display:block;
 			margin-bottom: 0;
 			padding-left: 12px;
+		}
+		.chataddress-addon-label {
+			border-radius: 3px;
+			background-color: #c3c8ce;
+			font-size: 16px;
+			font-weight: 400;
+			line-height: 1.31;
+			color: #ffffff;
+			padding: 2px 6px 2px 6px;
+			display: inline-block;
+			margin-left: 12px;
+			margin-top: 12px;
+		}
+		.chataddress-addon-slash {
+			position: absolute;
+			bottom: 22px;
+    		left: 12px;
+			color: #000;
+			font-weight: bold;
+		}
+		#chataddress-addon {
+			padding-left: 20px;
 		}
 		.input-field {
 			box-shadow: inset 0 -2px 0 0 #474848;

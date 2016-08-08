@@ -1,5 +1,5 @@
 .upgrade-plans {
-    max-width: 759px;
+    max-width: 738px;
     .plan-term {
         ul {
             margin: 0;
@@ -21,6 +21,7 @@
                     min-width: 111px;
                     padding: 10px;
                     cursor: pointer;
+                    padding-bottom: 7px;
                     &.active-link {
                         color: #000;
                         cursor: default;
@@ -43,6 +44,14 @@
     .plan-title-wrapper {
         min-height: 69px;
         margin-top: 39px;
+        .per-team-member{
+            opacity: 0.35;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.62;
+            letter-spacing: 0.1px;
+            color: #000000;
+        }
     }
 
     .plan-title-desc {
@@ -59,7 +68,7 @@
         }
     }
     .plan-detail-desc {
-        margin-top: 14px;
+        margin-top: 15px;
     }
     .plan-details-title {
         font-family: 'Rubik-Medium';
@@ -77,14 +86,15 @@
         letter-spacing: 0.1px;
         color: #000000;
         p {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
     }
     .bottom-row-buttons{
-        margin-top: 18px;
+        margin-top: 3px;
         .cc-btn {
             display: inline-block;
             font-family: 'Rubik-Medium';
+            min-width: 144px;
         }
 
     }

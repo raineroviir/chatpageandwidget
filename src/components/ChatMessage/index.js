@@ -24,6 +24,7 @@ export class ChatMessage extends Component {
   }
   getMessages( messages ) {
     if( messages && messages.length  ) {
+      let lastuser;
       return  (<ul className="chat-messages">
           { 
             messages.map((message, ind, msgs) => {
@@ -32,12 +33,16 @@ export class ChatMessage extends Component {
                 displayDate = this.computeDate(message.created_at),
                 avatarText = message.sender_name ? _.reduce(message.sender_name.split(" "), (res, a) => res + (a + "").charAt(0), "") : ("U" + ((message.user_id) ? (message.user_id + "").charAt(0) : "")),
                 isShowDate = !!ind && this.computeDate(msgs[ind - 1].created_at) == displayDate,
-                relative_time = displayDate == "today" && moment(message.created_at).format("LT");
+                relative_time = displayDate == "today" && moment(message.created_at).format("LT"),
+                msg;
               
+
               if(user.id != message.user_id){
-                return(
-                  <li key={message.id} className="received-message fade-in">
-                    <div className={classNames("text-center", { hide: isShowDate })}>{ displayDate}</div>
+                msg = (
+                  <li key={message.id} className={classNames("received-message fade-in", {
+                    'same-user': (lastuser === message.user_id && isShowDate && !relative_time)
+                  })}>
+                    <div className={classNames("text-center separation-text", { hide: isShowDate })}>{ displayDate}</div>
                     <div className="chat-message">
                       <span className={classNames("avatar", { hide: !!message.sender_avatar })}>{avatarText}</span>
                       <img className={classNames("img-circle", { hide: !message.sender_avatar })} src={message.sender_avatar} title={message.sender_name} alt={message.sender_name} />
@@ -50,10 +55,13 @@ export class ChatMessage extends Component {
                 )                  
               }
               else {
-                return(
-                  <li key={message.id} className="sent-message fade-in">
+                msg = (
+                  <li key={message.id}
+                  className={classNames("sent-message fade-in", {
+                    'same-user': (lastuser === message.user_id && isShowDate && !relative_time)
+                  })}>
                     <div className={ classNames("chat-message", { today: !!relative_time})}>
-                      <div className={classNames("text-center", { hide: isShowDate })}>{ displayDate}</div>
+                      <div className={classNames("text-center separation-text", { hide: isShowDate })}>{ displayDate}</div>
                       <div className={classNames("user-name-display", { hide: combineMessage })}>{ user.first_name + " " + user.last_name}</div>
                       <img className={classNames("img-circle", { hide: !user.avatar_96 })} src={user.avatar_96}  title={ user.first_name }  alt={ user.first_name } />                      
                       <span className={classNames("avatar", { hide: !!user.avatar_96 })}>{avatarText}</span>
@@ -65,6 +73,10 @@ export class ChatMessage extends Component {
                   </li>
                 )            
               }
+              lastuser = message.user_id;  
+              
+              
+              return msg;
             })
           }
         </ul>);
@@ -74,6 +86,7 @@ export class ChatMessage extends Component {
     }
   }
   render() {
+    let messages = this.props.messages;
     return (
       <div>
         <div className="unread-message-notification">
@@ -81,10 +94,19 @@ export class ChatMessage extends Component {
           <a href="javascript:;">Mark as read</a>
         </div>
         <div className="chat-messages-wrapper mCustomScrollBar">
-          
-          <div>
-            {this.getMessages(this.props.messages)} 
-          </div>
+          <table className={ "chat-message-tabel" + (
+                messages && messages.length ? '' : ' default-message-table'
+              ) } >
+            <tbody>
+              <tr>
+                <td>
+                  <div>
+                    {this.getMessages(messages)} 
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     );
