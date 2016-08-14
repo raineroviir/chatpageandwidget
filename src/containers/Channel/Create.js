@@ -42,7 +42,7 @@ export class ChannelCreateContainer extends Component {
 
   render() {
     let teamName = this.props.org ? this.props.org.name.split('/')[0] : '';
-    let isTeam = (teamName == 'chat.center' || teamName == '') ? false : true;
+    let isTeam = (teamName == window.config.cc || teamName == '') ? false : true;
     return (
             <div>
               <DocumentMeta {...metaData} />

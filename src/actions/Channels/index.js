@@ -1,4 +1,4 @@
-import urlConfig from '../../url-config';
+import Config from '../../config';
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
 import * as loginActions from "../Login";
@@ -73,7 +73,7 @@ export function createMessage(message, conversationid) {
       if(typeof(Storage) !== undefined && !localStorage.getItem('guest')){
         // get guest user token if its not available
         fetchGuestInfo = loginActions.postLoginRequest({
-          "username": "chat.center/guest",
+          "username": window.config.cc + "/guest",
           "password": "12345678",
           "grant_type": "password"
         }).then(response => response.json())
@@ -129,7 +129,7 @@ export function createMessage(message, conversationid) {
 }
 
 export function getChannel(channel, access_token, team) {
-  var url =  urlConfig.base + 'channels.find?channel=' + channel;
+  var url =  Config.api + '/channels.find?channel=' + channel;
   if(team){
     url+= ("&team=" + team);
   }
@@ -198,7 +198,7 @@ export function fetchSocket () {
 function getSocketURL (argument) {
   if (typeof(Storage) === "undefined" || !localStorage.getItem("token")) return null;
   var token = JSON.parse(localStorage.getItem("token"));
-  return fetch( urlConfig.base + 'users.websocket.url', {
+  return fetch( Config.api + '/users.websocket.url', {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
@@ -269,7 +269,7 @@ function fetchChannel (channelname, team) {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch(urlConfig.base + "channels.find?channel=" + channelname + (team && team.domain ? "team=" + team.domain : "") , {
+  return fetch(Config.api + "/channels.find?channel=" + channelname + (team && team.domain ? "team=" + team.domain : "") , {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
@@ -289,7 +289,7 @@ function fetchChannels() {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch( urlConfig.base + 'channels.list', {
+  return fetch( Config.api + '/channels.list', {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
@@ -298,7 +298,7 @@ function fetchChannels() {
   })
 }
 function createCoversation(channelid, access_token) {
-  return fetch( urlConfig.base + 'conversations.create', {
+  return fetch( Config.api + '/conversations.create', {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json',
@@ -311,7 +311,7 @@ function fetchConversations(channel_id) {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch( urlConfig.base + 'conversations.list?channel_id=' + channel_id, {
+  return fetch( Config.api + '/conversations.list?channel_id=' + channel_id, {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
@@ -323,7 +323,7 @@ function fetchConversationHistory(conversationid) {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch( urlConfig.base + 'conversations.history?conversation_id=' + conversationid, {
+  return fetch( Config.api + '/conversations.history?conversation_id=' + conversationid, {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
@@ -335,7 +335,7 @@ function postMessage(message, conversationid, access_token) {
   if (typeof(Storage) !== "undefined" && !access_token) {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch( urlConfig.base + 'messages.postMessage', {
+  return fetch( Config.api + '/messages.postMessage', {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json',

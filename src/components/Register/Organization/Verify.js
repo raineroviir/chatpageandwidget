@@ -49,12 +49,12 @@ export class RegisterOrgVerifyComp extends Component {
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Verify your details</h1>                
                 <div className="input-group input-group-lg">
-                  <label className="qn-label">Name of your chat.center</label>
+                  <label className="qn-label">Name of your {window.config.cc}</label>
                   <span className="ans-label">{Organisation.team_description}</span>
                 </div>
                 <div className="input-group input-group-lg">
-                  <label className="qn-label">Address of your chat.center</label>
-                  <span className="ans-label">https://{Organisation.team}.chat.center</span>
+                  <label className="qn-label">Address of your {window.config.cc}</label>
+                  <span className="ans-label">https://{Organisation.team}.{window.config.cc}</span>
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Full Name</label>
@@ -66,7 +66,7 @@ export class RegisterOrgVerifyComp extends Component {
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Your personal chat address</label>
-                  <span className="ans-label">https://{Organisation.team}.chat.center/{Organisation.channel}</span>
+                  <span className="ans-label">https://{Organisation.team}.{window.config.cc}/{Organisation.channel}</span>
                 </div>
                 <div className="input-group input-group-lg password-input-group">
                   <label htmlFor="password" className="input-group-addon" onChange={this.inputChange.bind(this)} id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></label>
@@ -79,12 +79,12 @@ export class RegisterOrgVerifyComp extends Component {
                     <div className="col-sm-12">
                       <div className="row">
                     <button type="button" className="btn btn-default back" onClick={this.props.handleBack}>BACK</button>
-                    <button type="submit" ref="submitButton" className="btn btn-default sign-in pull-right domain-big-button" onClick={this.handleNext.bind(this)}>CREATE <span className="domain-big">CHAT.CENTER</span></button>
+                    <button type="submit" ref="submitButton" className="btn btn-default sign-in pull-right domain-big-button" onClick={this.handleNext.bind(this)}>CREATE <span className="domain-big">{window.config.cc.toUpperCase()}</span></button>
                   </div>
                    </div>
                 </div>
                 <p className="terms">
-                By creating your account and using chat.center, you are agreeing to our <a href="javascript:;" title="Terms of Service">Terms of Service</a> and <a href="javascript:;" title="Privacy Policy">Privacy Policy</a>. 
+                By creating your account and using {window.config.cc}, you are agreeing to our <a href="javascript:;" title="Terms of Service">Terms of Service</a> and <a href="javascript:;" title="Privacy Policy">Privacy Policy</a>. 
                 </p>            
             </form>
        </div> 

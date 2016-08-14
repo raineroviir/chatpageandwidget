@@ -142,8 +142,8 @@ export class ChannelMembers extends Component {
           <form name="channelMemberForm" id="channelMemberForm" role="form">
             <div className="input-wrapper">
               <input id="membersName" type="text" className={classnames('input-field', { hide: findDirectAddress})} ref="membersName" placeholder={'Invite people' + (this.props.teamDesc ? ' from ' + this.props.teamDesc : '')} onChange={this.inputChange.bind(this, 'membersName')} onFocus={this.inputChange.bind(this, 'membersName')} aria-describedby="username-addon" />
-              <input id="DirectMembersName" type="text" className={classnames('input-field', { hide: !findDirectAddress})} ref="DirectMembersName" placeholder="http://chat address of any chat.center user" onChange={this.inputChange.bind(this, 'DirectMembersName')} onFocus={this.inputChange.bind(this, 'DirectMembersName')} aria-describedby="username-addon" />
-              <a href="javascript:;" onClick={this.toggleFind.bind(this, !findDirectAddress)} title="add" className={classnames('add-via-chat-link', { hide: this.props.details.payload.team == 'chat.center'})}>{findDirectAddress ? 'Add team members' : 'Add via chat address'}</a>
+              <input id="DirectMembersName" type="text" className={classnames('input-field', { hide: !findDirectAddress})} ref="DirectMembersName" placeholder={"http://chat address of any "+ window.config.cc +" user"} onChange={this.inputChange.bind(this, 'DirectMembersName')} onFocus={this.inputChange.bind(this, 'DirectMembersName')} aria-describedby="username-addon" />
+              <a href="javascript:;" onClick={this.toggleFind.bind(this, !findDirectAddress)} title="add" className={classnames('add-via-chat-link', { hide: this.props.details.payload.team == window.config.cc})}>{findDirectAddress ? 'Add team members' : 'Add via chat address'}</a>
               
             </div>
 
@@ -159,7 +159,7 @@ export class ChannelMembers extends Component {
                       <span className="user-name">{filtered_member.first_name ? (filtered_member.first_name + ' ' + (filtered_member.last_name ? filtered_member.last_name : '')): filtered_member.email}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{(filtered_member.username && filtered_member.team) ? (filtered_member.team.name + '/' +filtered_member.username) : ('chat.center/' +filtered_member.username)}</span>
+                        <span className="user-chat-address">{(filtered_member.username && filtered_member.team) ? (filtered_member.team.name + '/' +filtered_member.username) : (window.config.cc + '/' +filtered_member.username)}</span>
                       </div>
                     </div>
                   );
@@ -186,7 +186,7 @@ export class ChannelMembers extends Component {
                       <span className="user-name">{temp_member.first_name ? (temp_member.first_name + ' ' + (temp_member.last_name ? temp_member.last_name : '')):temp_member.email}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{(temp_member.username && temp_member.team)  ? (temp_member.team.name + '/' +temp_member.username) : ('chat.center/' +temp_member.username)}</span>
+                        <span className="user-chat-address">{(temp_member.username && temp_member.team)  ? (temp_member.team.name + '/' +temp_member.username) : (window.config.cc + '/' +temp_member.username)}</span>
                         <button type="button" className={classnames('remove-button', { hide: temp_members.length ==  1})} onClick={this.removeMember.bind(this, temp_member)}>X</button>
                       </div>
                     </div>
@@ -221,7 +221,7 @@ export class ChannelMembers extends Component {
                       <span className="user-name">{member.first_name ? (member.first_name + ' ' + (member.last_name ? member.last_name : '')) :  member.email}</span>
 
                       <div className="user-chat-address-wrapper">
-                        <span className="user-chat-address">{(member.username && member.team) ? (member.team.name + '/' +member.username) : ('chat.center/' +member.username)}</span>
+                        <span className="user-chat-address">{(member.username && member.team) ? (member.team.name + '/' +member.username) : ( window.config.cc + '/' +member.username)}</span>
                         <button type="button" className={classnames('remove-button', { 'hide': members.length ==  1})} onClick={this.props.deleteMembers.bind(this, member.id)}>X</button>
                       </div>
                     </div>

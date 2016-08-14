@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 //import postLoginRequest from '../services/common/login';
-import urlConfig from '../url-config';
+import Config from '../config';
 
 export function addItem(fields) {
   return {
@@ -40,14 +40,14 @@ function postRegistration() {
 }
 
 function postLoginRequest(){
-	  return fetch(urlConfig.base + '/users.signup',
+	  return fetch(Config.api + '/users.signup',
     			{
     				method: 'POST',
     				headers:{
     					'Content-Type': 'application/json'
     				},
 	     		 	body: JSON.stringify({
-					  "username": "chat.center/sergey",
+					  "username": window.config.cc + "/sergey",
 					  "password": "12345678",
 					  "grant_type": "password"
 					})

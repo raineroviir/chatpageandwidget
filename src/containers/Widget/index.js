@@ -95,7 +95,9 @@ export class Widget extends Component {
           conversations={this.props.conversations} 
           actions={this.props.actions}/>
           <div className="widget-content" >
+
             <div className={ "widget-" + classId }>
+              
               <div className="widget-feature-buttons">
                 <span className="save-button-wrapper">
                   {
@@ -120,9 +122,15 @@ export class Widget extends Component {
                   </span>
                   Email Campaign channel
               </div>
+
               <h1 className="widget-title">
                   Website widget setup
               </h1>
+              {
+               this.props.widget.error ? <div className="common-error-message">
+                  {this.props.widget.error}
+                </div> : ''
+              }
               {this.props.children}
             </div>
             <div className="widget-save-button-bottom">

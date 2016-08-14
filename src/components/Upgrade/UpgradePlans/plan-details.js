@@ -59,33 +59,58 @@ export class PlanDetails extends Component {
         planDesc.plus_yearly = planDesc.plus;
         planDesc.premium_yearly = planDesc.premium;
 
-        return (
-            <div className={"plans-details"}>
 
-              <div className="row">
-                {
-                  this.props.plans.map( (plan, index) => {
-                    let planAmount =  plan.amount;
-                    return (<div className="col-sm-4" key={index}> 
-                      <div className="plan-title-wrapper">
-                        <div className="plan-title">
-                          { ( planAmount >0 ? "$" + (planAmount) + "/mo" : "Free") }
+
+        return (
+              this.props.requestStatus === 'loaded' ?
+              (this.props.plans.length > 0 ?
+              <div className={"plans-details"}>
+
+                <div className="row">
+                  {
+                    this.props.plans.map( (plan, index) => {
+                      let planAmount =  plan.amount;
+                      return (<div className="col-sm-4" key={index}> 
+                        <div className="plan-title-wrapper">
+                          <div className="plan-title">
+                            { ( planAmount >0 ? "$" + (planAmount) + "/mo" : "Free") }
+                          </div>
+                          <div className="per-team-member">
+                            { ( planAmount >0 ? 'per team member' : '') }
+                          </div>
                         </div>
-                        <div className="per-team-member">
-                          { ( planAmount >0 ? 'per team member' : '') }
+                        <div className="plan-details">
+                          <div className="plan-details-title">
+                            {plan.name}
+                          </div>
+                          {
+                            planDesc[ plan.stripe_id.toLowerCase() ]
+                          }
+                          <div className="buttons-wrapper">
+                            <Link to="/upgrade/form"  
+                            onClick={this.choosePlan.bind(this, plan)}
+                            className={
+                              "cc-btn " +
+                              ( plan.stripe_id === this.props.currentPlan.stripe_id  ? 'disabled' : '' )
+                            }
+                            >
+                              {
+                                (plan.stripe_id === this.props.currentPlan.stripe_id  ? 'CURRENT PLAN' : 'UPGRADE')
+                              }
+                            </Link>
+                          </div>
                         </div>
-                      </div>
-                      <div className="plan-details">
-                        <div className="plan-details-title">
-                          {plan.name}
-                        </div>
-                        {
-                          planDesc[ plan.stripe_id.toLowerCase() ]
-                        }
-                        <div className="buttons-wrapper">
-                          <Link to="/upgrade/form"  
-                          onClick={this.choosePlan.bind(this, plan)}
-                          className={
+                      </div>)  
+                    })
+                  }
+                </div>
+
+                
+                <div className="bottom-row-buttons row">
+                  {
+                    this.props.plans.map( (plan, index) => {
+                        return ( <div className="col-sm-4" key={index}>
+                          <Link onClick={this.choosePlan.bind(this, plan)} to="/upgrade/form"  className={
                             "cc-btn " +
                             ( plan.stripe_id === this.props.currentPlan.stripe_id  ? 'disabled' : '' )
                           }
@@ -94,32 +119,17 @@ export class PlanDetails extends Component {
                               (plan.stripe_id === this.props.currentPlan.stripe_id  ? 'CURRENT PLAN' : 'UPGRADE')
                             }
                           </Link>
-                        </div>
-                      </div>
-                    </div>)  
-                  })
-                }
-              </div>
-
-              
-              <div className="bottom-row-buttons row">
-                {
-                  this.props.plans.map( (plan, index) => {
-                      return ( <div className="col-sm-4" key={index}>
-                        <Link onClick={this.choosePlan.bind(this, plan)} to="/upgrade/form"  className={
-                          "cc-btn " +
-                          ( plan.stripe_id === this.props.currentPlan.stripe_id  ? 'disabled' : '' )
-                        }
-                        >
-                          {
-                            (plan.stripe_id === this.props.currentPlan.stripe_id  ? 'CURRENT PLAN' : 'UPGRADE')
-                          }
-                        </Link>
-                      </div>)
-                  })
-                }
-                </div>
-            </div>
+                        </div>)
+                    })
+                  }
+                  </div>
+              </div> 
+              :
+              <div className="common-error-message">
+                No plans Available
+              </div>) : <span></span>
+            
+            
         );
     }
 }

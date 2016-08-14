@@ -41,7 +41,7 @@ export class RegisterOrgNameComp extends Component {
       <div id="signupbox"  className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal name-chat-form" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
-                <h1 className="inner-title">Name your chat.center</h1>
+                <h1 className="inner-title">Name your {window.config.cc}</h1>
                 <div className="input-group input-group-lg">
                   <label htmlFor="organizationName" className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" /></label>
                   <input autoFocus id="organizationName" type="text" className="form-control capitalize" ref="RegisterOrganisationName" placeholder="Organization, team, department name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />

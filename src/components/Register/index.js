@@ -28,8 +28,8 @@ export class Register extends Component {
                 <div className="logo-wrapper">
                   <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 </div>
-                <h1 className="title text-center">chat.center</h1>
-                <div className="details text-center">Create a free chat.center for:</div>
+                <h1 className="title text-center">{window.config.cc}</h1>
+                <div className="details text-center">Create a free {window.config.cc} for:</div>
                 <div className="user-type org col-sm-12 text-center">
                 <Link to="/signup/organization/name">
                   <img src="dist/images/org-icon.svg" title="Organization" />

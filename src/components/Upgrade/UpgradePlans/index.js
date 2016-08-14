@@ -54,13 +54,24 @@ export class UpgradePlans extends Component {
                     </li>
                   </ul>
                 </div>
+
+
+                {
+                  this.props.upgradePlan.error ? 
+                    <div className="common-error-message">
+                      {this.props.upgradePlan.error}
+                    </div> 
+                    : 
+                    <PlanDetails  
+                    currentPlan={this.props.currentPlan}
+                    requestStatus = { this.props.upgradePlan.requestStatus } 
+                    plans={ this.props.upgradePlan.plans[ this.props.upgradePlan.activePlanTab ]  }
+                    updateUpgradePlanKey={this.props.actions.updateUpgradePlanKey}
+                    activePlanTab= {this.props.upgradePlan.activePlanTab}
+                    />
+                }
                 
-                <PlanDetails  
-                currentPlan={this.props.currentPlan} 
-                plans={ this.props.upgradePlan.plans[ this.props.upgradePlan.activePlanTab ]  }
-                updateUpgradePlanKey={this.props.actions.updateUpgradePlanKey}
-                activePlanTab= {this.props.upgradePlan.activePlanTab}
-                />
+                
             </div>
         );
     }
@@ -74,7 +85,7 @@ UpgradePlans.propTypes = {
 function mapStateToProps(state) {
   return {
     upgradePlan: state.upgradePlan,
-    currentPlan: state.userinfo.userinfo.plan
+    currentPlan: state.userinfo.userinfo.plan || {}
   }
 }
 

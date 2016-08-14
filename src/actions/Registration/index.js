@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 //import postLoginRequest from '../services/common/login';
 import * as LoginActions from '../Login';
-import urlConfig from '../../url-config';
+import Config from '../../config';
 import { browserHistory } from 'react-router';
 
 export function registerOrganisationName(RegisterOrganisationName) {
@@ -34,10 +34,28 @@ export function registerPersonalDetails(FirstName,LastName,Email) {
   }
 }
 
+export function registerPersonalDetailsJoin(TeamName,InviteToken,FirstName,LastName,Email) {
+  return (dispatch, getState) => {
+      dispatch({
+      type: 'REGISTER_PERSONAL_DETAILS_JOIN',
+      value:{"team_name":TeamName,"invite_token":InviteToken,"first_name":FirstName,"last_name":LastName,"email":Email}
+    })
+  }
+}
+
 export function registerChannel(RegisterChannel) {
   return (dispatch, getState) => {
       dispatch({
       type: 'REGISTER_CHANNEL',
+      RegisterChannel
+    })
+  }
+}
+
+export function registerChannelJoin(RegisterChannel) {
+  return (dispatch, getState) => {
+      dispatch({
+      type: 'REGISTER_CHANNEL_JOIN',
       RegisterChannel
     })
   }
@@ -63,17 +81,23 @@ export function registerIndividualDetails(FirstName,LastName,Email,Password) {
   return (dispatch, getState) => {
       dispatch({
       type: 'REGISTER_INDIVIDUAL_DETAILS',
-      value:{"first_name":FirstName,"last_name":LastName,"email":Email,"password":Password,"team_description":"chat.center"}
+      value:{"first_name":FirstName,"last_name":LastName,"email":Email,"password":Password,"team_description":window.config.cc}
     })
   }
 }
 
 export function submitRegistration(isIndividual, emails) {
-  //alert('submitRegistration');
   return (dispatch, getState) => {
     return dispatch(postRegistration(getState().registrationDetails.Organisation.payload, isIndividual))
   }
 }
+
+export function submitJoinRegistration(isIndividual, emails) {
+  return (dispatch, getState) => {
+    return dispatch(postJoinRegistration(getState().registrationDetails.Organisation.joinDetails))
+  }
+}
+
 export function inviteMembers (emails) {
   return (dispatch, getState) => {
     try{
@@ -122,7 +146,7 @@ function deleteMemberDispatch (status, member) {
 }
 
 function teamMembersList(){
-    var url =  urlConfig.base + 'teams.members.list';
+    var url =  Config.api + '/teams.members.list';
     if (typeof(Storage) !== "undefined") {
       var token = JSON.parse(localStorage.getItem("token"));
     }
@@ -136,7 +160,7 @@ function teamMembersList(){
     })
 }
 function deleteteamMember(id){
-    var url =  urlConfig.base + 'teams.members.delete';
+    var url =  Config.api + '/teams.members.delete';
     if (typeof(Storage) !== "undefined") {
       var token = JSON.parse(localStorage.getItem("token"));
     }
@@ -167,7 +191,7 @@ function inviteStatus() {
   }
 };
 function fetchUserInfo(token) {
-  return fetch( urlConfig.base + 'users.me', {
+  return fetch( Config.api + '/users.me', {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
@@ -176,7 +200,7 @@ function fetchUserInfo(token) {
   })
 }
 function addMembers(team, emails, token) {
-  return fetch( urlConfig.base + '/teams.members.create', {
+  return fetch( Config.api + '/teams.members.create', {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json',
@@ -210,7 +234,7 @@ function postActionConstruct(json, isIndividual) {
       }
 
       var payload = getState().registrationDetails.Organisation.payload, 
-        username = ((payload.team) ? (payload.team + '.chat.center/') : 'chat.center/' ) + payload.channel,
+        username = ((payload.team) ? (payload.team + '.'+ window.config.cc +'/') : window.config.cc + '/' ) + payload.channel,
         password = payload.password;
 
       dispatch(LoginActions.loginUser(username, password));
@@ -231,19 +255,54 @@ function postActionConstruct(json, isIndividual) {
   }
 }
 
+function postJoinActionConstruct(json, isIndividual) {
+ 
+  return (dispatch, getState) => {
+
+    dispatch({
+      type:'RESET_USER_DETAILS'
+    });
+
+    if(json){
+
+      if(!json.ok){
+        dispatch({
+          type: 'REGISTER_ORGANISATION_DETAILS',
+          value:{"error":json.error}
+        });
+        return;
+      }
+
+      var payload = getState().registrationDetails.Organisation.joinDetails, 
+        username = payload.team_name + '/' + payload.channel,
+        password = payload.password;
+
+      dispatch(LoginActions.loginUser(username, password));
+      dispatch(LoginActions.submitLogin(getState().orgs.addOrg, !isIndividual));          
+
+      if (typeof(Storage) !== "undefined") {
+        localStorage.setItem("user_channel", payload.channel);
+      }
+
+      dispatch({
+        type:'SUCCESSFUL_REGISTRATION_ACK'
+      })       
+    }   
+  }
+}
+
 function postRegistration(payload1, isIndividual) {
   return dispatch => {
     var payload = Object.assign({},payload1);
     if(payload.team !== null)
-      payload.team = payload.team+'.chat.center';
+      payload.team = payload.team+'.' + window.config.cc;
     postLoginRequest(payload).then(response => {return response.json()})	
       .then(json => dispatch(postActionConstruct(json, isIndividual)))
   }
 }
 
-
 function postLoginRequest(payload){
-	  return fetch(urlConfig.base + 'users.signup',
+	  return fetch(Config.api + '/users.signup',
     			{
     				method: 'POST',
     				headers:{
@@ -251,6 +310,25 @@ function postLoginRequest(payload){
     				},
 	     		 	body: JSON.stringify(payload)
 	  })
+}
+
+function postJoinRegistration(payload1, isIndividual) {
+  return dispatch => {
+    var payload = Object.assign({},payload1);
+    postJoinRequest(payload).then(response => {return response.json()})  
+      .then(json => dispatch(postJoinActionConstruct(json, isIndividual)))
+  }
+}
+
+function postJoinRequest(payload){
+    return fetch(Config.api + '/teams.invite.accept',
+          {
+            method: 'POST',
+            headers:{
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+    })
 }
 
 /**/
@@ -277,7 +355,7 @@ function teamNameAvailable(team_description) {
 }
 
 function postTeamName(team_description){
-    return fetch(urlConfig.base + 'teams.find?team='+team_description)
+    return fetch(Config.api + '/teams.find?team='+team_description)
 } 
 
 function postTeamAvailabilityResponse(json) {
@@ -310,7 +388,7 @@ function channelNameAvailable(register_channel, team_description) {
 }
 
 function postChannelName(register_channel, team_description){
-    return fetch(urlConfig.base + 'channels.find?channel='+ register_channel + '&team=' + team_description)
+    return fetch(Config.api + '/channels.find?channel='+ register_channel + '&team=' + team_description)
 } 
 
 function postChannelAvailabilityResponse(json) {

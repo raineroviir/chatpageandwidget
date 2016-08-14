@@ -7,7 +7,8 @@ const initialState = {
     },
     token:{},
     error:''
-  }
+  },
+  loginRequest: ''
 };
 
 const initialLoginState = Object.assign({},initialState.User);
@@ -43,6 +44,12 @@ export function loginDetails(state = initialState, action) {
         ...state,
         User
     };
+
+    case 'SET_LOGIN_DETAIL_STATE' : 
+      return {
+        ...state,
+        ...action.state
+      };
 
     default:
       return state;

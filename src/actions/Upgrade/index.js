@@ -4,7 +4,7 @@ export function updateUpgradePlanKey( obj ) {
   
   return dispatch => (
         dispatch({
-          type: 'UPGRADE_PLAN_UPDATE_KEY',
+          type: 'UPGRADE_PLAN_UPDATE_STATE',
           newState: obj
         })
     )
@@ -19,11 +19,11 @@ export function  getTeamMemberCount() {
     .then( 
       res=> {
         dispatch({
-          action: 'UPGRADE_PLAN_UPDATE_KEY',
+          type: 'UPGRADE_PLAN_UPDATE_STATE',
           newState: {
             memberCount: ( res && res.users && res.users.length || 2 )
           }
-        })
+        });
         //console.log( 'Res...' , res );
       }, 
       err => {
@@ -143,7 +143,20 @@ export function validateCoupon ( coupon ) {
 
 
 export function getPlanDetails() {
+  
   return dispatch => {
+
+    dispatch({
+      type: 'SHOW_LOADER'
+    });
+    dispatch({
+      type: 'UPGRADE_PLAN_UPDATE_STATE',
+      newState: {
+        error: false,
+        requestStatus: 'loading'
+      }
+    });
+
     ApiService.api({
       action: "widget.plan-list"
     })
@@ -165,15 +178,28 @@ export function getPlanDetails() {
         plans.year = plans.year.sort( (a, b) => a.amount > b.amount );
         
         dispatch({
-          type: 'UPGRADE_PLAN_UPDATE_KEY',
+          type: 'UPGRADE_PLAN_UPDATE_STATE',
           newState: {
-            plans
+            plans: plans,
+            requestStatus: 'loaded'
           }
-        }) 
-        //console.log( 'plan-list', res );
+        }) ;
+        dispatch({
+          type: 'HIDE_LOADER'
+        }); 
       },
       err => {
         console.log( 'Err', err );
+        dispatch({
+          type: 'HIDE_LOADER'
+        }); 
+        dispatch({
+          type: 'UPGRADE_PLAN_UPDATE_STATE',
+          newState: {
+            error: err.error,
+            requestStatus: 'error'
+          }
+        });
       }
     )
 

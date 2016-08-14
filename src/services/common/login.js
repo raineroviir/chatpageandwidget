@@ -1,15 +1,15 @@
 import fetch from 'isomorphic-fetch';
-import urlConfig from '../../../url-config';
+import Config from '../../../config';
 
 export function postLoginRequest(){
-	  return fetch('https://id.chat.center/oauth/token',
+	  return fetch('https://id.'+ window.config.cc +'/oauth/token',
     			{
     				method: 'POST',
     				headers:{
     					'Content-Type': 'application/json'
     				},
 	     		 	body: JSON.stringify({
-					  "username": "chat.center/sergey",
+					  "username": window.config.cc + "/sergey",
 					  "password": "12345678",
 					  "grant_type": "password"
 					})

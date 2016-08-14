@@ -893,5 +893,54 @@ footer {
   
 }
 
+.common-error-message {
+    color: #c91913;
+    border-top: 2px solid #c91913;
+    border-bottom: 2px solid #c91913;
+    padding: 10px 0;
+    margin: 10px 0;
+}
+
+
+.btn-loading {
+  text-indent: -99999px;
+  position: relative;
+  cursor: no-drop !important;
+  &:after {
+    border-radius: 100%;
+    border: 2px solid #fff;
+    border-bottom:0;
+    height: 26px;
+    width: 26px;
+    position: absolute;
+    top: calc( 50% - 13px );
+    left: calc( 50% - 13px );
+    -webkit-animation: zoom-rotate .75s 0s linear infinite;
+    animation: zoom-rotate .75s 0s linear infinite;
+    content: '';
+  }
+}
+
+@-webkit-keyframes zoom-rotate {
+  0% {
+    -webkit-transform: rotate(0deg) scale(0.5);
+            transform: rotate(0deg) scale(0.5); }
+  50% {
+    -webkit-transform: rotate(180deg) scale(1);
+            transform: rotate(180deg) scale(1); }
+  100% {
+    -webkit-transform: rotate(360deg) scale(0.5);
+            transform: rotate(360deg) scale(0.5); } }
+
+@keyframes zoom-rotate {
+  0% {
+    -webkit-transform: rotate(0deg) scale(0.5);
+            transform: rotate(0deg) scale(0.5); }
+  50% {
+    -webkit-transform: rotate(180deg) scale(1);
+            transform: rotate(180deg) scale(1); }
+  100% {
+    -webkit-transform: rotate(360deg) scale(0.5);
+            transform: rotate(360deg) scale(0.5); } }
 
 @import './theme.scss';

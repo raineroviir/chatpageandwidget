@@ -45,7 +45,7 @@ export class ChatWidget extends Component {
                     
                 </span>
                 <a href="javascript:">
-                    Sign in to chat.center
+                    Sign in to {window.config.cc}
                 </a>
             </div>
 
@@ -67,8 +67,8 @@ export class ChatWidget extends Component {
                         
                             <div className="chat-center-team-name">Chat Center Team</div>
                             <p className="chat-center-team-link">
-                                <a href={"https://team.chat.center/" + this.props.channelInfo.address.channel }>
-                                    https://team.chat.center/{this.props.channelInfo.address.channel}
+                                <a href={"https://team."+window.config.cc+"/" + this.props.channelInfo.address.channel }>
+                                    https://team.{window.config.cc}/{this.props.channelInfo.address.channel}
                                 </a>
                             </p>
                         </div>
@@ -152,7 +152,7 @@ export class ChatWidget extends Component {
                     </div>
                 </form>
                 <div className="promo-section">
-                    <span className="promo-logo"></span>Powered by <a href="http://chat.center">chat.center</a>
+                    <span className="promo-logo"></span>Powered by <a href={ "http://" + window.config.cc }>{window.config.cc}</a>
                 </div>
             </div>
         </div>

@@ -34,9 +34,9 @@ export class RegisterIndividualDomain extends Component {
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal org-join-form" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
-                <h1 className="title">Join Extraordinary Foods chat.center </h1>
+                <h1 className="title">Join Extraordinary Foods {window.config.cc} </h1>
                 <div className="chat-address">Pick your personal chat address</div>
-                <div className="chat-address">https://extraordinaryfoods.chat.center</div>
+                <div className="chat-address">https://extraordinaryfoods.{window.config.cc}</div>
                 
                 <div className="input-group input-group-lg">
 

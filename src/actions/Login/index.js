@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import urlConfig from '../../url-config';
+import Config from '../../config';
 //import postLoginRequest from '../services/common/login';
 import { browserHistory } from 'react-router';
 
@@ -92,7 +92,14 @@ function postActionConstruct(json, payload, addOrg, goToInvitePage) {
 
 export function postLogin(payload, addOrg, goToInvitePage) {
   return dispatch => {
-    postLoginRequest(payload).then(response => {return response.json()})	
+    dispatch({
+      type: 'SET_LOGIN_DETAIL_STATE',
+      state: {
+        loginRequest: 'loading'
+      }
+    })
+    postLoginRequest(payload)
+      .then(response => {return response.json()})	
       .then(json => {
         dispatch(postActionConstruct(json, payload, addOrg, goToInvitePage))
         dispatch({
@@ -100,12 +107,25 @@ export function postLogin(payload, addOrg, goToInvitePage) {
           posts: { guest: false },
           receivedAt: Date.now()
         });
+        dispatch({
+          type: 'SET_LOGIN_DETAIL_STATE',
+          state: {
+            loginRequest: 'loaded'
+          }
+        })
+      }, err => {
+        dispatch({
+          type: 'SET_LOGIN_DETAIL_STATE',
+          state: {
+            loginRequest: 'error'
+          }
+        })
       })
   }
 }
 
 export function postLoginRequest(payload){
-	  return fetch(urlConfig.authBase,
+	  return fetch(Config.authBase,
     			{
     				method: 'POST',
     				headers:{

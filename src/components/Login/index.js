@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as LoginActions from '../../actions/Login';
-
+import classNames from 'classnames'
 /* component styles */
 import { styles } from './styles.scss';
 
@@ -46,7 +46,7 @@ export class LoginComponent extends Component {
                 <div className="logo-wrapper">
                   <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 </div>
-                <h1 className="title text-center">chat.center</h1>
+                <h1 className="title text-center">{window.config.cc}</h1>
                 <div className="details text-center">Sign in to your account</div>
                 <div className="text-center" style={{marginTop:'20px'}}>
                   {successfulRegistration}
@@ -58,7 +58,7 @@ export class LoginComponent extends Component {
                   <label htmlFor="username" className="input-group-addon user-name" id="username-addon"><img className="prefix" src="dist/images/user-icon.svg" /><span className="prefix-text">https:<span className="double-slashes">//</span></span></label>
                   <input autoFocus id="username" type="text" className="form-control" ref="Username" placeholder="your chat address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
                 </div>
-                <div className="desc">Examples: chat.center/you; yourteam.chat.center/you; chat.yourdomain.com/you</div>
+                <div className="desc">Examples: {window.config.cc}/you; yourteam.{window.config.cc}/you; chat.yourdomain.com/you</div>
                 <div className="input-group input-group-lg password-field">
                   <label htmlFor="password" className="input-group-addon" id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></label>
                   <input id="password" type="password" className="form-control" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
@@ -67,12 +67,20 @@ export class LoginComponent extends Component {
                 
                 <div className="form-group">
                     <div className="col-sm-12 text-center">
-                      <button type="submit" className="btn btn-default sign-in" ref="loginBtn" onClick={this.handleLogin.bind(this)}>SIGN IN</button>
+                      <button type="submit" className=
+                      {
+                        classNames("btn btn-default sign-in", {
+                        'btn-loading': this.props.loginDetails.loginRequest === 'loading' 
+                        }) 
+                      }
+                      ref="loginBtn" 
+                      onClick={this.handleLogin.bind(this)}
+                      >SIGN IN</button>
                     </div>
                   </div>
                   <div className="support-signin-wrapper">
                     <div className="sign-up">
-                      <span>New to chat.center?</span>
+                      <span>New to {window.config.cc}?</span>
                       <Link to="/signup" title="Sign up" className="pull-right">Sign up.</Link>
                     </div>
                     <div className="forgot-password">

@@ -3,7 +3,8 @@ const initialState = {
     classId: '',
     widgetMenuState : false,
     isNewChannelConfig: false,
-    initialConfig: null
+    initialConfig: null,
+    error: true
 };
 
 export function widget(state = initialState, action) {
@@ -21,6 +22,12 @@ export function widget(state = initialState, action) {
           returnState.initialConfig = action.data;
           return returnState;
       }
+
+      case 'WIDGET_UPDATE_STATE': 
+          return {
+              ...state,
+              ...action.newState
+          }
       default: return state;
     }
 }

@@ -29,12 +29,10 @@ export class ChannelMenu extends Component {
         }></span>
         <ul>
           {
-            channel&&channel.is_group ? '':
-            (
-             <li>
+            channel&&channel.is_public ? (<li>
               <Link to="/widget/installation" onClick= { this.hideMenu.bind(this) }>Website widget setup</Link>
-            </li>
-            )  
+            </li>):
+            ''
           }
           
           <li>

@@ -16,7 +16,7 @@ export class Installation extends Component {
   
     getScriptText(){
 
-        return "<div id='chat-center-widget' data-chat-id='"+this.props.conversations.channelid+"'></div>\n<script>(function(d,s){var js,cjs=d.getElementsByTagName(s)[0];js=d.createElement(s);js.src='//chat.center/javascript/widget.js';cjs.parentNode.insertBefore(js,cjs);}(document,'script'))"
+        return "<div id='chat-center-widget' data-chat-id='"+this.props.conversations.channelid+"'></div>\n<script>(function(d,s){var js,cjs=d.getElementsByTagName(s)[0];js=d.createElement(s);js.src='//"+window.config.cc+"/javascript/widget.js';cjs.parentNode.insertBefore(js,cjs);}(document,'script'))"
     }
     componentDidMount() {
 

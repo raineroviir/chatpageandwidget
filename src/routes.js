@@ -31,7 +31,8 @@ import UpgradePlans from 'components/Upgrade/UpgradePlans';
 import UpgradeForm from 'components/Upgrade/UpgradeForm';
 import UpgradeSuccess from 'components/Upgrade/UpgradeSuccess';
 
-
+import RegisterJoinDetail from 'containers/Registration/Join/Detail';
+import RegisterJoinAddress from 'containers/Registration/Join/Address';
 
 
 export default (
@@ -60,7 +61,8 @@ export default (
     <Route path="channel/edit/:id" component={ChannelCreate} />
     <Route path="channel/members" component={ChannelMembers} />
     <Route path="channel/members/:id" component={ChannelMembers} />
-
+    <Route path="team.name/join/invite_token" component={RegisterJoinDetail} />
+    <Route path="join/address" component={RegisterJoinAddress} /> 
 
     <Route path="upgrade" component={UpgradeVew}>
         <IndexRoute  component={UpgradePlans} />

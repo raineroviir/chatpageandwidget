@@ -31,12 +31,17 @@ const initialState = {
       ],
       ruleExpression: "any"
     }
-    
-
-
 };
 
+let ccTextChanged = false;
+
 export function widgetConfig(state = initialState, action) {
+
+    if( !ccTextChanged && window.config ) {
+      initialState.content.welcomeMessage = 'Hi there, thanks for checking out '+ window.config.cc +', if you have any questions we will be happy to help, just let us know!';
+      ccTextChanged = true;
+    }
+
     switch (action.type) {
 
       case 'INIT_WIDGET_CONFIG': 

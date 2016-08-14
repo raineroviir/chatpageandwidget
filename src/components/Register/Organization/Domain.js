@@ -132,13 +132,13 @@ export class RegisterOrgDomainComp extends Component {
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal domain-form" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
-                <h1 className="inner-title">What address would you like for your chat.center?</h1>
+                <h1 className="inner-title">What address would you like for your {window.config.cc}?</h1>
                 
                 <div className={'chat-center-address-input input-group input-group-lg ' + wrapperCls}>
 
                   <label htmlFor="registerTeam" className="input-group-addon user-name" id="username-addon"><span className="prefix-text">https:<span className="double-slashes">//</span></span></label>
                   <input autoFocus id="registerTeam" type="text" className="form-control" ref="RegisterTeam" onChange={this.inputChange.bind(this)} placeholder="address" aria-describedby="username-addon" />
-                  <span className="input-group-addon suffix"><span className="prefix-text">.chat.center</span></span>
+                  <span className="input-group-addon suffix"><span className="prefix-text">.{window.config.cc}</span></span>
                   
                 </div>
                 <div className="message-wrapper">
@@ -151,7 +151,7 @@ export class RegisterOrgDomainComp extends Component {
                       <a className="own-domain" href="javascript:;" title="Use my own domain">Use my own domain</a>
                 </div>  
                 <div className="desc">This is your organization's dedicated name space. You will be able to create external chats for sales, support and alike, and internal chats to talk privately with your team, for example: 
-                   <p className="desc-ex">extraordinaryfoods.chat.center/sales, /support, /internal, etc.</p>
+                   <p className="desc-ex">extraordinaryfoods.{window.config.cc}/sales, /support, /internal, etc.</p>
                 </div> 
                 <div className="form-group button-wrapper">
                     <div className="col-sm-12">

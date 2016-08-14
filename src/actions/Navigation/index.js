@@ -1,4 +1,4 @@
-import urlConfig from '../../url-config';
+import Config from '../../config';
 import fetch from 'isomorphic-fetch';
 import { getChannels } from '../Channels';
 import { browserHistory } from 'react-router';
@@ -77,7 +77,7 @@ export function fetchUserInfo() {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token")) || {};
   }
-  return fetch( urlConfig.base + 'users.me', {
+  return fetch( Config.api + '/users.me', {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ function processOrgsForDispatch(userinfo) {
     orgs = orgs.filter(item => {item.active = false; return true; });
     if(!org){
       let chname = window.location.pathname.split("dashboard/")[1],
-        name = (userinfo.user.team) ? userinfo.user.team.name + "/" + chname : "chat.center/" + chname,
+        name = (userinfo.user.team) ? userinfo.user.team.name + "/" + chname : window.config.cc + "/" + chname,
         orgNew = orgs.find(item => {
           return item.name == name
         });

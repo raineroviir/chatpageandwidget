@@ -14,7 +14,16 @@ const initialState = {
     deleteSuccess: false,
     TeamAvailable:{},
     ChannelAvailable:{},
-    members: []
+    members: [],
+    MemberAvailable:{},
+    joinDetails:{
+      team_name:'',
+      invite_token:'',
+      username:'',
+      first_name:'',
+      last_name:'',
+      password:''
+    }
   }
 };
 
@@ -57,7 +66,16 @@ export function registrationDetails(state = initialState, action) {
       ...state,
       Organisation
   };
-  
+
+  case 'REGISTER_CHANNEL_JOIN':
+    //mutate initial state to store the organisation value and create STATE from it
+   
+    var Organisation = initialState.Organisation;
+    Organisation.joinDetails = (Object.assign(initialState.Organisation.joinDetails, {username:action.RegisterChannel}));
+    return {
+      ...state,
+      Organisation
+  };  
   
   case 'REGISTER_PASSWORD':
     //mutate initial state to store the organisation value and create STATE from it
@@ -72,6 +90,15 @@ export function registrationDetails(state = initialState, action) {
     //mutate initial state to store the organisation value and create STATE from it
     var Organisation = initialState.Organisation;
     Organisation.payload = (Object.assign(initialState.Organisation.payload, action.value));
+    return {
+      ...state,
+      Organisation
+  };
+
+  case 'REGISTER_PERSONAL_DETAILS_JOIN':
+    //mutate initial state to store the organisation value and create STATE from it
+    var Organisation = initialState.Organisation;
+    Organisation.payload = (Object.assign(initialState.Organisation.joinDetails, action.value));
     return {
       ...state,
       Organisation

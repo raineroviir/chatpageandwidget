@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import urlConfig from '../../url-config';
+import Config from '../../config';
 import { browserHistory } from 'react-router';
 
 export function chatType(attr) {
@@ -92,7 +92,7 @@ function postActionFindUser(json) {
 }
 
 function findUser(user){
-    var url =  urlConfig.base + 'users.find?chat_url=' + user;
+    var url =  Config.api + '/users.find?chat_url=' + user;
     if (typeof(Storage) !== "undefined") {
       var token = JSON.parse(localStorage.getItem("token"));
     }
@@ -304,16 +304,16 @@ function createRequest(payload){
     data.append('is_direct', payload.is_direct);
     if(payload.temp_members && payload.temp_members.length && payload.is_group && payload.is_public) {
       data.append('moderator_ids', JSON.stringify(payload.temp_members.map(value => value['id'])));
-      data.append('moderator_chat_urls', JSON.stringify(payload.temp_members.map(value => ((value['team'] ? value['team']['name'] : 'chat.center') + '/' +value['username']))));
+      data.append('moderator_chat_urls', JSON.stringify(payload.temp_members.map(value => ((value['team'] ? value['team']['name'] : window.config.cc) + '/' +value['username']))));
       data.append('member_ids' ,[]);
       data.append('member_chat_urls', []);
     } else {
       data.append('member_ids', JSON.stringify(payload.temp_members.map(value => value['id'])));
-      data.append('member_chat_urls', JSON.stringify(payload.temp_members.map(value => ((value['team'] ? value['team']['name'] : 'chat.center') + '/' +value['username']))));
+      data.append('member_chat_urls', JSON.stringify(payload.temp_members.map(value => ((value['team'] ? value['team']['name'] : window.config.cc) + '/' +value['username']))));
       data.append('moderator_ids' ,[]);
       data.append('moderator_chat_urls', []);
     }
-    return fetch(urlConfig.base + '/channels.create',
+    return fetch(Config.api + '/channels.create',
       {
         method: 'POST',
         headers:{
@@ -335,7 +335,7 @@ function updateDetailsRequest(payload){
     data.append('channel_id', payload.id);
     data.append('name', payload.channel);
     data.append('description', payload.description);
-    return fetch(urlConfig.base + '/channels.update' ,
+    return fetch(Config.api + '/channels.update' ,
       {
         method: 'PUT',
         headers:{
@@ -351,9 +351,9 @@ function updateMembersRequest(payload){
       var token = JSON.parse(localStorage.getItem("token"));
     }
     if(payload.is_public && payload.is_group)
-      var url = urlConfig.base + '/channels.moderators.create';
+      var url = Config.api + '/channels.moderators.create';
     else 
-      var url = urlConfig.base + '/channels.members.create';
+      var url = Config.api + '/channels.members.create';
     var data = new FormData();
     data.append('channel_id', payload.id);
     if(payload.temp_members && payload.temp_members.length) {
@@ -375,9 +375,9 @@ function deleteMembersRequest(payload, user_id){
       var token = JSON.parse(localStorage.getItem("token"));
     }
     if(payload.is_public && payload.is_group)
-      var url = urlConfig.base + '/channels.moderators.delete';
+      var url = Config.api + '/channels.moderators.delete';
     else 
-      var url = urlConfig.base + '/channels.members.delete';
+      var url = Config.api + '/channels.members.delete';
     var data = new FormData();
     data.append('channel_id', payload.id);
     data.append('user_id', user_id);
@@ -396,7 +396,7 @@ function deleteChannelRequest(id){
     if (typeof(Storage) !== "undefined") {
       var token = JSON.parse(localStorage.getItem("token"));
     }
-    return fetch(urlConfig.base + '/channels.delete/' + id ,
+    return fetch(Config.api + '/channels.delete/' + id ,
       {
         method: 'DELETE',
         headers:{
@@ -407,7 +407,7 @@ function deleteChannelRequest(id){
 } 
 
 function fetchChannelInfo(id){
-    var url =  urlConfig.base + 'channels.info?channel_id=' + id;
+    var url =  Config.api + '/channels.info?channel_id=' + id;
     if (typeof(Storage) !== "undefined") {
       var token = JSON.parse(localStorage.getItem("token"));
     }
@@ -422,7 +422,7 @@ function fetchChannelInfo(id){
 }
 
 function findTeam(channel){
-    var url =  urlConfig.base + 'channels.find?channel=' + channel.channel;
+    var url =  Config.api + '/channels.find?channel=' + channel.channel;
     if(channel.team){
       url+= ("&team=" + channel.team);
     }
@@ -440,7 +440,7 @@ function findTeam(channel){
 }
 
 function teamMembersList(){
-    var url =  urlConfig.base + 'teams.members.list';
+    var url =  Config.api + '/teams.members.list';
     if (typeof(Storage) !== "undefined") {
       var token = JSON.parse(localStorage.getItem("token"));
     }
@@ -455,7 +455,7 @@ function teamMembersList(){
 }
 
 function channelMembersList(id){
-    var url =  urlConfig.base + 'channels.members.list?channel_id=' + id;
+    var url =  Config.api + '/channels.members.list?channel_id=' + id;
     if (typeof(Storage) !== "undefined") {
       var token = JSON.parse(localStorage.getItem("token"));
     }

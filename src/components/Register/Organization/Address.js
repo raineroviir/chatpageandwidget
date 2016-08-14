@@ -62,7 +62,7 @@ export class RegisterOrgAddressComp extends Component {
             <form id="signupform" className="form-horizontal org-address-form" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Pick your personal chat address</h1>
-                <div className="chat-address">https://{Organisation.payload.team}.chat.center</div>
+                <div className="chat-address">https://{Organisation.payload.team}.{window.config.cc}</div>
                 <div className="input-group input-group-lg">
                   <label htmlFor="registerChannel" className="input-group-addon user-name" id="username-addon"><span className="prefix-text slash">/</span></label>
                   <input autoFocus id="registerChannel" type="text" className="form-control channel-field" ref="RegisterChannel" placeholder="Your name or nickname" aria-describedby="username-addon" onChange={this.inputChange.bind(this)} />

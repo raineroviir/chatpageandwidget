@@ -80,7 +80,7 @@ export class ChannelMembersContainer extends Component {
       this.props.actions.getTeamMembers(false);
     }
     let teamName = this.props.org ? this.props.org.name.split('/')[0] : '';
-    let isTeam = (teamName == 'chat.center' || teamName == '') ? false : true;
+    let isTeam = (teamName == window.config.cc || teamName == '') ? false : true;
     if(!isTeam){
       this.props.actions.toggleFind(true);
     }
@@ -89,7 +89,7 @@ export class ChannelMembersContainer extends Component {
   render() {
     let teamName = this.props.org ? this.props.org.name.split('/')[0] : '';
     let teamDesc = this.props.org && this.props.org.user && this.props.org.user.team ? this.props.org.user.team.description : '';
-    let isTeam = (teamName == 'chat.center' || teamName == '') ? false : true;
+    let isTeam = (teamName == window.config.cc || teamName == '') ? false : true;
     return (
         <div>
           <DocumentMeta {...metaData} />

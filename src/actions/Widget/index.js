@@ -1,5 +1,5 @@
 const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
-import urlConfig from '../../url-config';
+import Config from '../../config';
 import { browserHistory } from 'react-router';
 import ApiService  from '../../api.service';
 
@@ -11,6 +11,13 @@ export function initWidgetConfig( channelid ) {
       let state = getState();
       dispatch({
         type: 'SHOW_LOADER'
+      });
+      // initialize the error with empty
+      dispatch({
+        type: 'WIDGET_UPDATE_STATE',
+        newState: {
+          error: false
+        }
       });
       ApiService.api( {
         action: "widget.details",
@@ -50,6 +57,16 @@ export function initWidgetConfig( channelid ) {
           });
         },
         err => {  
+          dispatch({
+            type: 'HIDE_LOADER'
+          });
+
+          dispatch({
+            type: 'WIDGET_UPDATE_STATE',
+            newState: {
+              error: err.error
+            }
+          });
         }
       )
     }
@@ -75,7 +92,16 @@ export function saveWidgetConfig( config, channelid, isNewChannelConfig, activeC
     method = 'widget.create';
   } 
 
+ 
+
   return dispatch => {
+
+      dispatch({
+        type: 'WIDGET_UPDATE_STATE',
+        newState: {
+          error: false
+        }
+      });
       dispatch({
         type: 'SHOW_LOADER'
       });
@@ -107,6 +133,12 @@ export function saveWidgetConfig( config, channelid, isNewChannelConfig, activeC
       }, err => {
         dispatch({
           type: 'HIDE_LOADER'
+        });
+        dispatch({
+          type: 'WIDGET_UPDATE_STATE',
+          newState: {
+            error: err.error
+          }
         });
       } )
   }

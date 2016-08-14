@@ -1,12 +1,7 @@
 let URLS = require("json!./urls.json");
+
 import fetch from 'isomorphic-fetch';
-
-
-let ApiConfig = {
-    api: "http://ec2-54-169-64-117.ap-southeast-1.compute.amazonaws.com:1111/v1",
-    auth: "http://ec2-54-169-64-117.ap-southeast-1.compute.amazonaws.com:2222/oauth/token",
-    widget: "http://ec2-54-169-64-117.ap-southeast-1.compute.amazonaws.com:3333/v1"
-}
+import Config from './config';
 
 class ApiService {
 
@@ -63,7 +58,7 @@ class ApiService {
                 reject( 'Error in calling ' + action );
             }
 
-            let url = ApiConfig[ obj.entry ];
+            let url = Config[ obj.entry ];
             url = url + '/' + this.parseUrl( obj.url, params );
             
             let reqObj = {
@@ -94,9 +89,9 @@ class ApiService {
             .then(
               ( response ) => {
                 status = response.status;
-                if ( status == 401 ) {
+                /*if ( status == 401 ) {
                   browserHistory.push("/");
-                } 
+                } */
                 return response.json();
               }
             ).then( json => {
