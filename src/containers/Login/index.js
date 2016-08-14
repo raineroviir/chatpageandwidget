@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as LoginActions from '../../actions/Login'
+import * as LoginActions from '../../actions/Login';
 import DocumentMeta from 'react-document-meta';
+import { browserHistory } from 'react-router';
+import { fetchUserInfo } from '../../actions/Navigation';
 
 /* components */
 import LoginComponent from 'components/Login';
@@ -21,6 +23,20 @@ const metaData = {
 export class Login extends Component {
   componentWillMount(){
     this.props.actions.addOrg(!!this.props.location.search);
+    if(typeof Storage === "undefined" || !localStorage.getItem("orgs") || !localStorage.getItem("token")){
+      return;
+    }
+    try {
+      let user = JSON.parse(localStorage.getItem("orgs")).find(org => org.token.access_token === JSON.parse(localStorage.getItem("token")).access_token )
+      fetchUserInfo().then(response => {
+        if(response && response.ok){
+          browserHistory.push("/dashboard/" + user.name.split("/")[1])          
+        }
+      })
+    }
+    catch(e){
+
+    }
   }
   render() {
     return (

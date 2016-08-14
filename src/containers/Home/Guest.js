@@ -17,7 +17,7 @@ export class Messages extends Component {
           <h1>Chat Center</h1>
         </div>
 
-        <ChatMessage messages={this.props.messages.messages} user={this.props.user} isGuest={this.props.isGuest} />
+        <ChatMessage messages={this.props.messages.messages} user={this.props.user} guest={this.props.guest} />
         <CreateMessage isGuest={this.props.isGuest} convid={this.props.convid} />
       </div>
     );
@@ -28,8 +28,9 @@ function mapStateToProps(state) {
   return {
     messages: state.messages,
     user: state.userinfo,
-    isGuest: true,
-    convid: state.guest.convid
+    isGuest: state.guest.guest,
+    convid: state.guest.convid,
+    guest: state.guest.user_id
   }
 }
 

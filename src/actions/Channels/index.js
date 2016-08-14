@@ -16,19 +16,26 @@ export function getChannels(channelid) {
   return dispatch => {
     if(typeof(Storage) === "undefined" || !localStorage.getItem("token")){
       dispatch(initGuestMessaging());
+      if(localStorage.getItem("guestMessages")){
+        let guestMessages = JSON.parse(localStorage.getItem("guestMessages"));
+        dispatch(processConversationsHistoryForDispatch({ messages: guestMessages.messages}, guestMessages.conversationid))
+      }
+      if(localStorage.getItem("guest")){
+        dispatch(setGuestUserId(JSON.parse(localStorage.getItem("guest")).user_id))
+      }
       return;
     }
 
-    fetchChannels().then(response => {return response.json()})  
+    fetchChannels().then(response => {return response.json()})
     .then(json => {
       /* If there is error in json stop proceeding */
       if(json.error) { return; }
       /* Invoke Channels Service when we recieve new channels */
       if(json.channels.length){
-        dispatch(getConversations(channelid || Array.prototype.slice.call(json.channels).reverse().find(chl => chl.is_direct).id, json.channels))          
+        dispatch(getConversations(channelid || Array.prototype.slice.call(json.channels).reverse().find(chl => chl.is_direct).id, json.channels))
       }
       else{
-        dispatch(processConversationsForDispatch({ conversations: []}, null)) 
+        dispatch(processConversationsForDispatch({ conversations: []}, null))
       }
       dispatch(processChannelsForDispatch(json))
     })
@@ -48,7 +55,7 @@ export function getConversations(channelid, channels, conversationname) {
     !!conv && dispatch(processMemoizedConversationsHistoryForDispatch(conv));
 
     /* Trigger API to get latest conversations */
-    fetchConversations(channelid).then(response => {return response.json()})  
+    fetchConversations(channelid).then(response => {return response.json()})
       .then(json => {
         /* Invoke Channels Service when we recieve new channels */
         if(json && json.conversations && json.conversations.length){
@@ -57,7 +64,7 @@ export function getConversations(channelid, channels, conversationname) {
         }
         else{
           /* Reset conversation history from API */
-          dispatch(processConversationsHistoryForDispatch({ messages: []}, null)) 
+          dispatch(processConversationsHistoryForDispatch({ messages: []}, null))
         }
         dispatch(processConversationsForDispatch(json, channelid))
       })
@@ -78,8 +85,13 @@ export function createMessage(message, conversationid) {
           "grant_type": "password"
         }).then(response => response.json())
         .then(json => {
-          access_token = json.token.access_token;
-          !!typeof(Storage) && localStorage.setItem('guest', JSON.stringify(json.token));
+          let guestAuth = json.token;
+          access_token = guestAuth.access_token;
+          fetchUserInfo(json.token).then(response => response.json())
+            .then(json =>{
+              dispatch(setGuestUserId(json.user.id));
+              !!typeof(Storage) && localStorage.setItem('guest', JSON.stringify({...guestAuth, user_id: json.user.id}));
+            })
         })
       }
       else{
@@ -88,35 +100,36 @@ export function createMessage(message, conversationid) {
       if(!conversationid){
         // get conversationid if its not available
         fetchGuestInfo = fetchGuestInfo.then(json => {
-          var channel = window.location.hash.match(/\/([^\/]+)\/?$/);
+          var channel = window.location.href.match(/\/([^\/]+)\/?$/);
           if(parseInt(channel[1])) channel = channel[0].match(/\/([^\/]+)\/?$/)[0];
           else channel = channel[1];
           return getChannel(channel, access_token);
         }).then(response => response.json())
         .then(json => {
           if(json.channel && json.channel.id){
-            return createCoversation(json.channel.id, access_token);          
+            return createCoversation(json.channel.id, access_token);
           }
           else{
             dispatch(genericError());
           }
-        }).then(response => response.json())        
+        }).then(response => response.json())
       }
       fetchGuestInfo.then(json => {
-        if(conversationid || (json && json.conversation && json.conversation.id)){
+        conversationid = conversationid || (json && json.conversation && json.conversation.id);
+        if(conversationid){
           if(json && json.conversation && json.conversation.id) dispatch(setGuestConvid(json.conversation.id));
           // Post message using the conversationid
-          postMessage(message, conversationid || json.conversation.id, access_token).then(response => response.json())
+          postMessage(message, conversationid, access_token).then(response => response.json())
           .then(json => {
             dispatch(processCreateMessage(json));
-            dispatch(processAddMessage(json));
+            dispatch(processAddMessage(json, conversationid));
           })
         }
         else{
           dispatch(genericError());
         }
       });
-      
+
     }
     else{
       postMessage(message, conversationid).then(response => response.json())
@@ -144,7 +157,7 @@ export function getChannel(channel, access_token, team) {
 export function getConversationHistory (conversationid) {
   return dispatch => {
     /* Trigger API service to retrieve latest conversation history */
-    fetchConversationHistory(conversationid).then(response => {return response.json()})  
+    fetchConversationHistory(conversationid).then(response => {return response.json()})
       .then(json => {
         dispatch(processConversationsHistoryForDispatch(json, conversationid))
         dispatch({
@@ -168,7 +181,7 @@ export function setUserInfo(user, history) {
     }
     if(org){
       org.active = true;
-      localStorage.setItem("token", JSON.stringify(org.token));      
+      localStorage.setItem("token", JSON.stringify(org.token));
     }
   }
   return {
@@ -186,18 +199,28 @@ export function createChannelDetailsReset() {
   createChannelActions.resetDetails();
 }
 
-export function fetchSocket () {
+export function fetchSocket (token) {
   return dispatch => {
-    let getSocket = getSocketURL();
+    let getSocket = getSocketURL(token);
     if(getSocket){
       getSocket.then(response => response.json()).then(json => initializeSocket(json, dispatch));
     }
-  }  
+    else {
+      loginActions.postLoginRequest({
+        "username": window.config.cc + "/guest",
+        "password": "12345678",
+        "grant_type": "password"
+      }).then(response => response.json())
+        .then(json => {
+          dispatch(fetchSocket(json.token));
+        })
+    }
+  }
 }
 
-function getSocketURL (argument) {
-  if (typeof(Storage) === "undefined" || !localStorage.getItem("token")) return null;
-  var token = JSON.parse(localStorage.getItem("token"));
+function getSocketURL (token) {
+  if ((typeof(Storage) === "undefined" || (!localStorage.getItem("token") && !localStorage.getItem("guest"))) && !token ) return null;
+  if(!token) { token = JSON.parse(localStorage.getItem("token") || localStorage.getItem("guest")) }
   return fetch( Config.api + '/users.websocket.url', {
     method: 'GET',
     headers:{
@@ -217,12 +240,12 @@ function initializeSocket(socket, dispatch) {
       let data = JSON.parse(msg.data);
       if(!data.message || !data.message.type) return;
       switch (data.message.type){
-        case "message": 
+        case "message":
         dispatch(dispatchMessageStream(data.message));
       }
     }
   };
-  
+
 };
 
 export function testSocket () {
@@ -242,25 +265,28 @@ export function testSocket () {
 
 export function selectChannel (channelname, conversationname) {
   return (dispatch, getState) => {
-    var service = Promise.resolve(), team = null;
+    var service = Promise.resolve(), team = null, failure = false;
     if(!getState().userinfo.userinfo.id){
       service = fetchUserInfo().then(response => {
           return response.json()
        })
-        .then(json => { 
-          team = json.user.team
+        .then(json => {
+          if(!json.ok) { failure = true; }
+          else { team = json.user.team }
         })
     }
     else{
       team = getState().userinfo.userinfo.team;
     }
     service.then(() => {
-      fetchChannel(channelname, team).then(response => response.json())
-      .then(json => {
-        if(json.ok){
-          dispatch(getConversations(json.channel.id, null, conversationname));
-        }
-      })   
+      if(!failure){
+        fetchChannel(channelname, team).then(response => response.json())
+        .then(json => {
+          if(json.ok){
+            dispatch(getConversations(json.channel.id, null, conversationname));
+          }
+        })
+      }
     })
   }
 }
@@ -349,7 +375,7 @@ function postMessage(message, conversationid, access_token) {
 }
 
 function processChannelsForDispatch(channels) {
-  let source = channels.channels.reverse() || [], 
+  let source = channels.channels.reverse() || [],
     processed = {
       all: channels.channels,
       publicChannels: source.filter(item => item.is_public && !item.is_direct) || [],
@@ -403,7 +429,7 @@ function processMemoizedConversationsHistoryForDispatch(conversationid) {
     posts: { conversationid},
     receivedAt: Date.now()
   }
-} 
+}
 
 function processMemoizedConversationsForDispatch(channelid) {
   return {
@@ -438,7 +464,23 @@ function setGuestConvid (convid) {
     receivedAt: Date.now()
   }
 }
-function processAddMessage(response) {
+
+function setGuestUserId (user_id) {
+  return {
+    type: "SET_GUEST_ID",
+    posts: { user_id },
+    receivedAt: Date.now()
+  }
+}
+
+function processAddMessage(response, conversationid) {
+  if(conversationid && typeof Storage !== "undefined"){
+    var guestMessages = JSON.parse(localStorage.getItem("guestMessages")) || {},
+      channel = window.location.href.match(/\/([^\/]+)\/?$/)[1],
+      messages = guestMessages.messages || [];
+    guestMessages = {...guestMessages, channel, conversationid, messages: messages.concat([response.message])}
+    localStorage.setItem("guestMessages", JSON.stringify(guestMessages));
+  }
   return {
     type: "ADD_MESSAGE",
     posts: response.message,

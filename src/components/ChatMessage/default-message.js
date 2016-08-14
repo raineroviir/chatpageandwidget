@@ -23,7 +23,7 @@ export class DefaultMessage extends Component {
                     <div className="welcome-logo"></div>
                 </div>
                 <div className="title-section">
-                    <h3 className="welcome-title">{window.config.cc} {(isGuest) ? "" : user&&user.first_name}</h3>
+                    <h3 className="welcome-title">{window.config.cc} {(isGuest) ? "" : user && user.first_name}</h3>
                     <p className="title-desc">{(isGuest) ? "" : (!user?"":(user.team) ? (user.team.name + "/" + user.team.description) : (window.config.cc + "/" + user.username)) }</p>
                 </div>
                 <div className="welcome-message">

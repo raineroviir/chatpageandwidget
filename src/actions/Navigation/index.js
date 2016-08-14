@@ -12,10 +12,10 @@ export function populateUserInfo () {
     fetchUserInfo().then(response => {
       if (response.status == 401) {
         unauth = true;
-        browserHistory.push("/"); 
+        browserHistory.push("/");
       }
       return response.json()
-    })  
+    })
     .then(json => {
       if(!unauth){
         dispatch(processUserInfoForDispatch(json))
@@ -26,10 +26,10 @@ export function populateUserInfo () {
 }
 
 export function switchOrganization(org, orgs, history) {
-  let old_token; 
+  let old_token;
   if (typeof(Storage) !== "undefined") {
     old_token = localStorage.getItem("token");
-    localStorage.setItem("token", JSON.stringify(org.token));     
+    localStorage.setItem("token", JSON.stringify(org.token));
   }
   //window.location = "/dashboard/" + org.name.split("/")[1];
   browserHistory.push("/dashboard/" + org.name.split("/")[1])
@@ -42,9 +42,9 @@ export function switchOrganization(org, orgs, history) {
         unauth = true;
         if(typeof(Storage) !== "undefined"){
           localStorage.setItem("token", old_token);
-        } 
+        }
         //window.location.hash = "#";
-        browserHistory.push("/"); 
+        browserHistory.push("/");
       }
     }).then(() => {
       !unauth && dispatch(getChannels(null))
@@ -73,9 +73,9 @@ export function addOrganization(org) {
   };
 }
 
-export function fetchUserInfo() {
-  if (typeof(Storage) !== "undefined") {
-    var token = JSON.parse(localStorage.getItem("token")) || {};
+export function fetchUserInfo(token) {
+  if (typeof(Storage) !== "undefined" && !token) {
+    token = JSON.parse(localStorage.getItem("token")) || {};
   }
   return fetch( Config.api + '/users.me', {
     method: 'GET',
@@ -126,7 +126,7 @@ function processOrgsForDispatch(userinfo) {
     }
     if(org && !org.user){
       org.user = userinfo.user;
-      localStorage.setItem("orgs", JSON.stringify(orgs)); 
+      localStorage.setItem("orgs", JSON.stringify(orgs));
       //console.log(localStorage.getItem("orgs"));
     }
   }
@@ -153,4 +153,3 @@ function processOrgForDispatch(org) {
     receivedAt: Date.now()
   }
 }
-

@@ -7,9 +7,9 @@ import { DefaultMessage } from './default-message';
 let classNames = require("classnames");
 
 export class ChatMessage extends Component {
-  componentDidMount (){      
-    $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({ 
-      theme:"dark-3"        
+  componentDidMount (){
+    $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({
+      theme:"dark-3"
     });
   }
   computeDate(date){
@@ -26,7 +26,7 @@ export class ChatMessage extends Component {
     if( messages && messages.length  ) {
       let lastuser;
       return  (<ul className="chat-messages">
-          { 
+          {
             messages.map((message, ind, msgs) => {
               let user = this.props.user.userinfo,
                 combineMessage = !!ind && msgs[ind - 1].user_id == message.user_id,
@@ -35,9 +35,9 @@ export class ChatMessage extends Component {
                 isShowDate = !!ind && this.computeDate(msgs[ind - 1].created_at) == displayDate,
                 relative_time = displayDate == "today" && moment(message.created_at).format("LT"),
                 msg;
-              
 
-              if(user.id != message.user_id){
+                console.log(this.props.guest, message.user_id);
+              if(user.id != message.user_id && this.props.guest !== message.user_id){
                 msg = (
                   <li key={message.id} className={classNames("received-message fade-in", {
                     'same-user': (lastuser === message.user_id && isShowDate && !relative_time)
@@ -52,7 +52,7 @@ export class ChatMessage extends Component {
                       </div>
                     </div>
                   </li>
-                )                  
+                )
               }
               else {
                 msg = (
@@ -62,8 +62,8 @@ export class ChatMessage extends Component {
                   })}>
                     <div className={ classNames("chat-message", { today: !!relative_time})}>
                       <div className={classNames("text-center separation-text", { hide: isShowDate })}>{ displayDate}</div>
-                      <div className={classNames("user-name-display", { hide: combineMessage })}>{ user.first_name + " " + user.last_name}</div>
-                      <img className={classNames("img-circle", { hide: !user.avatar_96 })} src={user.avatar_96}  title={ user.first_name }  alt={ user.first_name } />                      
+                      <div className={classNames("user-name-display", { hide: combineMessage })}>{ (user.first_name && user.last_name) ? user.first_name + " " + user.last_name : ""}</div>
+                      <img className={classNames("img-circle", { hide: !user.avatar_96 })} src={user.avatar_96}  title={ user.first_name }  alt={ user.first_name } />
                       <span className={classNames("avatar", { hide: !!user.avatar_96 })}>{avatarText}</span>
                       <div className="message-bubble">
                         { message.text}
@@ -71,11 +71,11 @@ export class ChatMessage extends Component {
                       <p className={ classNames("time-bubble", {hide: !relative_time})}>{relative_time}</p>
                     </div>
                   </li>
-                )            
+                )
               }
-              lastuser = message.user_id;  
-              
-              
+              lastuser = message.user_id;
+
+
               return msg;
             })
           }
@@ -101,7 +101,7 @@ export class ChatMessage extends Component {
               <tr>
                 <td>
                   <div>
-                    {this.getMessages(messages)} 
+                    {this.getMessages(messages)}
                   </div>
                 </td>
               </tr>

@@ -8,7 +8,7 @@ import { ChatMessage } from 'components/ChatMessage';
 export class Messages extends Component {
   render() {
     return (
-      <ChatMessage messages={this.props.messages.messages} user={this.props.user} />
+      <ChatMessage messages={this.props.messages.messages} user={this.props.user} guest={this.props.guest}/>
     );
   }
 }
@@ -16,7 +16,8 @@ export class Messages extends Component {
 function mapStateToProps(state) {
   return {
     messages: state.messages,
-    user: state.userinfo
+    user: state.userinfo,
+    guest: state.guest.user_id
   }
 }
 

@@ -16,10 +16,6 @@ export function orgs(state = initialState, action) {
       orgs: action.posts
     };
   case 'SET_ADD_ORG':
-    console.log({
-      ...state,
-      addOrg: action.posts.addOrg
-    });
     return {
       ...state,
       addOrg: action.posts.addOrg

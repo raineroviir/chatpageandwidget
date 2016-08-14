@@ -1,6 +1,7 @@
 const initialState = {
   guest: false,
-  convid: null
+  convid: null,
+  user_id: null
 };
 
 export function guest(state = initialState, action) {
@@ -15,6 +16,11 @@ export function guest(state = initialState, action) {
       ...state,
       convid: action.posts.convid
     };
+  case 'SET_GUEST_ID':
+      return {
+        ...state,
+        user_id: action.posts.user_id
+      };
   default:
     return state;
   }
