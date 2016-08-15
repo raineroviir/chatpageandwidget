@@ -265,6 +265,7 @@ export function testSocket () {
 
 export function selectChannel (channelname, conversationname) {
   return (dispatch, getState) => {
+    console.log("flow 1");
     var service = Promise.resolve(), team = null, failure = false;
     if(!getState().userinfo.userinfo.id){
       service = fetchUserInfo().then(response => {
@@ -295,7 +296,7 @@ function fetchChannel (channelname, team) {
   if (typeof(Storage) !== "undefined") {
     var token = JSON.parse(localStorage.getItem("token"));
   }
-  return fetch(Config.api + "/channels.find?channel=" + channelname + (team && team.domain ? "team=" + team.domain : "") , {
+  return fetch(Config.api + "/channels.find?channel=" + channelname + (team && team.name ? "&team=" + team.name : "") , {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',

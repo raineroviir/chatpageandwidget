@@ -22,8 +22,9 @@ const metaData = {
 
 export class Login extends Component {
   componentWillMount(){
-    this.props.actions.addOrg(!!this.props.location.search);
-    if(typeof Storage === "undefined" || !localStorage.getItem("orgs") || !localStorage.getItem("token")){
+    this.props.actions.addOrg(!!this.props.location.search && this.props.location.search == "?add");
+    if(typeof Storage === "undefined" || !localStorage.getItem("orgs") || !localStorage.getItem("token") || !!this.props.location.search){
+      console.log(this.props.location.search)
       return;
     }
     try {

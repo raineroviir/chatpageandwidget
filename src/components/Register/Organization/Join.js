@@ -9,7 +9,7 @@ export class RegisterIndividualDomain extends Component {
   handleBack(){
     //console.log('Moving 1 step back');
     //window.location.hash = "#/login";
-    browserHistory.push("/login");
+    browserHistory.push("/login?login");
   }
 
   handleNext(e){

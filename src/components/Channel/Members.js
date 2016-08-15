@@ -233,7 +233,7 @@ export class ChannelMembers extends Component {
             <div className="footer-help">
               <div>
                 <span>Questions?</span>
-                <Link to="/login" title="Sign in">Chat with us</Link>
+                <Link to="/login?login" title="Sign in">Chat with us</Link>
               </div>
             </div> 
             </form> 
