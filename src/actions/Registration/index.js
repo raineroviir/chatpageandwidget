@@ -115,6 +115,11 @@ export function inviteMembers (emails) {
         .then(json => {
           if(json.ok){
             dispatch(inviteStatus(true));
+            if (typeof(Storage) !== "undefined") {
+              //window.location.hash = "#/" + localStorage.getItem("user_channel");
+              browserHistory.push("/dashboard/" + localStorage.getItem("user_channel"));
+              localStorage.setItem("user_channel", "");
+            }
           }
         });
     }

@@ -35,7 +35,8 @@ export class NavigationView extends Component {
                     </li>
                     <li className="active"><a className="nav-link" href="javascript:;"><span  className="home-icon" aria-hidden="true"></span></a></li>
                     <li><a className="nav-link" href="javascript:;"><span className="dashboard-icon"  aria-hidden="true"></span></a></li>
-                    <li><Link className="nav-link groups-link" to="/organization/invite"><span className="groups-icon"  aria-hidden="true"></span></Link></li>
+                    <li className={classnames({ hide: org.user.team})}><a className="nav-link groups-link" href="javascript:;"><span className="groups-icon"  aria-hidden="true"></span></a></li>
+                    <li className={classnames({ hide: !org.user.team})}><Link className="nav-link groups-link" to="/organization/invite"><span className="groups-icon"  aria-hidden="true"></span></Link></li>
                     <li><a className="nav-link" href="javascript:;"><span className="search-icon"  aria-hidden="true"></span></a></li>
                     <li><a className="nav-link" href="javascript:;"><span className="settings-icon"  aria-hidden="true"></span></a></li>
                   </ul>

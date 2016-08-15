@@ -35,6 +35,7 @@ export class RegisterIndividualDomain extends Component {
     } else {
        this.refs.createBtn.disabled = false;
     }
+    this.refs.Channel.value = ('' + this.refs.Channel.value.replace(/[^a-zA-Z0-9\-\_]/gi, '')) ? ('' + this.refs.Channel.value.replace(/[^a-zA-Z0-9\-\_]/gi, '').toLowerCase()) : '' ;
   }
 
   componentDidMount() {

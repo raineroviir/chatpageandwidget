@@ -22,7 +22,7 @@ export class ChannelList extends Component {
             <div className="layer2">
               <div className="user-info">
                 <span className="glyphicon glyphicon-menu-hamburger menu-hamburger" aria-hidden="true"></span>
-                <h3 className="title ellipsis">{ (user.team && user.team.name) ? user.team.name.replace(/\./g, " ") : "Chat Center"}</h3>
+                <h3 className="title ellipsis">{ (user.team && user.team.description) ? user.team.description : window.config.cc}</h3>
                 <p className="ellipsis user-name">
                   <span className="available-status online"></span>
                   { user.first_name  ? (user.first_name + " " + user.last_name ) : '' }
