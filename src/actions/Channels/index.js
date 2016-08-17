@@ -381,8 +381,8 @@ function processChannelsForDispatch(channels) {
       all: channels.channels,
       publicChannels: source.filter(item => item.is_public && !item.is_direct) || [],
       privateChannels: source.filter(item => !item.is_public && !item.is_direct) || [],
-      groupChannels: source.filter(item => item.is_group && !item.is_direct) || [],
-      otherChannels: source.filter(item => !item.is_group && !item.is_direct) || [],
+      groupChannels: source.filter(item => item.is_group && !item.is_direct && !item.is_public) || [],
+      otherChannels: source.filter(item => item.is_public && !item.is_direct) || [],
       directChannel: source.filter(item => item.is_direct)[0] || null,
       recentContacts: channels.recentContacts || []
     },
