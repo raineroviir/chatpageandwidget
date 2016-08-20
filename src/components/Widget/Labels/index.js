@@ -3,7 +3,11 @@ import { Link } from 'react-router';
 import {ChatWidget} from '../ChatWidget/index';
 //let classnames = require('classnames');
 import { connect } from 'react-redux';
-import * as WidgetActions from '../../../actions/Widget';;
+import * as WidgetActions from '../../../actions/Widget';
+import * as upgradeActions from '../../../actions/Upgrade';
+import { browserHistory } from 'react-router';
+import * as tabNavActions from '../../../actions/TabNav';
+
 import { bindActionCreators } from 'redux';
 let classNames = require("classnames");
 /* component styles */
@@ -25,10 +29,7 @@ export class Labels extends Component {
             key: 'classId',
             value: 'labels'
         })
-        this.props.actions.updateWidgetKey({
-            key: 'widgetMenuState',
-            value: false
-        });
+        this.props.tabNavActions.setTabNavState( false );
     }
 
 
@@ -67,6 +68,17 @@ export class Labels extends Component {
         /*this.setState( stateObject() ); */  
     }
 
+    navigateToUpgradePlans( e ) {
+        e.preventDefault();
+        this.props.upgradeActions.updateUpgradeSource({
+            from: '/widget/labels',
+            label: 'Widget Labels & Localization'
+        });
+        browserHistory.push( "/upgrade/plans" );
+
+        
+    }
+
     inputFileChange( ) {
         var self = this;
         var oFReader = new FileReader();
@@ -96,7 +108,8 @@ export class Labels extends Component {
                             Available on Plus and Premium plans.
                         </h3> 
                         <div className="buttons-wrapper">
-                            <Link className="cc-btn" to="/upgrade/plans">View plans and upgrade </Link>
+                            <a className="cc-btn" href="/upgrade/plans"
+                            onClick={this.navigateToUpgradePlans.bind(this)}>View plans and upgrade </a>
                         </div>
                         
                     </div>);
@@ -221,7 +234,8 @@ export class Labels extends Component {
                                             Premium plan is needed  to remove
                                         </p>
                                         <div>
-                                            <Link to="/upgrade/plans" className="cc-btn">View plans</Link>
+                                            <a href="/upgrade/plans"
+                                            onClick={this.navigateToUpgradePlans.bind(this)} className="cc-btn">View plans</a>
                                         </div>
                                     </div> )
                                     : 
@@ -246,7 +260,8 @@ export class Labels extends Component {
                                                 </p>
                                             </div>
                                             <div>
-                                                <Link to="/upgrade/plans" className="cc-btn">View plans</Link>
+                                                <a href="/upgrade/plans"
+                                                onClick={this.navigateToUpgradePlans.bind(this)} className="cc-btn">View plans</a>
                                             </div>
                                         </div> 
                                     )
@@ -321,7 +336,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(WidgetActions, dispatch)
+    actions: bindActionCreators(WidgetActions, dispatch),
+    upgradeActions: bindActionCreators( upgradeActions, dispatch ),
+    tabNavActions:  bindActionCreators( tabNavActions, dispatch )
     
   }
 }

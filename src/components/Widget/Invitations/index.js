@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { styles } from './styles.scss';
 
 import proInvImg from '../../images/proinvitation.png';
+import * as tabNavActions from '../../../actions/TabNav';
 
 
 export class Invitations extends Component {
@@ -20,10 +21,7 @@ export class Invitations extends Component {
             key: 'classId',
             value: 'invitation'
         })
-        this.props.actions.updateWidgetKey({
-            key: 'widgetMenuState',
-            value: false
-        });
+        this.props.tabNavActions.setTabNavState( false );
     }
 
     toggleSwitchStatus( key ) {
@@ -243,7 +241,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(WidgetActions, dispatch)
+    actions: bindActionCreators(WidgetActions, dispatch),
+    tabNavActions:  bindActionCreators( tabNavActions, dispatch )
   }
 }
 

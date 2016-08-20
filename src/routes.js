@@ -26,6 +26,17 @@ import Appearance from 'components/Widget/Appearance';
 import Labels from 'components/Widget/Labels';
 import Widget from 'containers/Widget';
 
+
+import Settings from 'containers/Settings';
+import BillingPayment from 'components/Settings/BillingPayment';
+import PersonalSettings from 'components/Settings/PersonalSettings';
+import SettingsOrganization from 'components/Settings/Organization';
+
+
+
+
+
+
 import UpgradeVew from 'containers/Upgrade';
 import UpgradePlans from 'components/Upgrade/UpgradePlans';
 import UpgradeForm from 'components/Upgrade/UpgradeForm';
@@ -78,6 +89,15 @@ export default (
         <Route path="appearance" component={Appearance}/>
         <Route path="invitations" component={Invitations}/>
         <Route path="labels" component={Labels}/>
+    </Route>
+
+
+    <Route path="settings" component={Settings}>
+        <IndexRoute component={SettingsOrganization} />
+        <Route path="organization" component={SettingsOrganization}/>
+        <Route path="personal" component={PersonalSettings}/>
+        <Route path="billing-payment" component={BillingPayment}/>
+
     </Route>
 
     <Route path=":user">

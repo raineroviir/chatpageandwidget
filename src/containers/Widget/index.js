@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import { render } from 'react-dom';
 import DocumentMeta from 'react-document-meta';
 import Navigation from 'containers/Home/Navigation';
-import {WidgetNav} from '../../components/WidgetNav/index';
-//import {Installation} from '../../components/Widget/Installation';
+import TabNav from '../../components/TabNav';
 import * as WidgetActions from '../../actions/Widget';
+import * as tabNavActions from '../../actions/TabNav'
+
 import { browserHistory } from 'react-router';
 import { Link } from 'react-router';
 
-// import App from './components';
+import { styles} from './styles.scss';
 // 
 const metaData = {
   title: 'Widget | Chat Center',
@@ -28,6 +29,28 @@ export class Widget extends Component {
 
   constructor( props ){
     super( props );
+    this.state = {
+      tabFooter : <div >Questions? <a href="javascript:;">Chat with us</a></div>,
+      tabLinks: [
+        {
+          toLink: '/widget/installation',
+          label: 'Installation'
+        },
+        {
+          toLink: '/widget/appearance',
+          label: 'Appearance'
+        },
+        {
+          toLink: '/widget/labels',
+          label: 'Labels & Localization'
+        },
+        {
+          toLink: '/widget/invitations',
+          label: 'Proactive invitations'
+        }
+
+      ]
+    }
   }
   
   componentWillMount() {
@@ -89,11 +112,18 @@ export class Widget extends Component {
       <div>
         <DocumentMeta {...metaData} />
         <Navigation historyApi={this.props.historyApi} />
-        <div className={"widget-component " + (this.props.widget.widgetMenuState? 'open-widget-menu' : '') }  >
-          <WidgetNav 
-          widget={this.props.widget} 
-          conversations={this.props.conversations} 
-          actions={this.props.actions}/>
+        <div className={"widget-component " + (this.props.tabnav.menuState? 'open-widget-menu' : '') }  >
+          
+          <TabNav tabFooter= {
+            this.state.tabFooter
+          }
+
+          links= {
+            this.state.tabLinks
+          }
+
+
+          />
           <div className="widget-content" >
 
             <div className={ "widget-" + classId }>
@@ -162,7 +192,8 @@ function mapStateToProps(state) {
     widget: state.widget,
     historyApi: state.historyApi,
     widget: state.widget,
-    channels: state.channels
+    channels: state.channels,
+    tabnav: state.tabnav
   }
 }
 

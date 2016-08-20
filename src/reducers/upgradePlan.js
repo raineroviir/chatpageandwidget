@@ -6,7 +6,11 @@ const initialState = {
     },
     choosedPlan:{},
     memberCount: 2,
-    requestStatus: ''
+    requestStatus: '',
+    source: {
+        from : '/dashboard',
+        label: 'Dashboard'
+    }
 };
 
 export function upgradePlan(state = initialState, action) {
@@ -18,6 +22,12 @@ export function upgradePlan(state = initialState, action) {
             ...action.newState
         }
         
+        /*case 'UPDATE_UPGRADE_PLAN_SOURCE': {
+            return {
+                ...state,
+                ...action.source
+            };
+        }*/
 
       default: return state;
     }

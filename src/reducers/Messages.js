@@ -4,7 +4,8 @@ var _ = require('lodash');
 const initialState = {
   messages: [],
   memoized: {},
-  conversationid: null
+  conversationid: null,
+  channelError: true
 };
 
 export function messages(state = initialState, action) {
@@ -31,13 +32,12 @@ export function messages(state = initialState, action) {
     return {
       ...state,
       messages: state.messages.concat(action.posts),
-      conversationid: action.posts.conversationid,
       memoized: Object.assign({}, state.memoized, { [action.posts.conversationid]: action.posts })
     };
   case 'MESSAGE_STREAM':
-    if(!action.posts.message.payload || !action.posts.message.payload.conversation_id || action.posts.message.payload.conversation_id !== state.conversationid){
+    if(!action.posts.message.payload || !action.posts.message.payload.conversation_id || action.posts.message.payload.conversation_id != state.conversationid || state.messages.find(a => a.id == action.posts.message.payload.id)){
       return state;
-    } 
+    }
     let message = action.posts.message.payload,
       user = state.messages.find(a => a.user_id === message.user_id),
       updatedMessages;
@@ -54,6 +54,11 @@ export function messages(state = initialState, action) {
         ...state.memoized,
         [action.posts.conversationid]: updatedMessages
       }
+    };
+  case 'MESSAGE_ERROR':
+    return {
+      ...state,
+      channelError: action.posts.flag
     };
   case 'RESET_MESSAGES':
     return initialState;

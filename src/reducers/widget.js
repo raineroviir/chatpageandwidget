@@ -1,7 +1,6 @@
 const initialState = {
     channelid: '',
     classId: '',
-    widgetMenuState : false,
     isNewChannelConfig: false,
     initialConfig: null,
     error: true

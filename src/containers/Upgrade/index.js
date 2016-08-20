@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { render } from 'react-dom';
 import DocumentMeta from 'react-document-meta';
 import Navigation from 'containers/Home/Navigation';
-import {WidgetNav} from '../../components/WidgetNav/index';
+
 //import {Installation} from '../../components/Widget/Installation';
 import * as UpgradeActions from '../../actions/Upgrade'
 
 import { styles } from './styles.scss';
-// 
+
 const metaData = {
   title: 'Upgrade | Chat Center',
   description: 'Widget Chat Center',

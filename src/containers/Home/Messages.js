@@ -8,7 +8,7 @@ import { ChatMessage } from 'components/ChatMessage';
 export class Messages extends Component {
   render() {
     return (
-      <ChatMessage messages={this.props.messages.messages} user={this.props.user} guest={this.props.guest}/>
+      <ChatMessage messages={this.props.messages.messages} user={this.props.user} guest={this.props.guest} />
     );
   }
 }

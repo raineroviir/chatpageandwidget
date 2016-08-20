@@ -32,10 +32,17 @@ export class UpgradePlans extends Component {
     }
 
     render(){
+
         return (
             <div className="upgrade-plans">
                 <div className="upgrade-breadcrumb">
-                  <Link className="back-link" to="/widget/appearance"> Widget Appearence </Link>
+                  <Link className="back-link" to=
+                    {
+                      this.props.upgradePlan.source.from
+                    }
+                  > {
+                    this.props.upgradePlan.source.label
+                  }</Link>
                 </div>
                 <h1 className="upgrade-title">Chat Center plans</h1>
                 <div className="plan-term">

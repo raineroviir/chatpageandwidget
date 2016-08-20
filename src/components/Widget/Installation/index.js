@@ -6,6 +6,7 @@ import * as WidgetActions from '../../../actions/Widget';;
 import { bindActionCreators } from 'redux';
 import { TextSelection } from '../../../modules/TextSelection';
 import { browserHistory } from 'react-router';
+import * as tabNavActions from '../../../actions/TabNav';
 
 
 /* component styles */
@@ -37,10 +38,7 @@ export class Installation extends Component {
             key: 'classId',
             value: 'installation'
         })
-        this.props.actions.updateWidgetKey({
-            key: 'widgetMenuState',
-            value: false
-        });
+        this.props.tabNavActions.setTabNavState( false );
     }
     copyScript() {        
         TextSelection( document.getElementById( 'installation-script') );
@@ -146,7 +144,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(WidgetActions, dispatch)
+    actions: bindActionCreators(WidgetActions, dispatch),
+    tabNavActions:  bindActionCreators( tabNavActions, dispatch )
   }
 }
 

@@ -6,6 +6,7 @@ import * as WidgetActions from '../../../actions/Widget';
 import * as PoptartActions from '../../../actions/Poptart';
 import { bindActionCreators } from 'redux';
 import { CustomColorPicker } from './custom-color-picker';
+import * as tabNavActions from '../../../actions/TabNav';
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -47,10 +48,7 @@ export class Appearance extends Component {
             key: 'classId',
             value: 'appearance'
         });
-        this.props.actions.updateWidgetKey({
-            key: 'widgetMenuState',
-            value: false
-        });
+        this.props.tabNavActions.setTabNavState( false );
     }
 
     selectKeyColor( color, e ) {
@@ -259,7 +257,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(WidgetActions, dispatch),
-    poptartActions : bindActionCreators(PoptartActions, dispatch)
+    poptartActions : bindActionCreators(PoptartActions, dispatch),
+    tabNavActions:  bindActionCreators( tabNavActions, dispatch )
   }
 }
 

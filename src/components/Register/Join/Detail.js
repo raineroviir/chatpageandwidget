@@ -32,7 +32,7 @@ export class RegisterJoinDetailComp extends Component {
     this.refs.nextButton.disabled = !(this.refs.FirstName.value && this.refs.LastName.value && this.refs.Password.value && this.refs.Password.value.length>=8);
   }
 
-  componentDidMount() {  debugger;
+  componentDidMount() {
 
     var paths = window.location.pathname.split('/');
     this.state.team_name = paths[paths.indexOf('join')-1];

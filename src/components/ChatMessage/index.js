@@ -23,7 +23,7 @@ export class ChatMessage extends Component {
     $(".chat-messages-wrapper.mCustomScrollBar").mCustomScrollbar("scrollTo", "bottom");
   }
   getMessages( messages ) {
-    if( messages && messages.length  ) {
+    if( messages && messages.length && !this.props.channelError) {
       let lastuser;
       return  (<ul className="chat-messages">
           {
@@ -36,7 +36,6 @@ export class ChatMessage extends Component {
                 relative_time = displayDate == "today" && moment(message.created_at).format("LT"),
                 msg;
 
-                console.log(this.props.guest, message.user_id);
               if(user.id != message.user_id && this.props.guest !== message.user_id){
                 msg = (
                   <li key={message.id} className={classNames("received-message fade-in", {
@@ -80,8 +79,9 @@ export class ChatMessage extends Component {
             })
           }
         </ul>);
+    } else if(this.props.channelError === true){
+      return (<div className="default-message">Channel not found</div>)
     } else {
-
       return (<DefaultMessage user={this.props.user} />);
     }
   }
