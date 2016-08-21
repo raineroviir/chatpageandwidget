@@ -157,31 +157,6 @@ export class ChannelList extends Component {
                     })
                   }
                 </ul>
-                <ul className="chat-list">
-                   <li className="chat-list-title">
-                      <span className="title-text ellipsis">RECENT CONTACTS</span>
-                      <span className="plus-icon">
-                      </span>
-                  </li>
-                  
-                  { this.props.channels.recentContacts.map(user => {
-                    return (
-                      <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message active" : "chat-message" }>
-                          <a>
-                            <img className="img-rounded" src="dist/images/user.png" title={channel.name} alt={channel.name} />
-                            <span className="name ellipsis">
-                              <span className="channel-name-text">{channel.name}</span>
-                            </span>
-                            <span className="msg-count">2</span>
-                          </a>
-                        </li>
-                    );
-                  })}
-                </ul>
-                <ul className="chat-list tags">
-                  <li className="chat-list-title">TAGS</li>
-                  <li><a><span>#important</span></a></li>
-                </ul>
               </div>
             </div>
           </div>

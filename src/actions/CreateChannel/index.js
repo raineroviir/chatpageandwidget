@@ -78,9 +78,15 @@ export function getDirectUser(user) {
 function postActionFindUser(json) {
   return (dispatch, getState) => {
     if(json.ok) {
+      let processedUser = [json.user].filter(function(user){
+        if(user.username) {
+          user.username = user.username.toLowerCase();
+          return user;
+        }
+      });
       dispatch({
         type: 'CHAT_MEMBERS_SUGGEST_DIRECT',
-        members: [json.user]
+        members: processedUser
       })
     } else {
       dispatch({
@@ -242,15 +248,21 @@ function postActionTeamMembers(json, isEdit) {
         error: json.error
       })
     } else {
+      let processedUser = json.users.filter(function(user){
+        if(user.username) {
+          user.username = user.username.toLowerCase();
+          return user;
+        }
+      });
       if(isEdit) {
         dispatch({
             type: 'TEAM_MEMBERS_EDIT',
-            attr: json.users.filter(user => user.username)
+            attr: processedUser
           })
       } else {
         dispatch({
             type: 'CHAT_MEMBERS_CREATE',
-            attr: json.users.filter(user => user.username)
+            attr: processedUser
           })
       }
     }
@@ -281,9 +293,15 @@ function postActionChannelMembers(json) {
         error: json.error
       })
     } else {
+      let processedUser = json.users.filter(function(user){
+        if(user.username) {
+          user.username = user.username.toLowerCase();
+          return user;
+        }
+      });
       dispatch({
           type: 'CHAT_MEMBERS_EDIT',
-          attr: json.users.filter(user => user.username)
+          attr: processedUser
         })
     }
   }
