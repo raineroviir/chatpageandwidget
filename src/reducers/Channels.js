@@ -8,7 +8,12 @@ const initialState = {
     recentContacts: [],
     directChannel: null,
     count: 0,
-    isGroupChat: false
+    isGroupChat: false,
+    guest: {
+      email: null,
+      first_name: null,
+      last_name: null
+    }
   }
 };
 

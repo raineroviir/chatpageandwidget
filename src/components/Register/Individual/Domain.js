@@ -40,6 +40,7 @@ export class RegisterIndividualDomain extends Component {
 
   componentDidMount() {
     if(this.state.channel === ''){
+      //this.refs.Channel.value = this.props.registrationDetails.Organisation.payload.first_name.replace(/[^a-zA-Z0-9-._]/gi, '').toLowerCase();
       this.refs.Channel.value = ('' + this.props.registrationDetails.Organisation.payload.first_name.replace(/[^a-zA-Z0-9\-\_]/gi, '')) ? ('' + this.props.registrationDetails.Organisation.payload.first_name.replace(/[^a-zA-Z0-9\-\_]/gi, '').toLowerCase()) : '' ;
     }
     else{

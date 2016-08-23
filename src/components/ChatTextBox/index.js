@@ -20,18 +20,18 @@ export class ChatTextBox extends Component {
                 </span>
 
                 <div className="message-input-wrapper">
-                  <input ref="Message" 
-                  type="text" 
-                  className="message-input" 
-                  placeholder="Type here; '/' - commands, '@' - mentions" 
+                  <input ref="Message"
+                  type="text"
+                  className="message-input"
+                  placeholder="Type here; '/' - commands, '@' - mentions"
                   aria-label="Type here; '/' - commands, '@' - mentions" />
                 </div>
                 <span className="submit-button-wrapper">
-                  <button type="submit" className="submit-button" 
+                  <button type="submit" className="submit-button"
                 >Send</button>
                 </span>
             </form>
-           
+
        </footer>
     );
   }

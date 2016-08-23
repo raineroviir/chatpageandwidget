@@ -8,6 +8,10 @@ export class PersonalSettings extends Component {
         super( props );
     }
 
+    componentWillMount() {
+      this.props.tabNavActions.setTabNavState( false );
+    }
+
 
     render() {
         return (

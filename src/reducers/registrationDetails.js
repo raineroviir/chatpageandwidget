@@ -12,6 +12,8 @@ const initialState = {
     error:'',
     showSuccess: false,
     deleteSuccess: false,
+    ownDomain: false,
+    ownDomainValue: '',
     TeamAvailable:{},
     ChannelAvailable:{},
     members: [],
@@ -131,6 +133,14 @@ export function registrationDetails(state = initialState, action) {
   case 'TEAM_AVAILABILITY_RESULT':
     //mutate initial state to store the organisation value and create STATE from it
     var Organisation = (Object.assign(initialState.Organisation, {TeamAvailable:action.posts}));
+    return {
+      ...state,
+      Organisation
+  };
+
+  case 'OWN_DOMAIN':
+    //mutate initial state to store the organisation value and create STATE from it
+    var Organisation = (Object.assign(initialState.Organisation, {ownDomain:action.ownDomainState, ownDomainValue:action.ownDomainValue}));
     return {
       ...state,
       Organisation

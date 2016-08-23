@@ -97,7 +97,6 @@ export default (
         <Route path="organization" component={SettingsOrganization}/>
         <Route path="personal" component={PersonalSettings}/>
         <Route path="billing-payment" component={BillingPayment}/>
-
     </Route>
 
     <Route path=":user">

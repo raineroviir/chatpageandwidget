@@ -28,6 +28,11 @@ export function messages(state = initialState, action) {
       messages: [ ...state.memoized[action.posts.conversationid]],
       conversationid: action.posts.conversationid
     };
+    case 'SET_GUEST_GROUP_CONV_ID':
+      return {
+        ...state,
+        conversationid: action.posts.conversationid
+      };
   case 'ADD_MESSAGE':
     return {
       ...state,

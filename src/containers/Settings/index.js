@@ -6,6 +6,7 @@ import DocumentMeta from 'react-document-meta';
 import Navigation from 'containers/Home/Navigation';
 import TabNav from '../../components/TabNav';
 import * as WidgetActions from '../../actions/Widget';
+import * as tabNavActions from '../../actions/TabNav';
 
 import classNames from 'classnames';
 import {styles} from './styles.scss';
@@ -43,7 +44,6 @@ export class Settings extends Component {
           toLink: '/settings/billing-payment',
           label: 'Billing & Payment'
         }
-
       ]
     }
   }
@@ -54,6 +54,10 @@ export class Settings extends Component {
   }
   saveSettings( e ) {
     e.preventDefault();
+  }
+
+  setWidgetMenuState( value ) {
+      this.props.tabNavActions.setTabNavState( value );
   }
 
   render() {
@@ -70,7 +74,18 @@ export class Settings extends Component {
             'open-widget-menu' : this.props.tabnav.menuState
           }) 
         }>
-          <TabNav links = {this.state.tabLinks} />
+
+       <TabNav tabFooter= {
+          this.state.tabFooter
+        }
+
+        links= {
+          this.state.tabLinks
+        }
+
+
+        />
+
           <div className="primary-tabnav-content" >
             Settings
             {this.props.children}
@@ -93,7 +108,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    
+    tabNavActions: bindActionCreators(tabNavActions, dispatch)
   }
 }
 

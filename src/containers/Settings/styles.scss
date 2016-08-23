@@ -33,3 +33,24 @@
     }
 }
 
+
+@media screen and (max-width: 767px) {
+    .primary-tabnav-component {
+        margin-left:0;
+        .primary-tabnav-content {
+            margin-left: 0;
+            padding-top: 10px;
+        }
+        &.open-widget-menu {
+            overflow: hidden;
+            .primary-tabnav-content {
+                left: 216px;
+                position: relative;
+                overflow: hidden;
+            }
+            
+        }
+    }
+    
+}
+

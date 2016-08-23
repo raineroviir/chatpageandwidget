@@ -6,6 +6,7 @@ import * as ChannelsActions from '../../actions/Channels';
 /* components */
 import { ChatMessage } from 'components/ChatMessage';
 import CreateMessage from 'containers/Home/CreateMessage';
+import GuestInfo from 'containers/Home/GuestInfo';
 export class Messages extends Component {
   render() {
     return (
@@ -19,6 +20,7 @@ export class Messages extends Component {
 
         <ChatMessage messages={this.props.messages.messages} user={this.props.user} guest={this.props.guest} channelError={this.props.channelError} />
         <CreateMessage isGuest={this.props.isGuest} convid={this.props.convid} />
+        <GuestInfo />
       </div>
     );
   }

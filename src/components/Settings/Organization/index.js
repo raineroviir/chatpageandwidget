@@ -8,6 +8,9 @@ export class SettingsOrganization extends Component {
         super( props );
     }
 
+    componentWillMount() {
+      this.props.tabNavActions.setTabNavState( false );
+    }
 
     render() {
         return (

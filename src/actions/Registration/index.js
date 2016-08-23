@@ -25,6 +25,16 @@ export function registerTeam(RegisterTeam) {
   }
 }
 
+export function ownDomainState(ownDomainState, ownDomainValue) {
+  return (dispatch, getState) => {
+      dispatch({
+      type: 'OWN_DOMAIN',
+      ownDomainState,
+      ownDomainValue
+    })
+  }
+}
+
 export function registerPersonalDetails(FirstName,LastName,Email) {
   return (dispatch, getState) => {
       dispatch({
@@ -88,7 +98,7 @@ export function registerIndividualDetails(FirstName,LastName,Email,Password) {
 
 export function submitRegistration(isIndividual, emails) {
   return (dispatch, getState) => {
-    return dispatch(postRegistration(getState().registrationDetails.Organisation.payload, isIndividual))
+    return dispatch(postRegistration(getState().registrationDetails.Organisation.payload, isIndividual, getState().registrationDetails.Organisation))
   }
 }
 
@@ -242,6 +252,11 @@ function postActionConstruct(json, isIndividual) {
         username = ((payload.team) ? (payload.team + '.'+ window.config.cc +'/') : window.config.cc + '/' ) + payload.channel,
         password = payload.password;
 
+      //If incase owndomain is selected
+      if(getState().registrationDetails.Organisation.ownDomain){
+        username = getState().registrationDetails.Organisation.ownDomainValue + '/' + payload.channel;
+      }
+
       dispatch(LoginActions.loginUser(username, password));
       dispatch(LoginActions.submitLogin(getState().orgs.addOrg, !isIndividual));          
 
@@ -296,11 +311,14 @@ function postJoinActionConstruct(json, isIndividual) {
   }
 }
 
-function postRegistration(payload1, isIndividual) {
+function postRegistration(payload1, isIndividual, OrgObject) {
   return dispatch => {
     var payload = Object.assign({},payload1);
     if(payload.team !== null)
       payload.team = payload.team+'.' + window.config.cc;
+    if(OrgObject.ownDomain){
+      payload.team = OrgObject.ownDomainValue;
+    }
     postLoginRequest(payload).then(response => {return response.json()})	
       .then(json => dispatch(postActionConstruct(json, isIndividual)))
   }

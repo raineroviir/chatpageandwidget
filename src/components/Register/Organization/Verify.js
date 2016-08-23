@@ -42,6 +42,13 @@ export class RegisterOrgVerifyComp extends Component {
       browserHistory.push("/signup/organization/name");
     }
     
+    var notOwnDomainContent = 'show';
+    var ownDomainContent = 'hide';
+    if(this.props.registrationDetails.Organisation.ownDomain){
+      notOwnDomainContent = 'hide';
+      ownDomainContent = 'show';
+    }
+
     const Organisation = this.props.registrationDetails.Organisation.payload
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -54,7 +61,8 @@ export class RegisterOrgVerifyComp extends Component {
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Address of your {window.config.cc}</label>
-                  <span className="ans-label">https://{Organisation.team}.{window.config.cc}</span>
+                  <span className={"ans-label "+ notOwnDomainContent }>https://{Organisation.team}.{window.config.cc}</span>
+                  <span className={"ans-label "+ ownDomainContent }>http://{this.props.registrationDetails.Organisation.ownDomainValue}</span>
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Full Name</label>
@@ -66,7 +74,8 @@ export class RegisterOrgVerifyComp extends Component {
                 </div>
                 <div className="input-group input-group-lg">
                   <label className="qn-label">Your personal chat address</label>
-                  <span className="ans-label">https://{Organisation.team}.{window.config.cc}/{Organisation.channel}</span>
+                  <span className={"ans-label "+ notOwnDomainContent }>https://{Organisation.team}.{window.config.cc}/{Organisation.channel}</span>
+                  <span className={"ans-label "+ ownDomainContent }>http://{this.props.registrationDetails.Organisation.ownDomainValue}/{Organisation.channel}</span>
                 </div>
                 <div className="input-group input-group-lg password-input-group">
                   <label htmlFor="password" className="input-group-addon" onChange={this.inputChange.bind(this)} id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></label>
