@@ -43,7 +43,7 @@ export class Channel extends Component {
     return (
       <div  className="create-ext-chat create-ext-chat-form">
         <Link to="/dashboard" className="close-wrapper">
-          <span className="glyphicon glyphicon-remove"></span>
+          <span className="cc-icon-cross"></span>
         </Link>
         <div className="section-content">
           <h1 className={classnames('section-title', { hide: this.props.isTeam})}>Create public chat</h1>

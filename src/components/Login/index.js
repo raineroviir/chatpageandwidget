@@ -31,13 +31,9 @@ export class LoginComponent extends Component {
 
   render() {
     
-    var successfulRegistration = '';
     var errorCls = '';
     if(!this.props.loginDetails.User.error) {
       errorCls = 'hide';
-    }
-    if(this.props.registrationDetails.Organisation.successfulRegistration){
-        successfulRegistration = <span style={{color:'green'}}>Your have successfully registered, please login to access your account</span>
     }
 
     return (
@@ -48,9 +44,6 @@ export class LoginComponent extends Component {
                 </div>
                 <h1 className="title text-center">{window.config.cc}</h1>
                 <div className="details text-center">Sign in to your account</div>
-                <div className="text-center" style={{marginTop:'20px'}}>
-                  {successfulRegistration}
-                </div>
                 <div className={'login-error-message ' + errorCls}>
                   Incorrect Chat Address or Password
                 </div>
@@ -80,7 +73,7 @@ export class LoginComponent extends Component {
                   </div>
                   <div className="support-signin-wrapper">
                     <div className="sign-up">
-                      <span>New to {window.config.cc}?</span>
+                      <span className="new-to">New to {window.config.cc}?</span>
                       <Link to="/signup" title="Sign up" className="pull-right">Sign up.</Link>
                     </div>
                     <div className="forgot-password">

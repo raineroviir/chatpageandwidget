@@ -79,6 +79,13 @@
 			color: #000;
 			font-weight: bold;
 		}
+		.chataddress-addon-http {
+			position: absolute;
+		    bottom: 22px;
+		    left: 12px;
+		    font-size: 18px;
+		}
+		
 		#chataddress-addon {
 			padding-left: 20px;
 		}
@@ -103,7 +110,9 @@
 		   color: #9a9da1;
 		}
 		color: #9a9da1;
-		
+		.input-field-http-addon {
+			padding-left: 72px;
+		}
 	}
 	.form-wrapper {
 		max-width: 464px;

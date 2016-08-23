@@ -19,12 +19,11 @@ export class GuestInfoView extends Component {
     let FirstName = this.refs.FirstName.value;
     let LastName = this.refs.LastName.value;
     let Email = this.refs.Email.value;
-
     //store the value in STORE by dispatching event in action
     this.props.registerGuestInfo({email: Email, first_name: FirstName, last_name: LastName});
   }
   inputChange(){
-    this.refs.nextBtn.disabled = !(this.refs.FirstName.value && this.refs.LastName.value && this.validateEmail(this.refs.Email.value))
+    this.refs.nextBtn.disabled = !(this.validateEmail(this.refs.Email.value))
   }
 
   validateEmail(email){
@@ -33,9 +32,7 @@ export class GuestInfoView extends Component {
   }
 
   componentDidMount() {
-    if(!(this.state.first_name && this.state.last_name && this.validateEmail(this.state.email))){
-      this.refs.nextBtn.disabled = true;
-    }
+    this.refs.nextBtn.disabled = !(this.validateEmail(this.state.email));
     this.refs.FirstName.value = this.state.first_name;
     this.refs.LastName.value = this.state.last_name;
     this.refs.Email.value = this.state.email;

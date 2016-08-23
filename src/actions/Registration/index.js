@@ -110,6 +110,10 @@ export function submitJoinRegistration(isIndividual, emails) {
 
 export function inviteMembers (emails) {
   return (dispatch, getState) => {
+    dispatch({
+      type: 'SET_SEND_INVITE_REQ_STATUS',
+      value: 'loading'
+    });
     try{
       var token;
       if (typeof(Storage) !== "undefined") {
@@ -131,10 +135,19 @@ export function inviteMembers (emails) {
               localStorage.setItem("user_channel", "");
             }
           }
+          dispatch({
+            type: 'SET_SEND_INVITE_REQ_STATUS',
+            value: 'loaded'
+          });
+
+
         });
     }
     catch(e){
-      
+      dispatch({
+        type: 'SET_SEND_INVITE_REQ_STATUS',
+        value: ''
+      });
     }
   }
 }
@@ -313,6 +326,10 @@ function postJoinActionConstruct(json, isIndividual) {
 
 function postRegistration(payload1, isIndividual, OrgObject) {
   return dispatch => {
+    dispatch({
+      type: 'SET_SIGNUP_REQ_STATUS',
+      value: 'loading'
+    });
     var payload = Object.assign({},payload1);
     if(payload.team !== null)
       payload.team = payload.team+'.' + window.config.cc;
@@ -320,7 +337,15 @@ function postRegistration(payload1, isIndividual, OrgObject) {
       payload.team = OrgObject.ownDomainValue;
     }
     postLoginRequest(payload).then(response => {return response.json()})	
-      .then(json => dispatch(postActionConstruct(json, isIndividual)))
+      .then(json => {
+        
+        dispatch(postActionConstruct(json, isIndividual));
+        dispatch({
+          type: 'SET_SIGNUP_REQ_STATUS',
+          value: 'loaded'
+        });
+
+      })
   }
 }
 

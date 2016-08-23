@@ -121,7 +121,7 @@ export class ChannelCreate extends Component {
             <div id="create-ext-chat-form"  className="create-ext-chat create-ext-chat-form chat-name-address" >
               <form id="channelCreateForm" role="form">
               <Link to="/dashboard" className="close-wrapper">
-                <span className="glyphicon glyphicon-remove"></span>
+                <span className="cc-icon-cross"></span>
               </Link>
               <div className="section-content">
                 <h1 className="section-title-1" style={{display:((this.props.details.payload.is_public && this.props.details.payload.is_group) ? "" : "none")}}>External group chat</h1>

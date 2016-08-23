@@ -34,8 +34,19 @@ function postActionConstruct(json) {
 
 function postRegistration() {
   return dispatch => {
+    dispatch({
+      type: 'SET_SIGNUP_REQ_STATUS',
+      value: 'loading'
+    });
     postLoginRequest().then(response => {return response.json()})	
-      .then(json => dispatch(postActionConstruct(json)))
+      .then(json => {
+        
+        dispatch(postActionConstruct(json));
+        dispatch({
+          type: 'SET_SIGNUP_REQ_STATUS',
+          value: 'loaded'
+        });
+      })
   }
 }
 

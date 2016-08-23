@@ -123,26 +123,26 @@ export function createMessage(message, conversationid) {
             return getChannel(channel);
           }).then(response => response.json())
           /* As we can send channel id directly, we dont need to create a conversation */
-          .then(json => {
-            if(json.channel && json.channel.id){
-              return createCoversation(json.channel.id, access_token);
-            }
-            else{
-              dispatch(genericError());
-            }
-          }).then(response => response.json())
+          // .then(json => {
+          //   if(json.channel && json.channel.id){
+          //     return createCoversation(json.channel.id, access_token);
+          //   }
+          //   else{
+          //     dispatch(genericError());
+          //   }
+          // }).then(response => response.json())
         }
       }
 
       fetchGuestInfo.then(json => {
-        // let channelid = (json && json.channel && json.channel.id);
-        conversationid = conversationid || (json && json.conversation && json.conversation.id)
+        channelid = (json && json.channel && json.channel.id);
+        // conversationid = conversationid || (json && json.conversation && json.conversation.id)
         conversationid && dispatch(setGuestConvid(conversationid));
         // Post message using the conversationid
         (!!conversationid || !!channelid) && postMessage(message, conversationid, access_token, channelid).then(response => response.json())
         .then(json => {
           dispatch(processCreateMessage(json));
-          dispatch(processAddMessage(json, conversationid));
+          dispatch(processAddMessage(json, conversationid || json.message.conversation_id));
         })
 
         !conversationid && !channelid && dispatch(genericError());
@@ -533,7 +533,7 @@ function processAddMessage(response, conversationid) {
       messages = guestMessages.messages || [];
     channel = (typeof channel[1] === "number") ? url.substr(0, url.length - channel[0].length).match(/\/([^\/]+)\/?$/)[1] : channel[1];
 
-    guestMessages = {...guestMessages, channel, conversationid, messages: messages.concat([response.message])}
+    guestMessages = {...guestMessages, channel, conversationid}
     localStorage.setItem("guestMessages", JSON.stringify(guestMessages));
   }
   return {

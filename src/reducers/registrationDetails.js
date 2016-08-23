@@ -26,7 +26,9 @@ const initialState = {
       last_name:'',
       password:''
     }
-  }
+  },
+  sendInviteRequestStatus: '',
+  signupRequestStatus: ''
 };
 
 const initialOrganisation = Object.assign({},initialState.Organisation.payload);
@@ -209,6 +211,22 @@ export function registrationDetails(state = initialState, action) {
         deleteSuccess: true
       }
     }
+
+  case 'SET_SEND_INVITE_REQ_STATUS': {
+    return {
+      ...state,
+      sendInviteRequestStatus: action.value
+    }
+
+  }
+
+  case 'SET_SIGNUP_REQ_STATUS': {
+    return {
+      ...state,
+      signupRequestStatus: action.value
+    }
+
+  }
 
   default:
     return state;

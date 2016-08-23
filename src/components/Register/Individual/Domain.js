@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration';
 import { styles } from '../styles.scss';
 import { browserHistory } from 'react-router';
+import classNames  from 'classnames'
 
 export class RegisterIndividualDomain extends Component {  
 
@@ -97,7 +98,16 @@ export class RegisterIndividualDomain extends Component {
                     <div className="col-sm-12">
                       <div className="row">
                         <button type="button" className="btn btn-default back" onClick={this.handleBack}>BACK</button>
-                        <button type="submit" className="btn btn-default sign-in pull-right domain-big-button" ref="createBtn" onClick={this.handleNext.bind(this)}>CREATE <span className="domain-big">MY {window.config.cc.toUpperCase()}</span></button>
+                        <button type="submit" 
+                          className={
+                            classNames("btn btn-default sign-in pull-right domain-big-button", {
+                            'btn-loading': this.props.registrationDetails.signupRequestStatus === 'loading'
+                            })
+                          }
+                          ref="createBtn" 
+                          onClick={this.handleNext.bind(this)}>
+                          CREATE <span className="domain-big">MY {window.config.cc.toUpperCase()}</span>
+                          </button>
                       </div>
                   </div>
                 </div>

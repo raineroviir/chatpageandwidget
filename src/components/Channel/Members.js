@@ -126,7 +126,7 @@ export class ChannelMembers extends Component {
       <div id="create-ext-chat-form"  className="create-ext-chat create-ext-chat-form moderators-form " >
         
         <Link to="/dashboard" className="close-wrapper">
-          <span className="glyphicon glyphicon-remove"></span>
+          <span className="cc-icon-cross"></span>
         </Link>
         <div className="section-content">
           
@@ -141,8 +141,13 @@ export class ChannelMembers extends Component {
           <div className="form-wrapper">
           <form name="channelMemberForm" id="channelMemberForm" role="form">
             <div className="input-wrapper">
+              <span className={
+                  classnames('chataddress-addon-http', { hide: !findDirectAddress }
+                )}
+              >http://</span>
               <input id="membersName" type="text" className={classnames('input-field', { hide: findDirectAddress})} ref="membersName" placeholder={'Invite people' + (this.props.teamDesc ? ' from ' + this.props.teamDesc : '')} onChange={this.inputChange.bind(this, 'membersName')} onFocus={this.inputChange.bind(this, 'membersName')} aria-describedby="username-addon" />
-              <input id="DirectMembersName" type="text" className={classnames('input-field', { hide: !findDirectAddress})} ref="DirectMembersName" placeholder={"http://chat address of any "+ window.config.cc +" user"} onChange={this.inputChange.bind(this, 'DirectMembersName')} onFocus={this.inputChange.bind(this, 'DirectMembersName')} aria-describedby="username-addon" />
+              <input id="DirectMembersName" type="text" 
+              className={classnames('input-field input-field-http-addon', { hide: !findDirectAddress})} ref="DirectMembersName" placeholder={"chat address of any "+ window.config.cc +" user"} onChange={this.inputChange.bind(this, 'DirectMembersName')} onFocus={this.inputChange.bind(this, 'DirectMembersName')} aria-describedby="username-addon" />
               <a href="javascript:;" onClick={this.toggleFind.bind(this, !findDirectAddress)} title="add" className={classnames('add-via-chat-link', { hide: this.props.details.payload.team == window.config.cc})}>{findDirectAddress ? 'Add team members' : 'Add via chat address'}</a>
               
             </div>
@@ -187,7 +192,7 @@ export class ChannelMembers extends Component {
 
                       <div className="user-chat-address-wrapper">
                         <span className="user-chat-address">{(temp_member.username && temp_member.team)  ? (temp_member.team.name + '/' +temp_member.username) : (window.config.cc + '/' +temp_member.username)}</span>
-                        <button type="button" className={classnames('remove-button', { hide: temp_members.length ==  1})} onClick={this.removeMember.bind(this, temp_member)}>X</button>
+                        <button type="button" className={classnames('cc-icon-cross', { hide: temp_members.length ==  1})} onClick={this.removeMember.bind(this, temp_member)}></button>
                       </div>
                     </div>
                   );
@@ -222,7 +227,7 @@ export class ChannelMembers extends Component {
 
                       <div className="user-chat-address-wrapper">
                         <span className="user-chat-address">{(member.username && member.team) ? (member.team.name + '/' +member.username) : ( window.config.cc + '/' +member.username)}</span>
-                        <button type="button" className={classnames('remove-button', { 'hide': members.length ==  1})} onClick={this.props.deleteMembers.bind(this, member.id)}>X</button>
+                        <button type="button" className={classnames('cc-icon-cross', { 'hide': members.length ==  1})} onClick={this.props.deleteMembers.bind(this, member.id)}></button>
                       </div>
                     </div>
                   );

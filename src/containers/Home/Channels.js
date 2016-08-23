@@ -32,31 +32,35 @@ export class Channels extends Component {
     let attr = {}
     let url = '';
     switch (type) {
-      case 'private':
-        attr.is_public=false;
-        attr.is_direct=false;
-        attr.is_group=false;
-        //url='#/channel/create';
-        url='/channel/create';
-        break;
-      case 'public':
-        attr.is_public=true;
-        attr.is_direct=false;
-        attr.is_group=false;
-        //url='#/channel/type';
-        url='/channel/type';
-        break;
-      case 'group':
+      case 'TEAM_INTERNAL_CHANNEL':
         attr.is_public=false;
         attr.is_direct=false;
         attr.is_group=true;
+        attr.team = this.props.org ? this.props.org.name.split('/')[0] : '';
         //url='#/channel/create';
         url='/channel/create';
         break;
-      case 'chat':
-        attr.is_public=false;
+      case 'TEAM_EXTERNAL_CHANNEL':
+        attr.is_public=true;
         attr.is_direct=false;
         attr.is_group=false;
+        attr.team = this.props.org ? this.props.org.name.split('/')[0] : '';
+        //url='#/channel/type';
+        url='/channel/type';
+        break;
+      case 'INDIVIDUAL_PRIVATE_GROUP_CHANNEL':
+        attr.is_public=false;
+        attr.is_direct=false;
+        attr.is_group=true;
+        attr.team = this.props.org ? this.props.org.name.split('/')[0] : '';
+        //url='#/channel/create';
+        url='/channel/create';
+        break;
+      case 'INDIVIDUAL_PUBLIC_CHANNEL':
+        attr.is_public=true;
+        attr.is_direct=false;
+        attr.is_group=false;
+        attr.team = this.props.org ? this.props.org.name.split('/')[0] : '';
         //url='#/channel/type';
         url='/channel/type';
         break;
@@ -64,6 +68,7 @@ export class Channels extends Component {
         attr.is_public=false;
         attr.is_direct=false;
         attr.is_group=false;
+        attr.team = this.props.org ? this.props.org.name.split('/')[0] : '';
         //url='#/channel/type';
         url='/channel/type';
         break;

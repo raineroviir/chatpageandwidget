@@ -86,7 +86,7 @@ export class RegisterIndividualDomain extends Component {
   render() {
     
     var comp = this;
-
+    
     return (
 
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -94,7 +94,6 @@ export class RegisterIndividualDomain extends Component {
             <form id="signupform" className="form-horizontal" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Invite your team</h1>
-                <p className={classNames("sucess-msg", {"hide": !this.props.registrationDetails.Organisation.showSuccess})}>Members are invited successfully.</p>
                 <p className={classNames("sucess-msg", {"hide": !this.props.registrationDetails.Organisation.deleteSuccess})}>Members deleted successfully.</p>
                 <div className="chat-address">Email addresses</div>
                                 
@@ -112,7 +111,14 @@ export class RegisterIndividualDomain extends Component {
                     <div className="col-sm-12">
                       <div className="row">
                     <button type="button" className="btn btn-default back" onClick={this.handleBack}>SKIP</button>
-                    <button type="button" ref="submitButton" className="btn btn-default sign-in pull-right" onClick={this.handleNext.bind(this)}>SEND INVITES</button>
+                    <button type="button" 
+                    ref="submitButton" 
+                    className={classNames("btn btn-default sign-in pull-right", {
+                      'btn-loading': this.props.registrationDetails.sendInviteRequestStatus === 'loading'
+                    })} 
+                    onClick={this.handleNext.bind(this)}
+
+                    >SEND INVITES</button>
                   </div>
                   </div>
                 </div>
@@ -129,7 +135,7 @@ export class RegisterIndividualDomain extends Component {
                       </div>
                       <span className="user-name">{member.first_name ? (member.first_name + ' ' + (member.last_name ? member.last_name : '')) : member.email}</span>
 
-                      <span className="close-wrapper" onClick={this.deleteMember.bind(this, member)}><span className="glyphicon glyphicon-remove"></span></span>
+                      <span className="close-wrapper" onClick={this.deleteMember.bind(this, member)}><span className="cc-icon-cross hide"></span></span>
                       <div className="user-chat-address-wrapper">
                         <span className="user-chat-address">{member.username ? (member.team.name + '/' + member.username) : 'NA'}</span>
                       </div>

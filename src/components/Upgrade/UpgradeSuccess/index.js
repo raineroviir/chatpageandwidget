@@ -32,7 +32,7 @@ export class UpgradeSuccess extends Component {
                   </div>
                 </div>
                 <div className="buttons-wrapper">
-                  <Link className="cc-btn" to="/dashboard">Finish</Link>
+                  <Link className="cc-btn" to={this.props.upgradePlan.source.from}>Finish</Link>
                 </div>
             </div>
         );
@@ -46,6 +46,7 @@ UpgradeSuccess.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    upgradePlan: state.upgradePlan
   }
 }
 

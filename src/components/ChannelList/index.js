@@ -48,7 +48,7 @@ export class ChannelList extends Component {
                 <ul className="chat-list" style={{display:((!user.team) ? "none" : "")}}>
                   <li className="chat-list-title">
                       <span className="title-text ellipsis">EXTERNAL CHATS</span>
-                      <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'public')}>
+                      <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'TEAM_EXTERNAL_CHANNEL')}>
                       </span>
                   </li>
                    {
@@ -77,7 +77,7 @@ export class ChannelList extends Component {
                 <ul className="chat-list" style={{display:((!user.team) ? "none" : "")}}>
                   <li className="chat-list-title">
                       <span className="title-text ellipsis">INTERNAL CHATS</span>
-                      <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'private')}>
+                      <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'TEAM_INTERNAL_CHANNEL')}>
                         
                       </span>
                   </li>
@@ -103,7 +103,7 @@ export class ChannelList extends Component {
                 <ul className="chat-list" style={{display:((user.team) ? "none" : "")}}>
                   <li className="chat-list-title">
                       <span className="title-text ellipsis">PUBLIC CHATS</span>
-                      <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'chat')}>
+                      <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'INDIVIDUAL_PUBLIC_CHANNEL')}>
                         
                       </span>
                   </li>
@@ -128,7 +128,7 @@ export class ChannelList extends Component {
                 <ul className="chat-list group-chat-list" style={{display:((user.team) ? "none" : "")}}>
                   <li className="chat-list-title">
                       <span className="title-text ellipsis">PRIVATE GROUP CHATS</span>
-                      <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'group')}>
+                      <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'INDIVIDUAL_PRIVATE_GROUP_CHANNEL')}>
                         
                       </span>
                   </li>

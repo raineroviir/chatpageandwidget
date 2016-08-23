@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as RegistrationActions from '../../../actions/Registration';
 import { browserHistory } from 'react-router';
+import classNames from 'classnames';
 
 export class RegisterOrgVerifyComp extends Component {
 
@@ -88,7 +89,15 @@ export class RegisterOrgVerifyComp extends Component {
                     <div className="col-sm-12">
                       <div className="row">
                     <button type="button" className="btn btn-default back" onClick={this.props.handleBack}>BACK</button>
-                    <button type="submit" ref="submitButton" className="btn btn-default sign-in pull-right domain-big-button" onClick={this.handleNext.bind(this)}>CREATE <span className="domain-big">{window.config.cc.toUpperCase()}</span></button>
+                    <button type="submit" ref="submitButton" 
+                    className={
+                      classNames("btn btn-default sign-in pull-right domain-big-button", {
+                        'btn-loading': this.props.registrationDetails.signupRequestStatus === 'loading'
+                      })
+                    }
+                     onClick={this.handleNext.bind(this)}>
+                    CREATE <span className="domain-big">{window.config.cc.toUpperCase()}</span>
+                    </button>
                   </div>
                    </div>
                 </div>
