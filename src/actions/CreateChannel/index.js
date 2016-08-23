@@ -113,13 +113,30 @@ function findUser(user){
 }
 
 export function createChannel(isEdit) {
+
   return (dispatch, getState) => {
+    dispatch({
+      type: 'SET_CREATE_CHANNEL_REQ_STATUS',
+      value: 'loading'
+    });
     if(isEdit) {
       updateMembersRequest(getState().createChannel.CreateChannel.payload).then(response => {return response.json()}) 
-      .then(json => dispatch(postActionConstruct(json,'member-update',getState().createChannel.CreateChannel.payload.channel)))
+      .then(json => {
+        dispatch(postActionConstruct(json,'member-update',getState().createChannel.CreateChannel.payload.channel));
+        dispatch({
+          type: 'SET_CREATE_CHANNEL_REQ_STATUS',
+          value: 'loading'
+        });
+      })
     } else {
     createRequest(getState().createChannel.CreateChannel.payload).then(response => {return response.json()}) 
-      .then(json => dispatch(postActionConstruct(json)))
+      .then(json => {
+        dispatch(postActionConstruct(json))
+        dispatch({
+          type: 'SET_CREATE_CHANNEL_REQ_STATUS',
+          value: 'loading'
+        });
+      })
     }
   }
 }

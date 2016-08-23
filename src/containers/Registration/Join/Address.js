@@ -9,15 +9,21 @@ export class RegisterOrgJoinAddress extends Component {
 
   handleBack(){
     //window.location.hash = "#/signup/organization/detail";
-    browserHistory.push("/signup/organization/detail");
+    //debugger;
+    //browserHistory.push("/signup/organization/detail");
+    browserHistory.goBack();
   }
 
   handleNext(RegisterChannel){
     
     //store the value in STORE by dispatching event in action
     this.props.actions.registerChannelJoin(RegisterChannel);
-    //window.location.hash = "#/signup/organization/verify";
-    browserHistory.push("/signup/organization/verify");
+    this.props.actions.submitJoinRegistration();
+
+  }
+
+  clearJoinErrorValue(){
+    this.props.actions.clearJoinErrorValue();
   }
 
   checkForChannelNameAvailability(CurrentChannelName, CurrentTeamName){
@@ -26,7 +32,7 @@ export class RegisterOrgJoinAddress extends Component {
 
   render() {
     return (
-      <RegisterOrgJoinAddressComp registrationDetails={this.props.registrationDetails} checkForChannelNameAvailability={this.checkForChannelNameAvailability.bind(this)} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
+      <RegisterOrgJoinAddressComp registrationDetails={this.props.registrationDetails} clearJoinErrorValue={this.clearJoinErrorValue.bind(this)} checkForChannelNameAvailability={this.checkForChannelNameAvailability.bind(this)} handleBack={this.handleBack} handleNext={this.handleNext.bind(this)} />
     );
   }
 }

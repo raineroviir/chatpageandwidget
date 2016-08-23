@@ -72,8 +72,8 @@ export default (
     <Route path="channel/edit/:id" component={ChannelCreate} />
     <Route path="channel/members" component={ChannelMembers} />
     <Route path="channel/members/:id" component={ChannelMembers} />
-    <Route path="team.name/join/invite_token" component={RegisterJoinDetail} />
-    <Route path="join/address" component={RegisterJoinAddress} /> 
+    <Route path="join/address" component={RegisterJoinAddress} />
+    <Route path="join/:invite_token" component={RegisterJoinDetail} />
 
     <Route path="upgrade" component={UpgradeVew}>
         <IndexRoute  component={UpgradePlans} />

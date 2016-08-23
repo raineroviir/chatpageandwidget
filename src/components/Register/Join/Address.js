@@ -9,12 +9,11 @@ export class RegisterOrgJoinAddressComp extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    //this.state.channel=this.props.registrationDetails.Organisation.Join.channel;
+    this.state.channel=this.props.registrationDetails.Organisation.joinDetails.username;
   }
 
   handleBack(){
-    //window.location.hash = "#/signup/organization/detail";
-    browserHistory.push("/signup/organization/detail");
+    this.props.handleBack();
   }
 
   handleNext(e){
@@ -23,20 +22,26 @@ export class RegisterOrgJoinAddressComp extends Component {
 
     //store the value in STORE by dispatching event in action
     this.props.handleNext(RegisterChannel);
-    //window.location.hash = "#/signup/organization/verify";
-    browserHistory.push("/signup/organization/verify");
+
+    //browserHistory.push("/signup/organization/verify");
   }
 
   inputChange(){  
     this.refs.RegisterChannel.value = this.refs.RegisterChannel.value.replace(/[^a-zA-Z0-9\-\_]/gi, '');
+    if(this.refs.RegisterChannel.value  === ''){
+      this.refs.nextButton.disabled = true;
+    }else{
+      this.refs.nextButton.disabled = false;
+    }
   }
 
   componentDidMount() {
     
+    this.props.clearJoinErrorValue();
+
     if(this.state.channel === ''){
-      this.refs.RegisterChannel.value = this.props.registrationDetails.Organisation.payload.first_name.replace(/[^a-zA-Z0-9-._]/gi, '');
-    }
-    else{
+      this.refs.RegisterChannel.value = this.props.registrationDetails.Organisation.joinDetails.username;
+    }else{
       this.refs.RegisterChannel.value = this.state.channel;
     }
 
@@ -50,18 +55,19 @@ export class RegisterOrgJoinAddressComp extends Component {
 
   render() {
     
-    //redirect to first page if refreshed
-    // if(this.props.registrationDetails.Organisation.payload.team_description === ''){    
-    //   browserHistory.push("/signup/organization/name");
-    // }
-    const Organisation = this.props.registrationDetails.Organisation;
+    //redirect to first joining page if refreshed
+    if(this.props.registrationDetails.Organisation.joinDetails.first_name === ''){    
+      browserHistory.goBack();
+    }
+
+    const Organisation = this.props.registrationDetails.Organisation.joinDetails;
     
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal org-address-form" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Pick your personal chat address</h1>
-                <div className="chat-address">https://{Organisation.payload.team}.{window.config.cc}</div>
+                <div className="chat-address">https://{Organisation.team_name}</div>
                 <div className="input-group input-group-lg">
                   <label htmlFor="registerChannel" className="input-group-addon user-name" id="username-addon"><span className="prefix-text slash">/</span></label>
                   <input autoFocus id="registerChannel" type="text" className="form-control channel-field" ref="RegisterChannel" placeholder="Your name or nickname" aria-describedby="username-addon" onChange={this.inputChange.bind(this)} />
@@ -71,12 +77,15 @@ export class RegisterOrgJoinAddressComp extends Component {
                       <li>&ndash; Anyone from your team and from the outside world will be able to use it to start a chat with you by typing your chat address in any browser on any device.</li>
                       <li>&ndash; Your team members can refer to you by using <a href="javascript">@username</a></li>
                     </ul> 
-                  </div>   
+                  </div>
+                <div className="error-message">
+                  {this.props.registrationDetails.Organisation.joinError}
+                </div>   
                 <div className="form-group button-wrapper">
                     <div className="col-sm-12">
                       <div className="row">
-                      <button type="button" className="btn btn-default back" onClick={this.props.handleBack}>BACK</button>
-                      <button type="submit" ref="nextButton" className="btn btn-default sign-in pull-right" onClick={this.handleNext.bind(this)}>NEXT</button>
+                      <button type="button" className="btn btn-default back" onClick={this.handleBack.bind(this)}>BACK</button>
+                      <button type="submit" ref="nextButton" className="btn btn-default sign-in pull-right" onClick={this.handleNext.bind(this)}>JOIN</button>
                     </div>
                     </div>
                 </div>           

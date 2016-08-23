@@ -22,10 +22,7 @@ export class RegisterJoinDetailComp extends Component {
     let Password = this.refs.Password.value;
 
     //store the value in STORE by dispatching event in action
-    this.props.handleNext(this.state.team_name,this.state.invite_token,FirstName,LastName,Password);
-    //console.log('Moving 1 step back');
-    //window.location.hash = "#/signup/organization/address";
-    browserHistory.push("/join/address");
+    this.props.handleNext(this.state.invite_token,FirstName,LastName,Password,this.state.team_name);
   }
 
   inputChange(){
@@ -34,25 +31,18 @@ export class RegisterJoinDetailComp extends Component {
 
   componentDidMount() {
 
-    var paths = window.location.pathname.split('/');
+    var paths = window.location.href.split('/');
     this.state.team_name = paths[paths.indexOf('join')-1];
     this.state.invite_token = paths[paths.indexOf('join')+1];
 
-    if(!(this.refs.FirstName.value && this.refs.LastName.value && this.refs.Password.value && this.refs.Password.value.length>=8)){
-      this.refs.nextButton.disabled = true;
-    }
     this.refs.FirstName.value = this.state.first_name;
     this.refs.LastName.value = this.state.last_name;
     this.refs.Password.value = this.state.Password;
+
+    this.refs.nextButton.disabled = !(this.refs.FirstName.value && this.refs.LastName.value && this.refs.Password.value && this.refs.Password.value.length>=8);
   }
 
   render() {
-
-    //redirect to first page if refreshed
-    // if(this.props.registrationDetails.Organisation.payload.team_description === ''){
-    //   //window.location.hash = "#/signup/organization/name";
-    //   browserHistory.push("/signup/organization/name");
-    // }
 
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">

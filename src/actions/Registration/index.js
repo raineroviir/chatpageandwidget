@@ -44,11 +44,11 @@ export function registerPersonalDetails(FirstName,LastName,Email) {
   }
 }
 
-export function registerPersonalDetailsJoin(TeamName,InviteToken,FirstName,LastName,Email) {
+export function registerPersonalDetailsJoin(InviteToken,FirstName,LastName,Password,TeamName) {
   return (dispatch, getState) => {
       dispatch({
       type: 'REGISTER_PERSONAL_DETAILS_JOIN',
-      value:{"team_name":TeamName,"invite_token":InviteToken,"first_name":FirstName,"last_name":LastName,"email":Email}
+      value:{"invite_token":InviteToken,"first_name":FirstName,"last_name":LastName,"password":Password,"team_name":TeamName}
     })
   }
 }
@@ -288,26 +288,26 @@ function postActionConstruct(json, isIndividual) {
   }
 }
 
-function postJoinActionConstruct(json, isIndividual) {
+function postJoinActionConstruct(json) {
  
   return (dispatch, getState) => {
 
-    dispatch({
-      type:'RESET_USER_DETAILS'
-    });
+    // dispatch({
+    //   type:'RESET_USER_DETAILS'
+    // });
 
     if(json){
 
       if(!json.ok){
         dispatch({
-          type: 'REGISTER_ORGANISATION_DETAILS',
+          type: 'REGISTER_JOIN_DETAILS',
           value:{"error":json.error}
         });
         return;
       }
 
       var payload = getState().registrationDetails.Organisation.joinDetails, 
-        username = payload.team_name + '/' + payload.channel,
+        username = payload.team_name + '/' + payload.username,
         password = payload.password;
 
       dispatch(LoginActions.loginUser(username, password));
@@ -321,6 +321,14 @@ function postJoinActionConstruct(json, isIndividual) {
         type:'SUCCESSFUL_REGISTRATION_ACK'
       })       
     }   
+  }
+}
+
+export function clearJoinErrorValue() {
+  return (dispatch, getState) => {
+      dispatch({
+      type: 'CLEAR_JOIN_VALUE',
+    })
   }
 }
 
@@ -360,11 +368,11 @@ function postLoginRequest(payload){
 	  })
 }
 
-function postJoinRegistration(payload1, isIndividual) {
+function postJoinRegistration(payload1) {
   return dispatch => {
     var payload = Object.assign({},payload1);
     postJoinRequest(payload).then(response => {return response.json()})  
-      .then(json => dispatch(postJoinActionConstruct(json, isIndividual)))
+      .then(json => dispatch(postJoinActionConstruct(json)))
   }
 }
 

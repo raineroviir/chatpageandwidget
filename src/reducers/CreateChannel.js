@@ -16,7 +16,8 @@ const initialState = {
       findDirectAddress:false
     },
     users:[],
-    error:''
+    error:'',
+    createChannelRequestStatus: ''
   }
 };
 
@@ -141,6 +142,14 @@ export function createChannel(state = initialState, action) {
         CreateChannel
       };
 
+
+    case 'SET_CREATE_CHANNEL_REQ_STATUS': 
+      var CreateChannel = initialState.CreateChannel;
+      CreateChannel = (Object.assign({},state.CreateChannel, {createChannelRequestStatus: action.value}))
+      return {
+        ...state,
+        CreateChannel
+      };
 
     default:
       return state;

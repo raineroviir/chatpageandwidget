@@ -7,8 +7,7 @@ import { fetchUserInfo } from "../Navigation";
 import { browserHistory } from 'react-router';
 let channels = require("json!./../../mocks/v1/channels.list.json");
 let conversations = require("json!./../../mocks/v1/conversations.list.json");
-require('bootstrap-loader');
-
+var _ = require("lodash");
 export function getChannels(channelid) {
   /* Mocks */
   /*return (dispatch, getState) => {
@@ -24,13 +23,12 @@ export function getChannels(channelid) {
 
       if(localStorage.getItem("guest")){
         token = JSON.parse(localStorage.getItem("guest"));
-        dispatch(setGuestUserId(JSON.parse(localStorage.getItem("guest")).user_id))
+        dispatch(setGuestUserId(token.user_id));
       }
-      getChannel(channel).then(response => response.json())
+      getChannel(channel, window.location.hostname).then(response => response.json())
         .then(json => {
           if(!json.ok) {
             dispatch(messageError(true));
-            //dispatch(getConversationHistory(guestMessages.conversationid, token));
           }
           else {
             dispatch(messageError(false))
@@ -45,8 +43,9 @@ export function getChannels(channelid) {
         })
 
       if(localStorage.getItem("guestMessages")){
-        let guestMessages = JSON.parse(localStorage.getItem("guestMessages"));
-        (channel === guestMessages.channel) && dispatch(getConversationHistory(guestMessages.conversationid, token))
+        let guestMessages = JSON.parse(localStorage.getItem("guestMessages")),
+          guestChannelInfo = guestMessages.find(a => a.channel === channel);
+        !!guestChannelInfo.conversationid && dispatch(getConversationHistory(guestChannelInfo.conversationid, token))
       }
       return;
     }
@@ -109,7 +108,7 @@ export function createMessage(message, conversationid) {
         return;
       }
       else{
-        access_token = JSON.parse(localStorage.getItem('guest')).access_token
+        access_token = JSON.parse(localStorage.getItem('guest')).access_token;
       }
       if(!conversationid){
         var channel = window.location.href.match(/\/([^\/]+)\/?$/);
@@ -118,19 +117,25 @@ export function createMessage(message, conversationid) {
           conversationid = channel;
         }
         else{
+          let guestMessages = JSON.parse(localStorage.getItem("guestMessages"));
+          if(guestMessages && !conversationid && guestMessages.find(a => a.channel === channel)){
+            conversationid = guestMessages.find(a => a.channel === channel).conversationid;
+          }
           // get conversationid if its not available
-          fetchGuestInfo = fetchGuestInfo.then(json => {
-            return getChannel(channel);
-          }).then(response => response.json())
-          /* As we can send channel id directly, we dont need to create a conversation */
-          // .then(json => {
-          //   if(json.channel && json.channel.id){
-          //     return createCoversation(json.channel.id, access_token);
-          //   }
-          //   else{
-          //     dispatch(genericError());
-          //   }
-          // }).then(response => response.json())
+          if(!conversationid){
+            fetchGuestInfo = fetchGuestInfo.then(json => {
+              return getChannel(channel);
+            }).then(response => response.json())
+            /* As we can send channel id directly, we dont need to create a conversation */
+            // .then(json => {
+            //   if(json.channel && json.channel.id){
+            //     return createCoversation(json.channel.id, access_token);
+            //   }
+            //   else{
+            //     dispatch(genericError());
+            //   }
+            // }).then(response => response.json())
+          }
         }
       }
 
@@ -159,16 +164,15 @@ export function createMessage(message, conversationid) {
   }
 
 }
-export function getChannel(channel, access_token, team) {
+export function getChannel(channel, team) {
   var url =  Config.api + '/channels.find?channel=' + channel;
-  if(team){
+  if(team && team !== "localhost"){
     url+= ("&team=" + team);
   }
   return fetch( url, {
     method: 'GET',
     headers:{
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + access_token,
+      'Content-Type': 'application/json'
     }
   })
 }
@@ -533,7 +537,8 @@ function processAddMessage(response, conversationid) {
       messages = guestMessages.messages || [];
     channel = (typeof channel[1] === "number") ? url.substr(0, url.length - channel[0].length).match(/\/([^\/]+)\/?$/)[1] : channel[1];
 
-    guestMessages = {...guestMessages, channel, conversationid}
+    guestMessages = _.uniqBy([...guestMessages, {channel, conversationid}] , "channel");
+    console.log(guestMessages);
     localStorage.setItem("guestMessages", JSON.stringify(guestMessages));
   }
   return {

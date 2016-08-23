@@ -24,14 +24,13 @@ export class Login extends Component {
   componentWillMount(){
     this.props.actions.addOrg(!!this.props.location.search && this.props.location.search == "?add");
     if(typeof Storage === "undefined" || !localStorage.getItem("orgs") || !localStorage.getItem("token") || !!this.props.location.search){
-      console.log(this.props.location.search)
       return;
     }
     try {
       let user = JSON.parse(localStorage.getItem("orgs")).find(org => org.token.access_token === JSON.parse(localStorage.getItem("token")).access_token )
       fetchUserInfo().then(response => {
         if(response && response.ok){
-          browserHistory.push("/dashboard/" + user.name.split("/")[1])          
+          browserHistory.push("/dashboard/" + user.name.split("/")[1])
         }
       })
     }

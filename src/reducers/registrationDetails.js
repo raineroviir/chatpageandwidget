@@ -10,6 +10,7 @@ const initialState = {
       password:''
     },
     error:'',
+    joinError:'',
     showSuccess: false,
     deleteSuccess: false,
     ownDomain: false,
@@ -132,6 +133,30 @@ export function registrationDetails(state = initialState, action) {
       Organisation
   };  
   
+  case 'REGISTER_JOIN_DETAILS':
+    var Organisation = initialState.Organisation;
+     Organisation.joinError = action.value.error;
+     // if(!!action.value.error){
+     //   Organisation.error = (Object.assign(initialState.Organisation.error, action.value.error));
+     // }//else{
+     //   Organisation = (Object.assign(initialState.Organisation, action));
+     // }
+    
+    return {
+      ...state,
+      Organisation
+  };  
+
+  case 'CLEAR_JOIN_VALUE':
+    var Organisation = initialState.Organisation;
+       Organisation.joinError = '';
+      
+      return {
+        ...state,
+        Organisation
+    };
+
+
   case 'TEAM_AVAILABILITY_RESULT':
     //mutate initial state to store the organisation value and create STATE from it
     var Organisation = (Object.assign(initialState.Organisation, {TeamAvailable:action.posts}));

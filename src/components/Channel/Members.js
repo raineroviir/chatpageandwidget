@@ -206,7 +206,24 @@ export class ChannelMembers extends Component {
               </div>
               <button type="button" className={classnames('btn btn-default back', { hide: !this.props.id})} onClick={this.clearMember.bind(this)}>Clear</button>
               <button type="button" className={classnames('btn btn-default back', { hide: this.props.id})} onClick={this.props.handleBack.bind(this)}>Back</button>
-              <button type="submit" ref="createButton" className="btn btn-default sign-in pull-right" onClick={this.handleNext.bind(this)}>CREATE</button>
+              <button type="submit" ref="createButton" 
+              className={
+                classnames( "btn btn-default sign-in pull-right", {
+                  'btn-loading': this.props.details.createChannelRequestStatus === 'loading',
+                  'hide': this.props.id
+                } )
+              }
+              onClick={this.handleNext.bind(this)}
+              >CREATE</button>
+            <button type="submit" ref="createButton" 
+              className={
+                classnames( "btn btn-default sign-in pull-right", {
+                  'btn-loading': this.props.details.createChannelRequestStatus === 'loading',
+                  'hide': !this.props.id
+                } )
+              }
+              onClick={this.handleNext.bind(this)}
+              >ADD</button>
             </div> 
 
             <div className={classnames('moderators-count', { hide: !this.props.id})}>
