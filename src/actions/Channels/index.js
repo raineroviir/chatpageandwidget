@@ -124,7 +124,7 @@ export function createMessage(message, conversationid) {
           // get conversationid if its not available
           if(!conversationid){
             fetchGuestInfo = fetchGuestInfo.then(json => {
-              return getChannel(channel);
+              return getChannel(channel, window.location.hostname);
             }).then(response => response.json())
             /* As we can send channel id directly, we dont need to create a conversation */
             // .then(json => {

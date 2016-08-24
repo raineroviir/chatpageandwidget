@@ -7,6 +7,17 @@
 }
 
 
+
+.hover-roatate,.cc-icon-cross {
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: all 0.1s ease-in;
+}
+.hover-roatate:hover,.cc-icon-cross:hover {
+  transform: rotate(90deg);
+  transition: all 0.1s ease-in;
+}
+
 /* Font Icons */
 @import './rubik.scss';  
 

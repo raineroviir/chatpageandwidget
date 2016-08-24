@@ -125,7 +125,7 @@ export function createChannel(isEdit) {
         dispatch(postActionConstruct(json,'member-update',getState().createChannel.CreateChannel.payload.channel));
         dispatch({
           type: 'SET_CREATE_CHANNEL_REQ_STATUS',
-          value: 'loading'
+          value: 'loaded'
         });
       })
     } else {
@@ -134,7 +134,7 @@ export function createChannel(isEdit) {
         dispatch(postActionConstruct(json))
         dispatch({
           type: 'SET_CREATE_CHANNEL_REQ_STATUS',
-          value: 'loading'
+          value: 'loaded'
         });
       })
     }
