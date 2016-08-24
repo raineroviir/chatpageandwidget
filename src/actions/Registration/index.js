@@ -271,7 +271,7 @@ function postActionConstruct(json, isIndividual) {
       }
 
       dispatch(LoginActions.loginUser(username, password));
-      dispatch(LoginActions.submitLogin(getState().orgs.addOrg));          
+      dispatch(LoginActions.submitLogin(getState().orgs.addOrg, !isIndividual));          
 
       if (typeof(Storage) !== "undefined") {
         localStorage.setItem("user_channel", payload.channel);
@@ -311,7 +311,7 @@ function postJoinActionConstruct(json) {
         password = payload.password;
 
       dispatch(LoginActions.loginUser(username, password));
-      dispatch(LoginActions.submitLogin(getState().orgs.addOrg, !isIndividual));          
+      dispatch(LoginActions.submitLogin(getState().orgs.addOrg));          
 
       if (typeof(Storage) !== "undefined") {
         localStorage.setItem("user_channel", payload.channel);
