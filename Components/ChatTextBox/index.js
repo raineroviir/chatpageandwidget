@@ -18,7 +18,6 @@ export class ChatTextBox extends Component {
                 <span className="attach-button-wrapper">
                   <span className="attach-button"></span>
                 </span>
-
                 <div className="message-input-wrapper">
                   <input ref="Message"
                   type="text"
