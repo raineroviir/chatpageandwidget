@@ -1,0 +1,77 @@
+.default-message { 
+    position: relative;
+    padding: 20px;
+    color: #adadad;
+    .feature-link {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        .logo-wrapper {
+            height: 50px;
+            width: 50px;
+        }
+        .logo-wrapper .welcome-logo {
+            margin-top: 2px;
+        }
+        .left-arrow {
+            background: url( './files/left-arrow.png') no-repeat;
+            position: absolute;
+            height: 20px;
+            width: 10px;
+            top: 18px;
+            left: -10px;
+        }
+
+    }
+    .welcome-section {
+        max-width: 302px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .welcome-title {
+        font-size: 18px;
+        margin-bottom: 0;
+        margin-top: 10px;
+        color: #474747;
+        letter-spacing: -0.5px;
+    }
+    .title-desc {
+        font-size: 14px;
+        color: #adafb3;
+        letter-spacing: -0.5px;
+    }
+    .link-section {
+        margin-top: 18px;
+    }
+    .welcome-message {
+        font-size: 13px;
+        line-height: 14px;
+    }
+
+    .logo-wrapper {
+        width: 120px;
+        height: 120px;
+        display: inline-block;
+        border-radius: 50%;
+        border:1px solid #e6e6e6;
+        text-align: center;
+        &:before {
+            content: '';
+            height: 100%;
+            width: 0;
+            margin-left:0;
+            vertical-align: middle;
+            display: inline-block;
+        }        
+        .welcome-logo {
+            background: url( './files/bell-logo.png' ) no-repeat;
+            width: 70%;
+            height: 70%;
+            vertical-align: middle;
+            display: inline-block;
+            background-size: 100%;
+            margin-top: 10px
+        }
+    }
+
+}
