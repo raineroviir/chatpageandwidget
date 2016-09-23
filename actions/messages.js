@@ -14,14 +14,13 @@ export function createMessage(message, conversationid, token, channelid) {
     //   const token = JSON.parse(localStorage.getItem("guest"))
     // }
     // if (!channelid) {
-    //   const channelid = JSON.parse(localStorage.getItem("guestchannel")).id
+    //   const channelid = JSON.parse(localStorage.getItem("channel")).id
     // }
-    let channelid = 170
-    let conversationid = 170
+    console.log(message,conversationid,token,channelid)
   postMessage(message, conversationid, token, channelid).then(response => response.json()).then(json => {
     dispatch(processAddMessage(json, conversationid || json.message.conversation_id))
     // dispatch(getConversationHistory(conversationid, token))
-    dispatch(setGuestConvid(conversationid));
+    // dispatch(setGuestConvid(conversationid));
   })
   }
 }
@@ -35,12 +34,11 @@ export function createMessage(message, conversationid, token, channelid) {
  * @return {[Promise]}                [description]
  */
 function postMessage(message, conversationid, token, channelid) {
-  console.log(message, conversationid, token, channelid)
   return fetch( Config.api + '/messages.postMessage', {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' +  token.access_token,
+      'Authorization': 'Bearer ' +  token,
     },
     body: JSON.stringify({
       text: message,

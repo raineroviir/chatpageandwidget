@@ -1,15 +1,22 @@
 import React from 'react'
-import CreateMessage from './CreateMessage'
 import Messages from './Messages'
+import ConversationsContainer from './ConversationsContainer'
+import { getConversations } from './actions/channels'
+import WidgetFooter from './WidgetFooter'
+import { connect } from 'react-redux'
 
-export default class ChatWidget extends React.Component {
+class ChatWidget extends React.Component {
+  componentDidMount() {
+    const { dispatch, token, channelid } = this.props
+    dispatch(getConversations(channelid, token))
+  }
   render() {
-   return (
-     <div
+    return (
+      <div
        style={{
          ...this.props.style,
+         width: '15em',
          position: 'absolute',
-         backgroundColor: '#EEE',
          boxShadow: '0 5px 10px rgba(0, 0, 0, 0.2)',
          border: '1px solid #CCC',
          borderRadius: 3,
@@ -19,10 +26,19 @@ export default class ChatWidget extends React.Component {
          padding: 8,
          height: '30em'
        }}
-     >
-       <Messages />
-       <CreateMessage />
-     </div>
-   );
- }
+      >
+      <ConversationsContainer />
+      <WidgetFooter />
+      </div>
+    );
+  }
 }
+
+function mapStateToProps(state) {
+  return {
+    token: state.guest.token,
+    channelid: state.guest.channel.id
+  }
+}
+
+export default connect(mapStateToProps)(ChatWidget)

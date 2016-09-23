@@ -5,10 +5,10 @@ import * as MessagesActions from './actions/messages';
 
 /* components */
 import { ChatMessage } from './components/ChatMessage';
-export class Messages extends Component {
+class Messages extends Component {
   render() {
     return (
-      <ChatMessage messages={this.props.messages.messages} user={this.props.user} guest={this.props.guest} />
+      <ChatMessage style={this.props.style} messages={this.props.messages.messages} user={this.props.user} guest={this.props.guest} />
     );
   }
 }

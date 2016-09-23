@@ -94,7 +94,7 @@ export class ChatMessage extends Component {
           <a href="javascript:;">Mark as read</a>
         </div>
         <div className="chat-messages-wrapper mCustomScrollBar">
-          <table className={ "chat-message-tabel" + (
+          <table style={this.props.style} className={ "chat-message-tabel" + (
                 messages && messages.length ? '' : ' default-message-table'
               ) } >
             <tbody>

@@ -32,8 +32,6 @@ export function channels(state = initialState, action) {
     };
   case 'RESET_CHANNELS':
     return initialState;
-  case 'WIDGET_CHANNEL_CREATED':
-    return {...state, guest: {widgetChannel: action.channel}}
   default:
     return state;
   }

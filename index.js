@@ -7,11 +7,13 @@ import App from './App'
 
 const preloadedState = window.__PRELOADED_STATE__
 const store = configureStore(preloadedState)
-const rootElement = document.getElementById('app')
+const rootElement = document.getElementById('chat-center-widget')
+const rootElementStyle = rootElement.getAttribute('data-style')
+const channelid = rootElement.getAttribute('chat-data-id')
 
 render(
   <Provider store={store}>
-    <App />
+    <App channelid={channelid} style={JSON.parse(rootElementStyle)}/>
   </Provider>,
   rootElement
 )

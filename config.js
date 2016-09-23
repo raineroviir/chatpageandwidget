@@ -11,5 +11,6 @@ var Config = {
     api: 'https://api-beta.chat.center/v1',
     authBase:
     'https://id.chat.center/oauth/token',
+    app: 'https://app-beta.chat.center/v1'
 };
 export default Config;
