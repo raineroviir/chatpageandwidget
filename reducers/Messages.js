@@ -15,7 +15,6 @@ export function messages(state = initialState, action) {
     return {
       ...state,
       messages: messages,
-      conversationid: action.posts.conversationid,
       memoized: {
         ...state.memoized,
         [action.posts.conversationid]: messages
@@ -25,8 +24,7 @@ export function messages(state = initialState, action) {
     if(!state.memoized[action.posts.conversationid]) return state;
     return {
       ...state,
-      messages: [ ...state.memoized[action.posts.conversationid]],
-      conversationid: action.posts.conversationid
+      messages: [ ...state.memoized[action.posts.conversationid]]
     };
     case 'SET_GUEST_GROUP_CONV_ID':
       return {
@@ -66,6 +64,8 @@ export function messages(state = initialState, action) {
       channelError: action.posts.flag
     };
   case 'RESET_MESSAGES':
+    return initialState;
+  case 'PREPARE_TO_CREATE_NEW_CONVERSATION':
     return initialState;
   default:
     return state;

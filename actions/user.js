@@ -3,7 +3,6 @@ import fetch from 'isomorphic-fetch';
 import moment from 'moment';
 import { getConversationHistory, fetchSocket, createConversation, createWidgetChannel, fetchChannels } from './channels'
 import { createMessage } from './messages'
-import * as types from '../types'
 
 function fetchGuestToken(data) {
   return fetch( Config.app + '/guest.token', {

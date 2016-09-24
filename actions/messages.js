@@ -2,10 +2,9 @@ import Config from '../config';
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
 
+import { createConversation } from './channels'
 import { setOrGetGuestToken } from './user'
 import { getConversationHistory, setGuestConvid } from './channels'
-let channels = require("./../mocks/v1/channels.list.json");
-let conversations = require("./../mocks/v1/conversations.list.json");
 var _ = require("lodash");
 
 export function createMessage(message, conversationid, token, channelid) {
@@ -16,8 +15,9 @@ export function createMessage(message, conversationid, token, channelid) {
     // if (!channelid) {
     //   const channelid = JSON.parse(localStorage.getItem("channel")).id
     // }
-    console.log(message,conversationid,token,channelid)
-  postMessage(message, conversationid, token, channelid).then(response => response.json()).then(json => {
+    //
+    console.log(conversationid)
+  return postMessage(message, conversationid, token, channelid).then(response => response.json()).then(json => {
     dispatch(processAddMessage(json, conversationid || json.message.conversation_id))
     // dispatch(getConversationHistory(conversationid, token))
     // dispatch(setGuestConvid(conversationid));
@@ -69,20 +69,4 @@ function processAddMessage(response, conversationid) {
 function botReplyForFirstMessage(conversationid) {
   let botMsg = "We normally answer within 60 minutes or less.  Please leave your question here and someone will be with you shortly.  Let us notify you via email"
   dispatch(createMessage(botMsg, conversationid))
-}
-
-function messageError(flag) {
-  return {
-    type: "MESSAGE_ERROR",
-    posts: {flag},
-    receivedAt: Date.now()
-  }
-}
-
-function genericError() {
-  return {
-    type: "GENERIC_ERROR",
-    posts: "Error",
-    receivedAt: Date.now()
-  }
 }

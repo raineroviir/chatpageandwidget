@@ -1,14 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Messages from './Messages'
 import ConversationsContainer from './ConversationsContainer'
-import { getConversations } from './actions/channels'
-import WidgetFooter from './WidgetFooter'
-import { connect } from 'react-redux'
+import { getConversations, backToConversationSummaryView} from '../actions/conversations'
+import Footer from './Footer'
+import Header from './Header'
 
 class ChatWidget extends React.Component {
   componentDidMount() {
     const { dispatch, token, channelid } = this.props
     dispatch(getConversations(channelid, token))
+  }
+  backToConversationSummaryView() {
+    const { dispatch } = this.props
+    dispatch(backToConversationSummaryView())
   }
   render() {
     return (
@@ -27,8 +32,10 @@ class ChatWidget extends React.Component {
          height: '30em'
        }}
       >
+      <Header backToConversationSummaryView={this.backToConversationSummaryView.bind(this)}
+      activeConversation={this.props.activeConversation} preparingToCreateConversation={this.props.preparingToCreateConversation} />
       <ConversationsContainer />
-      <WidgetFooter />
+      <Footer />
       </div>
     );
   }
@@ -37,7 +44,9 @@ class ChatWidget extends React.Component {
 function mapStateToProps(state) {
   return {
     token: state.guest.token,
-    channelid: state.guest.channel.id
+    channelid: state.guest.channel.id,
+    activeConversation: state.conversations.activeConversation,
+    preparingToCreateConversation: state.conversations.preparingToCreateConversation
   }
 }
 

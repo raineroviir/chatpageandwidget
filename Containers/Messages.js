@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as MessagesActions from './actions/messages';
 
 /* components */
-import { ChatMessage } from './components/ChatMessage';
+import { ChatMessage } from '../Components/ChatMessage';
 class Messages extends Component {
   render() {
     return (
@@ -21,10 +19,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(MessagesActions, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Messages)
+export default connect(mapStateToProps)(Messages)

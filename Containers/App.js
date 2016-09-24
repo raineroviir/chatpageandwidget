@@ -3,9 +3,8 @@ import { Overlay, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import ReactDOM from 'react-dom'
 import ChatWidget from './ChatWidget'
-import { registerGuestInfo } from './actions/user'
+import { registerGuestInfo } from '../actions/user'
 import { bindActionCreators } from 'redux'
-import { createConversation } from './actions/channels'
 
 class App extends React.Component {
   constructor() {

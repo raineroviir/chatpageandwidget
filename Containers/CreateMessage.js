@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as MessagesActions from './actions/messages';
-import { createConversation, receiveConversationFromLocalStorage, getConversations } from './actions/channels'
+import { setActiveConversation, createConversation, getConversations } from '../actions/conversations'
+import { createMessage } from '../actions/messages'
 /* components */
-import { ChatTextBox } from './components/ChatTextBox';
+import { ChatTextBox } from '../Components/ChatTextBox';
 class CreateMessage extends Component {
   createMessage(message) {
-    this.props.actions.createMessage(message, this.props.guestconversation.id, this.props.token, this.props.channelid);
+    const { dispatch, actions, activeConversation, token, channelid } = this.props
+    if (!activeConversation) {
+      return dispatch(createConversation(channelid, token)).then((conversation) => {
+        return dispatch(createMessage(message, conversation.id, token, channelid))
+      })
+    } else {
+      dispatch(createMessage(message, activeConversation, token, channelid))
+    }
   }
   render() {
     return (
@@ -24,13 +31,13 @@ function mapStateToProps(state) {
     user: state.userinfo,
     isGuest: state.guest.guest,
     token: state.guest.token,
-    channelid: state.guest.channel.id
+    channelid: state.guest.channel.id,
+    activeConversation: state.conversations.activeConversation
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(MessagesActions, dispatch),
     dispatch
   }
 }

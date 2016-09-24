@@ -1,163 +1,12 @@
 import Config from '../config';
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
-// import * as loginActions from "../Login";
-// import * as createChannelActions from "../CreateChannel";
-import { fetchUserInfo, setOrGetGuestToken} from "./user";
 
+import { fetchUserInfo, setOrGetGuestToken} from "./user";
+import { getConversations, processConversationsForDispatch } from './conversations'
 let channels = require("./../mocks/v1/channels.list.json");
 let conversations = require("./../mocks/v1/conversations.list.json");
 var _ = require("lodash");
-
-// export function initializeConversation() {
-//   let access_token = dispatch(setOrGetGuestToken())
-//   return dispatch => {
-//     dispatch(createConversation(channelid, access_token))
-//   }
-// }
-
-export function getChannels(channelid) {
-  /* Mocks */
-  /*return (dispatch, getState) => {
-    return dispatch(processChannelsForDispatch(channels));
-  }*/
-  return dispatch => {
-    if(typeof(Storage) === "undefined" || !localStorage.getItem("token")){
-      dispatch(initGuestMessaging());
-      let url = window.location.href,
-        channel = url.match(/\/([^\/]+)\/?$/),
-        token = false;
-      channel = (typeof channel[1] === "number") ? url.substr(0, url.length - channel[0].length).match(/\/([^\/]+)\/?$/)[1] : channel[1];
-
-      if(localStorage.getItem("guest")){
-        token = JSON.parse(localStorage.getItem("guest"));
-        dispatch(setGuestUserId(token.user_id));
-      }
-      getChannel(channel, window.location.hostname).then(response => response.json())
-        .then(json => {
-          if(!json.ok) {
-            dispatch(messageError(true));
-          }
-          else {
-            dispatch(messageError(false))
-            if(json.channel && json.channel.is_group){
-              dispatch({
-                type: "SET_GUEST_GROUP_CONV_ID",
-                posts: { conversationid: json.channel.conversation.id },
-                receivedAt: Date.now()
-              })
-            }
-          }
-        })
-
-      if(localStorage.getItem("guestMessages")){
-        let guestMessages = JSON.parse(localStorage.getItem("guestMessages")),
-          channelInfo = guestMessages.find(a => a.channel === channel);
-        !!channelInfo.conversationid && dispatch(getConversationHistory(channelInfo.conversationid, token))
-      }
-      return;
-    }
-
-    fetchChannels().then(response => {return response.json()})
-    .then(json => {
-      /* If there is error in json stop proceeding */
-      if(json.error) { return; }
-      /* Invoke Channels Service when we recieve new channels */
-      if(json.channels.length){
-        dispatch(getConversations(channelid || Array.prototype.slice.call(json.channels).reverse().find(chl => chl.is_direct).id, json.channels))
-      }
-      else{
-        dispatch(processConversationsForDispatch({ conversations: []}, null))
-      }
-      dispatch(processChannelsForDispatch(json))
-    })
-  }
-}
-
-/**
- * [getConversations description]
- * @param  {[String or Num]} channelid
- * @param  {[String]} token
-
- */
-export function getConversations(channelid, token, channels, conversationname) {
-  /* Mocks */
-  /*return (dispatch, getState) => {
-    return dispatch(processConversationsForDispatch(conversations));
-  }*/
-
-  return (dispatch, getState) => {
-    /* Load memoized (cached) conversations from store if any */
-    dispatch(processMemoizedConversationsForDispatch(channelid));
-    /* Load memoized (cached) conversation history from store if any */
-    let conv = getState().conversations.memoizedMessage[channelid];
-    !!conv && dispatch(processMemoizedConversationsHistoryForDispatch(conv));
-
-    /* Trigger API to get latest conversations */
-    fetchConversations(channelid, token).then(response => {return response.json()})
-      .then(json => {
-        /* Invoke Channels Service when we recieve new channels */
-        if(json && json.conversations && json.conversations.length){
-          let conversations = _.sortBy(json.conversations, a => parseInt(moment(a.updated_at).format("x"))).reverse();
-          dispatch(getConversationHistory(conversationname || conversations[0].id, token));
-        }
-        else{
-          /* Reset conversation history from API */
-          // If we get to this point, that means that there were no conversations in our channel, and if we're a guest, we create one here
-          dispatch(createConversation(channelid, token))
-          dispatch(processConversationsHistoryForDispatch({ messages: []}, null))
-        }
-        dispatch(processConversationsForDispatch(json, channelid))
-      })
-
-      // Set isGroupChat flag if the chat is group chat
-      channels && dispatch(processIsGroupForDispatch(channelid, channels));
-  }
-}
-
-function processCreateMessage(response) {
-  return {
-    type: "MESSAGE_CREATED",
-    posts: {
-      showSuccessMessage: true
-    },
-    receivedAt: Date.now()
-  }
-}
-
-export function getChannel(channel, team) {
-  var url =  Config.api + '/channels.find?channel=' + channel;
-  if(team && team !== "localhost"){
-    url+= ("&team=" + team);
-  }
-  return fetch( url, {
-    method: 'GET',
-    headers:{
-      'Content-Type': 'application/json'
-    }
-  })
-}
-
-/**
- * [getConversationHistory description]
- * @param  {[String or Number]} conversationid
- * @param  {[String]} token
- */
-export function getConversationHistory (conversationid, token) {
-  return dispatch => {
-    /* Trigger API service to retrieve latest conversation history */
-    fetchConversationHistory(conversationid, token).then(response => {return response.json()})
-      .then(json => {
-        console.log('conversationhistory', json)
-        dispatch(processConversationsHistoryForDispatch(json, conversationid))
-        dispatch({
-          type: 'SET_CONVERSATION_CHANNEL_MEMOIZED',
-          posts: { conversationid},
-          receivedAt: Date.now()
-        });
-      })
-  }
-}
 
 export function setUserInfo(user, history) {
   if (typeof(Storage) !== "undefined") {
@@ -189,9 +38,6 @@ export function fetchSocket (token) {
     }
   }
 }
-
-
-
 
 function getSocketURL (token) {
   if ((typeof(Storage) === "undefined" || (!localStorage.getItem("token") && !localStorage.getItem("guest"))) && !token ) return null;
@@ -351,53 +197,6 @@ function widgetChannelCreated(channel) {
   }
 }
 
-/**
- * [createConversation description]
- * @param  {[Number]} channelid [description]
- * @param  {[Object]} token     [description]
- * @return {[type]}           [description]
- */
-export function createConversation(channelid, token) {
-  return dispatch => {
-  if (!token) {
-    let token = JSON.parse(localStorage.getItem("guest"))
-  }
-  let body = JSON.stringify({channel_id: channelid})
-    return fetch( Config.api + '/conversations.create', {
-      method: 'POST',
-      headers:{
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token,
-      },
-      body: body
-    }).then(response => response.json()).then(json => {
-      let conversation = json
-      localStorage.setItem("guestconversation", JSON.stringify(json.conversation))
-      return dispatch({type:"CONVERSATION_CREATED", conversation})
-    })
-  }
-}
-
-function fetchConversations(channel_id, token) {
-  return fetch( Config.api + '/conversations.list?channel_id=' + channel_id, {
-    method: 'GET',
-    headers:{
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
-    }
-  })
-}
-
-function fetchConversationHistory(conversationid, token) {
-  return fetch( Config.api + '/conversations.history?conversation_id=' + conversationid, {
-    method: 'GET',
-    headers:{
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
-    }
-  })
-}
-
 function processChannelsForDispatch(channels) {
   let source = channels.channels.reverse() || [],
     processed = {
@@ -432,36 +231,9 @@ function processIsGroupForDispatch(channelid, channels) {
   }
 }
 
-function processConversationsForDispatch(conversations, channelid) {
-  return {
-    type: 'FETCH_CONVERSATIONS',
-    posts: { ...conversations, channelid},
-    receivedAt: Date.now()
-  }
-}
-function processConversationsHistoryForDispatch(messages, conversationid) {
-  return {
-    type: 'FETCH_MESSAGES',
-    posts: { ...messages, conversationid},
-    receivedAt: Date.now()
-  }
-}
 
-function processMemoizedConversationsHistoryForDispatch(conversationid) {
-  return {
-    type: 'FETCH_MESSAGES_MEMOIZED',
-    posts: { conversationid},
-    receivedAt: Date.now()
-  }
-}
 
-function processMemoizedConversationsForDispatch(channelid) {
-  return {
-    type: 'FETCH_CONVERSATIONS_MEMOIZED',
-    posts: { channelid},
-    receivedAt: Date.now()
-  }
-}
+
 
 function initGuestMessaging() {
   return {

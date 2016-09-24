@@ -88,7 +88,7 @@ export class ChatMessage extends Component {
   render() {
     let messages = this.props.messages;
     return (
-      <div>
+      <div style={{height: "90%"}}>
         <div className="unread-message-notification">
           54 new messages since 24 Nov 2015
           <a href="javascript:;">Mark as read</a>

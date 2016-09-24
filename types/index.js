@@ -1,1 +1,0 @@
-const TOKEN_SET = 'TOKEN_SET'
