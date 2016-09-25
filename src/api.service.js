@@ -89,9 +89,12 @@ class ApiService {
             .then(
               ( response ) => {
                 status = response.status;
-                /*if ( status == 401 ) {
-                  browserHistory.push("/");
-                } */
+                if ( status == 401 ) {
+                    return {
+                        ok : false,
+                        error: 'unauthorized'
+                    };
+                } 
                 return response.json();
               }
             ).then( json => {

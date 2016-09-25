@@ -41,6 +41,8 @@ import UpgradeVew from 'containers/Upgrade';
 import UpgradePlans from 'components/Upgrade/UpgradePlans';
 import UpgradeForm from 'components/Upgrade/UpgradeForm';
 import UpgradeSuccess from 'components/Upgrade/UpgradeSuccess';
+import TransactionHistory from 'components/Upgrade/TransactionHistory';
+import UpdateCard from 'components/Upgrade/UpdateCard';
 
 import RegisterJoinDetail from 'containers/Registration/Join/Detail';
 import RegisterJoinAddress from 'containers/Registration/Join/Address';
@@ -80,6 +82,8 @@ export default (
         <Route path="plans" component={UpgradePlans}/>
         <Route path="form" component={UpgradeForm}/>
         <Route path="success" component={UpgradeSuccess}/>
+        <Route path="history" component={TransactionHistory}/>
+        <Route path="update-card" component={UpdateCard}/>
     </Route>
 
 

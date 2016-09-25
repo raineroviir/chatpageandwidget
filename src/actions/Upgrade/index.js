@@ -14,7 +14,7 @@ export function updateUpgradePlanKey( obj ) {
 export function  getTeamMemberCount() {
   return dispatch => {
     ApiService.api({
-      action: "api.team.members-list"
+      action: "api.teams.members-list"
     })
     .then( 
       res=> {
@@ -226,3 +226,7 @@ export function  updateUpgradeSource( source ) {
     })
   }
 }
+
+
+
+

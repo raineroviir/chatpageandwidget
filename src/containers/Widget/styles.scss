@@ -1,3 +1,24 @@
+.cc-btn {
+    border-radius: 5px;
+    /*background-color: #fdb22b;*/
+    border: 0;
+    /*color: #fff;*/
+    padding: 8px 28px 5px 28px;
+    font-size: 14px;
+    letter-spacing: 0.8px;
+    text-decoration: none;
+    &:hover,&:focus{
+        /*color: #fff;*/
+        text-decoration: none;
+    }
+    &.disabled,&[disabled] {
+        background-color: #d5d6d8;
+        cursor: default;
+    }
+    &.wait {
+        cursor: wait
+    }
+}
 
 .widget-component {
     margin-left: 72px;

@@ -4,6 +4,39 @@
     {
       "icon": {
         "paths": [
+          "M85.333 298.917c0-47.266 38.324-85.583 84.941-85.583h683.452c46.911 0 84.941 38.275 84.941 85.583v426.167c0 47.266-38.324 85.583-84.941 85.583h-683.452c-46.911 0-84.941-38.275-84.941-85.583v-426.167zM384.869 587.318l-45.749-34.312-185.922 150.787c-11.896 9.648-13.719 27.113-4.071 39.009s27.113 13.719 39.009 4.071l196.733-159.555zM639.131 587.318l196.733 159.555c11.896 9.648 29.361 7.826 39.009-4.071s7.826-29.361-4.071-39.009l-185.922-150.787-45.749 34.312zM495.36 576.853c9.861 7.396 23.419 7.396 33.28 0l341.333-256c12.253-9.19 14.737-26.573 5.547-38.827s-26.573-14.737-38.827-5.547l-324.693 244.054-324.693-244.054c-12.253-9.19-29.637-6.707-38.827 5.547s-6.707 29.637 5.547 38.827l341.333 256z"
+        ],
+        "attrs": [
+          {
+            "fill": "rgb(71, 72, 72)"
+          }
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "iconMail"
+        ]
+      },
+      "attrs": [
+        {
+          "fill": "rgb(71, 72, 72)"
+        }
+      ],
+      "properties": {
+        "order": 27,
+        "id": 0,
+        "name": "iconMail",
+        "prevSize": 32,
+        "code": 59653
+      },
+      "setIdx": 0,
+      "setId": 2,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
           "M576 448v-448h-128v448h-448v128h448v448h128v-448h448v-128h-448z"
         ],
         "attrs": [
@@ -31,13 +64,13 @@
         }
       ],
       "properties": {
-        "order": 21,
+        "order": 23,
         "id": 4,
         "name": "plus",
         "prevSize": 32,
         "code": 59648
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 1,
       "iconIdx": 0
     },
@@ -107,13 +140,13 @@
         }
       ],
       "properties": {
-        "order": 20,
+        "order": 26,
         "id": 3,
         "name": "profile",
         "prevSize": 32,
         "code": 59649
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 1,
       "iconIdx": 1
     },
@@ -171,13 +204,13 @@
         }
       ],
       "properties": {
-        "order": 19,
+        "order": 25,
         "id": 2,
         "name": "search",
         "prevSize": 32,
         "code": 59650
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 1,
       "iconIdx": 2
     },
@@ -225,13 +258,13 @@
         }
       ],
       "properties": {
-        "order": 18,
+        "order": 22,
         "id": 1,
         "name": "settings",
         "prevSize": 32,
         "code": 59651
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 1,
       "iconIdx": 3
     },
@@ -265,13 +298,13 @@
         }
       ],
       "properties": {
-        "order": 17,
+        "order": 24,
         "id": 0,
         "name": "user",
         "prevSize": 32,
         "code": 59652
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 1,
       "iconIdx": 4
     }
@@ -281,9 +314,9 @@
     "name": "icomoon"
   },
   "preferences": {
-    "showGlyphs": true,
-    "showCodes": false,
-    "showQuickUse": true,
+    "showGlyphs": false,
+    "showCodes": true,
+    "showQuickUse": false,
     "showQuickUse2": true,
     "showSVGs": true,
     "fontPref": {
@@ -313,6 +346,6 @@
       "classSelector": ".icon"
     },
     "historySize": 100,
-    "showLiga": false
+    "showLiga": true
   }
 }

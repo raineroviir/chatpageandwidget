@@ -213,7 +213,7 @@ export class RegisterOrgDomainComp extends Component {
                 
                 <div className="own-domain-wrapper">
                       <a className="own-domain" ref="ownDomainLink" href="javascript:;" title="Use my own domain" onClick={this.handleOwnDomain.bind(this)}>Use my own domain</a>
-                      <a className="own-domain" ref="chatCenterDomainLink" href="javascript:;" title="Use chat.center" onClick={this.handleChatCenterDomain.bind(this)} style={{display:'none'}}>Use chat.center</a>
+                      <a className="own-domain" ref="chatCenterDomainLink" href="javascript:;" title={"Use " + window.config.cc } onClick={this.handleChatCenterDomain.bind(this)} style={{display:'none'}}>Use {window.config.cc}</a>
                 </div>
 
                 <div className="desc">This is your organization's dedicated name space. You will be able to create external chats for sales, support and alike, and internal chats to talk privately with your team, for example: 

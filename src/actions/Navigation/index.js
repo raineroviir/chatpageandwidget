@@ -20,6 +20,10 @@ export function populateUserInfo () {
       if(!unauth){
         dispatch(processUserInfoForDispatch(json))
         dispatch(processOrgsForDispatch(json));
+        dispatch({
+          type: 'SETTINGS_INITIALIZE',
+          userinfo: json.user
+        })
       }
     });
   }

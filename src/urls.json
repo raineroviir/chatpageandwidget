@@ -23,13 +23,48 @@
         "plans-switch" : {
             "method": "post",
             "url": "plans.switch"
+        },
+        "plans": {
+            "transactions" : {
+                "history": {
+                    "method": "get",
+                    "url": "plans.transactions.history"    
+                }
+            },
+            "outstandingAmount" : {
+                "method": "get",
+                "url": "plans.outstandingAmount"    
+            }
         }
     },
     "api": {
-        "team": {
+        "teams": {
             "members-list": {
                 "method": "get",
                 "url": "teams.members.list"
+            },
+            "delete": {
+                "method": "delete",
+                "url": "teams.delete"
+            }
+        },
+        "settings" : {
+            "organization-update": {
+                "method": "put",
+                "url": "teams.update"   
+            },
+            "personnal-update": {
+                "method": "put",
+                "url": "users.update"   
+            }
+        },
+        "users": {
+            "password": {
+                "change" : { 
+                    "method": "post",
+                    "url":"users.password.change"
+                }
+                
             }
         }
     }

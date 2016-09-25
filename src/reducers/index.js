@@ -20,6 +20,8 @@ import { poptart } from './poptart';
 import { loader } from './loader';
 import { tabnav } from './tabnav';
 
+import { settings } from './settings'; 
+
 const rootReducer = combineReducers({
   form: formReducer,
   /* your reducers */
@@ -41,7 +43,8 @@ const rootReducer = combineReducers({
   upgradeForm,
   poptart,
   loader,
-  tabnav
+  tabnav,
+  settings
 });
 
 export default rootReducer;

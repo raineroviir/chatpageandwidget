@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as UpgradeActions from '../../../actions/Upgrade';;
+import * as UpgradeActions from '../../../actions/Upgrade';
 import { bindActionCreators } from 'redux';
 import { MaterialInput } from '../../MaterialInput';
 import { styles } from './styles.scss';

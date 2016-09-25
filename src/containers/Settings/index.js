@@ -5,18 +5,21 @@ import { render } from 'react-dom';
 import DocumentMeta from 'react-document-meta';
 import Navigation from 'containers/Home/Navigation';
 import TabNav from '../../components/TabNav';
-import * as WidgetActions from '../../actions/Widget';
 import * as tabNavActions from '../../actions/TabNav';
+import * as settingsActions from '../../actions/Settings';
+import { Link } from 'react-router';
 
 import classNames from 'classnames';
 import {styles} from './styles.scss';
 
-import { browserHistory } from 'react-router';
-import { Link } from 'react-router';
+
+import { SettingsHeader } from './settings-header';
+
+
 
 const metaData = {
-  title: 'Widget | Chat Center',
-  description: 'Widget Chat Center',
+  title: 'Settings | Chat Center',
+  description: 'Settings Chat Center',
   meta: {
     charset: 'utf-8',
     name: {
@@ -25,48 +28,50 @@ const metaData = {
   },
 };
 
+let tabLinks = [
+  {
+    toLink: '/settings/personal',
+    label: 'Personal settings'
+  },
+  {
+    toLink: '/settings/billing-payment',
+    label: 'Billing & Payment'
+  }
+];
+
+let orgLink = {
+  toLink: '/settings/organization',
+  label: 'Organization'
+};
+
 export class Settings extends Component {
   
 
   constructor( props ){
     super( props );
-    this.state = {
-      tabLinks: [
-        {
-          toLink: '/settings/organization',
-          label: 'Organization'
-        },
-        {
-          toLink: '/settings/personal',
-          label: 'Personal settings'
-        },
-        {
-          toLink: '/settings/billing-payment',
-          label: 'Billing & Payment'
-        }
-      ]
-    }
   }
   
   componentWillMount() {
-    
-
+    //this.props.settingsActions.initializeSettings( this.props.userinfo );
   }
   saveSettings( e ) {
     e.preventDefault();
   }
 
-  setWidgetMenuState( value ) {
-      this.props.tabNavActions.setTabNavState( value );
-  }
 
   render() {
     
-    
+    let settings = this.props.settings;
+    let navLinks = [];
+    if( settings.editSettings.team_id ) {
+      navLinks = [ orgLink, ...tabLinks ];
+    } else {
+      navLinks = [ ...tabLinks ];
+    }
     
     return (
 
-      <div>
+      <div className="settings-page">
         <DocumentMeta {...metaData} />
         <Navigation historyApi={this.props.historyApi} />
         <div className={
@@ -74,21 +79,26 @@ export class Settings extends Component {
             'open-widget-menu' : this.props.tabnav.menuState
           }) 
         }>
-
+        <div className="ovel-close-wrapper">
+          <Link to="/dashboard" className="ovel-close" ></Link>
+        </div>
        <TabNav tabFooter= {
-          this.state.tabFooter
+          null
         }
 
         links= {
-          this.state.tabLinks
-        }
-
-
-        />
+          navLinks
+        } />
 
           <div className="primary-tabnav-content" >
-            Settings
-            {this.props.children}
+            <SettingsHeader 
+              userinfo= {this.props.userinfo} 
+              settings={this.props.settings}
+              saveSettings= { this.props.settingsActions.saveSettings}
+            />
+            <div className="settings-page-content">
+              {this.props.children}
+            </div>
           </div>
         </div>
       </div>
@@ -102,13 +112,16 @@ Settings.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    tabnav: state.tabnav
+    tabnav: state.tabnav,
+    userinfo: state.userinfo.userinfo,
+    settings: state.settings
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    tabNavActions: bindActionCreators(tabNavActions, dispatch)
+    tabNavActions: bindActionCreators(tabNavActions, dispatch),
+    settingsActions: bindActionCreators(settingsActions, dispatch),
   }
 }
 

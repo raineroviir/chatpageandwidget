@@ -25,6 +25,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+.cc-icon-icon-mail:before {
+  content: "\e905";
+}
 .cc-icon-plus:before {
   content: "\e900";
 }
@@ -40,4 +44,5 @@
 .cc-icon-user:before {
   content: "\e904";
 }
+
 

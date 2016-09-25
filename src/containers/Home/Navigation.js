@@ -17,14 +17,18 @@ export class Navigation extends Component {
   }
   render() {
     return (
-        <NavigationView orgs={this.props.orgs} switchOrganization={this.switchOrganization.bind(this)} addOrganization={this.addOrganization.bind(this)} />
+        <NavigationView orgs={this.props.orgs} 
+        userinfo = { this.props.userinfo }
+        switchOrganization={this.switchOrganization.bind(this)} 
+        addOrganization={this.addOrganization.bind(this)} />
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    orgs: state.orgs
+    orgs: state.orgs,
+    userinfo: state.userinfo.userinfo
   }
 }
 

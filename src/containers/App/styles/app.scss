@@ -927,3 +927,22 @@ footer {
             transform: rotate(360deg) scale(0.5); } }
 
 @import './theme.scss';
+
+.primary-link,.primary-link:hover,.primary-link:focus {
+  color: #fdb22b;
+}
+
+
+.ovel-close-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  .ovel-close {
+      background: url( '../../../components/images/widget-close.png' ) no-repeat center center;
+      background-size: 100%;
+      width: 48px;
+      height: 48px;
+      display: inline-block;
+  }
+}
