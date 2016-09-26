@@ -32,7 +32,7 @@ export class DefaultMessage extends Component {
                   {this.props.widgetConfig.content.welcomeMessage}
                 </div>
                 <div className="link-section">
-                    <a href="javascript:;">{this.props.widgetConfig}</a>
+                    <a href="javascript:;">Channel URL</a>
                 </div>
             </div>
         </div>
