@@ -13,7 +13,6 @@ import { guest } from './Guest';
 import { channelDetails } from './ChannelDetails';
 import { createChannel } from './CreateChannel';
 import { widget } from './widget';
-import { widgetConfig } from './widget-config';
 import { upgradeForm } from './upgradeForm';
 import { upgradePlan } from './upgradePlan';
 import { poptart } from './poptart';
@@ -36,7 +35,6 @@ const rootReducer = combineReducers({
   channelDetails,
   createChannel,
   widget,
-  widgetConfig,
   upgradePlan,
   upgradeForm,
   poptart,

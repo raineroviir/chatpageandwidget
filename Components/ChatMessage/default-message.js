@@ -23,14 +23,16 @@ export class DefaultMessage extends Component {
                     <div className="welcome-logo"></div>
                 </div>
                 <div className="title-section">
-                    <h3 className="welcome-title">{(isGuest) ? "" : (!user?"":(user.team) ? (user.team.description) : (window.config.cc))}</h3>
+                    <h3 className="welcome-title">
+                    {/* {(isGuest) ? "" : (!user?"":(user.team) ? (user.team.description) : (window.config.cc))} */}
+                    </h3>
                     <p className="title-desc">{(isGuest) ? "" : (!user?"":(user.team) ? (user.team.name + "/" + user.username) : (window.config.cc + "/" + user.username)) }</p>
                 </div>
                 <div className="welcome-message">
-                    We will be happy to show you around, and help you make sure you are using Chat center to its full potential. Any feedback is very welcome too.
+                  {this.props.widgetConfig.content.welcomeMessage}
                 </div>
                 <div className="link-section">
-                    <a href="javascript:;">{window.config.cc}</a>
+                    <a href="javascript:;">{this.props.widgetConfig}</a>
                 </div>
             </div>
         </div>

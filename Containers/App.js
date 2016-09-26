@@ -3,8 +3,11 @@ import { Overlay, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import ReactDOM from 'react-dom'
 import ChatWidget from './ChatWidget'
-import { registerGuestInfo } from '../actions/user'
 import { bindActionCreators } from 'redux'
+import { styles } from './styles.scss'
+import { registerGuestInfo, fetchUserInfo } from '../actions/user'
+import { getWidget } from '../actions/widget'
+
 
 class App extends React.Component {
   constructor() {
@@ -14,31 +17,36 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    const { dispatch } = this.props
+    const { dispatch, channel_id, channel_url } = this.props
     const data = {email: "placeholder"}
-    dispatch(registerGuestInfo(data))
+    dispatch(registerGuestInfo(data)).then((token) => dispatch(getWidget(channel_id, channel_url, token)))
+    // dispatch(fetchUserInfo())
   }
-  toggle() {
+  onToggle() {
     this.setState({ show: !this.state.show });
   }
   render() {
     return (
-      <div style={{ height: 100, bottom: 5, right: 150, position: 'absolute' }}>
-        <Button style={{marginTop: 5}} ref="target" onClick={this.toggle.bind(this)}>
-          I am an Overlay target
-        </Button>
-        <Overlay
-          animation={false}
-          show={this.state.show}
-          onHide={() => this.setState({ show: false })}
-          placement="top"
-          target={() => ReactDOM.findDOMNode(this.refs.target)}
-        >
-          <ChatWidget style={this.props.style} dispatch={this.props.dispatch} />
-        </Overlay>
+      <div>
+        <div className="chat-widget-button" style={{backgroundColor: this.props.keyColor}}
+        onClick={this.onToggle.bind(this)}>
+        </div>
+        {this.state.show && <ChatWidget onClick={this.onToggle.bind(this)} dispatch={this.props.dispatch} />}
       </div>
     );
   }
 }
 
-export default connect()(App)
+function mapStateToProps(state) {
+  return {
+    keyColor: state.widget.initialConfig.keyColor
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

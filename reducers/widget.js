@@ -2,8 +2,10 @@ const initialState = {
     channelid: '',
     classId: '',
     isNewChannelConfig: false,
-    initialConfig: null,
-    error: true
+    initialConfig: {
+      keyColor: "#FFFFFF"
+    },
+    channelUrl: ''
 };
 
 export function widget(state = initialState, action) {
@@ -15,14 +17,13 @@ export function widget(state = initialState, action) {
           [action.key]: action.value
         };
       case  'INIT_WIDGET_CONFIG_INITIAL_STATE': {
-        let returnState = {
-            ...state
-          };
-          returnState.initialConfig = action.data;
-          return returnState;
+        return {
+          ...state,
+          initialConfig: action.json
+        }
       }
 
-      case 'WIDGET_UPDATE_STATE': 
+      case 'WIDGET_UPDATE_STATE':
           return {
               ...state,
               ...action.newState

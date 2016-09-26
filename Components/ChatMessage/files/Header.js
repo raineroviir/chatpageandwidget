@@ -25,7 +25,7 @@ export default class Header extends Component {
           <i className="fa fa-angle-down fa-4"  aria-hidden="true">
           </i>
         </div>
-        <div className="sign-in-to-chat-center" style={{color: this.props.keyColor}}>
+        <div className="sign-in-to-chat-center">
           Sign in to Chat Center
         </div>
       </div>

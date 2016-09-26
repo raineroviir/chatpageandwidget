@@ -18,7 +18,7 @@ class CreateMessage extends Component {
   }
   render() {
     return (
-      <ChatTextBox createMessage={this.createMessage.bind(this)} message={this.props.postSuccessFul} user={this.props.user} isGuest={this.props.isGuest} />
+      <ChatTextBox keyColor={this.props.keyColor} createMessage={this.createMessage.bind(this)} message={this.props.postSuccessFul} user={this.props.user} isGuest={this.props.isGuest} />
     );
   }
 }
@@ -32,7 +32,8 @@ function mapStateToProps(state) {
     isGuest: state.guest.guest,
     token: state.guest.token,
     channelid: state.guest.channel.id,
-    activeConversation: state.conversations.activeConversation
+    activeConversation: state.conversations.activeConversation,
+    keyColor: state.widget.initialConfig.keyColor
   }
 }
 

@@ -25,7 +25,7 @@ export class ChatMessage extends Component {
   getMessages( messages ) {
     if( messages && messages.length && !this.props.channelError) {
       let lastuser;
-      return  (<ul className="chat-messages">
+      return  (<div className="chat-messages">
           {
             messages.map((message, ind, msgs) => {
               let user = this.props.user.userinfo,
@@ -38,76 +38,57 @@ export class ChatMessage extends Component {
 
               if(user.id != message.user_id && this.props.guest !== message.user_id){
                 msg = (
-                  <li key={message.id} className={classNames("received-message fade-in", {
+                  <div key={message.id} className={classNames("received-message fade-in", {
                     'same-user': (lastuser === message.user_id && isShowDate && !relative_time)
                   })}>
-                    <div className={classNames("text-center separation-text", { hide: isShowDate })}>{ displayDate}</div>
+                    <div className={classNames("text-center separation-text", { hide: isShowDate })}>You</div>
                     <div className="chat-message">
                       <span className={classNames("avatar", { hide: !!message.sender_avatar })}>{avatarText}</span>
-                      <img className={classNames("img-circle", { hide: !message.sender_avatar })} src={message.sender_avatar} title={message.sender_name} alt={message.sender_name} />
+                      {/* <img className={classNames("img-circle", { hide: !message.sender_avatar })} src={message.sender_avatar} title={message.sender_name} alt={message.sender_name} /> */}
                       <div className={classNames("user-name-display", { hide: combineMessage })}>{ message.sender_name || ("User " + message.user_id)}</div>
-                      <div className="message-bubble">
+                      <div className="message-bubble" style={{backgroundColor: this.props.widgetConfig.keyColor}}>
                         {message.text}
                       </div>
                     </div>
-                  </li>
+                  </div>
                 )
               }
               else {
                 msg = (
-                  <li key={message.id}
+                  <div key={message.id}
                   className={classNames("sent-message fade-in", {
                     'same-user': (lastuser === message.user_id && isShowDate && !relative_time)
                   })}>
                     <div className={ classNames("chat-message", { today: !!relative_time})}>
-                      <div className={classNames("text-center separation-text", { hide: isShowDate })}>{ displayDate}</div>
+                      <div className={classNames("text-center separation-text", { hide: isShowDate })}>You</div>
                       <div className={classNames("user-name-display", { hide: combineMessage })}>{ (user.first_name && user.last_name) ? user.first_name + " " + user.last_name : ""}</div>
-                      <img className={classNames("img-circle", { hide: !user.avatar_96 })} src={user.avatar_96}  title={ user.first_name }  alt={ user.first_name } />
+                      {/* <img className={classNames("img-circle", { hide: !user.avatar_96 })} src={user.avatar_96}  title={ user.first_name }  alt={ user.first_name } /> */}
                       <span className={classNames("avatar", { hide: !!user.avatar_96 })}>{avatarText}</span>
-                      <div className="message-bubble">
-                        { message.text}
+                      <div className="message-bubble" style={{backgroundColor: this.props.widgetConfig.keyColor}}>
+                        {message.text}
                       </div>
                       <p className={ classNames("time-bubble", {hide: !relative_time})}>{relative_time}</p>
                     </div>
-                  </li>
+                  </div>
                 )
               }
               lastuser = message.user_id;
-
-
               return msg;
             })
           }
-        </ul>);
+        </div>);
     } else if(this.props.channelError === true){
       return (<div className="default-message">Channel not found</div>)
     } else {
-      return (<DefaultMessage user={this.props.user} />);
+      return (<DefaultMessage widgetConfig={this.props.widgetConfig} user={this.props.user} />);
     }
   }
   render() {
     let messages = this.props.messages;
+    console.log(this.props.widgetConfig.keyColor)
     return (
-      <div style={{height: "90%"}}>
-        <div className="unread-message-notification">
-          54 new messages since 24 Nov 2015
-          <a href="javascript:;">Mark as read</a>
-        </div>
-        <div className="chat-messages-wrapper mCustomScrollBar">
-          <table style={this.props.style} className={ "chat-message-tabel" + (
-                messages && messages.length ? '' : ' default-message-table'
-              ) } >
-            <tbody>
-              <tr>
-                <td>
-                  <div>
-                    {this.getMessages(messages)}
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div className="chat-messages-wrapper">
+        {this.getMessages(messages)}
       </div>
     );
   }

@@ -11,15 +11,24 @@ class Footer extends React.Component {
     dispatch(prepareToCreateConversation())
   }
   render() {
-    if (this.props.activeConversation || this.props.conversations.conversations.length === 0 || this.props.preparingToCreateConversation) {
-      return (<div className="conversations-footer">
-                <CreateMessage />
-              </div>)
-    }
+    // if (this.props.activeConversation || this.props.conversations.conversations.length === 0 || this.props.preparingToCreateConversation) {
+    //   return (<div className="conversations-footer">
+    //           </div>)
+    // }
     return (
-      <div className="conversations-footer">
-        <CreateConversation onPrepareToCreateConversation={this.onPrepareToCreateConversation.bind(this)}/>
-      </div>
+      <footer className="footer">
+        {/* {(this.props.activeConversation || this.props.conversations.conversations.length === 0 || this.props.preparingToCreateConversation) ? <CreateMessage /> :
+        <CreateConversation onPrepareToCreateConversation={this.onPrepareToCreateConversation.bind(this)}/>} */}
+        <CreateMessage />
+        <div className="footer-message">
+          <span className="powered-by">
+            {"Powered by "}
+            <span style={{color: this.props.keyColor}}>
+              {"Chat Center"}
+            </span>
+          </span>
+        </div>
+      </footer>
     )
   }
 }
@@ -30,7 +39,8 @@ function mapStateToProps(state) {
     token: state.guest.token,
     channelid: state.guest.channel.id,
     conversations: state.conversations,
-    preparingToCreateConversation: state.conversations.preparingToCreateConversation
+    preparingToCreateConversation: state.conversations.preparingToCreateConversation,
+    keyColor: state.widget.initialConfig.keyColor
   }
 }
 function mapDispatchToProps(dispatch) {

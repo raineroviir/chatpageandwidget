@@ -42,7 +42,7 @@ export function registerGuestInfo(data) {
   return dispatch => {
     let token = JSON.parse(localStorage.getItem("guest"))
     if(!token) {
-      fetchGuestToken(data).then(response => response.json())
+      return fetchGuestToken(data).then(response => response.json())
         .then(json => {
           if(json.ok) {
             let token = json.token;
@@ -52,11 +52,17 @@ export function registerGuestInfo(data) {
             dispatch(createWidgetChannel(token))
             dispatch(fetchSocket(token))
           }
-        })
+          return token
+        },
+          error => {
+            dispatch({type: 'FETCH_TOKEN_ERROR', error})
+            throw error
+          })
     } else {
       dispatch({type: 'TOKEN_FROM_LOCAL_STORAGE', token})
       dispatch(fetchChannels(token))
       dispatch(fetchSocket(token))
+      return Promise.resolve(token)
     }
   }
 }

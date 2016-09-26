@@ -13,25 +13,21 @@ export class ChatTextBox extends Component {
   }
   render() {
     return (
-      <footer className="post-form-wrapper">
-            <form onSubmit={ this.createMessage.bind(this)} className="post-form">
-                <span className="attach-button-wrapper">
-                  <span className="attach-button"></span>
-                </span>
-                <div className="message-input-wrapper">
-                  <input ref="Message"
-                  type="text"
-                  className="message-input"
-                  placeholder="Type here; '/' - commands, '@' - mentions"
-                  aria-label="Type here; '/' - commands, '@' - mentions" />
-                </div>
-                <span className="submit-button-wrapper">
-                  <button type="submit" className="submit-button"
-                >Send</button>
-                </span>
-            </form>
-
-       </footer>
+      <div className="post-form-wrapper">
+        <form onSubmit={ this.createMessage.bind(this)} className="post-form">
+          <span className="attach-button"></span>
+          <div className="message-input-wrapper">
+            <input ref="Message"
+            type="text"
+            className="message-input"
+            placeholder="Type here; '/' - commands, '@' - mentions"
+            aria-label="Type here; '/' - commands, '@' - mentions" />
+          </div>
+          <button type="submit" className="submit-button" style={{color: this.props.keyColor}}>
+            Send
+          </button>
+        </form>
+      </div>
     );
   }
 }

@@ -1,28 +1,8 @@
-.chat-panel {
-    width: 100%;
-    float: left;
-    height: 100%;
-    position: relative;
-    padding-bottom: 49px;
-    .chat-messages-wrapper {
-        /*height: calc( 100% - 48px );*/
-    }
-    .chat-message-tabel {
-        width: 100%;
-        height: 100%;
-        font-size: 14px;
-        line-height: 1.42857;
-        td {
-            vertical-align: bottom;
-        }
-        &.default-message-table {
-            td {
-                vertical-align: top;
-            }
-
-        }
-    }
+.chat-messages-wrapper {
+  display: flex;
+  justify-content: flex-end;
 }
+
 .unread-message-notification {
     font-size: 13px;
     font-weight: 400;
@@ -94,11 +74,10 @@
     .separation-text {
         color: #9a9da1;
         font-size: 13px;
+        text-align: end;
     }
     .message-bubble {
-        background-color: #eeeff0;
         color: #333;
-        float: right;
         padding: 7px 8px;
         border-radius: 9px;
         margin-right: 36px;
@@ -131,7 +110,7 @@
         bottom: 0px;
         border-radius: 50%;
         color: #fff;
-        /*background: #138536;*/
+        background: url( './files/avatar.png' ) no-repeat;
         text-align: center;
         line-height: 28px;
         font-size: 13px;
@@ -141,10 +120,8 @@
         display: none;
     }*/
     .received-message {
+      padding-right:12px;
         .message-bubble {
-            margin-left: 36px;
-            margin-right: 0px;
-            float: left;
             &:after {
                 right: auto;
                 left: -4px;
@@ -153,8 +130,6 @@
             }
         }
         .img-circle,.avatar {
-            right: auto;
-            left: 0
         }
     }
 
@@ -178,7 +153,6 @@
     }
 
     .login-link-wrapper {
-        float: right;
         margin-top: 12px;
         a {
             text-decoration: none;
@@ -205,8 +179,8 @@
     font-size: 13px;
 }
 .received-message .user-name-display{
-    padding-left: 40px;
-    color: #ccc;
+    // padding-left: 40px;
+    // color: #ccc;
 }
 .sent-message .user-name-display{
     padding-right: 40px;

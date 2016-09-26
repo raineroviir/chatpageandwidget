@@ -5,6 +5,7 @@ import ConversationsContainer from './ConversationsContainer'
 import { getConversations, backToConversationSummaryView} from '../actions/conversations'
 import Footer from './Footer'
 import Header from './Header'
+import {styles} from './styles.scss'
 
 class ChatWidget extends React.Component {
   componentDidMount() {
@@ -17,25 +18,11 @@ class ChatWidget extends React.Component {
   }
   render() {
     return (
-      <div
-       style={{
-         ...this.props.style,
-         width: '15em',
-         position: 'absolute',
-         boxShadow: '0 5px 10px rgba(0, 0, 0, 0.2)',
-         border: '1px solid #CCC',
-         borderRadius: 3,
-         marginLeft: -5,
-         marginTop: 5,
-         marginBottom: 5,
-         padding: 8,
-         height: '30em'
-       }}
-      >
-      <Header backToConversationSummaryView={this.backToConversationSummaryView.bind(this)}
-      activeConversation={this.props.activeConversation} preparingToCreateConversation={this.props.preparingToCreateConversation} />
-      <ConversationsContainer />
-      <Footer />
+      <div className="chat-widget">
+        <Header keyColor={this.props.keyColor} onClick={this.props.onClick} backToConversationSummaryView={this.backToConversationSummaryView.bind(this)}
+        activeConversation={this.props.activeConversation} preparingToCreateConversation={this.props.preparingToCreateConversation} />
+        <ConversationsContainer />
+        <Footer />
       </div>
     );
   }
@@ -46,7 +33,8 @@ function mapStateToProps(state) {
     token: state.guest.token,
     channelid: state.guest.channel.id,
     activeConversation: state.conversations.activeConversation,
-    preparingToCreateConversation: state.conversations.preparingToCreateConversation
+    preparingToCreateConversation: state.conversations.preparingToCreateConversation,
+    keyColor: state.widget.initialConfig.keyColor
   }
 }
 
