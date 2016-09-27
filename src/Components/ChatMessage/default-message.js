@@ -6,7 +6,8 @@ import { styles } from './default-message.scss';
 
 export class DefaultMessage extends Component {
   render() {
-    let user = this.props.user.userinfo || "Guest", isGuest = this.props.isGuest;
+    let user = this.props.user
+    let guest = this.props.guest
     return (
         <div className="default-message">
             <div className="feature-link">

@@ -7,7 +7,6 @@ import { createConversation, prepareToCreateConversation } from '../actions/conv
 class Footer extends React.Component {
   onPrepareToCreateConversation() {
     const { token, channelid, dispatch } = this.props
-    console.log(channelid, token)
     dispatch(prepareToCreateConversation())
   }
   render() {

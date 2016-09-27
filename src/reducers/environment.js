@@ -2,7 +2,7 @@ const initialState = {
   isMobile: false,
   height: null,
   width: null,
-  widgetWidth: "320px"
+  widgetHeight: "100%"
 };
 
 export function environment(state = initialState, action) {
@@ -19,8 +19,8 @@ export function environment(state = initialState, action) {
       }
 
     case "TOGGLE_RESIZE":
-      return {...state, widgetWidth: state.widgetWidth === "320px" ?
-      "100%" : "320px"
+      return {...state, widgetHeight: state.widgetHeight === "100%" ?
+      "600px" : "100%"
         }
     default:
       return state;

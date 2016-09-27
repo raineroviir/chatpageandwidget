@@ -98,7 +98,6 @@ export function getConversations(channelid, token, channels, conversationname) {
 }
 
 export function getConversationHistory(conversationid, token) {
-  console.log(conversationid, token)
   return dispatch => {
     /* Trigger API service to retrieve latest conversation history */
     return fetch( Config.api + '/conversations.history?conversation_id=' + conversationid, {

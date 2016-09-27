@@ -1,5 +1,5 @@
 const initialState = {
-  userinfo: {
+  data: {
     "id": null,
     "first_name": null,
     "last_name": null,
@@ -14,15 +14,15 @@ const initialState = {
   }
 };
 
-export function userinfo(state = initialState, action) {
+export function user(state = initialState, action) {
   switch (action.type) {
-  case 'USER_ME':
+  case 'RECEIVED_USER_INFO':
     return {
       ...state,
-      userinfo: action.posts
+      data: action.data
     };
   case 'RESET_USER':
-    return initialState;    
+    return initialState;
   default:
     return state;
   }

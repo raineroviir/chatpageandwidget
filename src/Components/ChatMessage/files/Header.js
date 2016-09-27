@@ -5,7 +5,6 @@ export default class Header extends Component {
     this.props.backToConversationSummaryView()
   }
   render() {
-    // console.log(this.props.activeConversation)
     // if (this.props.activeConversation || this.props.preparingToCreateConversation) {
     //   return (
     //     <div className="widget-header">

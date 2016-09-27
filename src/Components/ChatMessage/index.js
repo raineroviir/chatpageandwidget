@@ -8,9 +8,9 @@ let classNames = require("classnames");
 
 export class ChatMessage extends Component {
   componentDidMount (){
-    $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({
-      theme:"dark-3"
-    });
+    // $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({
+    //   theme:"dark-3"
+    // });
   }
   computeDate(date){
     if(!date) return false;
@@ -19,16 +19,16 @@ export class ChatMessage extends Component {
     return (diff <= 1) ? "today" : (diff <= 2) ? "yesterday" : time.format("D MMM YYYY")
   }
   componentDidUpdate() {
-    $(".chat-messages-wrapper.mCustomScrollBar").mCustomScrollbar("update");
-    $(".chat-messages-wrapper.mCustomScrollBar").mCustomScrollbar("scrollTo", "bottom");
+    // $(".chat-messages-wrapper.mCustomScrollBar").mCustomScrollbar("update");
+    // $(".chat-messages-wrapper.mCustomScrollBar").mCustomScrollbar("scrollTo", "bottom");
   }
   getMessages( messages ) {
     if( messages && messages.length && !this.props.channelError) {
       let lastuser;
       return  (<div className="chat-messages">
-          {
-            messages.map((message, ind, msgs) => {
-              let user = this.props.user.userinfo,
+          {messages.map((message, ind, msgs) => {
+              console.log(message)
+              let user = this.props.user.data,
                 combineMessage = !!ind && msgs[ind - 1].user_id == message.user_id,
                 displayDate = this.computeDate(message.created_at),
                 avatarText = message.sender_name ? _.reduce(message.sender_name.split(" "), (res, a) => res + (a + "").charAt(0), "") : ("U" + ((message.user_id) ? (message.user_id + "").charAt(0) : "")),
@@ -36,7 +36,7 @@ export class ChatMessage extends Component {
                 relative_time = displayDate == "today" && moment(message.created_at).format("LT"),
                 msg;
 
-              if(user.id != message.user_id && this.props.guest !== message.user_id){
+              if(user.id != message.user_id && this.props.guest.user_id !== message.user_id){
                 msg = (
                   <div key={message.id} className={classNames("received-message fade-in", {
                     'same-user': (lastuser === message.user_id && isShowDate && !relative_time)
@@ -85,7 +85,6 @@ export class ChatMessage extends Component {
   }
   render() {
     let messages = this.props.messages;
-    console.log(this.props.widgetConfig.keyColor)
     return (
       <div className="chat-messages-wrapper">
         {this.getMessages(messages)}

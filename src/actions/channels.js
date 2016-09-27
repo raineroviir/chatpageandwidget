@@ -212,7 +212,6 @@ function processChannelsForDispatch(channels) {
       count: source.length,
       isGroupChat: false
     };
-  //console.log({ processed, meta });
   return {
     type: 'FETCH_CHANNELS',
     posts: { processed, meta },

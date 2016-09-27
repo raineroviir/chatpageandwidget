@@ -8,6 +8,8 @@ const initialState = {
   channelError: true
 };
 
+const mockedData = {}
+
 export function messages(state = initialState, action) {
   switch (action.type) {
   case 'FETCH_MESSAGES':

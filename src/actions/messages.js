@@ -16,7 +16,6 @@ export function createMessage(message, conversationid, token, channelid) {
     //   const channelid = JSON.parse(localStorage.getItem("channel")).id
     // }
     //
-    console.log(conversationid)
   return postMessage(message, conversationid, token, channelid).then(response => response.json()).then(json => {
     dispatch(processAddMessage(json, conversationid || json.message.conversation_id))
     // dispatch(getConversationHistory(conversationid, token))

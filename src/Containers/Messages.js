@@ -6,7 +6,7 @@ import { ChatMessage } from '../Components/ChatMessage';
 class Messages extends Component {
   render() {
     return (
-      <ChatMessage widgetConfig={this.props.widgetConfig} style={this.props.style} messages={this.props.messages.messages} user={this.props.user} guest={this.props.guest} />
+      <ChatMessage widgetConfig={this.props.widgetConfig} messages={this.props.messages.messages} user={this.props.user} guest={this.props.guest} />
     );
   }
 }
@@ -14,8 +14,8 @@ class Messages extends Component {
 function mapStateToProps(state) {
   return {
     messages: state.messages,
-    user: state.userinfo,
-    guest: state.guest.user_id,
+    user: state.user,
+    guest: state.guest,
     widgetConfig: state.widget.initialConfig
   }
 }

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import { channels } from './Channels';
-import { conversations } from './Conversations';
-import { messages } from './Messages';
-import { userinfo } from './Userinfo';
-import { guest } from './Guest';
+import { channels } from './channels';
+import { conversations } from './conversations';
+import { messages } from './messages';
+import { user } from './user';
+import { guest } from './guest';
 import { widget } from './widget';
 import { environment } from './environment';
 const rootReducer = combineReducers({
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   channels,
   conversations,
   messages,
-  userinfo,
+  user,
   guest,
   widget,
 });

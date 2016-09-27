@@ -25,7 +25,7 @@ class ChatWidget extends React.Component {
     const { height, isMobile, width } = this.props
     const computedStyle = isMobile ?
     {height: `${height}px`,width: `${width}px`} :
-    {width: this.props.widgetWidth}
+    {height: this.props.widgetHeight, top: "auto"}
     return (
       <div className="chat-widget" style={computedStyle}>
         <Header keyColor={this.props.keyColor} onClose={this.props.onClose}
@@ -48,7 +48,7 @@ function mapStateToProps(state) {
     height: state.environment.height,
     width: state.environment.width,
     isMobile: state.environment.isMobile,
-    widgetWidth: state.environment.widgetWidth
+    widgetHeight: state.environment.widgetHeight
   }
 }
 

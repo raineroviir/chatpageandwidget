@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-//import { Link } from 'react-router';
-
-/* component styles */
 import { styles } from './styles.scss';
 
 export class ChatTextBox extends Component {
-  createMessage(e){
+  createMessage(e) {
     e.preventDefault();
     if(this.refs.Message.value == "") return;
     this.props.createMessage(this.refs.Message.value);
@@ -14,7 +11,7 @@ export class ChatTextBox extends Component {
   render() {
     return (
       <div className="post-form-wrapper">
-        <form onSubmit={ this.createMessage.bind(this)} className="post-form">
+        <form onSubmit={this.createMessage.bind(this)} className="post-form">
           <span className="attach-button"></span>
           <div className="message-input-wrapper">
             <input ref="Message"
