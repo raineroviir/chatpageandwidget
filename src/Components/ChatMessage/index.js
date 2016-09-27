@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 /* component styles */
 import moment from 'moment';
 import { styles } from './styles.scss';
-let classNames = require("classnames");
+import classNames from 'classnames'
+import defaultAvatarUrl from './files/avatar.png'
 
 export class ChatMessage extends Component {
   computeDate(date){
@@ -15,25 +16,44 @@ export class ChatMessage extends Component {
   computeMessageSidePlacement(message) {
     const { user, guest } = this.props
     let alignSelf = "flex-start"
+    let flexDirection = "column-reverse"
     if (message.user_id === guest.data.id || user.data.id) {
       alignSelf = "flex-end"
+      flexDirection = "column"
     }
     return {
-      alignSelf: alignSelf
+      alignSelf: alignSelf,
+      flexDirection: flexDirection
     }
   }
   computeMessageBubbleColor(computedStyle) {
-    console.log(computedStyle)
     const { widgetConfig } = this.props
     const otherPersonBubbleColor = "#eeeff0"
     let backgroundColor = otherPersonBubbleColor
+    let borderColor = "transparent #eeeff0 transparent transparent"
     if (computedStyle.alignSelf === "flex-end") {
       backgroundColor = widgetConfig ? widgetConfig.keyColor :
       "#f7a444"
+      borderColor = widgetConfig ? `transparent transparent transparent ${widgetConfig.keyColor}` :
+      "transparent transparent transparent #f7a444"
     }
     return {
-      backgroundColor: backgroundColor
+      backgroundColor: backgroundColor, //bubble color
+      borderColor: borderColor //bubble-arrow color
     }
+  }
+  computeBubbleArrow(computedStyle, previousMessageUserId, currentMessageUserId) {
+    if (previousMessageUserId === currentMessageUserId) {
+      return
+    }
+    return computedStyle.alignSelf === "flex-start" ? "bubble-arrow-left" : "bubble-arrow-right"
+  }
+  computeMessageDisplayName(currentMessageUserId, message) {
+    const { user, guest } = this.props
+    return currentMessageUserId === guest.data.id || user.data.id ? "You" : message.sender_name
+  }
+  computeAvatar() {
+
   }
   getMessages(messages) {
     const user = this.props.user
@@ -47,13 +67,18 @@ export class ChatMessage extends Component {
         <div className="chat-messages">
           {messages.map((message, index, msgs) => {
             const computedStyle = this.computeMessageSidePlacement(message)
-            let msg =
-            <div style={computedStyle} key={message.id} className={classNames("received-message fade-in", {
-            'same-user': (lastuser === message.user_id && isShowDate && !relative_time)
-            })}>
-              <div className="chat-message">
-                <div style={this.computeMessageBubbleColor(computedStyle)} className="message-bubble">
+            const previousMessageUserId = msgs[index - 1] ? msgs[index - 1].user_id : null
+            const currentMessageUserId = message.user_id
+            const msg =
+            <div style={computedStyle} key={message.id} className={classNames("received-message fade-in")}>
+              <div>
+                {this.computeMessageDisplayName(currentMessageUserId, message)}
+              </div>
+              <div style={{flexDirection: computedStyle.alignSelf === "flex-start" ? "row-reverse" : "row"}} className="chat-message">
+                <div style={this.computeMessageBubbleColor(computedStyle)} className={classNames("message-bubble",this.computeBubbleArrow(computedStyle, previousMessageUserId, currentMessageUserId))}>
                   {message.text}
+                </div>
+                <div style={{width: '28px', height: '28px', objectFit: 'contain', backgroundImage: `url(${defaultAvatarUrl})`}}>
                 </div>
               </div>
             </div>
