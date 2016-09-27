@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-
-import myAvatar from './files/avatar.png'
-/* component styles */
 import { styles } from './default-message.scss';
 
-export class DefaultMessage extends Component {
+export default class DefaultMessage extends Component {
   render() {
     let user = this.props.user
     let guest = this.props.guest

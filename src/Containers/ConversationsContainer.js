@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Messages from './Messages'
 import { getConversationHistory, setActiveConversation } from '../actions/conversations'
 import { Conversations } from '../Components/Conversations';
+import DefaultWidgetMessage from '../Components/DefaultMessage'
+
 class ConversationsContainer extends Component {
   selectConversation(conversationid) {
     const { dispatch, token } = this.props
@@ -21,7 +23,10 @@ class ConversationsContainer extends Component {
     //   <Conversations conversations={this.props.conversations.conversations} selectConversation={this.selectConversation.bind(this)} activeConversation={this.props.activeConversation} />
     // );
     return (
-      <Messages />
+      <div>
+        <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/>
+        <Messages />
+      </div>
     )
   }
 }
@@ -33,7 +38,8 @@ function mapStateToProps(state) {
     activeConversation: state.conversations.activeConversation,
     activeChannel: state.channels.channels.all.find(a => a.id === state.conversations.channelid),
     token: state.guest.token,
-    preparingToCreateConversation: state.conversations.preparingToCreateConversation
+    preparingToCreateConversation: state.conversations.preparingToCreateConversation,
+    widgetConfig: state.widget.initialConfig
   }
 }
 

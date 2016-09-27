@@ -19,7 +19,7 @@ export function user(state = initialState, action) {
   case 'RECEIVED_USER_INFO':
     return {
       ...state,
-      data: action.data
+      data: action.data,
     };
   case 'RESET_USER':
     return initialState;

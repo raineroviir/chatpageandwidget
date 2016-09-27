@@ -11,7 +11,7 @@ import {styles} from './styles.scss'
 class ChatWidget extends React.Component {
   componentDidMount() {
     const { dispatch, token, channelid } = this.props
-    dispatch(getConversations(channelid, token))
+    // dispatch(getConversations(channelid, token))
   }
   backToConversationSummaryView() {
     const { dispatch } = this.props

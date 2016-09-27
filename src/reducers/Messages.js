@@ -8,9 +8,59 @@ const initialState = {
   channelError: true
 };
 
-const mockedData = {}
+const mockedInitialState = {
+conversationid: 297,
+channelError: false,
+memoized: {},
+messages:  [
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:845,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:386
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:846,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"We normally answer within 60 minutes or less. Please leave your questions here and someone will be with you shortly.",
+  user_id:387
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:847,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Let us notify you via email:",
+  user_id:387
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:848,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Enter your email",
+  user_id:387
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:849,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"My package didn't arrive",
+  user_id:386
+}
+]}
 
-export function messages(state = initialState, action) {
+export function messages(state = mockedInitialState, action) {
   switch (action.type) {
   case 'FETCH_MESSAGES':
     let messages = _.sortBy(action.posts.messages, a => (new Date()).getTime() - parseInt(moment(a.created_at).format("x"))).reverse();

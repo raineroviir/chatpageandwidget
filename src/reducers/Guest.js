@@ -1,8 +1,19 @@
 const initialState = {
   guest: false,
   convid: null,
-  user_id: null,
-  data: {},
+  data: {
+    "avatar_96": null,
+    "avatar_384": null,
+    "avatar_960": null,
+    "id": null,
+    "email": null,
+    "first_name": null,
+    "last_name": null,
+    "invite_status": null,
+    "plan": null,
+    "team": null,
+    "username": null
+  },
   token: '',
   channel: '',
   conversations: ''
@@ -23,8 +34,7 @@ export function guest(state = initialState, action) {
   case 'RECEIVED_GUEST_INFO':
       return {
         ...state,
-        data: action.data,
-        user_id: action.data.id
+        data: action.data.guest
       };
   case 'TOKEN_SET':
     return {

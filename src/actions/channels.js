@@ -4,9 +4,6 @@ import moment from 'moment';
 
 import { fetchUserInfo, setOrGetGuestToken} from "./user";
 import { getConversations, processConversationsForDispatch } from './conversations'
-let channels = require("./../mocks/v1/channels.list.json");
-let conversations = require("./../mocks/v1/conversations.list.json");
-var _ = require("lodash");
 
 export function setUserInfo(user, history) {
   if (typeof(Storage) !== "undefined") {

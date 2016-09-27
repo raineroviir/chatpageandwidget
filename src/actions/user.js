@@ -66,7 +66,6 @@ export function registerGuestInfo(data) {
               throw error
             })
       } else {
-        console.log("new flow still works m8 for - else")
         dispatch(fetchUserInfo(token))
         dispatch({type: 'TOKEN_FROM_LOCAL_STORAGE', token})
         dispatch(fetchChannels(token))
