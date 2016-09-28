@@ -13,15 +13,6 @@ class ConversationsContainer extends Component {
     dispatch(setActiveConversation(conversationid))
   }
   render() {
-    // const { activeConversation, conversations } = this.props
-    // if (activeConversation || (!activeConversation && conversations.conversations.length === 0) || this.props.preparingToCreateConversation) {
-    //   return (
-    //     <Messages />
-    //   )
-    // }
-    // return (
-    //   <Conversations conversations={this.props.conversations.conversations} selectConversation={this.selectConversation.bind(this)} activeConversation={this.props.activeConversation} />
-    // );
     return (
       <div className="conversation-body">
         <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/>

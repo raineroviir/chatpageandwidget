@@ -2,7 +2,7 @@
   "name": "chatwidget",
   "version": "0.0.1",
   "description": "The chat widget for chatcenter",
-  "main": "index.js",
+  "main": "widget.js",
   "scripts": {
     "start": "node ./src/server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

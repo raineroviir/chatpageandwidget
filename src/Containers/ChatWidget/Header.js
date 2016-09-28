@@ -7,18 +7,6 @@ export default class Header extends Component {
     this.props.backToConversationSummaryView()
   }
   render() {
-    // if (this.props.activeConversation || this.props.preparingToCreateConversation) {
-    //   return (
-    //     <div className="widget-header">
-    //         <i onClick={this.backToConversationSummaryView.bind(this)} className={classNames("fa fa-angle-down fa-1 header-arrow")} aria-hidden="true"
-    //         >
-    //         </i>
-    //       <div className="sign-in-to-chat-center">
-    //         Sign in to Chat Center
-    //       </div>
-    //     </div>
-    //   )
-    // }
     return (
       <div className="header">
         <div className="header-arrow" onClick={this.props.onResize.bind(this)}>

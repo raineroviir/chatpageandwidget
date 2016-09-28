@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ReactDOM from 'react-dom'
-import ChatWidget from './ChatWidget'
+import ChatWidget from './ChatWidget/ChatWidget'
 import { bindActionCreators } from 'redux'
 import { styles } from './styles.scss'
 import { registerGuestInfo, fetchUserInfo } from '../actions/user'
@@ -12,7 +12,7 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      show: true
+      show: false
     }
   }
   componentDidMount() {

@@ -14,7 +14,7 @@ export class ChatMessage extends Component {
     let alignSelf = "flex-start"
     let flexDirection = "column"
     let padding = "0 68px 0 0"
-    if (message.user_id === guest.data.id || user.data.id) {
+    if (message.user_id === 386) {
       alignSelf = "flex-end"
       flexDirection = "column"
       padding = "0 0 0 68px"
@@ -52,7 +52,7 @@ export class ChatMessage extends Component {
   }
   computeMessageDisplayName(currentMessageUserId, message) {
     const { user, guest } = this.props
-    return currentMessageUserId === guest.data.id || user.data.id ? "You" : message.sender_name
+    return currentMessageUserId === 386 ? "You" : message.sender_name
   }
   getMessages(messages) {
     const { user, guest, widgetConfig } = this.props
@@ -94,7 +94,7 @@ export class ChatMessage extends Component {
     }
   }
   render() {
-    let messages = this.props.messages;
+    const messages = this.props.messages;
     return (
       <div className="chat-messages-wrapper">
         {this.getMessages(messages)}

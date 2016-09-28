@@ -3,13 +3,12 @@ const webpack = require('webpack')
 
 module.exports = {
   devtool: 'inline-source-map',
-  entry: [
-    'webpack-hot-middleware/',
-    './index.js'
-  ],
+  entry: {
+    widget: './widget.js'
+  },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name].js',
     publicPath: '/static/'
   },
   plugins: [
