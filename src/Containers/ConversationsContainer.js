@@ -23,7 +23,7 @@ class ConversationsContainer extends Component {
     //   <Conversations conversations={this.props.conversations.conversations} selectConversation={this.selectConversation.bind(this)} activeConversation={this.props.activeConversation} />
     // );
     return (
-      <div>
+      <div className="scrolling">
         <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/>
         <Messages />
       </div>

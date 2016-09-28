@@ -9,10 +9,10 @@ const initialState = {
 };
 
 const mockedInitialState = {
-conversationid: 297,
-channelError: false,
-memoized: {},
-messages:  [
+  conversationid: 297,
+  channelError: false,
+  memoized: {},
+  messages:  [
 {
   conversation_id:297,
   created_at:"2016-09-27T02:55:45.774Z",
@@ -27,8 +27,9 @@ messages:  [
   created_at:"2016-09-27T02:55:45.774Z",
   id:846,
   sender_avatar:null,
-  sender_name:" ",
+  sender_name:"Alex (Bot)",
   text:"We normally answer within 60 minutes or less. Please leave your questions here and someone will be with you shortly.",
+  bot: true,
   user_id:387
 },
 {
@@ -36,8 +37,9 @@ messages:  [
   created_at:"2016-09-27T02:55:45.774Z",
   id:847,
   sender_avatar:null,
-  sender_name:" ",
+  sender_name:"Alex (Bot)",
   text:"Let us notify you via email:",
+  bot: true,
   user_id:387
 },
 {
@@ -45,8 +47,10 @@ messages:  [
   created_at:"2016-09-27T02:55:45.774Z",
   id:848,
   sender_avatar:null,
-  sender_name:" ",
+  sender_name:"Alex (Bot)",
   text:"Enter your email",
+  containsInputBox: true,
+  bot: true,
   user_id:387
 },
 {

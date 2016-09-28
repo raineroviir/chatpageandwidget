@@ -1,77 +1,55 @@
 .default-message {
-    position: relative;
-    padding: 20px;
-    color: #adadad;
-    .feature-link {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        .logo-wrapper {
-            height: 50px;
-            width: 50px;
-        }
-        .logo-wrapper .welcome-logo {
-            margin-top: 2px;
-        }
-        .left-arrow {
-            background: url( './files/left-arrow.png') no-repeat;
-            position: absolute;
-            height: 20px;
-            width: 10px;
-            top: 18px;
-            left: -10px;
-        }
-
-    }
-    .welcome-section {
-        max-width: 302px;
-        margin: 0 auto;
-        text-align: center;
-    }
-    .welcome-title {
-        font-size: 18px;
-        margin-bottom: 0;
-        margin-top: 10px;
-        color: #474747;
-        letter-spacing: -0.5px;
-    }
-    .title-desc {
-        font-size: 14px;
-        color: #adafb3;
-        letter-spacing: -0.5px;
-    }
-    .link-section {
-        margin-top: 18px;
-    }
-    .welcome-message {
-        font-size: 13px;
-        line-height: 14px;
-    }
-
-    .logo-wrapper {
-        width: 120px;
-        height: 120px;
-        display: inline-block;
-        border-radius: 50%;
-        border:1px solid #e6e6e6;
-        text-align: center;
-        &:before {
-            content: '';
-            height: 100%;
-            width: 0;
-            margin-left:0;
-            vertical-align: middle;
-            display: inline-block;
-        }
-        .welcome-logo {
-            // background: url( './files/bell-logo.png' ) no-repeat;
-            width: 70%;
-            height: 70%;
-            vertical-align: middle;
-            display: inline-block;
-            background-size: 100%;
-            margin-top: 10px
-        }
-    }
-
+  font-family: Rubik;
+  display: flex;
+  flex-direction: column;
+  .team-details {
+    padding: 0px 24px 0 24px;
+  }
+  .team-avatar-url-wrapper {
+    padding: 16px 0px 9px 17px;
+    background-repeat: no-repeat;
+  }
+  .team-avatar-url {
+    width: 199px;
+    height: 48px;
+    object-fit: contain;
+  }
+  .team-name {
+    width: 296px;
+    height: 24px;
+    font-family: Rubik;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.2;
+    color: #000000;
+  }
+  .team-website {
+    width: 273px;
+    height: 20px;
+    font-family: Rubik;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.54;
+    letter-spacing: 0.1px;
+    text-align: left;
+    color: #f7a444;
+  }
+  .welcome-message {
+    width: 273px;
+    height: 60px;
+    opacity: 0.5;
+    font-family: Rubik;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.54;
+    letter-spacing: 0.1px;
+    text-align: left;
+    color: #000000;
+  }
 }

@@ -28,7 +28,6 @@ export function fetchUserInfo(token) {
         'Authorization': 'Bearer ' + token.access_token,
       }
     }).then(response => response.json()).then(json => {
-      console.log(json)
       json.guest ? dispatch(receiveGuestInfo(json)) :
       dispatch(receiveUserInfo(json))
     }, error => {
@@ -52,7 +51,6 @@ export function registerGuestInfo(data) {
           .then(json => {
             if(json.ok) {
               let token = json.token;
-              console.log(token)
               localStorage.setItem("guest", JSON.stringify(token))
               dispatch(fetchUserInfo(token))
               dispatch({type: 'TOKEN_SET', token})

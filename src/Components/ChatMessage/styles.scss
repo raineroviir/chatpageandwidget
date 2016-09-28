@@ -48,13 +48,15 @@
   list-style: none;
   margin-top: 9px;
   margin-bottom: 9px;
+  font-family: Rubik;
 
   .chat-message {
     position: relative;
     display: flex;
-    padding-right: 12px;
   }
   .bubble-arrow-left {
+    color: #333;
+    padding: 0 0 0 8px;
     &:after {
       content: '';
       width: 0;
@@ -62,11 +64,10 @@
       border-style: solid;
       border-width: 7px 8px 7px 0;
       position: absolute;
-      top: 7.9px;
+      top: 10.445px;
       content: '';
       display: inline-block;
       transition: all ease-in 0.5s;
-      // border-color: transparent #eeeff0 transparent transparent;
       border-color: inherit;
       left: -4px;
       right: auto;
@@ -74,6 +75,8 @@
     }
   }
   .bubble-arrow-right {
+    padding: 0 8px 0 0;
+    color: #FFFFFF;
     &:after {
       content: '';
       width: 0;
@@ -82,11 +85,10 @@
       border-width: 7px 8px 7px 0;
       position: absolute;
       left: -4px;
-      top: 7.9px;
+      top: 10.445px;
       content: '';
       display: inline-block;
       transition: all ease-in 0.5s;
-      // border-color: transparent transparent transparent #eeeff0;
       border-color: inherit;
       right: -4px;
       left: auto;
@@ -94,29 +96,29 @@
     }
   }
   .message-bubble {
-    color: #333;
     padding: 7px 8px;
     border-radius: 9px;
     position: relative;
-    max-width: 236px;
+    max-width: 400px;
     transition: all ease-in 0.5s;
   }
-  .img-circle,.avatar {
-      height: 28px;
-      width: 28px;
-      position: absolute;
-      right: 0;
-      bottom: 0px;
-      border-radius: 50%;
-      color: #fff;
-      background: url( './files/avatar.png' ) no-repeat;
-      text-align: center;
-      line-height: 28px;
-      font-size: 13px;
-      text-transform: uppercase;
+  .avatar-wrapper {
+  }
+  .avatar {
+    height: 28px;
+    width: 28px;
+    object-fit: contain;
   }
   .received-message {
     display: flex;
+  }
+  .message-input {
+    padding: 0 0 0 8px;
+    height: 100%;
+    font-size: 14px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: solid 0.5px #e7eaec;
   }
 }
 

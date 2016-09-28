@@ -1,38 +1,33 @@
 import React, { Component } from 'react';
 import { styles } from './default-message.scss';
-
+import seaShellsTeamAvatarUrl from './files/chat-btn.png'
 export default class DefaultMessage extends Component {
   render() {
     const { user, guest, widgetConfig } = this.props
-    const backgroundImageUrl = widgetConfig.channel ? widgetConfig.channel.avatarUrl : null
-    const welcomeMessage = widgetConfig.content ? widgetConfig.content.welcomeMessage : "Widget configuration wasn't loaded properly."
+    const teamAvatarUrl = widgetConfig.channel ? widgetConfig.channel.avatarUrl : seaShellsTeamAvatarUrl
+    const teamChannelUrl = widgetConfig.channelUrl ||  "https://team.seashells.com/support"
+    const welcomeMessage = widgetConfig.content ? widgetConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
+    const teamName = widgetConfig.content ? widgetConfig.content.teamName : "She Sells Sea Shells Support"
     return (
+      <div className="default-message-wrapper">
         <div className="default-message">
-            <div className="feature-link">
-                <div>
-                    <span className="left-arrow"></span>
-                    <div className="logo-wrapper">
-                        <div className="welcome-logo" style={{backgroundImage: `url(${backgroundImageUrl}) noRepeat`}}></div>
-                    </div>
-                </div>
-            </div>
-            <div className="welcome-section">
-                <div className="logo-wrapper">
-                    <div className="welcome-logo" style={{backgroundImage: `url(${backgroundImageUrl}) noRepeat`}}></div>
-                </div>
-                <div className="title-section">
-                    <h3 className="welcome-title">
-                    </h3>
-                    <p className="title-desc"></p>
-                </div>
-                <div className="welcome-message">
-                  {welcomeMessage}
-                </div>
-                <div className="link-section">
-                    <a href="javascript:;">{widgetConfig.channelUrl}</a>
-                </div>
-            </div>
+          <div className="team-avatar-url-wrapper">
+          <div className="team-avatar-url" style={{backgroundImage: `url(${teamAvatarUrl})`}}>
+          </div>
+          </div>
+          <div className="team-details">
+          <div className="team-name">
+            {teamName}
+          </div>
+          <div className="team-website">
+              <a style={{color: widgetConfig.keyColor || "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
+          </div>
+          <div className="welcome-message">
+            {welcomeMessage}
+          </div>
+          </div>
         </div>
+      </div>
     );
   }
 }
