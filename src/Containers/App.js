@@ -19,7 +19,8 @@ class App extends React.Component {
     const { dispatch, channel_id, channel_url, height, width } = this.props
     const data = {email: "placeholder"}
     dispatch(initEnvironment())
-    dispatch(registerGuestInfo(data)).then((token) => dispatch(getWidget(channel_id, channel_url, token)))
+    dispatch(registerGuestInfo(data))
+    // .then((token) => dispatch(getWidget(channel_id, channel_url, token)))
   }
   onToggle() {
     this.setState({ show: !this.state.show });

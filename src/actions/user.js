@@ -54,7 +54,7 @@ export function registerGuestInfo(data) {
               localStorage.setItem("guest", JSON.stringify(token))
               dispatch(fetchUserInfo(token))
               dispatch({type: 'TOKEN_SET', token})
-              dispatch(createWidgetChannel(token)) //delete
+              // dispatch(createWidgetChannel(token)) //delete
               dispatch(fetchSocket(token))
             }
             return token
@@ -66,7 +66,7 @@ export function registerGuestInfo(data) {
       } else {
         dispatch(fetchUserInfo(token))
         dispatch({type: 'TOKEN_FROM_LOCAL_STORAGE', token})
-        dispatch(fetchChannels(token))
+        // dispatch(fetchChannels(token))
         dispatch(fetchSocket(token))
         return Promise.resolve(token)
       }
