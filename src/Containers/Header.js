@@ -20,7 +20,7 @@ export default class Header extends Component {
     //   )
     // }
     return (
-      <div className="widget-header">
+      <div className="header">
         <div className="header-arrow" onClick={this.props.onResize.bind(this)}>
           <FaAngleDown />
         </div>
