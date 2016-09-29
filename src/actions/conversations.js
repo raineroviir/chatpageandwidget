@@ -118,9 +118,8 @@ export function createConversation(channel_id, token) {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token
       },
-      body: {channel_id: channel_id}
+      body: JSON.stringify({channel_id: channel_id})
     }).then(response => response.json()).then(json => {
-      console.log(json)
       dispatch({type:"CONVERSATION_CREATED", json})
       return json
     })

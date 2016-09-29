@@ -27,9 +27,7 @@ class App extends React.Component {
     .then((token) => {
       token = token.access_token
       dispatch(getWidget(channel_id, channel_url, token))
-      dispatch(createWidgetChannel(token))
-      // dispatch(createConversation(channel_id, token))
-
+      dispatch(createConversation(channel_id, token))
       // dispatch(getConversations(channel_id, token))
     })
     dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})

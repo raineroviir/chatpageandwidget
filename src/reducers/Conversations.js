@@ -44,6 +44,7 @@ export function conversations(state = initialState, action) {
     return {
       ...state,
       conversations: [...state.conversations, action.conversation],
+      activeConversation: action.conversation.id
       preparingToCreateConversation: false
     }
   case 'RESET_CONVERSATIONS':

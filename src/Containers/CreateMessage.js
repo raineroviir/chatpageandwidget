@@ -11,14 +11,12 @@ class CreateMessage extends Component {
     console.log(channelid, token)
     console.log(conversationid)
     if (!conversationid) {
-      return dispatch(createConversation(channelid, token))
+      return dispatch(createConversation(channelid, token)).then((conversation) => {
+        return dispatch(createMessage(message, conversation.id, token, channelid))
+      })
+    } else {
+      dispatch(createMessage(message, conversationid, token, channelid))
     }
-      // .then((conversation) => {
-      //   return dispatch(createMessage(message, conversation.id, token, channelid))
-      // })
-    // } else {
-    //   dispatch(createMessage(message, conversationid, token, channelid))
-    // }
   }
   render() {
     return (
