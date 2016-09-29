@@ -120,8 +120,22 @@ export function createConversation(channel_id, token) {
       },
       body: JSON.stringify({channel_id: channel_id})
     }).then(response => response.json()).then(json => {
-      dispatch({type:"CONVERSATION_CREATED", json})
-      return json
+      const conversation = json.conversation
+      localStorage.setItem("guestConversation", JSON.stringify({conversation_id: conversation.id, channel_id: channel_id}))
+      dispatch({type:"CONVERSATION_CREATED", conversation})
+      return conversation
     })
+  }
+}
+
+export function checkForConversation(channel_id, token) {
+  const conversation = JSON.parse(localStorage.getItem("guestConversation"))
+  return dispatch => {
+    console.log(conversation)
+    if (!conversation) {
+      dispatch(createConversation(channel_id, token))
+    } else {
+      dispatch(setActiveConversation(conversation))
+    }
   }
 }

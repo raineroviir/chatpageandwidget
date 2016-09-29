@@ -7,7 +7,7 @@ class Messages extends Component {
   render() {
     return (
       <ChatMessage widgetConfig={this.props.widgetConfig} messages={this.props.messages.messages} user={this.props.user} guest={this.props.guest} />
-    );
+    )
   }
 }
 

@@ -4,7 +4,12 @@ import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 
 const logger = createLogger({
-  predicate: () => process.env.NODE_ENV !== `production`
+  predicate: (getState, action) => {
+    return (process.env.NODE_ENV !== `production` && (action.type !== "CHANGE_WIDTH_AND_HEIGHT" || "CHANGE_IS_MOBILE"))
+  },
+  collapsed: (getState, action) => {
+    return action.type === "INITIALIZED_SOCKET" || "RECEIVED_GUEST_INFO" || "FETCHING_WIDGET_BY_CHANNEL_ID" || "INIT_WIDGET_CONFIG_INITIAL_STATE"
+  }
 });
 
 const middleware = applyMiddleware(thunkMiddleware, logger);

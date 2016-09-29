@@ -2,6 +2,18 @@
   width: inherit;
 }
 
+.left-aligned-message {
+  align-self: flex-start;
+  flex-direction: column;
+  padding: 0 68px 0 0;
+}
+
+.right-aligned-message {
+  align-self: flex-end;
+  flex-direction: column;
+  padding: 0 0 0 68px;
+}
+
 .unread-message-notification {
     font-size: 13px;
     font-weight: 400;

@@ -27,7 +27,6 @@ class CreateMessage extends Component {
 
 function mapStateToProps(state) {
   return {
-    guestconversation: state.guest.conversations,
     channel: state.guest.widgetChannel,
     user: state.user,
     guest: state.guest,

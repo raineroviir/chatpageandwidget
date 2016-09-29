@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const mockedInitialState = {
-  conversationid: 297,
+  conversationid: 354,
   channelError: false,
   memoized: {},
   messages:  [
@@ -20,7 +20,7 @@ const mockedInitialState = {
   sender_avatar:null,
   sender_name:" ",
   text:"Is this working?",
-  user_id:386
+  user_id:400
 },
 {
   conversation_id:297,
@@ -60,7 +60,7 @@ const mockedInitialState = {
   sender_avatar:null,
   sender_name:" ",
   text:"My package didn't arrive",
-  user_id:386
+  user_id:400
 }
 ]}
 
