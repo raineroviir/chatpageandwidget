@@ -15,7 +15,9 @@ const initialState = {
       last_name: null,
       widgetChannel: ''
     }
-  }
+  },
+  activeChannelId: null,
+  activeChannelUrl: null
 };
 
 export function channels(state = initialState, action) {
@@ -32,6 +34,8 @@ export function channels(state = initialState, action) {
     };
   case 'RESET_CHANNELS':
     return initialState;
+  case 'STORE_CHANNEL_INFO':
+    return {...state, activeChannelId: action.channelId, activeChannelUrl: action.channelUrl}
   default:
     return state;
   }

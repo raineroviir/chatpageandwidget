@@ -42,7 +42,7 @@ export function guest(state = initialState, action) {
       guest: true,
       token: action.token.access_token
     }
-    case 'TOKEN_FROM_LOCAL_STORAGE':
+    case 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE':
       return {
         ...state,
         guest: true,

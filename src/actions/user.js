@@ -4,6 +4,11 @@ import moment from 'moment';
 import { getConversationHistory, fetchSocket, createConversation, createWidgetChannel, fetchChannels } from './channels'
 import { createMessage } from './messages'
 
+/**
+ * [fetchGuestToken description]
+ * @param  {[Object]} data [user entered/placeholder data that we pass into our guest user creation]
+ * @return {[Promise]}      [returns the fetch Promise]
+ */
 function fetchGuestToken(data) {
   return fetch( Config.app + '/guest.token', {
     method: 'POST',
@@ -20,29 +25,27 @@ function fetchGuestToken(data) {
  * @return {[Promise]}
  */
 export function fetchUserInfo(token) {
+  console.log(token)
   return dispatch => {
     return fetch( Config.api + '/users.me', {
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token.access_token,
+        'Authorization': 'Bearer ' + token.access_token
       }
     }).then(response => response.json()).then(json => {
       json.guest ? dispatch(receiveGuestInfo(json)) :
       dispatch(receiveUserInfo(json))
-    }, error => {
-      dispatch({type: "ERROR_FETCHING_USER_INFO"})
-      throw error
     })
   }
 }
 
 /**
- * [registerGuestInfo description]
+ * [initUser description]
  * @param  {[Object]} data [This data object can include things like email, first name and last name]
- * @return {[Promise]}      [value is the token object]
+ * @return {[Promise]}      [value is the token object.  Returning a promise allows us to chain .then() onto this function]
  */
-export function registerGuestInfo(data) {
+export function initUser(data) {
   return dispatch => {
     if (typeof(Storage) !== "undefined") {
       let token = JSON.parse(localStorage.getItem("guest")) || JSON.parse(localStorage.getItem("token"))
@@ -54,7 +57,6 @@ export function registerGuestInfo(data) {
               localStorage.setItem("guest", JSON.stringify(token))
               dispatch(fetchUserInfo(token))
               dispatch({type: 'TOKEN_SET', token})
-              // dispatch(createWidgetChannel(token)) //delete
               dispatch(fetchSocket(token))
             }
             return token
@@ -65,8 +67,7 @@ export function registerGuestInfo(data) {
             })
       } else {
         dispatch(fetchUserInfo(token))
-        dispatch({type: 'TOKEN_FROM_LOCAL_STORAGE', token})
-        // dispatch(fetchChannels(token))
+        dispatch({type: 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE', token})
         dispatch(fetchSocket(token))
         return Promise.resolve(token)
       }

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { styles } from './default-message.scss';
-import seaShellsTeamAvatarUrl from './files/chat-btn.png'
+import defaultTeamAvatar from './files/chat-btn.png'
 export default class DefaultMessage extends Component {
   render() {
     const { user, guest, widgetConfig } = this.props
-    const teamAvatarUrl = widgetConfig.channel ? widgetConfig.channel.avatarUrl : seaShellsTeamAvatarUrl
-    const teamChannelUrl = widgetConfig.channelUrl ||  "https://team.seashells.com/support"
+    const teamAvatarUrl = widgetConfig.channel.avatarUrl ? widgetConfig.channel.avatarUrl : defaultTeamAvatar
+    const teamChannelUrl = widgetConfig.channelUrl ||  "Channel URL didn't load properly"
     const welcomeMessage = widgetConfig.content ? widgetConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
-    const teamName = widgetConfig.content ? widgetConfig.content.teamName : "She Sells Sea Shells Support"
+    const teamName = widgetConfig.content ? widgetConfig.content.teamName : ""
     return (
       <div className="default-message-wrapper">
         <div className="default-message">

@@ -21,7 +21,9 @@ export function widget(state = initialState, action) {
       case  'INIT_WIDGET_CONFIG_INITIAL_STATE': {
         return {
           ...state,
-          initialConfig: action.json,
+          initialConfig: action.widgetConfig,
+          channelUrl: action.channelUrl ? action.channelUrl : null,
+          channelId: action.channelId ? action.channelId : null,
           initialized: true
         }
       }

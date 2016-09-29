@@ -4,7 +4,7 @@ const webpack = require('webpack')
 module.exports = {
   devtool: 'inline-source-map',
   entry: {
-    widget: './widget.js'
+    widget: './src/widget.js'
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -15,9 +15,6 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ],
-  // resolve: {
-  //   extensions: ['.scss', '.js']
-  // },
   module: {
     loaders: [
       {

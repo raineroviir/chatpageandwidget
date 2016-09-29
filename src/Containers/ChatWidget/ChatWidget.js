@@ -9,10 +9,6 @@ import Header from './Header'
 import {styles} from './styles.scss'
 
 class ChatWidget extends React.Component {
-  componentDidMount() {
-    const { dispatch, token, channelid } = this.props
-    // dispatch(getConversations(channelid, token))
-  }
   backToConversationSummaryView() {
     const { dispatch } = this.props
     dispatch(backToConversationSummaryView())
@@ -41,7 +37,7 @@ class ChatWidget extends React.Component {
 function mapStateToProps(state) {
   return {
     token: state.guest.token,
-    channelid: state.guest.channel.id,
+    channelid: state.channels.activeChannelId,
     activeConversation: state.conversations.activeConversation,
     preparingToCreateConversation: state.conversations.preparingToCreateConversation,
     keyColor: state.widget.initialConfig.keyColor,

@@ -43,7 +43,7 @@ function getSocketURL (token) {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token.access_token,
+      'Authorization': 'Bearer ' + token.access_token || token,
     }
   });
 }
@@ -126,12 +126,11 @@ function fetchChannel (channelname, team) {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token.access_token,
+      'Authorization': 'Bearer ' + token.access_token || token,
     }
   })
 }
 function dispatchMessageStream (message) {
-  console.log('disptchmessage stream')
   return {
     type: "MESSAGE_STREAM",
     posts: { message },
@@ -139,13 +138,14 @@ function dispatchMessageStream (message) {
   }
 }
 
+
 export function fetchChannels(token) {
   return dispatch => {
     return fetch( Config.api + '/channels.list', {
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token.access_token,
+        'Authorization': 'Bearer ' + token.access_token || token,
       }
     }).then(response => response.json()).then(json => {
       dispatch(receiveChannels(json.channels))
@@ -162,9 +162,6 @@ function receiveChannels(channels) {
 
 export function createWidgetChannel(token) {
   return dispatch => {
-    if (!token) {
-      token = JSON.parse(localStorage.getItem("guest"))
-    }
     let data = new FormData()
     data.append('channel', token.access_token)
     // const data = {channel: "ExampleChannel101"}
@@ -173,7 +170,7 @@ export function createWidgetChannel(token) {
         method: 'POST',
         headers:{
           'enctype':"multipart/form-data",
-          'Authorization': 'Bearer ' + token.access_token
+          'Authorization': 'Bearer ' + token
         },
         body: data
     }).then(response => response.json()).then(json => {
@@ -181,8 +178,7 @@ export function createWidgetChannel(token) {
         return console.log(json.error)
       }
       const channelid = {id: json.channel.id}
-      localStorage.setItem("channel", JSON.stringify(channelid))
-      return dispatch(widgetChannelCreated(json.channel))
+      dispatch(widgetChannelCreated(json.channel))
     })
   }
 }

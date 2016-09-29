@@ -7,10 +7,9 @@ import { Conversations } from '../Components/Conversations';
 import DefaultWidgetMessage from '../Components/DefaultMessage'
 
 class ConversationsContainer extends Component {
-  selectConversation(conversationid) {
-    const { dispatch, token } = this.props
-    dispatch(getConversationHistory(conversationid, token));
-    dispatch(setActiveConversation(conversationid))
+  componentDidMount() {
+    const { dispatch, token, activeConversation } = this.props
+    // dispatch(getConversationHistory(activeConversation, token));
   }
   render() {
     return (

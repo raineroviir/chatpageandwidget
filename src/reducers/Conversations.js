@@ -7,21 +7,23 @@ const initialState = {
   channelid: null,
   socket: '',
   preparingToCreateConversation: false,
-  activeConversation: ''
+  activeConversation: null
 };
 
 export function conversations(state = initialState, action) {
   switch (action.type) {
   case 'FETCH_CONVERSATIONS':
-    let conv = _.sortBy(action.posts.conversations, a => parseInt(moment(a.updated_at).format("x"))).reverse();
+    let conv = _.sortBy(action.data.conversations, a => parseInt(moment(a.updated_at).format("x"))).reverse();
+    console.log(conv)
     return {
       ...state,
       conversations: conv,
-      channelid: action.posts.channelid,
+      channelid: action.data.channelid,
       memoized: {
         ...state.memoized,
-        [action.posts.channelid]: conv
-      }
+        [action.data.channelid]: conv
+      },
+      activeConversation: conv.length === 1 ? conv.id : null
     };
   case 'FETCH_CONVERSATIONS_MEMOIZED':
     if(!state.memoized[action.posts.channelid]) return state;

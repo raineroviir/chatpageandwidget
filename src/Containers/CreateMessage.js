@@ -7,14 +7,18 @@ import { createMessage } from '../actions/messages'
 import { ChatTextBox } from '../Components/ChatTextBox';
 class CreateMessage extends Component {
   createMessage(message) {
-    const { dispatch, actions, activeConversation, token, channelid } = this.props
-    if (!activeConversation) {
-      return dispatch(createConversation(channelid, token)).then((conversation) => {
-        return dispatch(createMessage(message, conversation.id, token, channelid))
-      })
-    } else {
-      dispatch(createMessage(message, activeConversation, token, channelid))
+    const { dispatch, actions, conversationid, token, channelid } = this.props
+    console.log(channelid, token)
+    console.log(conversationid)
+    if (!conversationid) {
+      return dispatch(createConversation(channelid, token))
     }
+      // .then((conversation) => {
+      //   return dispatch(createMessage(message, conversation.id, token, channelid))
+      // })
+    // } else {
+    //   dispatch(createMessage(message, conversationid, token, channelid))
+    // }
   }
   render() {
     return (
@@ -30,8 +34,8 @@ function mapStateToProps(state) {
     user: state.user,
     guest: state.guest,
     token: state.guest.token,
-    channelid: state.guest.channel.id,
-    activeConversation: state.conversations.activeConversation,
+    channelid: state.channels.activeChannelId,
+    conversationid: state.conversations.activeConversation,
     keyColor: state.widget.initialConfig.keyColor
   }
 }

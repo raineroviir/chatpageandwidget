@@ -8,17 +8,9 @@ function fetchConversations(channel_id, token) {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
+      'Authorization': 'Bearer ' + token.access_token || token,
     }
   })
-}
-
-function processConversationsForDispatch(conversations, channelid) {
-  return {
-    type: 'FETCH_CONVERSATIONS',
-    posts: { ...conversations, channelid},
-    receivedAt: Date.now()
-  }
 }
 
 function processConversationsHistoryForDispatch(messages, conversationid) {
@@ -64,36 +56,29 @@ function processMemoizedConversationsForDispatch(channelid) {
   }
 }
 
-export function getConversations(channelid, token, channels, conversationname) {
-  /* Mocks */
-  /*return (dispatch, getState) => {
-    return dispatch(processConversationsForDispatch(conversations));
-  }*/
-
-  return (dispatch, getState) => {
-    /* Load memoized (cached) conversations from store if any */
-    dispatch(processMemoizedConversationsForDispatch(channelid));
-    /* Load memoized (cached) conversation history from store if any */
-    let conv = getState().conversations.memoizedMessage[channelid];
-    !!conv && dispatch(processMemoizedConversationsHistoryForDispatch(conv));
-
-    /* Trigger API to get latest conversations */
-    fetchConversations(channelid, token).then(response => {return response.json()})
-      .then(json => {
-        /* Invoke Channels Service when we recieve new channels */
-        if(json && json.conversations && json.conversations.length){
-          let conversations = _.sortBy(json.conversations, a => parseInt(moment(a.updated_at).format("x"))).reverse();
-          // dispatch(getConversationHistory(conversationname || conversations[0].id, token));
-        }
-        else {
-          /* Reset conversation history from API */
-          dispatch(processConversationsHistoryForDispatch({ messages: []}, null))
-        }
-        dispatch(processConversationsForDispatch(json, channelid))
+export function getConversations(channel_id, token) {
+  console.log(channel_id)
+  return dispatch => {
+    return fetch( Config.api + '/conversations.list?channel_id=' + channel_id, {
+      method: 'GET',
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token.access_token || token,
+      }
+    }).then(response => {
+      return response.json()
+    }).then(json => {
+      console.log(json)
+      const conversations = json
+      dispatch({
+      type: 'FETCH_CONVERSATIONS',
+      data: { ...conversations, channel_id},
+      receivedAt: Date.now()
       })
-
-      // Set isGroupChat flag if the chat is group chat
-      channels && dispatch(processIsGroupForDispatch(channelid, channels));
+      return json
+    }).catch(e => {
+      throw e
+    })
   }
 }
 
@@ -104,7 +89,7 @@ export function getConversationHistory(conversationid, token) {
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token,
+        'Authorization': 'Bearer ' + token.access_token || token,
       }
     }).then(response => response.json())
       .then(json => {
@@ -124,30 +109,20 @@ export function getConversationHistory(conversationid, token) {
  * @param  {[Number]} channelid
  * @param  {[Object]} token
  */
-export function createConversation(channelid, token) {
+export function createConversation(channel_id, token) {
   return dispatch => {
-  if (!token) {
-    let token = JSON.parse(localStorage.getItem("guest"))
-  }
-  let body = JSON.stringify({channel_id: channelid})
+    console.log(channel_id, token)
     return fetch( Config.api + '/conversations.create', {
       method: 'POST',
-      headers:{
+      headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token,
+        'Authorization': 'Bearer ' + token
       },
-      body: body
-    }).then(response => response.json()).then(
-      json => {
-      let conversation = json.conversation
-      dispatch({type:"CONVERSATION_CREATED", conversation})
-      dispatch(setActiveConversation(conversation.id))
-      return conversation
-      },
-      error => {
-        dispatch({type: 'CONVERSATION_CREATION_FAILURE', error})
-        throw error
-      }
-    )
+      body: {channel_id: channel_id}
+    }).then(response => response.json()).then(json => {
+      console.log(json)
+      dispatch({type:"CONVERSATION_CREATED", json})
+      return json
+    })
   }
 }
