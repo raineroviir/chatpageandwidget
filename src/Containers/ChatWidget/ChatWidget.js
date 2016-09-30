@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Messages from '../Messages'
-import ConversationsContainer from '../ConversationsContainer'
 import { getConversations, backToConversationSummaryView} from '../../actions/conversations'
 import { toggleResize } from '../../actions/environment'
 import Footer from './Footer'
@@ -27,7 +26,7 @@ class ChatWidget extends React.Component {
         <Header keyColor={this.props.keyColor} onClose={this.props.onClose}
         onResize={this.onToggleResize.bind(this)} backToConversationSummaryView={this.backToConversationSummaryView.bind(this)}
         activeConversation={this.props.activeConversation} preparingToCreateConversation={this.props.preparingToCreateConversation} />
-        <ConversationsContainer />
+        <Messages />
         <Footer />
       </div>
     );

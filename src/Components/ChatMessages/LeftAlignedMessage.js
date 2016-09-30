@@ -16,8 +16,7 @@ export class LeftAlignedMessage extends React.Component {
     }
   }
   render() {
-    const { style, currentMessageUserId, previousMessageUserId, message, widgetConfig } = this.props
-    const checkForSameUser = currentMessageUserId !== previousMessageUserId
+    const { checkForSameUser, message, widgetConfig } = this.props
     return (
       <div className={classNames("received-message fade-in, left-aligned-message")}>
         {checkForSameUser ? <div style={{alignSelf: "flex-start", padding: "0 0 0 56px"}}>

@@ -53,6 +53,11 @@
   animation: fadein 1s;
 }
 
+
+.chat-messages-wrapper {
+  width: inherit;
+}
+
 .conversation-body {
   flex-grow: 1;
   overflow-y: auto;

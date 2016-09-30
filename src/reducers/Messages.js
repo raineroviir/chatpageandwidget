@@ -61,7 +61,349 @@ const mockedInitialState = {
   sender_name:" ",
   text:"My package didn't arrive",
   user_id:400
-}
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:850,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:851,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:852,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:853,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:854,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+1,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+2,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+3,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"13th Element",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+4,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+5,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+6,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+7,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+8,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+9,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+10,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"20th element",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+11,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+12,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+13,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+14,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+15,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+16,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+17,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+18,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+19,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+20,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+21,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+22,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+23,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:855+24,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:1,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:2,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:3,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:4,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:5,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:6,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:7,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
+{
+  conversation_id:297,
+  created_at:"2016-09-27T02:55:45.774Z",
+  id:8,
+  sender_avatar:null,
+  sender_name:" ",
+  text:"Is this working?",
+  user_id:400
+},
 ]}
 
 export function messages(state = mockedInitialState, action) {

@@ -25,7 +25,6 @@ function fetchGuestToken(data) {
  * @return {[Promise]}
  */
 export function fetchUserInfo(token) {
-  console.log(token)
   return dispatch => {
     return fetch( Config.api + '/users.me', {
       method: 'GET',

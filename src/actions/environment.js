@@ -19,6 +19,12 @@ function changeIsMobile(isMobile) {
   };
 }
 
+export function changeScrollIndex(scrollIndex) {
+  return {
+    type: "CHANGE_SCROLL_INDEX",
+    scrollIndex
+  }
+}
 export function initEnvironment() {
   return dispatch => {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);

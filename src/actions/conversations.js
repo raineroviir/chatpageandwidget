@@ -111,7 +111,6 @@ export function getConversationHistory(conversationid, token) {
  */
 export function createConversation(channel_id, token) {
   return dispatch => {
-    console.log(channel_id, token)
     return fetch( Config.api + '/conversations.create', {
       method: 'POST',
       headers: {
