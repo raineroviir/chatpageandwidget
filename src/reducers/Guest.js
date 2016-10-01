@@ -14,7 +14,7 @@ const initialState = {
     "team": null,
     "username": null
   },
-  token: '',
+  token: null,
   channel: '',
   conversations: ''
 };

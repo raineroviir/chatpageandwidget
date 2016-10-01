@@ -10,50 +10,80 @@ import {changeScrollIndex} from '../actions/environment'
 import ReactDOM from 'react-dom'
 import ReactInfinite from 'react-infinite'
 import {MessageListItem} from '../Components/ChatMessages/MessageListItem'
+import Waypoint from 'react-waypoint'
+import _ from 'lodash'
 
 class Messages extends Component {
   constructor(props) {
     super(props)
-    this.handleInfiniteLoad = this.handleInfiniteLoad.bind(this)
+    this.renderWaypoint = this.renderWaypoint.bind(this)
+    this.loadMoreHistory = this.loadMoreHistory.bind(this)
     this.state = {
-      messages: this.buildElements(0, 20),
-      isInifiniteLoading: false,
-      containerHeight: 500
+      messages: this.props.messages.slice(-20),
+      isInfiniteLoading: false,
+      messageIndex: -20,
+      currentScrollHeight: null
     }
   }
+  // scrollToBottom = () => {
+  //   var node = ReactDOM.findDOMNode(this)
+  //   const scrollHeight = node.scrollHeight;
+  //   const height = node.clientHeight;
+  //   const maxScrollTop = scrollHeight - height;
+  //   ReactDOM.findDOMNode(this).scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+  // }
   componentDidMount() {
     const { dispatch, token, activeConversation } = this.props
+    var node = ReactDOM.findDOMNode(this)
+    // node.scrollTop = node.scrollHeight
 
     this.setState({
-      containerHeight: ReactDOM.findDOMNode(this).scrollHeight
+      currentScrollHeight: ReactDOM.findDOMNode(this).scrollHeight
     })
   }
-  buildElements(start, end) {
-    return this.props.messages.slice(start, end)
+  componentDidUpdate() {
+    var node = ReactDOM.findDOMNode(this)
+    // console.log(node.clientHeight)
+    node.scrollTop = 300
   }
-  handleInfiniteLoad() {
-    console.log('loading more')
-    this.setState({
-      isInifiniteLoading: true
-    })
+  loadMoreHistory () {
+    const { dispatch, messages, conversationid, token } = this.props
+    this.setState({isInfiniteLoading: true})
     return new Promise((resolve, reject) => {
-      const { dispatch } = this.props
-      let messagesLength = this.state.messages.length
-      let newMessages = this.buildElements(20, 20 + 10)
-      this.setState({
-        isInfiniteLoading: false,
-        messages: this.state.messages.slice(10, 20).concat(newMessages)
-        })
-      resolve()
-   })
+      // dispatch(getConversationHistory(conversationid,token))
+      const nextIndex = this.state.messageIndex - 10
+      let more = messages.slice(nextIndex, this.state.messageIndex)
+        this.setState({
+          isInfiniteLoading: false,
+          messages: this.state.messages.reverse().concat(more).reverse(),
+          messageIndex: nextIndex
+        });
+        resolve();
+      });
+  }
+  renderWaypoint() {
+    if (!this.state.isInfiniteLoading) {
+      return (
+        <Waypoint
+        bottomOffset="240px"
+        onEnter={({previousPosition, currentPosition, event}) => {
+          console.log(event)
+            return this.loadMoreHistory()
+
+        }}
+        onLeave={({previousPosition, currentPosition, event}) => {
+        }}
+        />
+      )
+    }
   }
   render() {
     return (
-      <ReactChatView className="conversation-body"
-      isInfiniteLoading={this.state.isInfiniteLoading} onInfiniteLoad={this.handleInfiniteLoad}>
-        <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/>
+      <div className="conversation-body">
+        {this.renderWaypoint()}
+        {/* <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/> */}
         <ChatMessages className="chat-messages-wrapper" messages={this.state.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}/>
-      </ReactChatView>
+      </div>
     )
   }
 }

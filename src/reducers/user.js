@@ -11,7 +11,8 @@ const initialState = {
       "name": null,
       "description": null
     }
-  }
+  },
+  token: null
 };
 
 export function user(state = initialState, action) {
