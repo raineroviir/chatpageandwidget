@@ -13,6 +13,7 @@ import {MessageListItem} from '../Components/ChatMessages/MessageListItem'
 import Waypoint from 'react-waypoint'
 import _ from 'lodash'
 import {loadServerMsgs} from '../actions/messages'
+import {referenceToConversationBody} from '../actions/environment'
 
 class Messages extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class Messages extends Component {
     this.setState({
       currentScrollHeight: ReactDOM.findDOMNode(this).scrollHeight
     })
+    dispatch(referenceToConversationBody(node))
     node.scrollTop = node.scrollHeight
   }
   componentDidUpdate(prevProps) {
@@ -96,8 +98,12 @@ class Messages extends Component {
     return (
       <div className="conversation-body">
         {this.renderWaypoint()}
+        {!this.state.isInfiniteLoading ? <div style={{alignText: "center"}}>Loading...</div>: null}
         {/* <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/> */}
-        <ChatMessages className="chat-messages-wrapper" messages={this.props.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}/>
+=======
+        <ChatMessages className="chat-messages-wrapper" messages={this.state.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
+        currentChannelType={this.props.currentChannelType}/>
+>>>>>>> messagealignment
       </div>
     )
   }
@@ -106,13 +112,14 @@ class Messages extends Component {
 function mapStateToProps(state) {
   return {
     activeConversation: state.conversations.activeConversation,
-    activeChannel: state.channels.channels.all.find(a => a.id === state.conversations.channelid),
+    currentChannelType: state.channels.isGroupChat,
     messages: state.messages.messages,
     serverMessages: state.messages.serverMessages,
     user: state.user,
     guest: state.guest,
     widgetConfig: state.widget.initialConfig,
-    scrollIndex: state.environment.scrollIndex
+    scrollIndex: state.environment.scrollIndex,
+    scrollToBottom: state.environment.scrollToBottom
   }
 }
 

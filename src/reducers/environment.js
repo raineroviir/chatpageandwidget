@@ -3,7 +3,8 @@ const initialState = {
   height: null,
   width: null,
   widgetHeight: "100%",
-  scrollIndex: 10
+  scrollIndex: 10,
+  referenceToConversationBody: ""
 };
 
 export function environment(state = initialState, action) {
@@ -27,6 +28,9 @@ export function environment(state = initialState, action) {
     case "CHANGE_SCROLL_INDEX":
       return {...state, scrollIndex: action.scrollIndex
       }
+
+    case "RECEIVE_REF_TO_CONVERSATION_BODY":
+      return {...state, referenceToConversationBody: action.ref}
     default:
       return state;
   }

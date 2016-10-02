@@ -36,6 +36,9 @@ export function channels(state = initialState, action) {
     return initialState;
   case 'STORE_CHANNEL_INFO':
     return {...state, activeChannelId: action.channelId, activeChannelUrl: action.channelUrl}
+
+  case 'RECEIVE_CHANNEL_INFO':
+    return {...state, channels: {isGroupChat: action.channelInfo.channel.is_group}}
   default:
     return state;
   }
