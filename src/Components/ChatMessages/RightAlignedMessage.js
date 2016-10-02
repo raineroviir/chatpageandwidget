@@ -16,6 +16,11 @@ export class RightAlignedMessage extends React.Component {
       color: color //font-color
     }
   }
+  computeMessageBubbleSharing() {
+    return {
+
+    }
+  }
   render() {
     const { checkForSameUser, message } = this.props
     return (
