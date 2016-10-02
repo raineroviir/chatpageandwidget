@@ -12,6 +12,7 @@ import ReactInfinite from 'react-infinite'
 import {MessageListItem} from '../Components/ChatMessages/MessageListItem'
 import Waypoint from 'react-waypoint'
 import _ from 'lodash'
+import {loadServerMsgs} from '../actions/messages'
 
 class Messages extends Component {
   constructor(props) {
@@ -19,34 +20,58 @@ class Messages extends Component {
     this.renderWaypoint = this.renderWaypoint.bind(this)
     this.loadMoreHistory = this.loadMoreHistory.bind(this)
     this.state = {
-      messages: this.props.messages.slice(-20),
+      messages: this.props.serverMessages.slice(-20),
       isInfiniteLoading: false,
       messageIndex: -20,
+      currentScrollHeight: null
     }
   }
+  // scrollToBottom = () => {
+  //   let node = ReactDOM.findDOMNode(this)
+  //   const scrollHeight = node.scrollHeight;
+  //   const height = node.clientHeight;
+  //   const maxScrollTop = scrollHeight - height;
+  //   ReactDOM.findDOMNode(this).scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+  // }
   componentDidMount() {
-    const { dispatch, token, activeConversation } = this.props
-    var node = ReactDOM.findDOMNode(this)
+    const { dispatch, token, activeConversation, serverMessages } = this.props
+    let node = ReactDOM.findDOMNode(this)
+    dispatch(loadServerMsgs(serverMessages.slice(-20)))
+    this.setState({
+      currentScrollHeight: ReactDOM.findDOMNode(this).scrollHeight
+    })
     node.scrollTop = node.scrollHeight
   }
-  componentDidUpdate() {
-    var node = ReactDOM.findDOMNode(this)
-    node.scrollTop = 300
+  componentDidUpdate(prevProps) {
+    let node = ReactDOM.findDOMNode(this)
+    console.log(this.state.isInfiniteLoading)
+    if(this.state.isInfiniteLoading) {
+      node.scrollTop = 300
+    }
+    if(!this.state.isInfiniteLoading) {
+      node.scrollTop = node.scrollHeight
+    }
+    // if(prevProps.messages.length < this.props.messages.length) {
+    //   node.scrollTop = node.scrollHeight
+    // }
   }
   loadMoreHistory () {
-    const { dispatch, messages, conversationid, token } = this.props
+    const { dispatch, serverMessages, messages, conversationid, token } = this.props
+    const nextIndex = this.state.messageIndex - 10
+    const more = serverMessages.slice(nextIndex, this.state.messageIndex)
+    if (more.length === 0) {
+      return;
+    }
     this.setState({isInfiniteLoading: true})
     return new Promise((resolve, reject) => {
-      const nextIndex = this.state.messageIndex - 10
-      let more = messages.slice(nextIndex, this.state.messageIndex)
-      if (more.length === 0) {
-        return;
-      }
+      // dispatch(getConversationHistory(conversationid,token))
+      //change this setup to dispatch to props.messages to keep one source of truth
         this.setState({
           isInfiniteLoading: false,
-          messages: more.concat(this.state.messages),
+          // messages: more.concat(this.state.messages),
           messageIndex: nextIndex
         });
+        dispatch(loadServerMsgs(more))
         resolve();
       });
   }
@@ -67,11 +92,12 @@ class Messages extends Component {
     }
   }
   render() {
+    console.log(this.props.messages)
     return (
       <div className="conversation-body">
         {this.renderWaypoint()}
         {/* <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/> */}
-        <ChatMessages className="chat-messages-wrapper" messages={this.state.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}/>
+        <ChatMessages className="chat-messages-wrapper" messages={this.props.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}/>
       </div>
     )
   }
@@ -82,6 +108,7 @@ function mapStateToProps(state) {
     activeConversation: state.conversations.activeConversation,
     activeChannel: state.channels.channels.all.find(a => a.id === state.conversations.channelid),
     messages: state.messages.messages,
+    serverMessages: state.messages.serverMessages,
     user: state.user,
     guest: state.guest,
     widgetConfig: state.widget.initialConfig,

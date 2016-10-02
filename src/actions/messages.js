@@ -47,6 +47,12 @@ function postMessage(message, conversationid, token, channelid) {
   })
 }
 
+export function loadServerMsgs(messages) {
+  return {
+    type: "LOAD_MSG_HISTORY",
+    messages
+  }
+}
 function processAddMessage(response, conversationid) {
   if(conversationid && typeof Storage !== "undefined"){
     var guestMessages = JSON.parse(localStorage.getItem("guestMessages")) || {},
@@ -60,7 +66,7 @@ function processAddMessage(response, conversationid) {
   }
   return {
     type: "ADD_MESSAGE",
-    posts: response.message,
+    message: response.message,
     receivedAt: Date.now()
   }
 }

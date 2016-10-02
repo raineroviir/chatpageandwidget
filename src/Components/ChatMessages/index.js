@@ -61,7 +61,7 @@ export class ChatMessages extends Component {
     if(this.props.channelError === true) {
       return (<div className="default-message">Channel not found</div>)
     }
-    if(messages && messages.length && !this.props.channelError) {
+    if(!this.props.channelError) {
       return (
         <div className="chat-messages">
           {messages.map((message, index, msgs) =>

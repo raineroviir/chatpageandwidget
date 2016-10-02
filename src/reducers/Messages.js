@@ -12,7 +12,8 @@ const mockedInitialState = {
   conversationid: 354,
   channelError: false,
   memoized: {},
-  messages:  [
+  messages: [],
+  serverMessages:  [
 {
   conversation_id:297,
   created_at:"2016-09-27T02:55:45.774Z",
@@ -1018,8 +1019,8 @@ export function messages(state = mockedInitialState, action) {
   case 'ADD_MESSAGE':
     return {
       ...state,
-      messages: state.messages.concat(action.posts),
-      memoized: Object.assign({}, state.memoized, { [action.posts.conversationid]: action.posts })
+      messages: state.messages.concat(action.message),
+      memoized: Object.assign({}, state.memoized, { [action.message.conversationid]: action.message })
     };
   case 'MESSAGE_STREAM':
     if(!action.posts.message.payload || !action.posts.message.payload.conversation_id || action.posts.message.payload.conversation_id != state.conversationid || state.messages.find(a => a.id == action.posts.message.payload.id)){
@@ -1047,6 +1048,10 @@ export function messages(state = mockedInitialState, action) {
       ...state,
       channelError: action.posts.flag
     };
+  case 'LOAD_MSG_HISTORY':
+    return {
+      ...state, messages: action.messages.concat(state.messages)
+    }
   case 'RESET_MESSAGES':
     return initialState;
   case 'PREPARE_TO_CREATE_NEW_CONVERSATION':
