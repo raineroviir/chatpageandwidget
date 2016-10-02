@@ -17,7 +17,9 @@ class CreateMessage extends Component {
     } else {
       dispatch(createMessage(message, conversationid, token, channelid))
     }
-    referenceToConversationBody.scrollTop = referenceToConversationBody.scrollHeight
+    // console.log(referenceToConversationBody.scrollHeight)
+    // console.log(referenceToConversationBody.scrollTop)
+    // referenceToConversationBody.scrollTop = referenceToConversationBody.scrollHeight
   }
   render() {
     return (

@@ -27,35 +27,25 @@ class Messages extends Component {
       currentScrollHeight: null
     }
   }
-  // scrollToBottom = () => {
-  //   let node = ReactDOM.findDOMNode(this)
-  //   const scrollHeight = node.scrollHeight;
-  //   const height = node.clientHeight;
-  //   const maxScrollTop = scrollHeight - height;
-  //   ReactDOM.findDOMNode(this).scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
-  // }
   componentDidMount() {
     const { dispatch, token, activeConversation, serverMessages } = this.props
-    let node = ReactDOM.findDOMNode(this)
     dispatch(loadServerMsgs(serverMessages.slice(-20)))
+    let node = ReactDOM.findDOMNode(this)
     this.setState({
       currentScrollHeight: ReactDOM.findDOMNode(this).scrollHeight
     })
-    dispatch(referenceToConversationBody(node))
+    // dispatch(referenceToConversationBody(node))
     node.scrollTop = node.scrollHeight
   }
   componentDidUpdate(prevProps) {
+    const { messages, guest, user } = this.props
     let node = ReactDOM.findDOMNode(this)
-    console.log(this.state.isInfiniteLoading)
     if(this.state.isInfiniteLoading) {
-      node.scrollTop = 300
+      node.scrollTop = 300  //this number needs to be adjusted to reflect accurately the avg height of 10 new message elements, also based on container width and height 
     }
-    if(!this.state.isInfiniteLoading) {
+    if(messages[messages.length - 1].user_id === guest.data.id || user.data.id) {
       node.scrollTop = node.scrollHeight
     }
-    // if(prevProps.messages.length < this.props.messages.length) {
-    //   node.scrollTop = node.scrollHeight
-    // }
   }
   loadMoreHistory () {
     const { dispatch, serverMessages, messages, conversationid, token } = this.props
@@ -67,7 +57,6 @@ class Messages extends Component {
     this.setState({isInfiniteLoading: true})
     return new Promise((resolve, reject) => {
       // dispatch(getConversationHistory(conversationid,token))
-      //change this setup to dispatch to props.messages to keep one source of truth
         this.setState({
           isInfiniteLoading: false,
           // messages: more.concat(this.state.messages),
@@ -100,10 +89,8 @@ class Messages extends Component {
         {this.renderWaypoint()}
         {!this.state.isInfiniteLoading ? <div style={{alignText: "center"}}>Loading...</div>: null}
         {/* <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/> */}
-=======
-        <ChatMessages className="chat-messages-wrapper" messages={this.state.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
+        <ChatMessages className="chat-messages-wrapper" messages={this.props.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
         currentChannelType={this.props.currentChannelType}/>
->>>>>>> messagealignment
       </div>
     )
   }
