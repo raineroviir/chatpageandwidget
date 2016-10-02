@@ -22,35 +22,21 @@ class Messages extends Component {
       messages: this.props.messages.slice(-20),
       isInfiniteLoading: false,
       messageIndex: -20,
-      currentScrollHeight: null
     }
   }
-  // scrollToBottom = () => {
-  //   var node = ReactDOM.findDOMNode(this)
-  //   const scrollHeight = node.scrollHeight;
-  //   const height = node.clientHeight;
-  //   const maxScrollTop = scrollHeight - height;
-  //   ReactDOM.findDOMNode(this).scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
-  // }
   componentDidMount() {
     const { dispatch, token, activeConversation } = this.props
     var node = ReactDOM.findDOMNode(this)
     node.scrollTop = node.scrollHeight
-
-    this.setState({
-      currentScrollHeight: ReactDOM.findDOMNode(this).scrollHeight
-    })
   }
   componentDidUpdate() {
     var node = ReactDOM.findDOMNode(this)
-    // console.log(node.clientHeight)
     node.scrollTop = 300
   }
   loadMoreHistory () {
     const { dispatch, messages, conversationid, token } = this.props
     this.setState({isInfiniteLoading: true})
     return new Promise((resolve, reject) => {
-      // dispatch(getConversationHistory(conversationid,token))
       const nextIndex = this.state.messageIndex - 10
       let more = messages.slice(nextIndex, this.state.messageIndex)
       if (more.length === 0) {
