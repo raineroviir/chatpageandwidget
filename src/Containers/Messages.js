@@ -35,7 +35,7 @@ class Messages extends Component {
   componentDidMount() {
     const { dispatch, token, activeConversation } = this.props
     var node = ReactDOM.findDOMNode(this)
-    // node.scrollTop = node.scrollHeight
+    node.scrollTop = node.scrollHeight
 
     this.setState({
       currentScrollHeight: ReactDOM.findDOMNode(this).scrollHeight
@@ -53,9 +53,12 @@ class Messages extends Component {
       // dispatch(getConversationHistory(conversationid,token))
       const nextIndex = this.state.messageIndex - 10
       let more = messages.slice(nextIndex, this.state.messageIndex)
+      if (more.length === 0) {
+        return;
+      }
         this.setState({
           isInfiniteLoading: false,
-          messages: this.state.messages.reverse().concat(more).reverse(),
+          messages: more.concat(this.state.messages),
           messageIndex: nextIndex
         });
         resolve();
@@ -67,9 +70,9 @@ class Messages extends Component {
         <Waypoint
         bottomOffset="240px"
         onEnter={({previousPosition, currentPosition, event}) => {
-          console.log(event)
+          if (event) {
             return this.loadMoreHistory()
-
+          }
         }}
         onLeave={({previousPosition, currentPosition, event}) => {
         }}
