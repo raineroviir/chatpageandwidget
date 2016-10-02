@@ -12,6 +12,7 @@ import ReactInfinite from 'react-infinite'
 import {MessageListItem} from '../Components/ChatMessages/MessageListItem'
 import Waypoint from 'react-waypoint'
 import _ from 'lodash'
+import {referenceToConversationBody} from '../actions/environment'
 
 class Messages extends Component {
   constructor(props) {
@@ -26,11 +27,12 @@ class Messages extends Component {
   }
   componentDidMount() {
     const { dispatch, token, activeConversation } = this.props
-    var node = ReactDOM.findDOMNode(this)
+    let node = ReactDOM.findDOMNode(this)
     node.scrollTop = node.scrollHeight
+    dispatch(referenceToConversationBody(node))
   }
   componentDidUpdate() {
-    var node = ReactDOM.findDOMNode(this)
+    let node = ReactDOM.findDOMNode(this)
     node.scrollTop = 300
   }
   loadMoreHistory () {
@@ -70,8 +72,10 @@ class Messages extends Component {
     return (
       <div className="conversation-body">
         {this.renderWaypoint()}
+        {!this.state.isInfiniteLoading ? <div style={{alignText: "center"}}>Loading...</div>: null}
         {/* <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/> */}
-        <ChatMessages className="chat-messages-wrapper" messages={this.state.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}/>
+        <ChatMessages className="chat-messages-wrapper" messages={this.state.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
+        currentChannelType={this.props.currentChannelType}/>
       </div>
     )
   }
@@ -80,12 +84,13 @@ class Messages extends Component {
 function mapStateToProps(state) {
   return {
     activeConversation: state.conversations.activeConversation,
-    activeChannel: state.channels.channels.all.find(a => a.id === state.conversations.channelid),
+    currentChannelType: state.channels.isGroupChat,
     messages: state.messages.messages,
     user: state.user,
     guest: state.guest,
     widgetConfig: state.widget.initialConfig,
-    scrollIndex: state.environment.scrollIndex
+    scrollIndex: state.environment.scrollIndex,
+    scrollToBottom: state.environment.scrollToBottom
   }
 }
 

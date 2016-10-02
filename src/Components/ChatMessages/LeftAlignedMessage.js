@@ -6,9 +6,9 @@ import { MdCheckCircle } from 'react-icons/lib/md'
 
 export class LeftAlignedMessage extends React.Component {
   computeMessageBubbleColor() {
-      const backgroundColor = "#eeeff0"
-      const borderColor = "transparent transparent transparent #f7a444"
-      const color = "#000000"
+    const backgroundColor = "#eeeff0"
+    const borderColor = "transparent transparent transparent #f7a444"
+    const color = "#000000"
     return {
       backgroundColor: backgroundColor, //bubble color
       borderColor: borderColor, //bubble-arrow color

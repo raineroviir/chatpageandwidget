@@ -7,7 +7,7 @@ import { createMessage } from '../actions/messages'
 import { ChatTextBox } from '../Components/ChatTextBox';
 class CreateMessage extends Component {
   createMessage(message) {
-    const { dispatch, actions, conversationid, token, channelid } = this.props
+    const { dispatch, actions, conversationid, token, channelid, referenceToConversationBody } = this.props
     console.log(channelid, token)
     console.log(conversationid)
     if (!conversationid) {
@@ -17,6 +17,7 @@ class CreateMessage extends Component {
     } else {
       dispatch(createMessage(message, conversationid, token, channelid))
     }
+    referenceToConversationBody.scrollTop = referenceToConversationBody.scrollHeight
   }
   render() {
     return (
@@ -33,7 +34,8 @@ function mapStateToProps(state) {
     token: state.guest.token,
     channelid: state.channels.activeChannelId,
     conversationid: state.conversations.activeConversation,
-    keyColor: state.widget.initialConfig.keyColor
+    keyColor: state.widget.initialConfig.keyColor,
+    referenceToConversationBody: state.environment.referenceToConversationBody
   }
 }
 

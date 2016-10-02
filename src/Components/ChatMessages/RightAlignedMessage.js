@@ -21,7 +21,7 @@ export class RightAlignedMessage extends React.Component {
     return (
       <div className={classNames("received-message fade-in, right-aligned-message")}>
         {checkForSameUser ? <div style={{alignSelf: "flex-end", padding: "0 56px 0 0"}}>
-          {"You"}
+          You
         </div> : <div style={{padding: "4px 0 0 0"}}></div>}
         <div style={{flexDirection: "row"}} className="chat-message">
           <div style={this.computeMessageBubbleColor()} className={classNames("message-bubble", checkForSameUser ? "bubble-arrow-right" : "")}>

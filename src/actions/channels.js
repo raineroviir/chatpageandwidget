@@ -36,6 +36,20 @@ export function fetchSocket (token) {
   }
 }
 
+export function fetchChannelInfo(token, channel_id) {
+  console.log(token, channel_id)
+  return dispatch => {
+    return fetch( Config.api + `/channels.info?channel_id=${channel_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    }).then(response => response.json())
+    .then(channelInfo => dispatch({type: "RECEIVE_CHANNEL_INFO", channelInfo}))
+  }
+}
+
 function getSocketURL (token) {
   if ((typeof(Storage) === "undefined" || (!localStorage.getItem("token") && !localStorage.getItem("guest"))) && !token ) return null;
   if(!token) { token = JSON.parse(localStorage.getItem("token") || localStorage.getItem("guest")) }
