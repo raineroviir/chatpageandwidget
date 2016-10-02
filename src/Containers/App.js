@@ -9,6 +9,7 @@ import { getWidget } from '../actions/widget'
 import { initEnvironment } from '../actions/environment'
 import { checkForConversation } from '../actions/conversations'
 import { createWidgetChannel, fetchChannelInfo} from '../actions/channels'
+import {loadServerMsgs} from '../actions/messages'
 
 class App extends React.Component {
   constructor() {
@@ -18,7 +19,7 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    const { dispatch, channel_url, height, width } = this.props
+    const { dispatch, channel_url, serverMessages } = this.props
     // setting some dummy data here for now while we get the actual data flow set up
     const data = {email: "placeholder"}
     const channel_id = 338;
@@ -29,6 +30,7 @@ class App extends React.Component {
       dispatch(getWidget(channel_id, channel_url, token))
       dispatch(fetchChannelInfo(token, channel_id))
       dispatch(checkForConversation(channel_id, token))
+      dispatch(loadServerMsgs(serverMessages.slice(-20)))
     })
     dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
   }
@@ -49,7 +51,8 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    keyColor: state.widget.initialConfig.keyColor
+    keyColor: state.widget.initialConfig.keyColor,
+    serverMessages: state.messages.serverMessages
   }
 }
 

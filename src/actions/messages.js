@@ -7,6 +7,12 @@ import { setOrGetGuestToken } from './user'
 import { getConversationHistory, setGuestConvid } from './channels'
 var _ = require("lodash");
 
+export function scrollComplete() {
+  return {
+    type: "SCROLL_COMPLETE_FOR_NEW_MESSAGE"
+  }
+}
+
 export function createMessage(message, conversationid, token, channelid) {
   return dispatch => {
     // if (!token) {

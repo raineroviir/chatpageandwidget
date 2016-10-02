@@ -13,6 +13,7 @@ const mockedInitialState = {
   channelError: false,
   memoized: {},
   messages: [],
+  userCreatedNewMessage: false,
   serverMessages:  [
 {
   conversation_id:297,
@@ -1019,6 +1020,7 @@ export function messages(state = mockedInitialState, action) {
   case 'ADD_MESSAGE':
     return {
       ...state,
+      userCreatedNewMessage: true,
       messages: state.messages.concat(action.message),
       memoized: Object.assign({}, state.memoized, { [action.message.conversationid]: action.message })
     };
@@ -1056,6 +1058,9 @@ export function messages(state = mockedInitialState, action) {
     return initialState;
   case 'PREPARE_TO_CREATE_NEW_CONVERSATION':
     return initialState;
+
+  case 'SCROLL_COMPLETE_FOR_NEW_MESSAGE':
+    return {...state, userCreatedNewMessage: false}
   default:
     return state;
   }

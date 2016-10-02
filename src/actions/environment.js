@@ -26,6 +26,17 @@ export function changeScrollIndex(scrollIndex) {
   }
 }
 
+export function infiniteLoading() {
+  return {
+    type: "INFINITE_LOADING"
+  }
+}
+
+export function infiniteLoadingDone() {
+  return {
+    type: "INFINITE_LOADING_DONE"
+  }
+}
 export function scrollToBottom(reason) {
   return {
     type: "SCROLL_TO_BOTTOM",

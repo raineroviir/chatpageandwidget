@@ -3,8 +3,9 @@ const initialState = {
   height: null,
   width: null,
   widgetHeight: "100%",
-  scrollIndex: 10,
-  referenceToConversationBody: ""
+  scrollIndex: -20,
+  referenceToConversationBody: "",
+  isInfiniteLoading: false
 };
 
 export function environment(state = initialState, action) {
@@ -33,5 +34,12 @@ export function environment(state = initialState, action) {
       return {...state, referenceToConversationBody: action.ref}
     default:
       return state;
+
+    case "INFINITE_LOADING":
+      return {...state, isInfiniteLoading: true
+      }
+
+    case "INFINITE_LOADING_DONE":
+      return {...state, isInfiniteLoading: false}
   }
 }
