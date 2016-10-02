@@ -32,6 +32,12 @@ export function infiniteLoading() {
   }
 }
 
+export function saveTotalHeightOfHistoryMessages(ref) {
+  return {
+    type: "SAVE_TOTAL_HEIGHT_OF_HISTORY_MSGS",
+    ref
+  }
+}
 export function infiniteLoadingDone() {
   return {
     type: "INFINITE_LOADING_DONE"

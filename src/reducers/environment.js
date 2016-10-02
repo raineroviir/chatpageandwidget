@@ -5,7 +5,8 @@ const initialState = {
   widgetHeight: "100%",
   scrollIndex: -20,
   referenceToConversationBody: "",
-  isInfiniteLoading: false
+  isInfiniteLoading: false,
+  totalHeightOfHistoryMessages: ""
 };
 
 export function environment(state = initialState, action) {
@@ -32,8 +33,6 @@ export function environment(state = initialState, action) {
 
     case "RECEIVE_REF_TO_CONVERSATION_BODY":
       return {...state, referenceToConversationBody: action.ref}
-    default:
-      return state;
 
     case "INFINITE_LOADING":
       return {...state, isInfiniteLoading: true
@@ -41,5 +40,12 @@ export function environment(state = initialState, action) {
 
     case "INFINITE_LOADING_DONE":
       return {...state, isInfiniteLoading: false}
+
+    case "SAVE_TOTAL_HEIGHT_OF_HISTORY_MSGS":
+      return {...state, totalHeightOfHistoryMessages: action.ref}
+    default:
+      return state;
+
   }
+
 }

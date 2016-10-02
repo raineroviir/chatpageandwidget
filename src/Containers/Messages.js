@@ -34,34 +34,15 @@ class Messages extends Component {
     // dispatch(referenceToConversationBody(node))
     node.scrollTop = node.scrollHeight
   }
-  componentWillUpdate(nextProps) {
-    let node = ReactDOM.findDOMNode(this)
-    console.log(nextProps)
-    if(nextProps.isInfiniteLoading) {
-
-
-      node.scrollTop = 300
-    }
-  }
   componentDidUpdate(prevProps) {
-    const { messages, guest, user, height, width, dispatch, userCreatedNewMessage} = this.props
-    let node = ReactDOM.findDOMNode(this)
-    // console.log(node.children[2].children[1].offsetParent)
-    // console.log(node.children[2].children[1].offsetHeight)
-    // console.log(node.children[2].children[1].scrollHeight)
+    const { messages, guest, user, height, width, dispatch, userCreatedNewMessage, totalHeightOfHistoryMessages}  = this.props
+    const node = ReactDOM.findDOMNode(this)
     if (this.props.userCreatedNewMessage) {
       node.scrollTop = node.scrollHeight
       dispatch(scrollComplete())
     }
-    // if((messages[messages.length - 1].user_id === guest.data.id || user.data.id) && !this.props.isInfiniteLoading) {
-    //   console.log(this.props.isInfiniteLoading)
-    //   console.log(messages[messages.length - 1].user_id,guest.data.id,user.data.id)
-    //   node.scrollTop = node.scrollHeight
-    //   return
-    // }
     if(this.props.isInfiniteLoading) {
-      // node.scrollTop = 300  //this number needs to be adjusted to reflect accurately the avg height of 10 new message elements, also based on container width and height
-      node.scrollTop = 300
+      node.scrollTop = totalHeightOfHistoryMessages
       dispatch(infiniteLoadingDone())
     }
   }
@@ -98,6 +79,7 @@ class Messages extends Component {
         <Waypoint
         bottomOffset="40px"
         onEnter={({previousPosition, currentPosition, event}) => {
+          console.log(previousPosition, currentPosition)
           if (event) {
             return this.loadMoreHistory()
           }
@@ -109,13 +91,13 @@ class Messages extends Component {
     }
   }
   render() {
-    console.log(this.props.messages)
     return (
       <div className="conversation-body">
         {this.renderWaypoint()}
-        {!this.props.isInfiniteLoading ? <div style={{alignText: "center"}}>Loading...</div>: null}
+        {this.props.isInfiniteLoading ? <div style={{alignText: "center"}}>Loading...</div>: null}
         {/* <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/> */}
-        <ChatMessages className="chat-messages-wrapper" messages={this.props.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
+        <ChatMessages
+        dispatch={this.props.dispatch} className="chat-messages-wrapper" messages={this.props.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
         currentChannelType={this.props.currentChannelType}/>
       </div>
     )
@@ -136,7 +118,8 @@ function mapStateToProps(state) {
     height: state.environment.height,
     width: state.environment.width,
     isInfiniteLoading: state.environment.isInfiniteLoading,
-    userCreatedNewMessage: state.messages.userCreatedNewMessage
+    userCreatedNewMessage: state.messages.userCreatedNewMessage,
+    totalHeightOfHistoryMessages: state.environment.totalHeightOfHistoryMessages
   }
 }
 
