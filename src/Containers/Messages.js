@@ -22,10 +22,11 @@ class Messages extends Component {
     this.loadMoreHistory = this.loadMoreHistory.bind(this)
   }
   componentDidMount() {
+    const { userScrollPosition } = this.props
     if (this.props.messages.length === 0) {
       this.loadInitialHistory()
     } else {
-      this.scrollToBottom()
+      userScrollPosition ? node.scrollTop = userScrollPosition : this.scrollToBottom()
     }
   }
   loadInitialHistory() {
@@ -63,14 +64,14 @@ class Messages extends Component {
     const more = serverMessages.slice(scrollIndex + 1, nextIndex)
     console.log(more)
     if (more.length === 0) {
-      return;
+      return
     } else {
       dispatch(changeScrollIndex(nextIndex))
       dispatch(infiniteLoading())
       return new Promise((resolve, reject) => {
       dispatch(loadServerMsgs(more))
-      resolve();
-      });
+      resolve()
+      })
     }
   }
   renderWaypoint() {
@@ -119,7 +120,8 @@ function mapStateToProps(state) {
     width: state.environment.width,
     isInfiniteLoading: state.environment.isInfiniteLoading,
     userCreatedNewMessage: state.messages.userCreatedNewMessage,
-    totalHeightOfHistoryMessages: state.environment.totalHeightOfHistoryMessages
+    totalHeightOfHistoryMessages: state.environment.totalHeightOfHistoryMessages,
+    userScrollPosition: state.environment.userScrollPosition
   }
 }
 

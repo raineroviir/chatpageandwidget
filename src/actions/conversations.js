@@ -86,7 +86,7 @@ export function getConversationHistory(conversationid, token) {
   console.log(conversationid, token)
   return dispatch => {
     /* Trigger API service to retrieve latest conversation history */
-    return fetch( Config.api + `/conversations.history?conversation_id=${conversationid}`, {
+    return fetch( Config.api + `/conversations.history?conversation_id=${conversationid}&page=1&per_page=100`, {
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
@@ -133,6 +133,8 @@ export function createConversation(channel_id, token) {
 }
 
 export function checkForConversation(channel_id, token) {
+  //look through conversation and find based on channel_id
+  //[channel-id]: conversation
   const conversation = JSON.parse(localStorage.getItem("guestConversation"))
   return dispatch => {
     console.log(conversation)

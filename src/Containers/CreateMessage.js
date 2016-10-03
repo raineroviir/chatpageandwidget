@@ -10,16 +10,7 @@ class CreateMessage extends Component {
     const { dispatch, actions, conversationid, token, channelid, referenceToConversationBody } = this.props
     console.log(channelid, token)
     console.log(conversationid)
-    // if (!conversationid) {
-    //   return dispatch(createConversation(channelid, token)).then((conversation) => {
-    //     return dispatch(createMessage(message, conversation.id, token, channelid))
-    //   })
-    // } else {
-      dispatch(createMessage(message, conversationid, token, channelid))
-    // }
-    // console.log(referenceToConversationBody.scrollHeight)
-    // console.log(referenceToConversationBody.scrollTop)
-    // referenceToConversationBody.scrollTop = referenceToConversationBody.scrollHeight
+    dispatch(createMessage(message, conversationid, token, channelid))
   }
   render() {
     return (

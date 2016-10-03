@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { styles } from './styles.scss'
 import { initUser, fetchUserInfo } from '../actions/user'
 import { getWidget } from '../actions/widget'
-import { initEnvironment } from '../actions/environment'
+import { initEnvironment, storeUserScrollPosition } from '../actions/environment'
 import { checkForConversation } from '../actions/conversations'
 import { createWidgetChannel, fetchChannelInfo} from '../actions/channels'
 import {loadServerMsgs} from '../actions/messages'
@@ -28,14 +28,18 @@ class App extends React.Component {
     .then((token) => {
       token = token.access_token
       dispatch(getWidget(channel_id, channel_url, token))
-      dispatch(fetchChannelInfo(token, channel_id))
-      dispatch(checkForConversation(channel_id, token))
-      // dispatch(loadServerMsgs(serverMessages.slice(-20)))
+      dispatch(fetchChannelInfo(token, channel_id)) //channel_url
+      dispatch(checkForConversation(channel_id, token)) //channel_url
     })
     dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
   }
   onToggle() {
+    const { dispatch } = this.props
     this.setState({ show: !this.state.show });
+    const node = ReactDOM.findDOMNode(this)
+    console.log(node.scrollTop)
+    const userScrollPosition = node.scrollTop
+    dispatch(storeUserScrollPosition(userScrollPosition))
   }
   render() {
     return (

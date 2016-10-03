@@ -7,7 +7,8 @@ const initialState = {
   channelid: null,
   socket: '',
   preparingToCreateConversation: false,
-  activeConversation: null
+  activeConversation: null,
+  userScrollPosition: 0
 };
 
 export function conversations(state = initialState, action) {
@@ -60,6 +61,8 @@ export function conversations(state = initialState, action) {
     return {...state, activeConversation: null, preparingToCreateConversation: false}
   case 'SET_ACTIVE_CONVERSATION':
     return {...state, activeConversation: action.conversationid}
+  case 'STORE_USER_SCROLL_POSITION':
+    return {...state, userScrollPosition: action.userScrollPosition}
   default:
     return state;
   }

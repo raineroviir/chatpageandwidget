@@ -62,6 +62,14 @@ export function scrollComplete() {
     type: "SCROLL_TO_BOTTOM_FINISHED"
   }
 }
+
+export function storeUserScrollPosition(userScrollPosition) {
+  return {
+    type: "STORE_USER_SCROLL_POSITION",
+    userScrollPosition
+  }
+}
+
 export function initEnvironment() {
   return dispatch => {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);

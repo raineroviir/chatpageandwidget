@@ -6,7 +6,8 @@ const initialState = {
   scrollIndex: 0,
   referenceToConversationBody: "",
   isInfiniteLoading: false,
-  totalHeightOfHistoryMessages: ""
+  totalHeightOfHistoryMessages: "",
+  userScrollPosition: 0
 };
 
 export function environment(state = initialState, action) {
@@ -43,6 +44,8 @@ export function environment(state = initialState, action) {
 
     case "SAVE_TOTAL_HEIGHT_OF_HISTORY_MSGS":
       return {...state, totalHeightOfHistoryMessages: action.ref}
+    case "STORE_USER_SCROLL_POSITION":
+      return {...state, userScrollPosition: action.userScrollPosition}
     default:
       return state;
 
