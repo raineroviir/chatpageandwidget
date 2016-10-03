@@ -7,6 +7,7 @@ import Footer from './Footer'
 import Header from './Header'
 import {styles} from './styles.scss'
 
+
 class ChatWidget extends React.Component {
   backToConversationSummaryView() {
     const { dispatch } = this.props
