@@ -5,7 +5,7 @@ import rootReducer from '../reducers';
 
 const logger = createLogger({
   predicate: (getState, action) => {
-    return action.type !== "CHANGE_WIDTH_AND_HEIGHT"
+    return action.type !== ["CHANGE_WIDTH_AND_HEIGHT", "SAVE_TOTAL_HEIGHT_OF_HISTORY_MSGS"]
   },
   collapsed: (getState, action) => {
     return action

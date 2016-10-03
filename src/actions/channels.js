@@ -37,7 +37,6 @@ export function fetchSocket (token) {
 }
 
 export function fetchChannelInfo(token, channel_id) {
-  console.log(token, channel_id)
   return dispatch => {
     return fetch( Config.api + `/channels.info?channel_id=${channel_id}`, {
       method: 'GET',

@@ -13,7 +13,7 @@ export function scrollComplete() {
   }
 }
 
-export function createMessage(message, conversationid, token, channelid) {
+export function createMessage(message, conversationid, token, channelid, attachment) {
   return dispatch => {
     // if (!token) {
     //   const token = JSON.parse(localStorage.getItem("guest"))
@@ -22,7 +22,7 @@ export function createMessage(message, conversationid, token, channelid) {
     //   const channelid = JSON.parse(localStorage.getItem("channel")).id
     // }
     //
-  return postMessage(message, conversationid, token, channelid).then(response => response.json()).then(json => {
+  return postMessage(message, conversationid, token, channelid, attachment).then(response => response.json()).then(json => {
     dispatch(processAddMessage(json, conversationid || json.message.conversation_id))
     // dispatch(getConversationHistory(conversationid, token))
     // dispatch(setGuestConvid(conversationid));
@@ -38,7 +38,7 @@ export function createMessage(message, conversationid, token, channelid) {
  * @param  {[Number]} channelid      [description]
  * @return {[Promise]}                [description]
  */
-function postMessage(message, conversationid, token, channelid) {
+function postMessage(message, conversationid, token, channelid, attachment) {
   return fetch( Config.api + '/messages.postMessage', {
     method: 'POST',
     headers:{
@@ -48,7 +48,8 @@ function postMessage(message, conversationid, token, channelid) {
     body: JSON.stringify({
       text: message,
       conversation_id: conversationid,
-      channel_id: channelid
+      channel_id: channelid,
+      attachment: attachment
     })
   })
 }
@@ -77,7 +78,15 @@ function processAddMessage(response, conversationid) {
   }
 }
 
-function botReplyForFirstMessage(conversationid, token, channelid) {
-  let botMsg = "We normally answer within 60 minutes or less.  Please leave your question here and someone will be with you shortly.  Let us notify you via email"
-  dispatch(createMessage(botMsg, conversationid, token, channelid))
+export function botReplyForFirstMessage(conversationid, token, channelid) {
+  return dispatch => {
+    const firstBotMsg = "We normally answer within 60 minutes or less.  Please leave your question here and someone will be with you shortly."
+    const secondBotMsg = "Let us notify you via email"
+    const thirdBotMsg = "Enter your email"
+    const attachment = "inputBox"
+    dispatch(createMessage(firstBotMsg, conversationid, token, channelid))
+    dispatch(createMessage(secondBotMsg, conversationid, token, channelid))
+    dispatch(createMessage(thirdBotMsg, conversationid, token, channelid, attachment))
+    dispatch({type: "BOT_RESPONSE"})
+  }
 }

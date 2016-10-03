@@ -13,7 +13,7 @@ import {MessageListItem} from '../Components/ChatMessages/MessageListItem'
 import Waypoint from 'react-waypoint'
 import _ from 'lodash'
 import { referenceToConversationBody, infiniteLoading, infiniteLoadingDone } from '../actions/environment'
-import {loadServerMsgs, scrollComplete} from '../actions/messages'
+import {loadServerMsgs, scrollComplete, botReplyForFirstMessage} from '../actions/messages'
 
 class Messages extends Component {
   constructor(props) {
@@ -30,9 +30,9 @@ class Messages extends Component {
     }
   }
   loadInitialHistory() {
-    const { activeConversation, guest, user, dispatch, serverMessages, scrollIndex} = this.props
-    const token = guest.token || user.token
-    dispatch(getConversationHistory(activeConversation, token)).then(json => {
+    const { conversationid, guest, user, dispatch, serverMessages, scrollIndex} = this.props
+    const { token } = guest || user
+    dispatch(getConversationHistory(conversationid, token)).then(json => {
       const { messages } = json
       const visibleMessages = messages.slice(scrollIndex, scrollIndex + 20)
       console.log(visibleMessages)
@@ -42,7 +42,7 @@ class Messages extends Component {
     })
   }
   componentDidUpdate(prevProps) {
-    const { dispatch, totalHeightOfHistoryMessages, isInfiniteLoading, userCreatedNewMessage, messages }  = this.props
+    const { dispatch, totalHeightOfHistoryMessages, isInfiniteLoading, userCreatedNewMessage, messages, botResponse }  = this.props
     const node = ReactDOM.findDOMNode(this)
     if (userCreatedNewMessage) {
       this.scrollToBottom()
@@ -52,13 +52,14 @@ class Messages extends Component {
       node.scrollTop = totalHeightOfHistoryMessages
       dispatch(infiniteLoadingDone())
     }
-    if (prevProps.messages.length < messages.length) {
-      this.botResponse()
-    }
+    // if (prevProps.messages.length < messages.length && !botResponse) {
+    //   this.botResponse()
+    // }
   }
   botResponse() {
-    const { dispatch } = this.props
-    dispatch()
+    const { dispatch, conversationid, channelid, guest, user } = this.props
+    const { token } = guest || user
+    dispatch(botReplyForFirstMessage(conversationid, token, channelid))
   }
   scrollToBottom() {
     console.log('Action: SCROLLED TO BOTTOM')
@@ -114,7 +115,8 @@ class Messages extends Component {
 
 function mapStateToProps(state) {
   return {
-    activeConversation: state.conversations.activeConversation,
+    channelid: state.channels.activeChannelId,
+    conversationid: state.conversations.activeConversation,
     currentChannelType: state.channels.isGroupChat,
     messages: state.messages.messages,
     serverMessages: state.messages.serverMessages,
@@ -128,7 +130,8 @@ function mapStateToProps(state) {
     isInfiniteLoading: state.environment.isInfiniteLoading,
     userCreatedNewMessage: state.messages.userCreatedNewMessage,
     totalHeightOfHistoryMessages: state.environment.totalHeightOfHistoryMessages,
-    userScrollPosition: state.environment.userScrollPosition
+    userScrollPosition: state.environment.userScrollPosition,
+    botResponse: state.conversations.botResponse
   }
 }
 

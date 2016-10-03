@@ -8,7 +8,8 @@ const initialState = {
   socket: '',
   preparingToCreateConversation: false,
   activeConversation: null,
-  userScrollPosition: 0
+  userScrollPosition: 0,
+  botResponse: false
 };
 
 export function conversations(state = initialState, action) {
@@ -63,6 +64,8 @@ export function conversations(state = initialState, action) {
     return {...state, activeConversation: action.conversationid}
   case 'STORE_USER_SCROLL_POSITION':
     return {...state, userScrollPosition: action.userScrollPosition}
+  case 'BOT_RESPONSE':
+    return {...state, botResponse: true}
   default:
     return state;
   }
