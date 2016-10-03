@@ -57,8 +57,8 @@ export function initUser(data) {
               dispatch(fetchUserInfo(token))
               dispatch({type: 'TOKEN_SET', token})
               dispatch(fetchSocket(token))
+              return token
             }
-            return token
           },
             error => {
               dispatch({type: 'FETCH_TOKEN_ERROR', error})

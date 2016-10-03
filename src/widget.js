@@ -7,8 +7,8 @@ import App from './Containers/App'
 
 const preloadedState = window.__PRELOADED_STATE__
 const store = configureStore(preloadedState)
-const rootElement = document.getElementById('chat-center-widget')
-const channel_url = rootElement.getAttribute('chat-channel-url')
+const rootElement = document.getElementById('chatcenter-widget')
+const channel_url = rootElement.getAttribute('channel-url')
 
 render(
   <Provider store={store}>

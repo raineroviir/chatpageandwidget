@@ -26,6 +26,7 @@ class App extends React.Component {
     dispatch(initEnvironment())
     dispatch(initUser(data))
     .then((token) => {
+      console.log(token)
       token = token.access_token
       dispatch(getWidget(channel_id, channel_url, token))
       dispatch(fetchChannelInfo(token, channel_id)) //channel_url

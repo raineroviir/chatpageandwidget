@@ -5,10 +5,10 @@ import rootReducer from '../reducers';
 
 const logger = createLogger({
   predicate: (getState, action) => {
-    return (process.env.NODE_ENV !== `production` && (action.type !== "CHANGE_WIDTH_AND_HEIGHT" || "CHANGE_IS_MOBILE"))
+    return action.type !== "CHANGE_WIDTH_AND_HEIGHT"
   },
   collapsed: (getState, action) => {
-    return action.type === "INITIALIZED_SOCKET" || "RECEIVED_GUEST_INFO" || "FETCHING_WIDGET_BY_CHANNEL_ID" || "INIT_WIDGET_CONFIG_INITIAL_STATE"
+    return action
   }
 });
 
