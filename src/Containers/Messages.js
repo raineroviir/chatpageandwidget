@@ -20,25 +20,31 @@ class Messages extends Component {
     super(props)
     this.renderWaypoint = this.renderWaypoint.bind(this)
     this.loadMoreHistory = this.loadMoreHistory.bind(this)
-    this.state = {
-      isInfiniteLoading: false,
-      currentScrollHeight: null
-    }
   }
   componentDidMount() {
-    const { dispatch, token, activeConversation, serverMessages } = this.props
-    let node = ReactDOM.findDOMNode(this)
-    this.setState({
-      currentScrollHeight: ReactDOM.findDOMNode(this).scrollHeight
+    if (this.props.messages.length === 0) {
+      this.loadInitialHistory()
+    } else {
+      this.scrollToBottom()
+    }
+  }
+  loadInitialHistory() {
+    const { activeConversation, guest, user, dispatch, serverMessages, scrollIndex} = this.props
+    const token = guest.token || user.token
+    dispatch(getConversationHistory(activeConversation, token)).then(json => {
+      const { messages } = json
+      const visibleMessages = messages.slice(scrollIndex, scrollIndex + 20)
+      console.log(visibleMessages)
+      dispatch(changeScrollIndex(visibleMessages.length))
+      dispatch(loadServerMsgs(visibleMessages))
+      this.scrollToBottom()
     })
-    // dispatch(referenceToConversationBody(node))
-    node.scrollTop = node.scrollHeight
   }
   componentDidUpdate(prevProps) {
-    const { messages, guest, user, height, width, dispatch, userCreatedNewMessage, totalHeightOfHistoryMessages}  = this.props
+    const { dispatch, totalHeightOfHistoryMessages }  = this.props
     const node = ReactDOM.findDOMNode(this)
     if (this.props.userCreatedNewMessage) {
-      node.scrollTop = node.scrollHeight
+      this.scrollToBottom()
       dispatch(scrollComplete())
     }
     if(this.props.isInfiniteLoading) {
@@ -46,30 +52,24 @@ class Messages extends Component {
       dispatch(infiniteLoadingDone())
     }
   }
+  scrollToBottom() {
+    console.log('Action: SCROLLED TO BOTTOM')
+    const node = ReactDOM.findDOMNode(this)
+    node.scrollTop = node.scrollHeight
+  }
   loadMoreHistory () {
-    const { dispatch, serverMessages, messages, conversationid, token, scrollIndex } = this.props
-    let node = ReactDOM.findDOMNode(this)
-    console.log(node.scrollTop)
-    const nextIndex = scrollIndex - 10
-    const more = serverMessages.slice(nextIndex, scrollIndex)
-    dispatch(changeScrollIndex(nextIndex))
+    const { dispatch, serverMessages, messages, conversationid, scrollIndex } = this.props
+    const nextIndex = scrollIndex + 10
+    const more = serverMessages.slice(scrollIndex + 1, nextIndex)
+    console.log(more)
     if (more.length === 0) {
       return;
     } else {
-    // this.setState({isInfiniteLoading: true})
-    dispatch(infiniteLoading())
-    return new Promise((resolve, reject) => {
-      // dispatch(getConversationHistory(conversationid,token))
-      // let node = ReactDOM.findDOMNode(this)
-      // console.log(node.scrollTop)
-      // node.scrollTop = 300
-        // this.setState({
-        //   isInfiniteLoading: false,
-        //   // messages: more.concat(this.state.messages),
-        // });
-        dispatch(loadServerMsgs(more))
-
-        resolve();
+      dispatch(changeScrollIndex(nextIndex))
+      dispatch(infiniteLoading())
+      return new Promise((resolve, reject) => {
+      dispatch(loadServerMsgs(more))
+      resolve();
       });
     }
   }

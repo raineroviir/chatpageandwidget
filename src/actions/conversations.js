@@ -83,13 +83,14 @@ export function getConversations(channel_id, token) {
 }
 
 export function getConversationHistory(conversationid, token) {
+  console.log(conversationid, token)
   return dispatch => {
     /* Trigger API service to retrieve latest conversation history */
-    return fetch( Config.api + '/conversations.history?conversation_id=' + conversationid, {
+    return fetch( Config.api + `/conversations.history?conversation_id=${conversationid}`, {
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token.access_token || token,
+        'Authorization': `Bearer ${token}`
       }
     }).then(response => response.json())
       .then(json => {
@@ -99,7 +100,11 @@ export function getConversationHistory(conversationid, token) {
           type: 'SET_CONVERSATION_CHANNEL_MEMOIZED',
           posts: { conversationid},
           receivedAt: Date.now()
-        });
+        })
+        return json
+      }, error => {
+        dispatch({type: 'FETCH_CONVERSATION_HISTORY_ERROR', error})
+        throw error
       })
   }
 }
@@ -134,7 +139,8 @@ export function checkForConversation(channel_id, token) {
     if (!conversation) {
       dispatch(createConversation(channel_id, token))
     } else {
-      dispatch(setActiveConversation(conversation))
+      const { conversation_id } = conversation
+      dispatch(setActiveConversation(conversation_id))
     }
   }
 }

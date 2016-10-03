@@ -12,12 +12,14 @@ export class ChatMessages extends Component {
   componentDidUpdate() {
     const { dispatch } = this.props
     const node = ReactDOM.findDOMNode(this)
-    console.log(node.children[0])
-    let totalHeight = 0;
-    for (let i = 0; i < 10; i++) {
-      totalHeight += node.children[i].offsetHeight
+    if (node.children.length) {
+      console.log(node.children[0])
+      let totalHeight = 0;
+      for (let i = 0; i < (node.children.length < 10 ? node.children.length : 10); i++) {
+        totalHeight += node.children[i].offsetHeight
+      }
+      dispatch(saveTotalHeightOfHistoryMessages(totalHeight))
     }
-    dispatch(saveTotalHeightOfHistoryMessages(totalHeight))
   }
   render() {
     const { messages, user, guest, widgetConfig, currentChannelType } = this.props

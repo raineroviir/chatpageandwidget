@@ -30,7 +30,7 @@ class App extends React.Component {
       dispatch(getWidget(channel_id, channel_url, token))
       dispatch(fetchChannelInfo(token, channel_id))
       dispatch(checkForConversation(channel_id, token))
-      dispatch(loadServerMsgs(serverMessages.slice(-20)))
+      // dispatch(loadServerMsgs(serverMessages.slice(-20)))
     })
     dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
   }

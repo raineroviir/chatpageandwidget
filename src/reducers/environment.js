@@ -3,7 +3,7 @@ const initialState = {
   height: null,
   width: null,
   widgetHeight: "100%",
-  scrollIndex: -20,
+  scrollIndex: 0,
   referenceToConversationBody: "",
   isInfiniteLoading: false,
   totalHeightOfHistoryMessages: ""
