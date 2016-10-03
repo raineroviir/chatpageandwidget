@@ -77,7 +77,7 @@ function processAddMessage(response, conversationid) {
   }
 }
 
-function botReplyForFirstMessage(conversationid) {
+function botReplyForFirstMessage(conversationid, token, channelid) {
   let botMsg = "We normally answer within 60 minutes or less.  Please leave your question here and someone will be with you shortly.  Let us notify you via email"
-  dispatch(createMessage(botMsg, conversationid))
+  dispatch(createMessage(botMsg, conversationid, token, channelid))
 }

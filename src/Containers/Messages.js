@@ -42,16 +42,23 @@ class Messages extends Component {
     })
   }
   componentDidUpdate(prevProps) {
-    const { dispatch, totalHeightOfHistoryMessages }  = this.props
+    const { dispatch, totalHeightOfHistoryMessages, isInfiniteLoading, userCreatedNewMessage, messages }  = this.props
     const node = ReactDOM.findDOMNode(this)
-    if (this.props.userCreatedNewMessage) {
+    if (userCreatedNewMessage) {
       this.scrollToBottom()
       dispatch(scrollComplete())
     }
-    if(this.props.isInfiniteLoading) {
+    if (isInfiniteLoading) {
       node.scrollTop = totalHeightOfHistoryMessages
       dispatch(infiniteLoadingDone())
     }
+    if (prevProps.messages.length < messages.length) {
+      this.botResponse()
+    }
+  }
+  botResponse() {
+    const { dispatch } = this.props
+    dispatch()
   }
   scrollToBottom() {
     console.log('Action: SCROLLED TO BOTTOM')
