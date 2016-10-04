@@ -21,9 +21,9 @@ export default class Header extends Component {
             Enter email for notifications
           </div>
           <div className="menu-item">Sign in with chat.center</div>
-          <div className="menu-item">Don't have an account?
-            <div style={{color: "inherit"}}>Sign up</div>
+          <div style={{color: "#000000"}} className="menu-item">Don't have an account?
           </div>
+          <div style={{textAlign: "left", padding: "3px 0 0 10px"}}>Sign up</div>
         </div>
       )
     return (
@@ -36,7 +36,7 @@ export default class Header extends Component {
             {this.state.showMenu && menu}
           </div>
           <div style={{display: "flex"}}>
-            <div onClick={this.menuToggle.bind(this)} style={{backgroundImage: `url(${signInAvatar})`, backgroundRepeat: "no-repeat"}} className="avatar">
+            <div onClick={this.menuToggle.bind(this)} style={{cursor: "pointer", backgroundImage: `url(${signInAvatar})`, backgroundRepeat: "no-repeat"}} className="avatar">
           </div>
         </div>
         </div>

@@ -40,6 +40,13 @@ export function messages(state = initialState, action) {
       messages: state.messages.concat(action.message),
       memoized: Object.assign({}, state.memoized, { [action.message.conversationid]: action.message })
     };
+  case 'ADD_LOCAL_MESSAGE':
+    return {
+      ...state,
+      userCreatedNewMessage: true,
+      messages: state.messages.concat(action.message),
+      memoized: Object.assign({}, state.memoized, { [action.message.conversationid]: action.message })
+    }
   case 'MESSAGE_STREAM':
     if(!action.posts.message.payload || !action.posts.message.payload.conversation_id || action.posts.message.payload.conversation_id != state.conversationid || state.messages.find(a => a.id == action.posts.message.payload.id)){
       return state;

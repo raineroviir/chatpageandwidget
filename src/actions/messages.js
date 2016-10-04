@@ -15,17 +15,13 @@ export function scrollComplete() {
 
 export function createMessage(message, conversationid, token, channelid, attachment) {
   return dispatch => {
-    // if (!token) {
-    //   const token = JSON.parse(localStorage.getItem("guest"))
-    // }
-    // if (!channelid) {
-    //   const channelid = JSON.parse(localStorage.getItem("channel")).id
-    // }
-    //
-  return postMessage(message, conversationid, token, channelid, attachment).then(response => response.json()).then(json => {
-    dispatch(processAddMessage(json, conversationid || json.message.conversation_id))
-    // dispatch(getConversationHistory(conversationid, token))
-    // dispatch(setGuestConvid(conversationid));
+
+  dispatch(addMessage(message))
+  const messageText = message.text
+  return postMessage(messageText, conversationid, token, channelid, attachment).then(response => response.json())
+  .then(json => {
+    dispatch({type: "MSG_SAVED_TO_SERVER", json})
+    // dispatch(processAddMessage(json, conversationid || json.message.conversation_id))
   })
   }
 }
@@ -60,6 +56,15 @@ export function loadServerMsgs(messages) {
     messages
   }
 }
+
+function addMessage(message) {
+  return {
+    type: "ADD_LOCAL_MESSAGE",
+    message: message,
+    receivedAt: Date.now()
+  }
+}
+
 function processAddMessage(response, conversationid) {
   if(conversationid && typeof Storage !== "undefined"){
     var guestMessages = JSON.parse(localStorage.getItem("guestMessages")) || {},

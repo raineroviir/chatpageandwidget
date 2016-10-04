@@ -7,10 +7,18 @@ import { createMessage } from '../actions/messages'
 import { ChatTextBox } from '../Components/ChatTextBox';
 class CreateMessage extends Component {
   createMessage(message) {
-    const { dispatch, actions, conversationid, token, channelid, referenceToConversationBody } = this.props
-    console.log(channelid, token)
-    console.log(conversationid)
-    dispatch(createMessage(message, conversationid, token, channelid))
+    const { dispatch, actions, conversationid, token, channelid, referenceToConversationBody, guest, user} = this.props
+    const userid = guest.data.id || user.data.id
+    const sender_name = guest.data.first_name || user.data.first_name || " "
+
+    const messageObject = {
+      text: message,
+      conversation_id: conversationid,
+      user_id: userid,
+      sender_name: sender_name,
+      id: Math.random(Date.now())
+    }
+    dispatch(createMessage(messageObject, conversationid, token, channelid))
   }
   render() {
     return (
