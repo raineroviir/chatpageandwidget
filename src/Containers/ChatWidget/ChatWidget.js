@@ -26,7 +26,8 @@ class ChatWidget extends React.Component {
       <div className="chat-widget" style={computedStyle}>
         <Header keyColor={this.props.keyColor} onClose={this.props.onClose}
         onResize={this.onToggleResize.bind(this)} backToConversationSummaryView={this.backToConversationSummaryView.bind(this)}
-        activeConversation={this.props.activeConversation} preparingToCreateConversation={this.props.preparingToCreateConversation} />
+        activeConversation={this.props.activeConversation} preparingToCreateConversation={this.props.preparingToCreateConversation}
+        userScrollPosition={this.props.userScrollPosition} widget={this.props.widget}/>
         <Messages />
         <Footer />
       </div>
@@ -41,10 +42,12 @@ function mapStateToProps(state) {
     activeConversation: state.conversations.activeConversation,
     preparingToCreateConversation: state.conversations.preparingToCreateConversation,
     keyColor: state.widget.initialConfig.keyColor,
+    widget: state.widget,
     height: state.environment.height,
     width: state.environment.width,
     isMobile: state.environment.isMobile,
-    widgetHeight: state.environment.widgetHeight
+    widgetHeight: state.environment.widgetHeight,
+    userScrollPosition: state.environment.userScrollPosition
   }
 }
 

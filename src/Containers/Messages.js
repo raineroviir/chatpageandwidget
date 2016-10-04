@@ -12,8 +12,8 @@ import ReactInfinite from 'react-infinite'
 import {MessageListItem} from '../Components/ChatMessages/MessageListItem'
 import Waypoint from 'react-waypoint'
 import _ from 'lodash'
-import { referenceToConversationBody, infiniteLoading, infiniteLoadingDone } from '../actions/environment'
-import {loadServerMsgs, scrollComplete, botReplyForFirstMessage} from '../actions/messages'
+import { referenceToConversationBody, infiniteLoading, infiniteLoadingDone, storeUserScrollPosition } from '../actions/environment'
+import {loadServerMsgs, scrollComplete, botReplyForFirstMessage } from '../actions/messages'
 
 class Messages extends Component {
   constructor(props) {
@@ -23,11 +23,22 @@ class Messages extends Component {
   }
   componentDidMount() {
     const { userScrollPosition } = this.props
+    const node = ReactDOM.findDOMNode(this)
     if (this.props.messages.length === 0) {
       this.loadInitialHistory()
     } else {
       userScrollPosition ? node.scrollTop = userScrollPosition : this.scrollToBottom()
     }
+    node.addEventListener('scroll', this.handleScroll.bind(this))
+  }
+  componentWillUnmount() {
+    const node = ReactDOM.findDOMNode(this)
+    node.removeEventListener('scroll', this.handleScroll.bind(this))
+  }
+  handleScroll(e) {
+    const { dispatch } = this.props
+    const scrollPosition = e.srcElement.scrollTop
+    dispatch(storeUserScrollPosition(scrollPosition))
   }
   loadInitialHistory() {
     const { conversationid, guest, user, dispatch, serverMessages, scrollIndex} = this.props
@@ -62,14 +73,13 @@ class Messages extends Component {
     dispatch(botReplyForFirstMessage(conversationid, token, channelid))
   }
   scrollToBottom() {
-    console.log('Action: SCROLLED TO BOTTOM')
     const node = ReactDOM.findDOMNode(this)
     node.scrollTop = node.scrollHeight
   }
   loadMoreHistory () {
     const { dispatch, serverMessages, messages, conversationid, scrollIndex } = this.props
     const nextIndex = scrollIndex + 10
-    const more = serverMessages.slice(scrollIndex + 1, nextIndex)
+    const more = serverMessages.slice(scrollIndex, nextIndex)
     console.log(more)
     if (more.length === 0) {
       return
@@ -104,7 +114,7 @@ class Messages extends Component {
       <div className="conversation-body">
         {this.renderWaypoint()}
         {this.props.isInfiniteLoading ? <div style={{alignText: "center"}}>Loading...</div>: null}
-        {/* <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/> */}
+        <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/>
         <ChatMessages
         dispatch={this.props.dispatch} className="chat-messages-wrapper" messages={this.props.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
         currentChannelType={this.props.currentChannelType}/>

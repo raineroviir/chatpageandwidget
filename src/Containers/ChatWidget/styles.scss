@@ -22,14 +22,27 @@
   cursor: pointer;
   background-color: #FFFFFF;
   position: relative;
-  top: 75px;
-  right: -40px;
-  width: 200px;
+  top: 130px;
+  height: 200px;
+  right: -50px;
   .menu-item {
     border-top: 1px solid grey;
     text-align: left;
     padding: 3px 0 0 10px;
   }
+}
+
+.info {
+  box-shadow: 0px 0px 25px rgba(0,0,0,.2);
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  position: relative;
+  top: 80px;
+  height: 100px;
+  right: 75px;
 }
 .header {
   z-index: 9;
@@ -65,6 +78,15 @@
     cursor: pointer;
   }
 
+  .header-info {
+    padding-left: 12px;
+    font-size: 24px;
+    color: #9a9da1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
   .header-arrow {
     padding-left: 12px;
     font-size: 24px;
