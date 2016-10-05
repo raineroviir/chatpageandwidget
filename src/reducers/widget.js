@@ -4,7 +4,12 @@ const initialState = {
     isNewChannelConfig: false,
     initialConfig: {
       keyColor: "#f7a444",
-      channel: null
+      channel: {
+        avatar: null,
+        avatarUrl: null,
+        id: null
+      },
+      content: null
     },
     channelUrl: null,
     initialized: false

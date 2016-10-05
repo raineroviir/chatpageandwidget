@@ -50,7 +50,7 @@ export default class Header extends Component {
           <MdInfo onClick={this.infoToggle.bind(this)}/>
         </div>}
         <div className="sign-in-to-chat-center" style={{color: this.props.keyColor}}>
-          <span>{this.state.showInfo && info}</span>
+          <span>{this.state.showInfo && this.props.userScrollPosition > 150 && info}</span>
           <span>{this.state.showMenu && menu}</span>
           <div style={{display: "flex"}}>
           </div>

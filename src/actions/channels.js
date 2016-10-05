@@ -62,7 +62,9 @@ function getSocketURL (token) {
 }
 
 function initializeSocket(socket, dispatch) {
-  const ws = new WebSocket(socket.url);
+  const ws = new WebSocket(socket.url)
+  window.ws = ws
+  window.socket = socket
   ws.onopen = function(){
     ws.send(JSON.stringify(socket.subscription));
   }

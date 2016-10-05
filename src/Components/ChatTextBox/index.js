@@ -9,6 +9,7 @@ export class ChatTextBox extends Component {
     this.refs.Message.value = "";
   }
   render() {
+    const { widgetConfig } = this.props
     return (
       <div className="post-form-wrapper">
         <form onSubmit={this.createMessage.bind(this)} className="post-form">
@@ -17,11 +18,11 @@ export class ChatTextBox extends Component {
             <input ref="Message"
             type="text"
             className="message-input"
-            placeholder="Type here; '/' - commands, '@' - mentions"
-            aria-label="Type here; '/' - commands, '@' - mentions" />
+            placeholder={widgetConfig.content ? widgetConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"}
+            aria-label={widgetConfig.content ? widgetConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"} />
           </div>
           <button type="submit" className="submit-button" style={{color: this.props.keyColor}}>
-            Send
+            {widgetConfig.content ? widgetConfig.content.sendBtnText : "Send" }
           </button>
         </form>
       </div>
