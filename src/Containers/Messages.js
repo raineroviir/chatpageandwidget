@@ -46,7 +46,6 @@ class Messages extends Component {
     dispatch(getConversationHistory(conversationid, token)).then(json => {
       const { messages } = json
       const visibleMessages = messages.slice(scrollIndex, scrollIndex + 20)
-      console.log(visibleMessages)
       dispatch(changeScrollIndex(visibleMessages.length))
       dispatch(loadServerMsgs(visibleMessages))
       this.scrollToBottom()
@@ -80,7 +79,6 @@ class Messages extends Component {
     const { dispatch, serverMessages, messages, conversationid, scrollIndex } = this.props
     const nextIndex = scrollIndex + 10
     const more = serverMessages.slice(scrollIndex, nextIndex)
-    console.log(more)
     if (more.length === 0) {
       return
     } else {
@@ -98,7 +96,6 @@ class Messages extends Component {
         <Waypoint
         bottomOffset="40px"
         onEnter={({previousPosition, currentPosition, event}) => {
-          console.log(previousPosition, currentPosition)
           if (event) {
             return this.loadMoreHistory()
           }
@@ -117,7 +114,7 @@ class Messages extends Component {
         <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/>
         <ChatMessages
         dispatch={this.props.dispatch} className="chat-messages-wrapper" messages={this.props.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
-        currentChannelType={this.props.currentChannelType}/>
+        currentChannelType={this.props.currentChannelType} messageStatus={this.props.messageStatus}/>
       </div>
     )
   }

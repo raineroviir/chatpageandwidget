@@ -23,7 +23,6 @@ export default class Header extends Component {
   }
   render() {
     const { widget } = this.props
-    console.log(widget)
     const teamAvatarUrl = widget.initialConfig.channel.avatarUrl ? widget.initialConfig.channel.avatarUrl : defaultTeamAvatar
     const teamChannelUrl = widget.initialConfig.channelUrl ||  "seaShells.com"
     const welcomeMessage = widget.initialConfig.content ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"

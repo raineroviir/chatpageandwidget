@@ -27,11 +27,11 @@ export function setUserInfo(user, history) {
   };
 }
 
-export function fetchSocket (token) {
+export function fetchSocket(token, userid) {
   return dispatch => {
     let getSocket = getSocketURL(token);
-    if(getSocket){
-      getSocket.then(response => response.json()).then(json => initializeSocket(json, dispatch));
+    if(getSocket) {
+      getSocket.then(response => response.json()).then(json => initializeSocket(json, dispatch, userid));
     }
   }
 }
@@ -63,20 +63,21 @@ function getSocketURL (token) {
 
 function initializeSocket(socket, dispatch) {
   const ws = new WebSocket(socket.url)
-  window.ws = ws
-  window.socket = socket
-  ws.onopen = function(){
+
+  ws.onopen = function() {
     ws.send(JSON.stringify(socket.subscription));
   }
-  ws.onmessage = function(msg){
-    if(msg && msg.data && JSON.parse(msg.data)){
+  ws.onmessage = function(msg) {
+    if(msg && msg.data && JSON.parse(msg.data)) {
       let data = JSON.parse(msg.data);
       if(!data.message || !data.message.type) {
         return
       }
-      switch (data.message.type){
-        case "message":
-        dispatch(dispatchMessageStream(data.message));
+      switch (data.message.type) {
+        case "message": {
+          console.log(data.message.payload)
+          dispatch(dispatchMessageStream(data.message.payload));
+        }
       }
     }
   };
@@ -145,11 +146,16 @@ function fetchChannel (channelname, team) {
     }
   })
 }
-function dispatchMessageStream (message) {
-  return {
-    type: "MESSAGE_STREAM",
-    posts: { message },
-    receivedAt: Date.now()
+function dispatchMessageStream(message) {
+  return (dispatch, getState) => {
+    const state = getState()
+    const userid = state.user.data.id || state.guest.data.id
+    if (message.user_id === userid) {
+      return
+    }
+    dispatch({type: "MESSAGE_STREAM",
+    message: message,
+    receivedAt: Date.now()})
   }
 }
 

@@ -37,25 +37,34 @@ export function messages(state = initialState, action) {
     return {
       ...state,
       userCreatedNewMessage: true,
-      messages: state.messages.concat(action.message),
+      messages: [...state.messages, action.message],
       memoized: Object.assign({}, state.memoized, { [action.message.conversationid]: action.message })
     };
   case 'ADD_LOCAL_MESSAGE':
     return {
       ...state,
       userCreatedNewMessage: true,
-      messages: state.messages.concat(action.message),
+      messages: [...state.messages, action.message],
+    }
+
+  case 'MSG_SAVED_TO_SERVER':
+    return {
+      ...state,
+      messages: state.messages.map((message) => {
+        if (message.id === action.message.id) {
+          message.status = `Sent ${moment().format("HH:mm A")}`
+          return message
+        }
+        return message
+      }),
       memoized: Object.assign({}, state.memoized, { [action.message.conversationid]: action.message })
     }
   case 'MESSAGE_STREAM':
-    if(!action.posts.message.payload || !action.posts.message.payload.conversation_id || action.posts.message.payload.conversation_id != state.conversationid || state.messages.find(a => a.id == action.posts.message.payload.id)){
-      return state;
-    }
-    let message = action.posts.message.payload,
+    let message = action.message,
       user = state.messages.find(a => a.user_id === message.user_id),
       updatedMessages;
     message.created_at = moment().format();
-    if(user){
+    if(user) {
       message.sender_name = user.sender_name;
       message.sender_avatar = user.sender_avatar;
     }
@@ -65,7 +74,7 @@ export function messages(state = initialState, action) {
       messages: updatedMessages,
       memoized: {
         ...state.memoized,
-        [action.posts.conversationid]: updatedMessages
+        [action.conversationid]: updatedMessages
       }
     };
   case 'MESSAGE_ERROR':

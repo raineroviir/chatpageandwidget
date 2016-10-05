@@ -13,7 +13,6 @@ export class ChatMessages extends Component {
     const { dispatch } = this.props
     const node = ReactDOM.findDOMNode(this)
     if (node.children.length) {
-      console.log(node.children[0])
       let totalHeight = 0;
       for (let i = 0; i < (node.children.length < 10 ? node.children.length : 10); i++) {
         totalHeight += node.children[i].offsetHeight
@@ -22,7 +21,7 @@ export class ChatMessages extends Component {
     }
   }
   render() {
-    const { messages, user, guest, widgetConfig, currentChannelType } = this.props
+    const { messages, user, guest, widgetConfig, currentChannelType} = this.props
     const currentUser = guest.data.id || user.data.id
     if(this.props.channelError === true) {
       return (<div className="default-message">Channel not found</div>)
@@ -37,7 +36,8 @@ export class ChatMessages extends Component {
             index={index}
             msgs={msgs}
             currentUser={currentUser}
-            currentChannelType={currentChannelType}/>
+            currentChannelType={currentChannelType}
+            />
           )}
         </div>
       )

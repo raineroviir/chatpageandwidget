@@ -16,7 +16,6 @@ export function conversations(state = initialState, action) {
   switch (action.type) {
   case 'FETCH_CONVERSATIONS':
     let conv = _.sortBy(action.data.conversations, a => parseInt(moment(a.updated_at).format("x"))).reverse();
-    console.log(conv)
     return {
       ...state,
       conversations: conv,

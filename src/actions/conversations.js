@@ -57,7 +57,6 @@ function processMemoizedConversationsForDispatch(channelid) {
 }
 
 export function getConversations(channel_id, token) {
-  console.log(channel_id)
   return dispatch => {
     return fetch( Config.api + '/conversations.list?channel_id=' + channel_id, {
       method: 'GET',
@@ -68,7 +67,6 @@ export function getConversations(channel_id, token) {
     }).then(response => {
       return response.json()
     }).then(json => {
-      console.log(json)
       const conversations = json
       dispatch({
       type: 'FETCH_CONVERSATIONS',
@@ -83,7 +81,6 @@ export function getConversations(channel_id, token) {
 }
 
 export function getConversationHistory(conversationid, token) {
-  console.log(conversationid, token)
   return dispatch => {
     /* Trigger API service to retrieve latest conversation history */
     return fetch( Config.api + `/conversations.history?conversation_id=${conversationid}&page=1&per_page=100`, {
@@ -94,7 +91,6 @@ export function getConversationHistory(conversationid, token) {
       }
     }).then(response => response.json())
       .then(json => {
-        console.log('conversationhistory', json)
         dispatch(processConversationsHistoryForDispatch(json, conversationid))
         dispatch({
           type: 'SET_CONVERSATION_CHANNEL_MEMOIZED',
@@ -137,7 +133,6 @@ export function checkForConversation(channel_id, token) {
   //[channel-id]: conversation
   const conversation = JSON.parse(localStorage.getItem("guestConversation"))
   return dispatch => {
-    console.log(conversation)
     if (!conversation) {
       dispatch(createConversation(channel_id, token))
     } else {

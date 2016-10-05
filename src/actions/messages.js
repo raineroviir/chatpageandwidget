@@ -20,7 +20,7 @@ export function createMessage(message, conversationid, token, channelid, attachm
   const messageText = message.text
   return postMessage(messageText, conversationid, token, channelid, attachment).then(response => response.json())
   .then(json => {
-    dispatch({type: "MSG_SAVED_TO_SERVER", json})
+    dispatch({type: "MSG_SAVED_TO_SERVER", message})
     // dispatch(processAddMessage(json, conversationid || json.message.conversation_id))
   })
   }

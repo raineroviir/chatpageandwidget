@@ -12,6 +12,11 @@
   padding: 0 0 0 68px;
 }
 
+.message-status {
+  padding: 0 48px 0 0px;
+  display: flex;
+  justify-content: flex-end;
+}
 .unread-message-notification {
     font-size: 13px;
     font-weight: 400;
@@ -63,6 +68,14 @@
   .chat-message {
     position: relative;
     display: flex;
+    justify-content: flex-end;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
   }
   .bubble-arrow-left {
     color: #333;
@@ -120,7 +133,6 @@
     object-fit: contain;
   }
   .received-message {
-    display: flex;
   }
   .message-input {
     padding: 0 0 0 8px;
@@ -132,5 +144,93 @@
   }
 }
 
-.time-bubble{text-align:right; clear:both; margin-right: 40px; font-size: 13px; color: #999; padding-top: 5px; }
-.today .img-circle,.today .avatar{ bottom:2.5em; }
+.loading_dots
+ {
+   border-radius: 5px;
+   font-size: 1em; /* set size here */
+   line-height: 1;
+   width: 2.75em;
+   display: flex;
+   /*
+     position just for demo
+   */
+ }
+ .loading_dots span
+ {
+   background: transparent;
+   border-radius: 50%;
+   display: inline-block;
+   height: 0.6em;
+   width:  0.6em;
+     -webkit-animation:  loading_dots 0.8s linear infinite;
+     -moz-animation:     loading_dots 0.8s linear infinite;
+     -ms-animation:      loading_dots 0.8s linear infinite;
+   animation:            loading_dots 0.8s linear infinite;
+ }
+   .loading_dots span:nth-child(2)
+   {
+       -webkit-animation-delay:  0.2s;
+       -moz-animation-delay:     0.2s;
+       -ms-animation-delay:      0.2s;
+     animation-delay:            0.2s;
+   }
+   .loading_dots span:nth-child(1)
+   {
+   -webkit-animation-delay:  0.4s;
+       -moz-animation-delay:     0.4s;
+       -ms-animation-delay:      0.4s;
+     animation-delay:            0.4s;
+   }
+
+/*
+ Define the animation for every efing vendor prefix
+*/
+ @-webkit-keyframes loading_dots
+ {
+   0% {
+     background: transparent;
+   }
+   50% {
+     background: #E4E4E4;
+   }
+   100% {
+     background: transparent;
+   }
+ }
+
+ @-moz-keyframes loading_dots
+ {
+   0% {
+     background: transparent;
+   }
+   50% {
+     background: #E4E4E4;
+   }
+   100% {
+     background: transparent;
+   }
+ }
+ @-ms-keyframes loading_dots
+ {
+   0% {
+     background: transparent;
+   }
+   50% {
+     background: #E4E4E4;
+   }
+   100% {
+     background: transparent;
+   }
+ }
+ @keyframes loading_dots
+ {
+   0% {
+     background: transparent;
+   }
+   50% {
+     background: #E4E4E4;
+   }
+   100% {
+     background: transparent;
+   }
+ }

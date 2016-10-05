@@ -11,12 +11,13 @@ class CreateMessage extends Component {
     const userid = guest.data.id || user.data.id
     const sender_name = guest.data.first_name || user.data.first_name || " "
 
-    const messageObject = {
+    let messageObject = {
       text: message,
       conversation_id: conversationid,
       user_id: userid,
       sender_name: sender_name,
-      id: Math.random(Date.now())
+      id: Math.random(Date.now()),
+      status: `...`
     }
     dispatch(createMessage(messageObject, conversationid, token, channelid))
   }

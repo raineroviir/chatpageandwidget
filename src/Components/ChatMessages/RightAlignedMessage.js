@@ -37,6 +37,18 @@ export class RightAlignedMessage extends React.Component {
             </div>
           </div> : <div style={{padding: "0 48px 0 0"}}></div>}
         </div>
+        {message.status ? message.status === "..." ?
+        <div className="message-status">
+          <div className="loading_dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        : <div className="message-status">
+          {message.status}
+        </div>
+        : null}
       </div>
     )
   }

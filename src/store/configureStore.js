@@ -4,9 +4,7 @@ import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 
 const logger = createLogger({
-  predicate: (getState, action) => {
-    return action.type !== ["CHANGE_WIDTH_AND_HEIGHT", "SAVE_TOTAL_HEIGHT_OF_HISTORY_MSGS"]
-  },
+  diff: true,
   collapsed: (getState, action) => {
     return action
   }
