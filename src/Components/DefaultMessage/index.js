@@ -5,7 +5,7 @@ export default class DefaultMessage extends Component {
   render() {
     const { user, guest, widgetConfig } = this.props
     const teamAvatarUrl = widgetConfig.channel.avatarUrl ? widgetConfig.channel.avatarUrl : defaultTeamAvatar
-    const teamChannelUrl = widgetConfig.channelUrl ||  "Channel URL didn't load properly"
+    const teamChannelUrl = widgetConfig.channelUrl ||  "seaShells.com"
     const welcomeMessage = widgetConfig.content ? widgetConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
     const teamName = widgetConfig.content ? widgetConfig.content.teamName : ""
     return (
@@ -16,15 +16,15 @@ export default class DefaultMessage extends Component {
           </div>
           </div>
           <div className="team-details">
-          <div className="team-name">
-            {teamName}
-          </div>
-          <div className="team-website">
-              <a style={{color: widgetConfig.keyColor || "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
-          </div>
-          <div className="welcome-message">
-            {welcomeMessage}
-          </div>
+            <div className="team-name">
+              {teamName}
+            </div>
+            <div className="team-website">
+                <a style={{color: widgetConfig.keyColor || "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
+            </div>
+            <div className="welcome-message">
+              {welcomeMessage}
+            </div>
           </div>
         </div>
       </div>

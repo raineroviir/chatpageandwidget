@@ -4,6 +4,9 @@ import {FaAngleDown} from 'react-icons/lib/fa'
 import {MdClose} from 'react-icons/lib/md'
 import signInAvatar from './files/avatar.png'
 import {MdInfo} from 'react-icons/lib/md'
+import {GoTriangleUp} from 'react-icons/lib/go'
+import defaultTeamAvatar from './files/chat-btn.png'
+
 export default class Header extends Component {
   constructor(props) {
     super(props)
@@ -20,23 +23,44 @@ export default class Header extends Component {
   }
   render() {
     const { widget } = this.props
+    console.log(widget)
+    const teamAvatarUrl = widget.initialConfig.channel.avatarUrl ? widget.initialConfig.channel.avatarUrl : defaultTeamAvatar
+    const teamChannelUrl = widget.initialConfig.channelUrl ||  "seaShells.com"
+    const welcomeMessage = widget.initialConfig.content ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
+    const teamName = widget.initialConfig.content ? widget.initialConfig.content.teamName : ""
+
     const menu = (
-        <div className="menu">
-          <div style={{textAlign: "left", padding: "3px 0 0 10px"}}>
-            Enter email for notifications
+        <div style={{color: widget.initialConfig.keyColor}} className="menu">
+          <div className="menu-popup-triangle"><GoTriangleUp /></div>
+          <div style={{border: "none"}} className="menu-item">
+            <div style={{cursor: "pointer"}}>Enter email for notifications</div>
           </div>
-          <div className="menu-item">Sign in with chat.center</div>
-          <div style={{color: "#000000"}} className="menu-item">Don't have an account?
+          <div className="menu-item">
+            <div style={{cursor: "pointer"}}>Sign in with chat.center</div>
           </div>
-          <div style={{textAlign: "left", padding: "3px 0 0 10px"}}>Sign up</div>
+          <div className="menu-item">
+            <div>
+              <div style={{color: "#000000"}}>Don't have an account?</div>
+            </div>
+            <div style={{cursor: "pointer"}}>Sign up</div>
+          </div>
         </div>
       )
     const info = (
       <div className="info">
-        <div>
-          Info tab contains channel URL, team avatar, etc.
-          {widget.channelUrl}
-          <div style={{backgroundImage: `url${widget.initialConfig.avatar ? widget.initialConfig.avatar.url : "" }`}}></div>
+        <div className="info-popup-triangle"><GoTriangleUp /></div>
+        <div className="team-avatar-wrapper">
+          <div className="team-avatar" style={{backgroundImage: `url(${teamAvatarUrl})`}}>
+          </div>
+        </div>
+        <div className="team-name">
+          {teamName ? teamName : "She Sells Sea Shells Customer Support"}
+        </div>
+        <div className="team-url">
+            <a style={{color: widget.initialConfig.keyColor || "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
+        </div>
+        <div className="welcome-message">
+          {welcomeMessage}
         </div>
       </div>
     )
@@ -50,8 +74,6 @@ export default class Header extends Component {
           <MdInfo onClick={this.infoToggle.bind(this)}/>
         </div>}
         <div className="sign-in-to-chat-center" style={{color: this.props.keyColor}}>
-          <span>{this.state.showInfo && this.props.userScrollPosition > 150 && info}</span>
-          <span>{this.state.showMenu && menu}</span>
           <div style={{display: "flex"}}>
           </div>
           <div style={{display: "flex"}}>
@@ -63,6 +85,8 @@ export default class Header extends Component {
         onClick={this.props.onClose.bind(this)}>
           <MdClose />
         </div>
+        {this.state.showInfo && this.props.userScrollPosition > 150 && info}
+        {this.state.showMenu && menu}
       </div>
     )
   }
