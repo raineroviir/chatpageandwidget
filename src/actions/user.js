@@ -35,7 +35,6 @@ export function fetchUserInfo(token) {
     }).then(response => response.json()).then(json => {
       json.guest ? dispatch(receiveGuestInfo(json)) :
       dispatch(receiveUserInfo(json))
-      return json
     },
     error => {
       dispatch({type: 'FETCH_TOKEN_ERROR', error})
@@ -59,12 +58,9 @@ export function initUser(data) {
             if(json.ok) {
               let token = json.token;
               localStorage.setItem("guest", JSON.stringify(token))
+              dispatch(fetchUserInfo(token))
               dispatch({type: 'TOKEN_SET', token})
-              dispatch(fetchUserInfo(token)).then((json) => {
-                const userid = json.guest ? json.guest.id : json.id
-                console.log(userid)
-                dispatch(fetchSocket(token, userid))
-              })
+              dispatch(fetchSocket(token))
               return token
             }
           },
@@ -73,12 +69,9 @@ export function initUser(data) {
               throw error
             })
       } else {
+        dispatch(fetchUserInfo(token))
         dispatch({type: 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE', token})
-        dispatch(fetchUserInfo(token)).then((json) => {
-          const userid = json.guest ? json.guest.id : json.id
-          console.log(userid)
-          dispatch(fetchSocket(token, userid))
-        })
+        dispatch(fetchSocket(token))
         return Promise.resolve(token)
       }
     } else {

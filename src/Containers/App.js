@@ -9,7 +9,7 @@ import { getWidget } from '../actions/widget'
 import { initEnvironment, storeUserScrollPosition
  } from '../actions/environment'
 import { checkForConversation } from '../actions/conversations'
-import { createWidgetChannel, fetchChannelInfo} from '../actions/channels'
+import { createWidgetChannel, fetchChannelInfo, fetchChannel} from '../actions/channels'
 import {loadServerMsgs} from '../actions/messages'
 
 class App extends React.Component {
@@ -28,9 +28,10 @@ class App extends React.Component {
     dispatch(initUser(data))
     .then((token) => {
       token = token.access_token
+      dispatch(fetchChannel())
       dispatch(getWidget(channel_id, channel_url, token))
-      dispatch(fetchChannelInfo(token, channel_id)) //channel_url
-      dispatch(checkForConversation(channel_id, token)) //channel_url
+      dispatch(fetchChannelInfo(token, channel_id))
+      dispatch(checkForConversation(channel_id, token))
     })
     dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
   }

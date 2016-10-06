@@ -123,9 +123,11 @@ export function botReplyForFirstMessage(conversationid, token, channelid, widget
       bot: true,
       attachment: "inputBox"
     }
-    dispatch(createMessage(firstBotMsg, conversationid, token, channelid))
-    dispatch(createMessage(secondBotMsg, conversationid, token, channelid))
-    dispatch(createMessage(thirdBotMsg, conversationid, token, channelid))
+    setTimeout(() => {
+      dispatch(createMessage(firstBotMsg, conversationid, token, channelid))
+      dispatch(createMessage(secondBotMsg, conversationid, token, channelid))
+      dispatch(createMessage(thirdBotMsg, conversationid, token, channelid))
+    }, 1000)
     dispatch({type: "BOT_RESPONSE"})
   }
 }

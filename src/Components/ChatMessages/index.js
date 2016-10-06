@@ -9,15 +9,17 @@ import ReactDOM from 'react-dom'
 import {saveTotalHeightOfHistoryMessages} from '../../actions/environment'
 
 export class ChatMessages extends Component {
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const { dispatch } = this.props
     const node = ReactDOM.findDOMNode(this)
-    if (node.children.length) {
-      let totalHeight = 0;
-      for (let i = 0; i < (node.children.length < 10 ? node.children.length : 10); i++) {
-        totalHeight += node.children[i].offsetHeight
+    if (prevProps.messages.length !== this.props.messages.length) {
+      if (node.children.length) {
+        let totalHeight = 0;
+        for (let i = 0; i < (node.children.length < 10 ? node.children.length : 10); i++) {
+          totalHeight += node.children[i].offsetHeight
+        }
+        dispatch(saveTotalHeightOfHistoryMessages(totalHeight))
       }
-      dispatch(saveTotalHeightOfHistoryMessages(totalHeight))
     }
   }
   render() {

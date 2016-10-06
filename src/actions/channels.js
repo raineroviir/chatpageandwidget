@@ -134,18 +134,18 @@ export function selectChannel (channelname, conversationname) {
   }
 }
 
-function fetchChannel (channelname, team) {
-  if (typeof(Storage) !== "undefined") {
-    var token = JSON.parse(localStorage.getItem("token"));
-  }
+export function fetchChannel(channelname, team) {
+  return dispatch => {
   return fetch(Config.api + "/channels.find?channel=" + channelname + (team && team.name ? "&team=" + team.name : "") , {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token.access_token || token,
+      'Authorization': 'Bearer ' + token
     }
-  })
+  }).then(response => response.json()).then(json => dispatch({type: "FETCHED_CHANNEL", json}))
+  }
 }
+
 function dispatchMessageStream(message) {
   return (dispatch, getState) => {
     const state = getState()
