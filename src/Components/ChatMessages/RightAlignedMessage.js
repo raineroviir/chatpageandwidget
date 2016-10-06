@@ -48,7 +48,7 @@ export class RightAlignedMessage extends React.Component {
         : <div className="message-status">
           {message.status}
         </div>
-        : null}
+        : null }
       </div>
     )
   }

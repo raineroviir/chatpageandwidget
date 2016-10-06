@@ -7,12 +7,25 @@ import { setOrGetGuestToken } from './user'
 import { getConversationHistory, setGuestConvid } from './channels'
 var _ = require("lodash");
 
-export function scrollComplete() {
+export function scrollCompleteForUserMessage() {
   return {
-    type: "SCROLL_COMPLETE_FOR_NEW_MESSAGE"
+    type: "SCROLL_COMPLETE_FOR_NEW_USER_MESSAGE"
   }
 }
 
+export function scrollCompleteForMsgStream() {
+  return {
+    type: "SCROLL_COMPLETE_FOR_NEW_MESSAGE_STREAM"
+  }
+}
+
+/**
+ * [createMessage description]
+ * @param  {[Object]} message
+ * @param  {[Number]} conversationid
+ * @param  {[String]} token
+ * @param  {[Number]} channelid
+ */
 export function createMessage(message, conversationid, token, channelid, attachment) {
   return dispatch => {
 
@@ -21,7 +34,6 @@ export function createMessage(message, conversationid, token, channelid, attachm
   return postMessage(messageText, conversationid, token, channelid, attachment).then(response => response.json())
   .then(json => {
     dispatch({type: "MSG_SAVED_TO_SERVER", message})
-    // dispatch(processAddMessage(json, conversationid || json.message.conversation_id))
   })
   }
 }
@@ -83,15 +95,37 @@ function processAddMessage(response, conversationid) {
   }
 }
 
-export function botReplyForFirstMessage(conversationid, token, channelid) {
+export function botReplyForFirstMessage(conversationid, token, channelid, widgetConfig) {
   return dispatch => {
-    const firstBotMsg = "We normally answer within 60 minutes or less.  Please leave your question here and someone will be with you shortly."
-    const secondBotMsg = "Let us notify you via email"
-    const thirdBotMsg = "Enter your email"
-    const attachment = "inputBox"
+    const botUserId = Math.random(Date.now())
+    const firstBotMsg = {
+      text: widgetConfig.content.autoAnswer,
+      conversation_id: conversationid,
+      user_id: botUserId,
+      sender_name: widgetConfig.bot.name,
+      id: Math.random(Date.now()),
+      bot: true
+    }
+    const secondBotMsg = {
+      text: widgetConfig.content.emailPrompt,
+      conversation_id: conversationid,
+      user_id: botUserId,
+      sender_name: widgetConfig.bot.name,
+      id: Math.random(Date.now()),
+      bot: true
+    }
+    const thirdBotMsg = {
+      text: widgetConfig.content.emailPlaceholder,
+      conversation_id: conversationid,
+      user_id: botUserId,
+      sender_name: widgetConfig.bot.name,
+      id: Math.random(Date.now()),
+      bot: true,
+      attachment: "inputBox"
+    }
     dispatch(createMessage(firstBotMsg, conversationid, token, channelid))
     dispatch(createMessage(secondBotMsg, conversationid, token, channelid))
-    dispatch(createMessage(thirdBotMsg, conversationid, token, channelid, attachment))
+    dispatch(createMessage(thirdBotMsg, conversationid, token, channelid))
     dispatch({type: "BOT_RESPONSE"})
   }
 }

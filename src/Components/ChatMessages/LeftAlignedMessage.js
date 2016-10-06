@@ -24,7 +24,7 @@ export class LeftAlignedMessage extends React.Component {
         </div> : <div style={{padding: "4px 0 0 0"}}></div>}
         <div style={{flexDirection: "row-reverse"}} className="chat-message">
           <div style={this.computeMessageBubbleColor()} className={classNames("message-bubble", checkForSameUser ? "bubble-arrow-left" : "")}>
-            {!message.containsInputBox ? message.text : <div style={{height: "32px", display: "flex"}}>
+            {!message.attachment ? message.text : <div style={{height: "32px", display: "flex"}}>
               <input
               type="text"
               className="message-input"

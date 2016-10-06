@@ -43,23 +43,11 @@ export function infiniteLoadingDone() {
     type: "INFINITE_LOADING_DONE"
   }
 }
-export function scrollToBottom(reason) {
-  return {
-    type: "SCROLL_TO_BOTTOM",
-    reason
-  }
-}
 
 export function referenceToConversationBody(ref) {
   return {
     type: "RECEIVE_REF_TO_CONVERSATION_BODY",
     ref
-  }
-}
-
-export function scrollComplete() {
-  return {
-    type: "SCROLL_TO_BOTTOM_FINISHED"
   }
 }
 

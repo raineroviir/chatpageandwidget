@@ -4,7 +4,6 @@ import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 
 const logger = createLogger({
-  diff: true,
   collapsed: (getState, action) => {
     return action
   }

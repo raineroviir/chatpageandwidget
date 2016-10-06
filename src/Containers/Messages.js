@@ -13,7 +13,8 @@ import {MessageListItem} from '../Components/ChatMessages/MessageListItem'
 import Waypoint from 'react-waypoint'
 import _ from 'lodash'
 import { referenceToConversationBody, infiniteLoading, infiniteLoadingDone, storeUserScrollPosition } from '../actions/environment'
-import {loadServerMsgs, scrollComplete, botReplyForFirstMessage } from '../actions/messages'
+import {loadServerMsgs, scrollCompleteForUserMessage, botReplyForFirstMessage, scrollCompleteForMsgStream } from '../actions/messages'
+import {loadBot} from '../actions/bot'
 
 class Messages extends Component {
   constructor(props) {
@@ -22,12 +23,16 @@ class Messages extends Component {
     this.loadMoreHistory = this.loadMoreHistory.bind(this)
   }
   componentDidMount() {
-    const { userScrollPosition } = this.props
+    const { dispatch, userScrollPosition, isGroupChat } = this.props
     const node = ReactDOM.findDOMNode(this)
     if (this.props.messages.length === 0) {
       this.loadInitialHistory()
     } else {
       userScrollPosition ? node.scrollTop = userScrollPosition : this.scrollToBottom()
+    }
+    console.log(isGroupChat)
+    if (isGroupChat) {
+      dispatch(loadBot())
     }
     node.addEventListener('scroll', this.handleScroll.bind(this))
   }
@@ -52,30 +57,34 @@ class Messages extends Component {
     })
   }
   componentDidUpdate(prevProps) {
-    const { dispatch, totalHeightOfHistoryMessages, isInfiniteLoading, userCreatedNewMessage, messages, botResponse }  = this.props
+    const { dispatch, totalHeightOfHistoryMessages, isInfiniteLoading, userCreatedNewMessage, messages, botResponse, botActive, userScrollPosition, messageStreamNewMessage }  = this.props
     const node = ReactDOM.findDOMNode(this)
     if (userCreatedNewMessage) {
       this.scrollToBottom()
-      dispatch(scrollComplete())
+      dispatch(scrollCompleteForUserMessage())
     }
     if (isInfiniteLoading) {
       node.scrollTop = totalHeightOfHistoryMessages
       dispatch(infiniteLoadingDone())
     }
-    // if (prevProps.messages.length < messages.length && !botResponse) {
-    //   this.botResponse()
-    // }
+    if (messageStreamNewMessage) {
+      this.scrollToBottom()
+      dispatch(scrollCompleteForMsgStream())
+    }
+    if (userCreatedNewMessage && !botResponse && botActive) {
+      this.botResponse()
+    }
   }
   botResponse() {
-    const { dispatch, conversationid, channelid, guest, user } = this.props
+    const { dispatch, conversationid, channelid, guest, user, widgetConfig } = this.props
     const { token } = guest || user
-    dispatch(botReplyForFirstMessage(conversationid, token, channelid))
+    dispatch(botReplyForFirstMessage(conversationid, token, channelid, widgetConfig))
   }
   scrollToBottom() {
     const node = ReactDOM.findDOMNode(this)
     node.scrollTop = node.scrollHeight
   }
-  loadMoreHistory () {
+  loadMoreHistory() {
     const { dispatch, serverMessages, messages, conversationid, scrollIndex } = this.props
     const nextIndex = scrollIndex + 10
     const more = serverMessages.slice(scrollIndex, nextIndex)
@@ -96,7 +105,7 @@ class Messages extends Component {
         <Waypoint
         bottomOffset="40px"
         onEnter={({previousPosition, currentPosition, event}) => {
-          if (event) {
+          if (currentPosition === "inside") {
             return this.loadMoreHistory()
           }
         }}
@@ -114,7 +123,7 @@ class Messages extends Component {
         <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/>
         <ChatMessages
         dispatch={this.props.dispatch} className="chat-messages-wrapper" messages={this.props.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
-        currentChannelType={this.props.currentChannelType} messageStatus={this.props.messageStatus}/>
+        isGroupChat={this.props.isGroupChat} messageStatus={this.props.messageStatus}/>
       </div>
     )
   }
@@ -124,7 +133,7 @@ function mapStateToProps(state) {
   return {
     channelid: state.channels.activeChannelId,
     conversationid: state.conversations.activeConversation,
-    currentChannelType: state.channels.isGroupChat,
+    isGroupChat: state.channels.channels.isGroupChat,
     messages: state.messages.messages,
     serverMessages: state.messages.serverMessages,
     user: state.user,
@@ -138,7 +147,10 @@ function mapStateToProps(state) {
     userCreatedNewMessage: state.messages.userCreatedNewMessage,
     totalHeightOfHistoryMessages: state.environment.totalHeightOfHistoryMessages,
     userScrollPosition: state.environment.userScrollPosition,
-    botResponse: state.conversations.botResponse
+    botResponse: state.bot.botResponse,
+    botActive: state.bot.active,
+    userScrollPosition: state.environment.userScrollPosition,
+    messageStreamNewMessage: state.messages.messageStreamNewMessage
   }
 }
 

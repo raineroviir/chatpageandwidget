@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { fetchUserInfo, setOrGetGuestToken} from "./user";
 import { getConversations, processConversationsForDispatch } from './conversations'
-
+import { scrollToBottom } from './environment'
 export function setUserInfo(user, history) {
   if (typeof(Storage) !== "undefined") {
     var orgs = JSON.parse(localStorage.getItem("orgs")) || [],
@@ -118,7 +118,7 @@ export function selectChannel (channelname, conversationname) {
           else { team = json.user.team }
         })
     }
-    else{
+    else {
       team = getState().userinfo.userinfo.team;
     }
     service.then(() => {

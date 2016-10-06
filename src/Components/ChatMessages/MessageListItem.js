@@ -4,7 +4,7 @@ import {LeftAlignedMessage} from './LeftAlignedMessage'
 
 export class MessageListItem extends React.Component {
   render() {
-    const { widgetConfig, msgs, index, message, currentUser, currentChannelType } = this.props
+    const { widgetConfig, msgs, index, message, currentUser, isGroupChat } = this.props
     const previousMessageUserId = msgs[index - 1] ? msgs[index - 1].user_id : null
     const currentMessageUserId = message.user_id
     const checkForSameUser = currentMessageUserId !== previousMessageUserId
@@ -12,7 +12,7 @@ export class MessageListItem extends React.Component {
        return <RightAlignedMessage key={message.id} widgetConfig={widgetConfig} checkForSameUser={checkForSameUser} message={message} />
     } else {
       return <LeftAlignedMessage key={message.id} widgetConfig={widgetConfig} checkForSameUser={checkForSameUser} message={message}
-      currentChannelType={currentChannelType} />
+      isGroupChat={isGroupChat} />
     }
   }
 }

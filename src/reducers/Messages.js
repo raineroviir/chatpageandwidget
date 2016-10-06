@@ -3,11 +3,12 @@ var _ = require('lodash');
 
 const initialState = {
   messages: [],
+  serverMessages:  [],
   memoized: {},
   conversationid: null,
   channelError: true,
   userCreatedNewMessage: false,
-  serverMessages:  []
+  messageStreamNewMessage: false,
 };
 
 export function messages(state = initialState, action) {
@@ -71,6 +72,7 @@ export function messages(state = initialState, action) {
     updatedMessages = [...state.messages, message];
     return {
       ...state,
+      messageStreamNewMessage: true,
       messages: updatedMessages,
       memoized: {
         ...state.memoized,
@@ -88,11 +90,12 @@ export function messages(state = initialState, action) {
     }
   case 'RESET_MESSAGES':
     return initialState;
-  case 'PREPARE_TO_CREATE_NEW_CONVERSATION':
-    return initialState;
 
-  case 'SCROLL_COMPLETE_FOR_NEW_MESSAGE':
+  case 'SCROLL_COMPLETE_FOR_NEW_USER_MESSAGE':
     return {...state, userCreatedNewMessage: false}
+
+  case 'SCROLL_COMPLETE_FOR_NEW_MESSAGE_STREAM':
+    return {...state, messageStreamNewMessage: false}
   default:
     return state;
   }

@@ -21,7 +21,7 @@ export class ChatMessages extends Component {
     }
   }
   render() {
-    const { messages, user, guest, widgetConfig, currentChannelType} = this.props
+    const { messages, user, guest, widgetConfig, isGroupChat} = this.props
     const currentUser = guest.data.id || user.data.id
     if(this.props.channelError === true) {
       return (<div className="default-message">Channel not found</div>)
@@ -31,12 +31,12 @@ export class ChatMessages extends Component {
         <div className="chat-messages">
           {messages.map((message, index, msgs) =>
             <MessageListItem
-            widgetConfig={widgetConfig}  message={message}
+            widgetConfig={widgetConfig} message={message}
             key={message.id}
             index={index}
             msgs={msgs}
             currentUser={currentUser}
-            currentChannelType={currentChannelType}
+            isGroupChat={isGroupChat}
             />
           )}
         </div>

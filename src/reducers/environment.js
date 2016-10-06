@@ -27,21 +27,16 @@ export function environment(state = initialState, action) {
       return {...state, widgetHeight: state.widgetHeight === "100%" ?
       "600px" : "100%"
         }
-
     case "CHANGE_SCROLL_INDEX":
       return {...state, scrollIndex: action.scrollIndex
       }
-
     case "RECEIVE_REF_TO_CONVERSATION_BODY":
       return {...state, referenceToConversationBody: action.ref}
-
     case "INFINITE_LOADING":
       return {...state, isInfiniteLoading: true
       }
-
     case "INFINITE_LOADING_DONE":
       return {...state, isInfiniteLoading: false}
-
     case "SAVE_TOTAL_HEIGHT_OF_HISTORY_MSGS":
       return {...state, totalHeightOfHistoryMessages: action.ref}
     case "STORE_USER_SCROLL_POSITION":

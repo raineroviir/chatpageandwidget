@@ -6,6 +6,7 @@ import { user } from './user';
 import { guest } from './guest';
 import { widget } from './widget';
 import { environment } from './environment';
+import { bot } from './bot'
 const rootReducer = combineReducers({
   /* your reducers */
   environment,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   user,
   guest,
   widget,
+  bot,
 });
 
 export default rootReducer;
