@@ -7,7 +7,8 @@ const initialState = {
   referenceToConversationBody: "",
   isInfiniteLoading: false,
   totalHeightOfHistoryMessages: "",
-  userScrollPosition: 0
+  userScrollPosition: 0,
+  initialLoading: false,
 };
 
 export function environment(state = initialState, action) {
@@ -41,6 +42,10 @@ export function environment(state = initialState, action) {
       return {...state, totalHeightOfHistoryMessages: action.ref}
     case "STORE_USER_SCROLL_POSITION":
       return {...state, userScrollPosition: action.userScrollPosition}
+    case "BEGUN_INITIAL_LOADING":
+      return {...state, initialLoading: true}
+    case "FINISHED_INITIAL_LOADING":
+      return {...state, initialLoading: false}
     default:
       return state;
 

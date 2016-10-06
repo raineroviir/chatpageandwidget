@@ -134,7 +134,7 @@ export function selectChannel (channelname, conversationname) {
   }
 }
 
-export function fetchChannel(channelname, team) {
+export function fetchChannel(channelname, team, token) {
   return dispatch => {
   return fetch(Config.api + "/channels.find?channel=" + channelname + (team && team.name ? "&team=" + team.name : "") , {
     method: 'GET',
@@ -142,7 +142,14 @@ export function fetchChannel(channelname, team) {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token
     }
-  }).then(response => response.json()).then(json => dispatch({type: "FETCHED_CHANNEL", json}))
+  }).then(response => response.json()).then(json => {
+    dispatch({type: "FETCHED_CHANNEL", json})
+    console.log(json)
+    return json.channel.id
+  }, error => {
+    dispatch({type: 'FETCH_CHANNEL_ERROR', error})
+    throw error
+  })
   }
 }
 

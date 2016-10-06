@@ -19,27 +19,38 @@ class App extends React.Component {
       show: false
     }
   }
+  componentWillMount() {
+    const { dispatch } = this.props
+    dispatch({type: "BEGUN_INITIAL_LOADING"})
+  }
   componentDidMount() {
     const { dispatch, channel_url, serverMessages } = this.props
     // setting some dummy data here for now while we get the actual data flow set up
     const data = {email: "placeholder"}
-    const channel_id = 338;
+    console.log(channel_url)
+    const index = channel_url.indexOf('/')
+    const channelname = channel_url.slice(index + 1)
+    const team = channel_url.slice(0,index)
     dispatch(initEnvironment())
     dispatch(initUser(data))
     .then((token) => {
       token = token.access_token
-      dispatch(fetchChannel())
-      dispatch(getWidget(channel_id, channel_url, token))
-      dispatch(fetchChannelInfo(token, channel_id))
-      dispatch(checkForConversation(channel_id, token))
+      dispatch(fetchChannel(channelname, team, token)).then((channel_id) => {
+        dispatch(getWidget(channel_id, channel_url, token)).then(() => dispatch({type: "FINISHED_INITIAL_LOADING"}))
+        dispatch(fetchChannelInfo(token, channel_id))
+        dispatch(checkForConversation(channel_id, token))
+        dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
+      })
     })
-    dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
   }
   onToggle() {
     const { dispatch } = this.props
     this.setState({ show: !this.state.show });
   }
   render() {
+    if (this.props.initialLoading) {
+      return null
+    }
     return (
       <div>
         <div className="chat-widget-button" style={{backgroundColor: this.props.keyColor}}
@@ -54,7 +65,8 @@ class App extends React.Component {
 function mapStateToProps(state) {
   return {
     keyColor: state.widget.initialConfig.keyColor,
-    serverMessages: state.messages.serverMessages
+    serverMessages: state.messages.serverMessages,
+    initialLoading: state.environment.initialLoading
   }
 }
 
