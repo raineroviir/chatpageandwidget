@@ -5,7 +5,11 @@ import {MdClose} from 'react-icons/lib/md'
 import signInAvatar from './files/avatar.png'
 import {MdInfo} from 'react-icons/lib/md'
 import {GoTriangleUp} from 'react-icons/lib/go'
-import defaultTeamAvatar from './files/chat-btn.png'
+import AvatarOne from './files/bullbasaur.svg'
+import AvatarTwo from './files/charmander.svg'
+import AvatarThree from './files/eevee.svg'
+import AvatarFour from './files/meowth.svg'
+import AvatarFive from './files/squirtle.svg'
 
 export default class Header extends Component {
   constructor(props) {
@@ -23,7 +27,7 @@ export default class Header extends Component {
   }
   render() {
     const { widget } = this.props
-    const teamAvatarUrl = widget.initialConfig.channel.avatarUrl ? widget.initialConfig.channel.avatarUrl : defaultTeamAvatar
+    const teamAvatarUrl = widget.initialConfig.channel.avatarUrl ? widget.initialConfig.channel.avatarUrl : null
     const teamChannelUrl = widget.initialConfig.channelUrl ||  "seaShells.com"
     const welcomeMessage = widget.initialConfig.content ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
     const teamName = widget.initialConfig.content ? widget.initialConfig.content.teamName : ""
@@ -49,7 +53,12 @@ export default class Header extends Component {
       <div className="info">
         <div className="info-popup-triangle"><GoTriangleUp /></div>
         <div className="team-avatar-wrapper">
-          <div className="team-avatar" style={{backgroundImage: `url(${teamAvatarUrl})`}}>
+          <div style={{display: 'flex'}}>
+            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarOne})`}}></div>
+            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarTwo})`}}></div>
+            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarThree})`}}></div>
+            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFour})`}}></div>
+            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFive})`}}></div>
           </div>
         </div>
         <div className="team-name">
