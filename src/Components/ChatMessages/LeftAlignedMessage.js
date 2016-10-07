@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import defaultAvatarUrl from './files/avatar.png'
 import defaultBotAvatarUrl from './files/defaultBotAvatar.png'
 import { MdCheckCircle } from 'react-icons/lib/md'
+import moment from 'moment'
 
 export class LeftAlignedMessage extends React.Component {
   computeMessageBubbleColor() {

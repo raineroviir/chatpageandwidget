@@ -12,7 +12,13 @@ export default class DefaultMessage extends Component {
       <div className="default-message-wrapper">
         <div className="default-message">
           <div className="team-avatar-url-wrapper">
-          <div className="team-avatar-url" style={{backgroundImage: `url(${teamAvatarUrl})`}}>
+
+          <div style={{display: 'flex'}}>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
           </div>
           </div>
           <div className="team-details">

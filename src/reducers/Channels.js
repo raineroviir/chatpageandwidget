@@ -41,7 +41,8 @@ export function channels(state = initialState, action) {
   case 'RECEIVE_CHANNEL_INFO':
     return {...state,
       channels: {
-        isGroupChat: action.channelInfo.channel.is_group
+        isGroupChat: action.channelInfo.channel.is_group,
+        tempChannelInfo: action.channelInfo.channel
       }
     }
   default:

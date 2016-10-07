@@ -121,7 +121,7 @@ export function createConversation(channel_id, token) {
       body: JSON.stringify({channel_id: channel_id})
     }).then(response => response.json()).then(json => {
       const conversation = json.conversation
-      localStorage.setItem("guestConversation", JSON.stringify({conversation_id: conversation.id, channel_id: channel_id}))
+      localStorage.setItem("channelandconversation", JSON.stringify({[channel_id]: conversation.id}))
       dispatch({type:"CONVERSATION_CREATED", conversation})
       return conversation
     })
@@ -129,14 +129,13 @@ export function createConversation(channel_id, token) {
 }
 
 export function checkForConversation(channel_id, token) {
-  //look through conversation and find based on channel_id
-  //[channel-id]: conversation
-  const conversation = JSON.parse(localStorage.getItem("guestConversation"))
+  const localStorageCheck = JSON.parse(localStorage.getItem("channelandconversation"))
   return dispatch => {
-    if (!conversation) {
+    console.log(localStorageCheck[channel_id])
+    if (!localStorageCheck[channel_id]) {
       dispatch(createConversation(channel_id, token))
     } else {
-      const { conversation_id } = conversation
+      const conversation_id = localStorageCheck[channel_id]
       dispatch(setActiveConversation(conversation_id))
     }
   }

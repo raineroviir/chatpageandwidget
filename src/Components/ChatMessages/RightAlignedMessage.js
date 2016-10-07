@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import defaultAvatarUrl from './files/avatar.png'
-
+import moment from 'moment'
 export class RightAlignedMessage extends React.Component {
   computeMessageBubbleColor() {
     const { widgetConfig } = this.props
@@ -28,6 +28,7 @@ export class RightAlignedMessage extends React.Component {
         {checkForSameUser ? <div style={{alignSelf: "flex-end", padding: "0 56px 0 0"}}>
           You
         </div> : <div style={{padding: "4px 0 0 0"}}></div>}
+        {/* {moment(message.created_at).format("ddd MMM Do HH:mm A")} */}
         <div style={{flexDirection: "row"}} className="chat-message">
           <div style={this.computeMessageBubbleColor()} className={classNames("message-bubble", checkForSameUser ? "bubble-arrow-right" : "")}>
             {message.text}

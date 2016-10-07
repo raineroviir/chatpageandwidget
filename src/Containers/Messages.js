@@ -50,10 +50,12 @@ class Messages extends Component {
     const { token } = guest || user
     dispatch(getConversationHistory(conversationid, token)).then(json => {
       const { messages } = json
-      const visibleMessages = messages.slice(scrollIndex, scrollIndex + 20)
-      dispatch(changeScrollIndex(visibleMessages.length))
-      dispatch(loadServerMsgs(visibleMessages))
-      this.scrollToBottom()
+      if (messages) {
+        const visibleMessages = messages.slice(scrollIndex, scrollIndex + 20)
+        dispatch(changeScrollIndex(visibleMessages.length))
+        dispatch(loadServerMsgs(visibleMessages))
+        this.scrollToBottom()
+      }
     })
   }
   componentDidUpdate(prevProps) {
@@ -119,7 +121,7 @@ class Messages extends Component {
     return (
       <div className="conversation-body">
         {this.renderWaypoint()}
-        {this.props.isInfiniteLoading ? <div style={{alignText: "center"}}>Loading...</div>: null}
+        {this.props.isInfiniteLoading ? <div style={{alignText: "center"}}>Loading History...</div>: null}
         <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/>
         <ChatMessages
         dispatch={this.props.dispatch} className="chat-messages-wrapper" messages={this.props.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
