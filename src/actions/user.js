@@ -54,7 +54,7 @@ export function fetchUserInfo(token) {
  * @return {[Promise]}      [value is the token object.  Returning a promise allows us to chain .then() onto this function]
  */
 export function initUser(data) {
-  return dispatch => {
+  return (dispatch, getState) => {
     if (typeof(Storage) !== "undefined") {
       let token = JSON.parse(localStorage.getItem("guest")) || JSON.parse(localStorage.getItem("token"))
       if(!token) {
@@ -70,7 +70,8 @@ export function initUser(data) {
               localStorage.setItem("guest", JSON.stringify(token))
               dispatch(fetchUserInfo(token))
               dispatch({type: 'TOKEN_SET', token})
-              return dispatch(fetchSocket(token)).then(() => token)
+              dispatch(fetchSocket(token))
+              return token
             }
           },
             error => {

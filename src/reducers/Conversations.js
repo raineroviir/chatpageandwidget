@@ -5,7 +5,7 @@ const initialState = {
   memoized: {},
   memoizedMessage: {},
   channelid: null,
-  socket: '',
+  socket: null,
   preparingToCreateConversation: false,
   activeConversation: null,
   userScrollPosition: 0

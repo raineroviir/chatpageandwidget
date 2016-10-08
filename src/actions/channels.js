@@ -16,7 +16,7 @@ export function fetchSocket(token, userid) {
         }
         return response.json()
       }).then(json => {
-        return initializeSocket(json, dispatch, userid)
+        dispatch(initializeSocket(json))
       }, error => {
         dispatch({type: 'FETCH_SOCKET_ERROR', error})
         throw error
@@ -55,28 +55,29 @@ function getSocketURL (token) {
   });
 }
 
-function initializeSocket(socket, dispatch) {
-  const ws = new WebSocket(socket.url)
-
-  ws.onopen = function() {
-    ws.send(JSON.stringify(socket.subscription));
-  }
-  ws.onmessage = function(msg) {
-    if(msg && msg.data && JSON.parse(msg.data)) {
-      let data = JSON.parse(msg.data);
-      if(!data.message || !data.message.type) {
-        return
-      }
-      switch (data.message.type) {
-        case "message": {
-          console.log(data.message.payload)
-          dispatch(dispatchMessageStream(data.message.payload));
+function initializeSocket(socket) {
+  return dispatch => {
+    const ws = new WebSocket(socket.url)
+    ws.onopen = function() {
+      ws.send(JSON.stringify(socket.subscription))
+    }
+    ws.onmessage = function(msg) {
+      if(msg && msg.data && JSON.parse(msg.data)) {
+        let data = JSON.parse(msg.data)
+        if(!data.message || !data.message.type) {
+          return
+        }
+        switch (data.message.type) {
+          case "message": {
+            console.log(data.message.payload)
+            dispatch(dispatchMessageStream(data.message.payload))
+          }
         }
       }
     }
-  };
   return dispatch(socketInitialized(socket))
-};
+  }
+}
 
 function socketInitialized(socket) {
   return {
