@@ -16,8 +16,18 @@ export class LeftAlignedMessage extends React.Component {
       color: color //font-color
     }
   }
+  onSubmit(e) {
+    e.preventDefault();
+    if (this.refs.emailInput.value == "") {
+      return
+    }
+    this.props.handleUserEmailFromBot(this.refs.emailInput.value)
+    this.refs.emailInput.value = ""
+    console.log(this.refs.emailInput)
+  }
   render() {
-    const { checkForSameUser, message, widgetConfig } = this.props
+    const { checkForSameUser, message, widgetConfig, submittedEmail } = this.props
+    const userEmail = "blahblah.com"
     return (
       <div className={classNames("received-message fade-in, left-aligned-message")}>
         {checkForSameUser ? <div style={{alignSelf: "flex-start", padding: "0 0 0 56px"}}>
@@ -26,11 +36,15 @@ export class LeftAlignedMessage extends React.Component {
         <div style={{flexDirection: "row-reverse"}} className="chat-message">
           <div style={this.computeMessageBubbleColor()} className={classNames("message-bubble", checkForSameUser ? "bubble-arrow-left" : "")}>
             {!message.attachment ? message.text : <div style={{height: "32px", display: "flex"}}>
-              <input
-              type="text"
-              className="message-input"
-              placeholder="Enter your email"
-              aria-label="Enter your email" />
+              <form onSubmit={this.onSubmit.bind(this)}>
+                <input
+                type="text"
+                ref="emailInput"
+                className="email-input"
+                placeholder="Enter your email"
+                aria-label="Enter your email"
+                />
+              </form>
             <MdCheckCircle style={{cursor: "pointer", padding: "0 0 0 4px", fontSize: "32px", color: widgetConfig ? widgetConfig.keyColor : "#f7a444"}} /></div>}
           </div>
           {checkForSameUser ? <div style={{padding: "3px 8px 0 12px"}} className="avatar-wrapper">

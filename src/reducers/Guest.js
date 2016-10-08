@@ -42,12 +42,17 @@ export function guest(state = initialState, action) {
       guest: true,
       token: action.token.access_token
     }
-    case 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE':
-      return {
-        ...state,
-        guest: true,
-        token: action.token.access_token
-      }
+  case 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE':
+    return {
+      ...state,
+      guest: true,
+      token: action.token.access_token
+    }
+  case 'GUEST_UPDATED':
+    return {
+      ...state,
+      data: action.guest
+    }
   case 'WIDGET_CHANNEL_CREATED':
     return {...state, channel: action.channel}
   case 'CONVERSATION_CREATED':

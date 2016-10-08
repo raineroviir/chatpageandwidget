@@ -24,6 +24,11 @@ export function user(state = initialState, action) {
     };
   case 'RESET_USER':
     return initialState;
+  case 'USER_UPDATED':
+    return {
+      ...state,
+      data: action.user
+    }
   default:
     return state;
   }

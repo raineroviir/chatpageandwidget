@@ -15,10 +15,11 @@ import _ from 'lodash'
 import { referenceToConversationBody, infiniteLoading, infiniteLoadingDone, storeUserScrollPosition } from '../actions/environment'
 import {loadServerMsgs, scrollCompleteForUserMessage, botReplyForFirstMessage, scrollCompleteForMsgStream } from '../actions/messages'
 import {loadBot} from '../actions/bot'
-
+import {updateUser, submittedEmailToBot} from '../actions/user'
 class Messages extends Component {
   constructor(props) {
     super(props)
+    this.handleUserEmailFromBot = this.handleUserEmailFromBot.bind(this)
     this.renderWaypoint = this.renderWaypoint.bind(this)
     this.loadMoreHistory = this.loadMoreHistory.bind(this)
   }
@@ -30,8 +31,7 @@ class Messages extends Component {
     } else {
       userScrollPosition ? node.scrollTop = userScrollPosition : this.scrollToBottom()
     }
-    console.log(isGroupChat)
-    if (isGroupChat) {
+    if (!isGroupChat) {
       dispatch(loadBot())
     }
     node.addEventListener('scroll', this.handleScroll.bind(this))
@@ -117,6 +117,13 @@ class Messages extends Component {
       )
     }
   }
+  handleUserEmailFromBot(email) {
+    console.log(email)
+    const { dispatch, guest, user} = this.props
+    const token = guest.token || user.token
+    dispatch(updateUser({email: email}, token))
+    dispatch(submittedEmailToBot(email))
+  }
   render() {
     return (
       <div className="conversation-body">
@@ -125,7 +132,8 @@ class Messages extends Component {
         <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/>
         <ChatMessages
         dispatch={this.props.dispatch} className="chat-messages-wrapper" messages={this.props.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
-        isGroupChat={this.props.isGroupChat} messageStatus={this.props.messageStatus}/>
+        isGroupChat={this.props.isGroupChat} messageStatus={this.props.messageStatus}
+        handleUserEmailFromBot={this.handleUserEmailFromBot}/>
       </div>
     )
   }

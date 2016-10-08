@@ -37,11 +37,10 @@ class App extends React.Component {
       token = token.access_token
       dispatch(fetchChannel(channelname, team, token)).then((channel_id) => {
         dispatch(getWidget(channel_id, channel_url, token)).then(() => dispatch({type: "FINISHED_INITIAL_LOADING"}))
-        dispatch(fetchChannelInfo(token, channel_id))
         dispatch(checkForConversation(channel_id, token))
         dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
-      })
-    })
+      }).catch(error => console.log(error))
+    }).catch(error => console.log(error))
   }
   onToggle() {
     const { dispatch } = this.props

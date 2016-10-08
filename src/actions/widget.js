@@ -19,11 +19,16 @@ export function getWidget(channel_id, channel_url, token) {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + token.access_token || token,
         }
-      }).then(response => response.json()).then(json => dispatch({type: "INIT_WIDGET_CONFIG_INITIAL_STATE", widgetConfig: json, channelId: channel_id}),
+      }).then(response => {
+  if (response.status >= 400) {
+    throw new Error("Bad response from server");
+  }
+  return response.json()
+}).then(json => dispatch({type: "INIT_WIDGET_CONFIG_INITIAL_STATE", widgetConfig: json, channelId: channel_id}),
       error => {
         dispatch({type: "ERROR_FETCHING_WIDGET_BY_CHANNEL_ID"})
         throw error
-      })
+      }).catch(error => console.log(error))
     }
   } else {
     return dispatch => {
@@ -34,11 +39,16 @@ export function getWidget(channel_id, channel_url, token) {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + token.access_token || token,
         }
-      }).then(response => response.json()).then(json => dispatch({type: "INIT_WIDGET_CONFIG_INITIAL_STATE", widgetConfig: json, channelUrl: channel_url}),
+      }).then(response => {
+  if (response.status >= 400) {
+    throw new Error("Bad response from server");
+  }
+  return response.json()
+}).then(json => dispatch({type: "INIT_WIDGET_CONFIG_INITIAL_STATE", widgetConfig: json, channelUrl: channel_url}),
       error => {
         dispatch({type: "ERROR_FETCHING_WIDGET_BY_CHANNEL_URL"})
         throw error
-      })
+      }).catch(error => console.log(error))
     }
   }
 }

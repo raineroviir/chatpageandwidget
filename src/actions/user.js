@@ -32,14 +32,19 @@ export function fetchUserInfo(token) {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token.access_token
       }
-    }).then(response => response.json()).then(json => {
+    }).then(response => {
+      if (response.status >= 400) {
+        throw new Error("Bad response from server");
+      }
+      return response.json()
+    }).then(json => {
       json.guest ? dispatch(receiveGuestInfo(json)) :
       dispatch(receiveUserInfo(json))
     },
     error => {
       dispatch({type: 'FETCH_TOKEN_ERROR', error})
       throw error
-    })
+    }).catch(error => console.log(error))
   }
 }
 
@@ -53,21 +58,25 @@ export function initUser(data) {
     if (typeof(Storage) !== "undefined") {
       let token = JSON.parse(localStorage.getItem("guest")) || JSON.parse(localStorage.getItem("token"))
       if(!token) {
-        return fetchGuestToken(data).then(response => response.json())
+        return fetchGuestToken(data).then(response => {
+          if (response.status >= 400) {
+            throw new Error("Bad response from server");
+          }
+          return response.json()
+        })
           .then(json => {
             if(json.ok) {
               let token = json.token;
               localStorage.setItem("guest", JSON.stringify(token))
               dispatch(fetchUserInfo(token))
               dispatch({type: 'TOKEN_SET', token})
-              dispatch(fetchSocket(token))
-              return token
+              return dispatch(fetchSocket(token)).then(() => token)
             }
           },
             error => {
               dispatch({type: 'FETCH_TOKEN_ERROR', error})
               throw error
-            })
+            }).catch(error => console.log(error))
       } else {
         dispatch(fetchUserInfo(token))
         dispatch({type: 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE', token})
@@ -81,12 +90,52 @@ export function initUser(data) {
   }
 }
 
+/**
+ * [updateUser description]
+ * @param  {[Object]} updates
+ * @param  {[String]} token
+ */
+export function updateUser(updates, token) {
+  return dispatch => {
+    return fetch(Config.api + '/users.update', {
+      method: 'PUT',
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify(updates)
+    }).then(response => {
+      if (response.status >= 400) {
+        throw new Error("Bad response from server");
+      }
+      return response.json()
+    }).then(user => {
+      console.log(user)
+      if (user.guest) {
+        const guest = user.guest
+        dispatch({type: "GUEST_UPDATED", guest})
+      } else {
+        dispatch({type: "USER_UPDATED", user})
+      }
+    },
+    error => {
+      dispatch({type: 'UPDATE_USER_ERROR', error})
+      throw error
+    }).catch(error => console.log(error))
+  }
+}
+
 function receiveUserInfo(data) {
   return {
     type: "RECEIVED_USER_INFO", data
   }
 }
 
+export function submittedEmailToBot(email) {
+  return {
+    type: "SUBMITTED_EMAIL_TO_BOT", email
+  }
+}
 function receiveGuestInfo (data) {
   return {
     type: "RECEIVED_GUEST_INFO", data

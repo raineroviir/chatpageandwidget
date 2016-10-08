@@ -31,10 +31,15 @@ export function createMessage(message, conversationid, token, channelid, attachm
 
   dispatch(addMessage(message))
   const messageText = message.text
-  return postMessage(messageText, conversationid, token, channelid, attachment).then(response => response.json())
+  return postMessage(messageText, conversationid, token, channelid, attachment).then(response => {
+  if (response.status >= 400) {
+    throw new Error("Bad response from server");
+  }
+  return response.json()
+})
   .then(json => {
     dispatch({type: "MSG_SAVED_TO_SERVER", message})
-  })
+  }).catch(error => console.log(error))
   }
 }
 

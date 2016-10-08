@@ -12,7 +12,7 @@ export class MessageListItem extends React.Component {
        return <RightAlignedMessage key={message.id} widgetConfig={widgetConfig} checkForSameUser={checkForSameUser} message={message} />
     } else {
       return <LeftAlignedMessage key={message.id} widgetConfig={widgetConfig} checkForSameUser={checkForSameUser} message={message}
-      isGroupChat={isGroupChat} />
+      isGroupChat={isGroupChat} handleUserEmailFromBot={this.props.handleUserEmailFromBot}/>
     }
   }
 }

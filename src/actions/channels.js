@@ -5,33 +5,22 @@ import moment from 'moment';
 import { fetchUserInfo, setOrGetGuestToken} from "./user";
 import { getConversations, processConversationsForDispatch } from './conversations'
 import { scrollToBottom } from './environment'
-export function setUserInfo(user, history) {
-  if (typeof(Storage) !== "undefined") {
-    var orgs = JSON.parse(localStorage.getItem("orgs")) || [],
-      org;
-    if(orgs.length > 1){
-      org = orgs.find(item => {
-        item.active = false;
-        return item.name.indexOf(user) > 0;
-      });
-    }
-    if(org){
-      org.active = true;
-      localStorage.setItem("token", JSON.stringify(org.token));
-    }
-  }
-  return {
-    type: "DUMMY_DISPATCH",
-    posts : null,
-    receivedAt: Date.now()
-  };
-}
 
 export function fetchSocket(token, userid) {
   return dispatch => {
     let getSocket = getSocketURL(token);
     if(getSocket) {
-      getSocket.then(response => response.json()).then(json => initializeSocket(json, dispatch, userid));
+      getSocket.then(response => {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+        return response.json()
+      }).then(json => {
+        return initializeSocket(json, dispatch, userid)
+      }, error => {
+        dispatch({type: 'FETCH_SOCKET_ERROR', error})
+        throw error
+      }).catch(error => console.log(error))
     }
   }
 }
@@ -44,8 +33,13 @@ export function fetchChannelInfo(token, channel_id) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       }
-    }).then(response => response.json())
-    .then(channelInfo => dispatch({type: "RECEIVE_CHANNEL_INFO", channelInfo}))
+    }).then(response => {
+      if (response.status >= 400) {
+        throw new Error("Bad response from server");
+      }
+      return response.json()
+    })
+    .then(channelInfo => dispatch({type: "RECEIVE_CHANNEL_INFO", channelInfo})).catch(error => console.log(error))
   }
 }
 
@@ -123,7 +117,12 @@ export function selectChannel (channelname, conversationname) {
     }
     service.then(() => {
       if(!failure){
-        fetchChannel(channelname, team).then(response => response.json())
+        fetchChannel(channelname, team).then(response => {
+  if (response.status >= 400) {
+    throw new Error("Bad response from server");
+  }
+  return response.json()
+})
         .then(json => {
           if(json.ok){
             dispatch(getConversations(json.channel.id, null, conversationname));
@@ -142,14 +141,19 @@ export function fetchChannel(channelname, team, token) {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token
     }
-  }).then(response => response.json()).then(json => {
+  }).then(response => {
+  if (response.status >= 400) {
+    throw new Error("Bad response from server");
+  }
+  return response.json()
+}).then(json => {
     dispatch({type: "FETCHED_CHANNEL", json})
     console.log(json)
     return json.channel.id
   }, error => {
     dispatch({type: 'FETCH_CHANNEL_ERROR', error})
     throw error
-  })
+  }).catch(error => console.log(error))
   }
 }
 
@@ -175,9 +179,14 @@ export function fetchChannels(token) {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token.access_token || token,
       }
-    }).then(response => response.json()).then(json => {
+    }).then(response => {
+  if (response.status >= 400) {
+    throw new Error("Bad response from server");
+  }
+  return response.json()
+}).then(json => {
       dispatch(receiveChannels(json.channels))
-    })
+    }).catch(error => console.log(error))
   }
 }
 
@@ -201,13 +210,15 @@ export function createWidgetChannel(token) {
           'Authorization': 'Bearer ' + token
         },
         body: data
-    }).then(response => response.json()).then(json => {
-      if (json.error) {
-        return console.log(json.error)
-      }
+    }).then(response => {
+  if (response.status >= 400) {
+    throw new Error("Bad response from server");
+  }
+  return response.json()
+}).then(json => {
       const channelid = {id: json.channel.id}
       dispatch(widgetChannelCreated(json.channel))
-    })
+    }).catch(error => console.log(error))
   }
 }
 

@@ -2,17 +2,6 @@ import Config from '../../config';
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
 
-
-function fetchConversations(channel_id, token) {
-  return fetch( Config.api + '/conversations.list?channel_id=' + channel_id, {
-    method: 'GET',
-    headers:{
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token.access_token || token,
-    }
-  })
-}
-
 function processConversationsHistoryForDispatch(messages, conversationid) {
   return {
     type: 'FETCH_MESSAGES',
@@ -65,6 +54,9 @@ export function getConversations(channel_id, token) {
         'Authorization': 'Bearer ' + token.access_token || token,
       }
     }).then(response => {
+      if (response.status >= 400) {
+        throw new Error("Bad response from server");
+      }
       return response.json()
     }).then(json => {
       const conversations = json
@@ -74,9 +66,7 @@ export function getConversations(channel_id, token) {
       receivedAt: Date.now()
       })
       return json
-    }).catch(e => {
-      throw e
-    })
+    }).catch(error => console.log(error))
   }
 }
 
@@ -89,7 +79,12 @@ export function getConversationHistory(conversationid, token) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       }
-    }).then(response => response.json())
+    }).then(response => {
+  if (response.status >= 400) {
+    throw new Error("Bad response from server");
+  }
+  return response.json()
+})
       .then(json => {
         dispatch(processConversationsHistoryForDispatch(json, conversationid))
         dispatch({
@@ -101,7 +96,7 @@ export function getConversationHistory(conversationid, token) {
       }, error => {
         dispatch({type: 'FETCH_CONVERSATION_HISTORY_ERROR', error})
         throw error
-      })
+      }).catch(error => console.log(error))
   }
 }
 
@@ -119,24 +114,27 @@ export function createConversation(channel_id, token) {
         'Authorization': 'Bearer ' + token
       },
       body: JSON.stringify({channel_id: channel_id})
-    }).then(response => response.json()).then(json => {
+    }).then(response => {
+  if (response.status >= 400) {
+    throw new Error("Bad response from server");
+  }
+  return response.json()
+}).then(json => {
       const conversation = json.conversation
-      localStorage.setItem("channelandconversation", JSON.stringify({[channel_id]: conversation.id}))
+      localStorage.setItem([channel_id], JSON.stringify(conversation.id))
       dispatch({type:"CONVERSATION_CREATED", conversation})
       return conversation
-    })
+    }).catch(error => console.log(error))
   }
 }
 
 export function checkForConversation(channel_id, token) {
-  const localStorageCheck = JSON.parse(localStorage.getItem("channelandconversation"))
+  const localStorageConversationId = JSON.parse(localStorage.getItem(channel_id))
   return dispatch => {
-    console.log(localStorageCheck[channel_id])
-    if (!localStorageCheck[channel_id]) {
+    if (!localStorageConversationId) {
       dispatch(createConversation(channel_id, token))
     } else {
-      const conversation_id = localStorageCheck[channel_id]
-      dispatch(setActiveConversation(conversation_id))
+      dispatch(setActiveConversation(localStorageConversationId))
     }
   }
 }
