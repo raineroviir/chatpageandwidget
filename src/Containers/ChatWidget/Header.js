@@ -73,7 +73,7 @@ export default class Header extends Component {
           <form style={{border: "none", padding: "0 40 0 10", opacity: "0.6", letterSpacing: "0.1px"}}><input style={{width: "100%", border: "none", borderBottom: "2px solid", height: "30px"}}  placeholder="Enter your email"/>
           </form>
         </div>
-        <div style={{width: "75%", backgroundColor: widget.initialConfig.keyColor, height: "48px", borderRadius: "5px", color: "#FFFFFF", display: "flex", justifyContent: "center"}}><div style={{alignSelf: "center"}}>Save Changes</div></div>
+        <div style={{backgroundColor: widget.initialConfig.keyColor, height: "48px", borderRadius: "5px", color: "#FFFFFF", display: "flex", justifyContent: "center", width: "200px"}}><div style={{alignSelf: "center"}}>Save Changes</div></div>
         </div>
       </div>
     </div>
