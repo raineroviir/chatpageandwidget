@@ -28,11 +28,15 @@ export class LeftAlignedMessage extends React.Component {
   render() {
     const { checkForSameUser, message, widgetConfig, submittedEmail } = this.props
     const userEmail = "blahblah.com"
+    const displayedTime = moment(message.created_at).fromNow()
     return (
       <div className={classNames("received-message fade-in, left-aligned-message")}>
         {checkForSameUser ? <div style={{alignSelf: "flex-start", padding: "0 0 0 56px"}}>
           {message.sender_name}
         </div> : <div style={{padding: "4px 0 0 0"}}></div>}
+        <div style={{padding: "0 0 0 56px", alignSelf: 'flex-start'}}>
+        {displayedTime}
+        </div>
         <div style={{flexDirection: "row-reverse"}} className="chat-message">
           <div style={this.computeMessageBubbleColor()} className={classNames("message-bubble", checkForSameUser ? "bubble-arrow-left" : "")}>
             {!message.attachment ? message.text : <div style={{height: "32px", display: "flex"}}>

@@ -23,12 +23,15 @@ export class RightAlignedMessage extends React.Component {
   }
   render() {
     const { checkForSameUser, message } = this.props
+    const displayedTime = moment(message.created_at).fromNow()
     return (
       <div className={classNames("received-message fade-in, right-aligned-message")}>
         {checkForSameUser ? <div style={{alignSelf: "flex-end", padding: "0 56px 0 0"}}>
           You
         </div> : <div style={{padding: "4px 0 0 0"}}></div>}
-        {/* {moment(message.created_at).format("ddd MMM Do HH:mm A")} */}
+        <div style={{padding: "0 56px 0 0", alignSelf: 'flex-end'}}>
+        {displayedTime}
+        </div>
         <div style={{flexDirection: "row"}} className="chat-message">
           <div style={this.computeMessageBubbleColor()} className={classNames("message-bubble", checkForSameUser ? "bubble-arrow-right" : "")}>
             {message.text}
