@@ -7,12 +7,8 @@ import Footer from './Footer'
 import Header from './Header'
 import {styles} from './styles.scss'
 
-
 class ChatWidget extends React.Component {
-  backToConversationSummaryView() {
-    const { dispatch } = this.props
-    dispatch(backToConversationSummaryView())
-  }
+
   onToggleResize() {
     const { dispatch } = this.props
     dispatch(toggleResize())
@@ -24,10 +20,8 @@ class ChatWidget extends React.Component {
     {height: this.props.widgetHeight, top: "auto"}
     return (
       <div className="chat-widget" style={computedStyle}>
-        <Header keyColor={this.props.keyColor} onClose={this.props.onClose}
-        onResize={this.onToggleResize.bind(this)} backToConversationSummaryView={this.backToConversationSummaryView.bind(this)}
-        activeConversation={this.props.activeConversation} preparingToCreateConversation={this.props.preparingToCreateConversation}
-        userScrollPosition={this.props.userScrollPosition} widget={this.props.widget}/>
+        <Header onClose={this.props.onClose}
+        onResize={this.onToggleResize.bind(this)} />
         <Messages />
         <Footer />
       </div>

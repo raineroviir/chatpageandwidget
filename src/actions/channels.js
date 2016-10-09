@@ -68,7 +68,6 @@ function initializeSocket(socket, dispatch) {
       }
       switch (data.message.type) {
         case "message": {
-          console.log(data.message.payload)
           dispatch(dispatchMessageStream(data.message.payload))
         }
       }
@@ -158,6 +157,7 @@ export function fetchChannel(channelname, team, token) {
 
 function dispatchMessageStream(message) {
   return (dispatch, getState) => {
+    console.log(message)
     const state = getState()
     const userid = state.user.data.id || state.guest.data.id
     if (message.user_id === userid) {

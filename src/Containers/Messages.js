@@ -117,11 +117,27 @@ class Messages extends Component {
       )
     }
   }
+  returnRandomAdjective() {
+    let adjective = ["Bright","Dark","Amazing","Popular","Simple","Real","Hard","Easy","Young","Large"]
+    return adjective[Math.floor((Math.random() * 10) + 1)]
+  }
+  returnRandomColor() {
+    let color = ["Green","Red","Blue","Yellow","Purple","Orange","White","Black","Brown","Pink"]
+    return color[Math.floor((Math.random() * 10) + 1)]
+  }
   handleUserEmailFromBot(email) {
     console.log(email)
     const { dispatch, guest, user} = this.props
     const token = guest.token || user.token
-    dispatch(updateUser({email: email}, token))
+    let firstName = guest.data.first_name || user.data.first_name
+    if (!firstName) {
+      firstName = this.returnRandomAdjective()
+    }
+    let lastName = guest.data.last_name || user.data.last_name
+    if (!lastName) {
+      lastName = this.returnRandomColor()
+    }
+    dispatch(updateUser({email: email, first_name: firstName, last_name: lastName}, token))
     dispatch(submittedEmailToBot(email))
   }
   render() {

@@ -61,14 +61,8 @@ export function messages(state = initialState, action) {
       memoized: Object.assign({}, state.memoized, { [action.message.conversationid]: action.message })
     }
   case 'MESSAGE_STREAM':
-    let message = action.message,
-      user = state.messages.find(a => a.user_id === message.user_id),
-      updatedMessages;
+    let message = action.message
     message.created_at = moment().format();
-    if(user) {
-      message.sender_name = user.sender_name;
-      message.sender_avatar = user.sender_avatar;
-    }
     updatedMessages = [...state.messages, message];
     return {
       ...state,

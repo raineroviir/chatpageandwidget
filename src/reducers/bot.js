@@ -1,6 +1,7 @@
 const initialState = {
   active: false,
-  botResponse: false
+  botResponse: false,
+  emailReceived: false
 }
 
 export function bot(state = initialState, action) {
@@ -9,6 +10,8 @@ export function bot(state = initialState, action) {
       return {...state, active: true}
     case 'BOT_RESPONSE':
       return {...state, botResponse: true}
+    case "SUBMITTED_EMAIL_TO_BOT":
+      return {...state, emailReceived: true}
     default:
       return state
   }

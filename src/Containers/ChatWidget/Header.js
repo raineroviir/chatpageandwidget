@@ -12,10 +12,15 @@ import AvatarFour from './files/meowth.svg'
 import AvatarFive from './files/squirtle.svg'
 import closeIcon from './files/x.svg'
 import ReactDOM from 'react-dom'
-
-export default class Header extends Component {
+import {connect} from 'react-redux'
+import {updateUser} from '../../actions/user'
+class Header extends Component {
   constructor(props) {
     super(props)
+    this.forgetMe = this.forgetMe.bind(this)
+    this.enterEmailForNotificationsToggle =
+    this.enterEmailForNotificationsToggle.bind(this)
+    this.handleUserUpdate = this.handleUserUpdate.bind(this)
     this.state = {
       showMenu: false,
       showInfo: false,
@@ -29,7 +34,7 @@ export default class Header extends Component {
     this.setState({showInfo: !this.state.showInfo, showMenu: this.state.showMenu ? !this.state.showMenu : this.state.showMenu})
   }
   enterEmailForNotificationsToggle() {
-    this.setState({showEnterEmailForNotifications: !this.state.showEnterEmailForNotifications, showMenu: this.state.showMenu ? !this.state.showMenu : this.state.showMenu})
+    this.setState({showEnterEmailForNotifications: !this.state.showEnterEmailForNotifications})
   }
   componentDidMount() {
     window.addEventListener('click', event => {
@@ -45,8 +50,34 @@ export default class Header extends Component {
       }
     })
   }
+  handleUserUpdate(e) {
+    e.preventDefault()
+    const { dispatch, guest, user } = this.props
+    const token = guest.token || user.token
+    let updates = {email: this.refs.emailCapture.value, first_name: this.refs.nameCapture.value, last_name: "test"}
+    if (!updates.first_name) {
+      return
+    }
+    if (!updates.last_name) {
+      return
+    }
+    if (!updates.email) {
+      return
+    }
+    dispatch(updateUser(updates, token))
+    this.refs.nameCapture.value = ""
+    this.refs.emailCapture.value = ""
+    this.enterEmailForNotificationsToggle()
+    return
+  }
+  forgetMe() {
+    const { dispatch, guest, user } = this.props
+    const token = guest.token || user.token
+    const updates = {email: "forget@me.com", first_name: "forget", last_name: "me"}
+    dispatch(updateUser(updates, token))
+  }
   render() {
-    const { widget } = this.props
+    const { widget, guest, user } = this.props
     const teamAvatarUrl = widget.initialConfig.channel.avatarUrl ? widget.initialConfig.channel.avatarUrl : null
     const teamChannelUrl = widget.initialConfig.channelUrl ||  "seaShells.com"
     const welcomeMessage = widget.initialConfig.content ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
@@ -55,45 +86,66 @@ export default class Header extends Component {
     <div id="your-details-modal" className="modal">
       <div className="email-for-notifications-modal">
         <div style={{padding: "10 10 40 40", display: "flex", "flexDirection": "column"}}>
-        <div onClick={this.enterEmailForNotificationsToggle.bind(this)} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
+        <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
         <div className="your-details">
           Your Details
         </div>
-        <div>
-          <div style={{padding: "0 40 0 10", letterSpacing: "0.1px"}}>
-            Name or nickname
-          </div>
-          <form style={{padding: "0 40 0 10", opacity: "0.6", letterSpacing: "0.1px"}}><input style={{width: "100%", border: "none", height: "30px", borderBottom: "2px solid"}} placeholder="Enter your name"/>
+          <form onSubmit={this.handleUserUpdate} style={{padding: "0 40 0 10"}}>
+            <div style={{padding: "0 40 0 10", letterSpacing: "0.1px"}}>
+              Name or nickname
+            </div>
+            <input ref="nameCapture" style={{ opacity: "0.6", letterSpacing: "0.1px", width: "100%", border: "none", height: "30px", borderBottom: "2px solid"}} placeholder="Enter your name"/>
+            <div>
+            <div style={{padding: "0 40 0 10", letterSpacing: "0.1px"}}>
+              Email for notifications
+            </div>
+            <input ref="emailCapture" style={{ opacity: "0.6", letterSpacing: "0.1px", width: "100%", border: "none", borderBottom: "2px solid", height: "30px"}}  placeholder="Enter your email"/>
+            </div>
+            <button type="submit" style={{backgroundColor: widget.initialConfig.keyColor, height: "48px", borderRadius: "5px", color: "#FFFFFF", display: "flex", justifyContent: "center", width: "200px"}}>
+              <div style={{alignSelf: "center"}}>Save Changes</div>
+            </button>
           </form>
-        </div>
-        <div>
-          <div style={{padding: "0 40 0 10", letterSpacing: "0.1px"}}>
-            Email for notifications
-          </div>
-          <form style={{border: "none", padding: "0 40 0 10", opacity: "0.6", letterSpacing: "0.1px"}}><input style={{width: "100%", border: "none", borderBottom: "2px solid", height: "30px"}}  placeholder="Enter your email"/>
-          </form>
-        </div>
-        <div style={{backgroundColor: widget.initialConfig.keyColor, height: "48px", borderRadius: "5px", color: "#FFFFFF", display: "flex", justifyContent: "center", width: "200px"}}><div style={{alignSelf: "center"}}>Save Changes</div></div>
         </div>
       </div>
     </div>
     const menu = (
         <div style={{color: widget.initialConfig.keyColor}} className="menu">
           <div className="menu-popup-triangle"><GoTriangleUp /></div>
-            {null && <div>
-              <div>John</div>
-              <div>mermaid@gmail.com</div>
-              <div>temporary account</div>
-            </div>}
-            <div style={{border: "none"}} className="menu-item">
-              <div onClick={this.enterEmailForNotificationsToggle.bind(this)} style={{cursor: "pointer"}}>Enter email for notifications</div>
+            <div style={{color: "black"}}>
+              <div>
+                {guest.data.first_name || user.data.first_name ?
+                  <div>
+                    {guest.data.first_name || user.data.first_name}
+                  </div> : null
+                }
+                {guest.data.last_name || user.data.last_name ?
+                  <div style={{paddingLeft: "5px"}}>
+                    {guest.data.last_name || user.data.last_name}
+                  </div> : null
+                }
+              </div>
+            {guest.data.email || user.data.email ?
+              <div>
+                <div>
+                  {guest.data.email || user.data.email}
+                </div>
+                <div>
+                  {guest.guest && <div>temporary account</div>}
+                </div>
+              </div> :
+              <div style={{border: "none"}} className="menu-item">
+                <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>
+                  Enter email for notifications
+                </div>
+              </div>
+            }
             </div>
-          {null && <div>
+          {guest.data.email && <div>
             <div className="menu-item">
-              <div style={{cursor: "pointer"}}>Edit</div>
+              <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>Edit</div>
             </div>
             <div className="menu-item">
-              <div style={{cursor: "pointer"}}>Forget me</div>
+              <div onClick={this.forgetMe} style={{cursor: "pointer"}}>Forget me</div>
             </div>
           </div>}
           <div className="menu-item">
@@ -140,7 +192,7 @@ export default class Header extends Component {
         <div className="header-info">
           <div style={{width: "25px", height: "25px", cursor: "pointer", backgroundImage: `url(${infoIcon})`, backgroundRepeat: "no-repeat"}} onClick={this.infoToggle.bind(this)} ></div>
         </div>}
-        <div className="sign-in-to-chat-center" style={{color: this.props.keyColor}}>
+        <div className="sign-in-to-chat-center" style={{color: widget.initialConfig.keyColor}}>
           <div style={{display: "flex"}}>
           </div>
           <div style={{display: "flex"}}>
@@ -158,3 +210,20 @@ export default class Header extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  const { user, guest, widget } = state
+  return {
+    user,
+    guest,
+    widget
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
