@@ -9,10 +9,22 @@ export class MessageListItem extends React.Component {
     const previousMessageUserId = previousMessage ? previousMessage.user_id : null
     const currentMessageUserId = message.user_id
     const checkForSameUser = currentMessageUserId !== previousMessageUserId
-    // console.log(moment(message.created_at).fromNow())
-    const dateSeparator = <div style={{borderTop: "2px solid"}}></div>
+    const dateOne = moment(message.created_at)
+    const dateTwo = moment(previousMessage ? previousMessage.created_at : null)
+    const dateDiff = dateOne.diff(dateTwo, 'days')
+    const dateSeparator = <div style={{display: 'flex', justifyContent: 'center', opacity: '0.6', borderTop: "1px solid"}}>{moment(message.created_at).calendar(null, {
+    sameDay: '[Today]',
+    nextDay: '[Tomorrow]',
+    nextWeek: 'dddd',
+    lastDay: '[Yesterday]',
+    lastWeek: '[Last] dddd',
+    sameElse: 'DD/MM/YYYY'
+})}</div>
     if (message.user_id === currentUser) {
-       return <RightAlignedMessage key={message.id} widgetConfig={widgetConfig} checkForSameUser={checkForSameUser} message={message} />
+       return (<div>
+        {dateDiff > 0 ? dateSeparator : null}
+       <RightAlignedMessage key={message.id} widgetConfig={widgetConfig} checkForSameUser={checkForSameUser} message={message} />
+      </div>)
     } else {
       return <LeftAlignedMessage key={message.id} widgetConfig={widgetConfig} checkForSameUser={checkForSameUser} message={message}
       isGroupChat={isGroupChat} handleUserEmailFromBot={this.props.handleUserEmailFromBot}/>
