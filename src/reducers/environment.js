@@ -9,6 +9,7 @@ const initialState = {
   totalHeightOfHistoryMessages: "",
   userScrollPosition: 0,
   initialLoading: false,
+  inactive: true,
 };
 
 export function environment(state = initialState, action) {
@@ -46,6 +47,8 @@ export function environment(state = initialState, action) {
       return {...state, initialLoading: true}
     case "FINISHED_INITIAL_LOADING":
       return {...state, initialLoading: false}
+    case "WIDGET_TOGGLE":
+      return {...state, inactive: !state.inactive}
     default:
       return state;
 

@@ -77,7 +77,7 @@ class Header extends Component {
     dispatch(updateUser(updates, token))
   }
   render() {
-    const { widget, guest, user } = this.props
+    const { widget, guest, user, environment } = this.props
     const teamAvatarUrl = widget.initialConfig.channel.avatarUrl ? widget.initialConfig.channel.avatarUrl : null
     const teamChannelUrl = widget.initialConfig.channelUrl ||  "seaShells.com"
     const welcomeMessage = widget.initialConfig.content ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
@@ -90,18 +90,18 @@ class Header extends Component {
         <div className="your-details">
           Your Details
         </div>
-          <form onSubmit={this.handleUserUpdate} style={{padding: "0 40 0 10"}}>
+          <form onSubmit={this.handleUserUpdate} style={{padding: "0 40 0 0"}}>
             <div style={{padding: "0 40 0 10", letterSpacing: "0.1px"}}>
               Name or nickname
             </div>
-            <input ref="nameCapture" style={{ opacity: "0.6", letterSpacing: "0.1px", width: "100%", border: "none", height: "30px", borderBottom: "2px solid"}} placeholder="Enter your name"/>
+            <input ref="nameCapture" style={{padding: "0 0 0 10", opacity: "0.6", letterSpacing: "0.1px", width: "100%", border: "none", height: "30px", borderBottom: "2px solid"}} placeholder="Enter your name"/>
             <div>
             <div style={{padding: "0 40 0 10", letterSpacing: "0.1px"}}>
               Email for notifications
             </div>
-            <input ref="emailCapture" style={{ opacity: "0.6", letterSpacing: "0.1px", width: "100%", border: "none", borderBottom: "2px solid", height: "30px"}}  placeholder="Enter your email"/>
+            <input ref="emailCapture" style={{padding: "0 0 0 10", opacity: "0.6", letterSpacing: "0.1px", width: "100%", border: "none", borderBottom: "2px solid", height: "30px"}}  placeholder="Enter your email"/>
             </div>
-            <button type="submit" style={{backgroundColor: widget.initialConfig.keyColor, height: "48px", borderRadius: "5px", color: "#FFFFFF", display: "flex", justifyContent: "center", width: "200px"}}>
+            <button type="submit" style={{padding: "0 10 0 0", backgroundColor: widget.initialConfig.keyColor, height: "48px", borderRadius: "5px", color: "#FFFFFF", display: "flex", justifyContent: "center", width: "200px"}}>
               <div style={{alignSelf: "center"}}>Save Changes</div>
             </button>
           </form>
@@ -188,7 +188,7 @@ class Header extends Component {
         <div className="header-arrow" onClick={this.props.onResize.bind(this)}>
           <FaAngleDown />
         </div>
-        {this.props.userScrollPosition > 150 &&
+        {environment.userScrollPosition > 150 &&
         <div className="header-info">
           <div style={{width: "25px", height: "25px", cursor: "pointer", backgroundImage: `url(${infoIcon})`, backgroundRepeat: "no-repeat"}} onClick={this.infoToggle.bind(this)} ></div>
         </div>}
@@ -204,7 +204,7 @@ class Header extends Component {
         onClick={this.props.onClose.bind(this)}>
           <MdClose />
         </div>
-        {this.state.showInfo && this.props.userScrollPosition > 150 && info}
+        {this.state.showInfo && environment.userScrollPosition > 150 && info}
         {this.state.showMenu && menu}
       </div>
     )
@@ -212,11 +212,12 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-  const { user, guest, widget } = state
+  const { user, guest, widget, environment } = state
   return {
     user,
     guest,
-    widget
+    widget,
+    environment
   }
 }
 

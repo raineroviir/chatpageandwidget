@@ -5,6 +5,7 @@ import moment from 'moment';
 import { fetchUserInfo, setOrGetGuestToken} from "./user";
 import { getConversations, processConversationsForDispatch } from './conversations'
 import { scrollToBottom } from './environment'
+import {dispatchMessageStream} from './messages'
 
 export function fetchSocket(token, userid) {
   return dispatch => {
@@ -155,19 +156,7 @@ export function fetchChannel(channelname, team, token) {
   }
 }
 
-function dispatchMessageStream(message) {
-  return (dispatch, getState) => {
-    console.log(message)
-    const state = getState()
-    const userid = state.user.data.id || state.guest.data.id
-    if (message.user_id === userid) {
-      return
-    }
-    dispatch({type: "MESSAGE_STREAM",
-    message: message,
-    receivedAt: Date.now()})
-  }
-}
+
 
 
 export function fetchChannels(token) {

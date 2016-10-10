@@ -9,6 +9,22 @@ const initialState = {
   channelError: true,
   userCreatedNewMessage: false,
   messageStreamNewMessage: false,
+  messagesWhileInactive: [
+    {conversation_id:550,
+    created_at:"2016-10-09T04:32:25.856Z",
+    id:252525,
+    sender_avatar:null,
+    sender_name:"forget me",
+    text:"I see that you've had even more issues, is there any way I can further be of assistance?",
+    user_id:484},
+    {conversation_id:550,
+    created_at:"2016-10-09T04:32:25.856Z",
+    id:2438,
+    sender_avatar:null,
+    sender_name:"forget me",
+    text:"Hi there, I did some research, and it looks like I was able to identify the source of your problem. It's not a very big deal and we can try and solve this right away. All problems are solvable you just have to have the right mindset and get to action quickly.",
+    user_id:484},
+  ]
 };
 
 export function messages(state = initialState, action) {
@@ -62,17 +78,19 @@ export function messages(state = initialState, action) {
     }
   case 'MESSAGE_STREAM':
     let message = action.message
-    message.created_at = moment().format();
-    updatedMessages = [...state.messages, message];
+    console.log(message)
+    message.created_at = moment().format()
     return {
       ...state,
       messageStreamNewMessage: true,
-      messages: updatedMessages,
+      messages: [...state.messages, message],
       memoized: {
         ...state.memoized,
-        [action.conversationid]: updatedMessages
+        [action.conversationid]: [...state.messages, message]
       }
     };
+  case 'MESSAGE_RECEIVED_FOR_INACTIVE_USER':
+    return {...state, messagesWhileInactive: [...state.messagesWhileInactive, message]}
   case 'MESSAGE_ERROR':
     return {
       ...state,

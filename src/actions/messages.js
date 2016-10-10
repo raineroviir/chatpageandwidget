@@ -19,6 +19,24 @@ export function scrollCompleteForMsgStream() {
   }
 }
 
+export function dispatchMessageStream(message) {
+  return (dispatch, getState) => {
+    console.log(message)
+    const state = getState()
+    const userid = state.user.data.id || state.guest.data.id
+    if (message.user_id === userid) {
+      return
+    }
+    if (state.environment.inactive) {
+      dispatch({type: "MESSAGE_RECEIVED_FOR_INACTIVE_USER", message: message})
+    }
+    dispatch({type: "MESSAGE_STREAM",
+    message: message,
+    receivedAt: Date.now()})
+
+  }
+}
+
 /**
  * [createMessage description]
  * @param  {[Object]} message

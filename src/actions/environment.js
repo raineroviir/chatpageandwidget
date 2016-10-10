@@ -19,6 +19,11 @@ function changeIsMobile(isMobile) {
   };
 }
 
+export function widgetToggle() {
+  return {
+    type: "WIDGET_TOGGLE"
+  }
+}
 export function changeScrollIndex(scrollIndex) {
   return {
     type: "CHANGE_SCROLL_INDEX",

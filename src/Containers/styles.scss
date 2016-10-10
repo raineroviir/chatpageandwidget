@@ -68,6 +68,48 @@
   }
 }
 
+.messages-while-inactive {
+  width: 200px;
+  top: auto;
+  left: auto;
+  bottom: 70px;
+  right: 15px;
+  position: absolute;
+  background-color: #f8f8f8;
+  position: absolute;
+  border-color: transparent transparent transparent #f8f8f8;
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    display: inline-block;
+    transition: all ease-in 0.5s;
+    border-color: inherit;
+    right: 17px;
+    border-width: 7 7 7 8;
+    transform: rotate(90deg);
+  }
+}
+
+.unread-message-bubble {
+  background-color: green;
+  width: 19px;
+  height: 19px;
+  border-radius: 19px;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+.lastmessage-popdown-triangle {
+  position: absolute;
+  bottom: -16px;
+  font-size: 28px;
+  right: 55px;
+  color: white;
+}
 .chat-messages-wrapper {
   width: inherit;
 }

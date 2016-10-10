@@ -11,6 +11,7 @@ import { initEnvironment, storeUserScrollPosition
 import { checkForConversation } from '../actions/conversations'
 import { createWidgetChannel, fetchChannelInfo, fetchChannel} from '../actions/channels'
 import {loadServerMsgs} from '../actions/messages'
+import {widgetToggle} from '../actions/environment'
 
 class App extends React.Component {
   constructor() {
@@ -24,7 +25,7 @@ class App extends React.Component {
     dispatch({type: "BEGUN_INITIAL_LOADING"})
   }
   componentDidMount() {
-    const { dispatch, channel_url, serverMessages } = this.props
+    const { dispatch, channel_url } = this.props
     // setting some dummy data here for now while we get the actual data flow set up
     const data = {email: "placeholder"}
     console.log(channel_url)
@@ -45,15 +46,28 @@ class App extends React.Component {
   onToggle() {
     const { dispatch } = this.props
     this.setState({ show: !this.state.show });
+    dispatch(widgetToggle())
   }
   render() {
-    if (this.props.initialLoading) {
+    const { widget, environment, messages } = this.props
+    if (environment.initialLoading) {
       return null
     }
+    const lastMessage = messages.messagesWhileInactive[messages.messagesWhileInactive.length - 1]
     return (
       <div>
-        <div className="chat-widget-button" style={{backgroundColor: this.props.keyColor}}
+        {(environment.inactive && messages.messagesWhileInactive.length > 0) &&
+        <div className="messages-while-inactive">
+          <div>
+            {lastMessage.text.length > 121 ? `${lastMessage.text.slice(0, 121).trim()}...` : `Last Message: ${lastMessage.text}`}
+          </div>
+        </div>
+        }
+        <div className="chat-widget-button" style={{backgroundColor: widget.initialConfig.keyColor}}
         onClick={this.onToggle.bind(this)}>
+          {messages.messagesWhileInactive.length > 0 && <div className="unread-message-bubble">
+            <div style={{alignSelf: 'center'}}>{messages.messagesWhileInactive.length}</div>
+          </div>}
         </div>
         {this.state.show && <ChatWidget onClose={this.onToggle.bind(this)} dispatch={this.props.dispatch} />}
       </div>
@@ -62,10 +76,11 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
+  const { widget, environment, messages } = state
   return {
-    keyColor: state.widget.initialConfig.keyColor,
-    serverMessages: state.messages.serverMessages,
-    initialLoading: state.environment.initialLoading
+    widget,
+    environment,
+    messages
   }
 }
 

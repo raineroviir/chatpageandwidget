@@ -156,6 +156,7 @@ class Messages extends Component {
 }
 
 function mapStateToProps(state) {
+  const { channels, conversations, messages, guest, user, widget, environment } = state
   return {
     channelid: state.channels.activeChannelId,
     conversationid: state.conversations.activeConversation,
