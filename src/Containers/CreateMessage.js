@@ -23,7 +23,7 @@ class CreateMessage extends Component {
   }
   render() {
     return (
-      <ChatTextBox keyColor={this.props.keyColor} createMessage={this.createMessage.bind(this)} message={this.props.postSuccessFul} user={this.props.user} guest={this.props.guest} widgetConfig={this.props.widgetConfig} />
+      <ChatTextBox keyColor={this.props.keyColor} createMessage={this.createMessage.bind(this)} message={this.props.postSuccessFul} user={this.props.user} guest={this.props.guest} widget={this.props.widget} />
     );
   }
 }

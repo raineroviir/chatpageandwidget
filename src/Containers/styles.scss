@@ -96,6 +96,73 @@
   }
 }
 
+.minimized-welcome-message {
+  font-family: Rubik;
+  font-size: 15px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.4;
+  color: #474848;
+  width: 250px;
+  top: auto;
+  left: auto;
+  bottom: 70px;
+  right: 15px;
+  background-color: #f8f8f8;
+  position: absolute;
+  border-color: transparent transparent transparent #f8f8f8;
+  border-radius:5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.initial-info {
+  background-color: #FFFFFF;
+  position: initial;
+  border-color: transparent transparent transparent #f8f8f8;
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    display: inline-block;
+    transition: all ease-in 0.5s;
+    border-color: inherit;
+    right: 20px;
+    bottom: -10px;
+    border-width: 7 0 7 8;
+    transform: rotate(90deg);
+  }
+  .member-avatar-icon {
+    width: 28px;
+    height: 28px;
+  }
+  .team-avatar-wrapper {
+    padding: 15px 13px 4px 13px;
+  }
+  .team-avatar {
+    object-fit: contain;
+    background-repeat: no-repeat;
+    width: 116px;
+    height: 28px;
+  }
+  .team-url {
+    font-weight: 500;
+    line-height: 1.6;
+    padding: 0px 13px 0px 13px;
+  }
+  .team-name {
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    padding: 4px 13px 4px 13px;
+  }
+  .welcome-message {
+    padding: 20px 13px 10px 13px;
+  }
+}
+
 .unread-message-bubble {
   width: 19px;
   height: 19px;
