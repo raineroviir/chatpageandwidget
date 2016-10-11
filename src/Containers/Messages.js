@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { getConversationHistory, setActiveConversation } from '../actions/conversations'
 import { Conversations } from '../Components/Conversations';
 import DefaultWidgetMessage from '../Components/DefaultMessage'
-import ReactChatView from 'react-chatview'
 import {ChatMessages} from '../Components/ChatMessages'
 import {changeScrollIndex} from '../actions/environment'
 import ReactDOM from 'react-dom'
