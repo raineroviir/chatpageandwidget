@@ -3,9 +3,15 @@ const app = express()
 const port = process.env.PORT || 5000
 const path = require('path')
 
-app.get('*', function(req, res) {
-  res.sendFile(path.resolve(__dirname, 'index.html'));
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '..', '..', './public/index.html'));
 });
+
+const publicPath = express.static(path.join(__dirname, '..','..', './public'))
+//   app.use(express.static(path.join(__dirname, '..','..', '/')));
+// })();
+
+app.use('/public', publicPath)
 
 app.listen(port, (error) => {
   if (error) {

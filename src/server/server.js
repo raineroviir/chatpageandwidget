@@ -5,7 +5,6 @@ const path = require('path')
 
 app.use(require('morgan')('short'));
 
-(function initWebpack() {
   const webpack = require('webpack');
   const webpackConfig = require('../../webpack.config');
   const compiler = webpack(webpackConfig);
@@ -18,13 +17,20 @@ app.use(require('morgan')('short'));
     log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000,
   }));
 
-  const distPath = path.join(__dirname, '..','..', './dist')
+  // const publicPath = express.static(path.join(__dirname, '..','..', './public'))
 //   app.use(express.static(path.join(__dirname, '..','..', '/')));
 // })();
+//
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '..', '..', './public/index.html'));
+});
 
-app.use('/static', distPath)
+  app.use(express.static(path.join(__dirname, '..','..', '/')));
+// })();
+
+// app.use('/public', publicPath)
 app.get('/', function root(req, res) {
-  res.sendFile(path.join(__dirname, '..', './dist', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', './public', 'index.html'));
 });
 
 app.listen(port, (error) => {
