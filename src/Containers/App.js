@@ -12,6 +12,7 @@ import { checkForConversation } from '../actions/conversations'
 import { createWidgetChannel, fetchChannelInfo, fetchChannel} from '../actions/channels'
 import {loadServerMsgs} from '../actions/messages'
 import {widgetToggle} from '../actions/environment'
+import AvatarOne from './ChatWidget/files/bullbasaur.svg'
 
 class App extends React.Component {
   constructor() {
@@ -63,9 +64,10 @@ class App extends React.Component {
           </div>
         </div>
         }
-        <div className="chat-widget-button" style={{backgroundColor: widget.initialConfig.keyColor}}
+        <div className="chat-widget-button" style={{backgroundColor: widget.initialConfig.keyColor,
+          backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundImage: messages.messagesWhileInactive.length > 3 ? `url(${lastMessage.sender_avatar})` : `url(${AvatarOne})`}}
         onClick={this.onToggle.bind(this)}>
-          {messages.messagesWhileInactive.length > 0 && <div className="unread-message-bubble">
+          {messages.messagesWhileInactive.length > 0 && <div style={{backgroundColor: widget.initialConfig.keyColor}} className="unread-message-bubble">
             <div style={{alignSelf: 'center'}}>{messages.messagesWhileInactive.length}</div>
           </div>}
         </div>

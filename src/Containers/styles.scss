@@ -78,6 +78,8 @@
   background-color: #f8f8f8;
   position: absolute;
   border-color: transparent transparent transparent #f8f8f8;
+  border-radius:5px;
+
   &:after {
     content: '';
     width: 0;
@@ -87,14 +89,14 @@
     display: inline-block;
     transition: all ease-in 0.5s;
     border-color: inherit;
-    right: 17px;
-    border-width: 7 7 7 8;
+    right: 20px;
+    bottom: -10px;
+    border-width: 7 0 7 8;
     transform: rotate(90deg);
   }
 }
 
 .unread-message-bubble {
-  background-color: green;
   width: 19px;
   height: 19px;
   border-radius: 19px;
