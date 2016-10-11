@@ -18,12 +18,14 @@ app.use(require('morgan')('short'));
     log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000,
   }));
 
-  app.use(express.static(path.join(__dirname, '..','..', '/')));
-})();
+  const distPath = path.join(__dirname, '..','..', './dist')
+//   app.use(express.static(path.join(__dirname, '..','..', '/')));
+// })();
 
-// app.get('/', function root(req, res) {
-//   res.sendFile(path.join(__dirname, '..', 'index.html'));
-// });
+app.use('/static', distPath)
+app.get('/', function root(req, res) {
+  res.sendFile(path.join(__dirname, '..', './dist', 'index.html'));
+});
 
 app.listen(port, (error) => {
   if (error) {

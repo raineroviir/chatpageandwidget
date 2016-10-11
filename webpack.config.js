@@ -7,9 +7,9 @@ module.exports = {
     widget: './src/widget.js'
   },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'public'),
     filename: '[name].js',
-    publicPath: '/static/'
+    publicPath: '/public/'
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
