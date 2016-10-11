@@ -38,7 +38,7 @@ function mapStateToProps(state) {
     conversationid: state.conversations.activeConversation,
     keyColor: state.widget.initialConfig.keyColor,
     referenceToConversationBody: state.environment.referenceToConversationBody,
-    widgetConfig: state.widget.initialConfig
+    widget: state.widget
   }
 }
 
