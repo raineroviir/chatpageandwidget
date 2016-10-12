@@ -5,7 +5,7 @@ export default class Header extends Component {
     this.props.backToConversationSummaryView()
   }
   render() {
-    // if (this.props.activeConversation || this.props.preparingToCreateConversation) {
+    // if (this.props.activeConversationId || this.props.preparingToCreateConversation) {
     //   return (
     //     <div className="widget-header">
     //         <i onClick={this.backToConversationSummaryView.bind(this)} className={classNames("fa fa-angle-down fa-1 header-arrow")} aria-hidden="true"

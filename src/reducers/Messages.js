@@ -9,6 +9,10 @@ const initialState = {
   channelError: true,
   userCreatedNewMessage: false,
   messageStreamNewMessage: false,
+  nextFetchPage: 1,
+  initialLoadComplete: false,
+  reachedEnd: false,
+  oldestVisibleMessageUnixTimestamp: false,
   messagesWhileInactive: [
     {conversation_id:550,
     created_at:"2016-10-09T04:32:25.856Z",
@@ -33,7 +37,8 @@ export function messages(state = initialState, action) {
     let messages = _.sortBy(action.posts.messages, a => (new Date()).getTime() - parseInt(moment(a.created_at).format("x")))
     return {
       ...state,
-      serverMessages: messages,
+      // serverMessages: messages,
+      messages: messages.reverse().concat(state.messages),
       memoized: {
         ...state.memoized,
         [action.posts.conversationid]: messages
@@ -63,7 +68,6 @@ export function messages(state = initialState, action) {
       userCreatedNewMessage: true,
       messages: [...state.messages, action.message],
     }
-
   case 'MSG_SAVED_TO_SERVER':
     return {
       ...state,
@@ -108,6 +112,16 @@ export function messages(state = initialState, action) {
 
   case 'SCROLL_COMPLETE_FOR_NEW_MESSAGE_STREAM':
     return {...state, messageStreamNewMessage: false}
+  case 'INCREASE_NEXT_FETCH_PAGE':
+    return {...state, nextFetchPage: state.nextFetchPage + 1}
+  case 'CORRECT_NEXT_FETCH_PAGE':
+    return {...state, nextFetchPage: state.nextFetchPage - 1}
+  case 'INITIAL_MSG_LOAD_COMPLETE':
+    return {...state, initialLoadComplete: true}
+  case 'REACHED_CONVERSATION_HISTORY_END':
+    return {...state, reachedEnd: true}
+  case 'SET_OLDEST_VISIBLE_MESSAGE_UNIX_TIME_STAMP':
+    return {...state, oldestVisibleMessageUnixTimestamp: action.timestamp}
   default:
     return state;
   }

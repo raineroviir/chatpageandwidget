@@ -40,6 +40,8 @@ export class ChatMessages extends Component {
             currentUser={currentUser}
             isGroupChat={isGroupChat}
             handleUserEmailFromBot={this.props.handleUserEmailFromBot}
+            emailReceived={this.props.emailReceived}
+            guest={guest}
             />
           )}
         </div>

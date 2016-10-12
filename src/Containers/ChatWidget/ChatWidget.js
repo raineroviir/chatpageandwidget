@@ -33,7 +33,7 @@ function mapStateToProps(state) {
   return {
     token: state.guest.token,
     channelid: state.channels.activeChannelId,
-    activeConversation: state.conversations.activeConversation,
+    activeConversationId: state.conversations.activeConversationId,
     preparingToCreateConversation: state.conversations.preparingToCreateConversation,
     keyColor: state.widget.initialConfig.keyColor,
     widget: state.widget,

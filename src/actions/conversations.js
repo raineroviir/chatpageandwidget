@@ -10,7 +10,7 @@ function processConversationsHistoryForDispatch(messages, conversationid) {
   }
 }
 
-export function setActiveConversation(conversationid) {
+export function setactiveConversationId(conversationid) {
   return {
     type: "SET_ACTIVE_CONVERSATION",
     conversationid
@@ -69,11 +69,13 @@ export function getConversations(channel_id, token) {
     }).catch(error => console.log(error))
   }
 }
-
-export function getConversationHistory(conversationid, token) {
+export function getConversationHistory(conversationid, token, oldestVisibleMessageUnixTimestamp, page, perpage) {
+  console.log(oldestVisibleMessageUnixTimestamp)
+  const created_before = oldestVisibleMessageUnixTimestamp ? `&created_before=${oldestVisibleMessageUnixTimestamp}` : ""
+  console.log(created_before)
   return dispatch => {
     /* Trigger API service to retrieve latest conversation history */
-    return fetch( Config.api + `/conversations.history?conversation_id=${conversationid}&page=1&per_page=100`, {
+    return fetch( Config.api + `/conversations.history?conversation_id=${conversationid}${created_before}&page=${page || 1}&per_page=${perpage || 50}`, {
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
@@ -86,6 +88,9 @@ export function getConversationHistory(conversationid, token) {
   return response.json()
 })
       .then(json => {
+        if (json.messages.length > 0) {
+          dispatch({type: "INCREASE_NEXT_FETCH_PAGE"})
+        }
         dispatch(processConversationsHistoryForDispatch(json, conversationid))
         dispatch({
           type: 'SET_CONVERSATION_CHANNEL_MEMOIZED',
@@ -134,7 +139,7 @@ export function checkForConversation(channel_id, token) {
     if (!localStorageConversationId) {
       dispatch(createConversation(channel_id, token))
     } else {
-      dispatch(setActiveConversation(localStorageConversationId))
+      dispatch(setactiveConversationId(localStorageConversationId))
     }
   }
 }

@@ -20,7 +20,7 @@ export class Conversations extends Component {
       <div className="chats-contacts">
         <div className="conversations-list">
           { this.props.conversations.map(conversation => {
-            let activeConversation = this.props.activeConversation,
+            let activeConversationId = this.props.activeConversationId,
             userName = (conversation.last_message) ? (conversation.last_message.sender_name || conversation.last_message.user_id) : "User",
             avatarText = (conversation.last_message && conversation.last_message.sender_name) ? _.reduce(conversation.last_message.sender_name.split(" "), (res, a) => res + (a + "").charAt(0), "") : ("U" + (userName + "").charAt(0)),
             time = moment(conversation.updated_at),
@@ -29,7 +29,7 @@ export class Conversations extends Component {
             return (
               <div key={conversation.id}
               onClick={this.selectConversation.bind(this, conversation)}
-              className={ (activeConversation == conversation.id) ? classNames("active", "conversation-summary") : "conversation-summary"}>
+              className={ (activeConversationId == conversation.id) ? classNames("active", "conversation-summary") : "conversation-summary"}>
                 <a>
                   <img className={classNames("img-circle", { hide: !(conversation.last_message && conversation.last_message.sender_avatar)})} src={(conversation.last_message) ? conversation.last_message.sender_avatar : ""} title={conversation.name} alt={conversation.name} />
                   <span className={classNames("avatar", { hide: !!(conversation.last_message && conversation.last_message.sender_avatar)})}>{avatarText}</span>

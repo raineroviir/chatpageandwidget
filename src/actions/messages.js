@@ -19,6 +19,12 @@ export function scrollCompleteForMsgStream() {
   }
 }
 
+export function setOldestVisibleMessageUnixTimestamp(message) {
+  const timestamp = moment(message.created_at).format("x")
+  return {
+    type: "SET_OLDEST_VISIBLE_MESSAGE_UNIX_TIME_STAMP", timestamp
+  }
+}
 export function dispatchMessageStream(message) {
   return (dispatch, getState) => {
     console.log(message)
@@ -48,6 +54,9 @@ export function createMessage(message, conversationid, token, channelid, attachm
   return dispatch => {
 
   dispatch(addMessage(message))
+  if (message.bot === true) {
+    return
+  }
   const messageText = message.text
   return postMessage(messageText, conversationid, token, channelid, attachment).then(response => {
   if (response.status >= 400) {

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setActiveConversation, createConversation, getConversations } from '../actions/conversations'
+import { setactiveConversationId, createConversation, getConversations } from '../actions/conversations'
 import { createMessage } from '../actions/messages'
 /* components */
 import { ChatTextBox } from '../Components/ChatTextBox';
 class CreateMessage extends Component {
   createMessage(message) {
-    const { dispatch, actions, conversationid, token, channelid, referenceToConversationBody, guest, user} = this.props
+    const { dispatch, actions, conversationid, token, channelid, guest, user} = this.props
     const userid = guest.data.id || user.data.id
     const sender_name = guest.data.first_name || user.data.first_name || " "
 
@@ -35,7 +35,7 @@ function mapStateToProps(state) {
     guest: state.guest,
     token: state.guest.token,
     channelid: state.channels.activeChannelId,
-    conversationid: state.conversations.activeConversation,
+    conversationid: state.conversations.activeConversationId,
     keyColor: state.widget.initialConfig.keyColor,
     referenceToConversationBody: state.environment.referenceToConversationBody,
     widget: state.widget

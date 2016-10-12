@@ -28,7 +28,7 @@ class Footer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    activeConversation: state.conversations.activeConversation,
+    activeConversationId: state.conversations.activeConversationId,
     token: state.guest.token,
     channelid: state.channels.activeChannelId,
     conversations: state.conversations,

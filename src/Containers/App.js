@@ -10,14 +10,15 @@ import { initEnvironment, storeUserScrollPosition
  } from '../actions/environment'
 import { checkForConversation } from '../actions/conversations'
 import { createWidgetChannel, fetchChannelInfo, fetchChannel} from '../actions/channels'
-import {loadServerMsgs} from '../actions/messages'
+import {loadServerMsgs, createMessage} from '../actions/messages'
 import {widgetToggle} from '../actions/environment'
 import AvatarOne from './ChatWidget/files/bullbasaur.svg'
 import AvatarTwo from './ChatWidget/files/charmander.svg'
 import AvatarThree from './ChatWidget/files/eevee.svg'
 import AvatarFour from './ChatWidget/files/meowth.svg'
 import AvatarFive from './ChatWidget/files/squirtle.svg'
-import {ChatTextBox} from '../Components/ChatTextBox'
+import moment from 'moment'
+
 class App extends React.Component {
   constructor() {
     super()
@@ -25,11 +26,20 @@ class App extends React.Component {
       show: false
     }
   }
+  getMessage(e) {
+    this.setState({show: !this.state.show})
+    e.preventDefault();
+    if(this.refs.Message.value == "") return;
+    this.createMessage(this.refs.Message.value);
+    this.refs.Message.value = "";
+  }
   createMessage(message) {
-    const { dispatch, actions, conversationid, token, channelid, referenceToConversationBody, guest, user} = this.props
+    const { dispatch, channels, conversations, guest, user } = this.props
     const userid = guest.data.id || user.data.id
     const sender_name = guest.data.first_name || user.data.first_name || " "
-
+    const conversationid = conversations.activeConversationId
+    const channelid = channels.activeChannelId
+    const token = guest.token || user.token
     let messageObject = {
       text: message,
       conversation_id: conversationid,
@@ -38,7 +48,9 @@ class App extends React.Component {
       id: Math.random(Date.now()),
       status: `...`
     }
-    dispatch(createMessage(messageObject, conversationid, token, channelid))
+    // setTimeout(() => {
+    //   dispatch(createMessage(messageObject, conversationid, token, channelid))
+    // }, 3000)
   }
   componentWillMount() {
     const { dispatch } = this.props
@@ -97,6 +109,22 @@ class App extends React.Component {
         </div>
       </div>
     )
+    const initialChatBox = (
+      <div className="post-form-wrapper">
+        <form onSubmit={this.getMessage.bind(this)} className="post-form">
+          <div className="message-input-wrapper">
+            <input ref="Message"
+            type="text"
+            className="message-input"
+            placeholder={widget.initialConfig.content ? widget.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"}
+            aria-label={widget.initialConfig.content ? widget.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"} />
+          </div>
+          <button type="submit" className="submit-button" style={{color: this.props.keyColor}}>
+            {widget.initialConfig.content ? widget.initialConfig.content.sendBtnText : "Send" }
+          </button>
+        </form>
+      </div>
+    )
     return (
       <div>
         {/* {(environment.inactive && messages.messagesWhileInactive.length > 0) &&
@@ -108,7 +136,7 @@ class App extends React.Component {
         } */}
         <div className="minimized-welcome-message">
           {info}
-          <ChatTextBox createMessage={this.createMessage.bind(this)} widget={widget}/>
+          {initialChatBox}
         </div>
         <div className="chat-widget-button" style={{backgroundColor: widget.initialConfig.keyColor,
           backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundImage: messages.messagesWhileInactive.length > 3 ? `url(${lastMessage.sender_avatar})` : `url(${AvatarOne})`}}
@@ -124,11 +152,15 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { widget, environment, messages } = state
+  const { widget, environment, messages, guest, user, channels, conversations } = state
   return {
     widget,
     environment,
-    messages
+    messages,
+    guest,
+    user,
+    channels,
+    conversations
   }
 }
 

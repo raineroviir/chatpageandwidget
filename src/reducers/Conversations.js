@@ -7,7 +7,7 @@ const initialState = {
   channelid: null,
   socket: null,
   preparingToCreateConversation: false,
-  activeConversation: null,
+  activeConversationId: null,
   userScrollPosition: 0
 };
 
@@ -23,7 +23,7 @@ export function conversations(state = initialState, action) {
         ...state.memoized,
         [action.data.channelid]: conv
       },
-      activeConversation: conv.length === 1 ? conv.id : null
+      activeConversationId: conv.length === 1 ? conv.id : null
     };
   case 'FETCH_CONVERSATIONS_MEMOIZED':
     if(!state.memoized[action.posts.channelid]) return state;
@@ -44,7 +44,7 @@ export function conversations(state = initialState, action) {
     return {
       ...state,
       conversations: [...state.conversations, action.conversation],
-      activeConversation: action.conversation.id,
+      activeConversationId: action.conversation.id,
       preparingToCreateConversation: false
     }
   case 'RESET_CONVERSATIONS':
@@ -57,9 +57,9 @@ export function conversations(state = initialState, action) {
   case 'PREPARE_TO_CREATE_NEW_CONVERSATION':
     return {...state, preparingToCreateConversation: true}
   case 'BACK_TO_CONVERSATIONS_SUMMARY_VIEW':
-    return {...state, activeConversation: null, preparingToCreateConversation: false}
+    return {...state, activeConversationId: null, preparingToCreateConversation: false}
   case 'SET_ACTIVE_CONVERSATION':
-    return {...state, activeConversation: action.conversationid}
+    return {...state, activeConversationId: action.conversationid}
   case 'STORE_USER_SCROLL_POSITION':
     return {...state, userScrollPosition: action.userScrollPosition}
   default:

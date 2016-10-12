@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { getConversationHistory, setActiveConversation } from '../actions/conversations'
+import { getConversationHistory, setactiveConversationId } from '../actions/conversations'
 import { Conversations } from '../Components/Conversations';
 import DefaultWidgetMessage from '../Components/DefaultMessage'
 import {ChatMessages} from '../Components/ChatMessages'
@@ -12,7 +12,7 @@ import {MessageListItem} from '../Components/ChatMessages/MessageListItem'
 import Waypoint from 'react-waypoint'
 import _ from 'lodash'
 import { referenceToConversationBody, infiniteLoading, infiniteLoadingDone, storeUserScrollPosition } from '../actions/environment'
-import {loadServerMsgs, scrollCompleteForUserMessage, botReplyForFirstMessage, scrollCompleteForMsgStream } from '../actions/messages'
+import {loadServerMsgs, scrollCompleteForUserMessage, botReplyForFirstMessage, scrollCompleteForMsgStream, setOldestVisibleMessageUnixTimestamp } from '../actions/messages'
 import {loadBot} from '../actions/bot'
 import {updateUser, submittedEmailToBot} from '../actions/user'
 class Messages extends Component {
@@ -45,16 +45,13 @@ class Messages extends Component {
     dispatch(storeUserScrollPosition(scrollPosition))
   }
   loadInitialHistory() {
-    const { conversationid, guest, user, dispatch, serverMessages, scrollIndex} = this.props
+    const { conversationid, guest, user, dispatch, serverMessages, scrollIndex, messages, oldestVisibleMessageUnixTimestamp} = this.props
     const { token } = guest || user
-    dispatch(getConversationHistory(conversationid, token)).then(json => {
-      const { messages } = json
-      if (messages) {
-        const visibleMessages = messages.slice(scrollIndex, scrollIndex + 20)
-        dispatch(changeScrollIndex(visibleMessages.length))
-        dispatch(loadServerMsgs(visibleMessages))
-        this.scrollToBottom()
-      }
+    dispatch(getConversationHistory(conversationid, token, oldestVisibleMessageUnixTimestamp)).then((json) => {
+      this.scrollToBottom()
+      const oldestVisibleMessage = json.messages[json.messages.length - 1]
+      dispatch(setOldestVisibleMessageUnixTimestamp(oldestVisibleMessage))
+      dispatch({type: "INITIAL_MSG_LOAD_COMPLETE"})
     })
   }
   componentDidUpdate(prevProps) {
@@ -63,10 +60,6 @@ class Messages extends Component {
     if (userCreatedNewMessage) {
       this.scrollToBottom()
       dispatch(scrollCompleteForUserMessage())
-    }
-    if (isInfiniteLoading) {
-      node.scrollTop = totalHeightOfHistoryMessages
-      dispatch(infiniteLoadingDone())
     }
     if (messageStreamNewMessage) {
       this.scrollToBottom()
@@ -86,27 +79,32 @@ class Messages extends Component {
     node.scrollTop = node.scrollHeight
   }
   loadMoreHistory() {
-    const { dispatch, serverMessages, messages, conversationid, scrollIndex } = this.props
-    const nextIndex = scrollIndex + 10
-    const more = serverMessages.slice(scrollIndex, nextIndex)
-    if (more.length === 0) {
+    const { dispatch, serverMessages, messages, conversationid, scrollIndex, guest, user, nextFetchPage, reachedEnd, totalHeightOfHistoryMessages, oldestVisibleMessageUnixTimestamp } = this.props
+    const { token } = guest || user
+    const node = ReactDOM.findDOMNode(this)
+    if (reachedEnd) {
       return
-    } else {
-      dispatch(changeScrollIndex(nextIndex))
-      dispatch(infiniteLoading())
-      return new Promise((resolve, reject) => {
-      dispatch(loadServerMsgs(more))
-      resolve()
-      })
     }
+    dispatch(infiniteLoading())
+    dispatch(getConversationHistory(conversationid, token, oldestVisibleMessageUnixTimestamp)).then((json) => {
+      if (json.messages.length === 0) {
+        dispatch({type: "REACHED_CONVERSATION_HISTORY_END"})
+        dispatch(infiniteLoadingDone())
+        return
+      }
+      const oldestVisibleMessage = json.messages[json.messages.length - 1]
+      node.scrollTop = totalHeightOfHistoryMessages
+      dispatch(setOldestVisibleMessageUnixTimestamp(oldestVisibleMessage))
+      dispatch(infiniteLoadingDone())
+    })
   }
   renderWaypoint() {
-    if (!this.props.isInfiniteLoading) {
+    if (!this.props.isInfiniteLoading && this.props.initialLoadComplete) {
       return (
         <Waypoint
         bottomOffset="40px"
         onEnter={({previousPosition, currentPosition, event}) => {
-          if (currentPosition === "inside") {
+          if (previousPosition === "above" && currentPosition === "inside") {
             return this.loadMoreHistory()
           }
         }}
@@ -148,7 +146,8 @@ class Messages extends Component {
         <ChatMessages
         dispatch={this.props.dispatch} className="chat-messages-wrapper" messages={this.props.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
         isGroupChat={this.props.isGroupChat} messageStatus={this.props.messageStatus}
-        handleUserEmailFromBot={this.handleUserEmailFromBot}/>
+        handleUserEmailFromBot={this.handleUserEmailFromBot}
+        emailReceived={this.props.emailReceived}/>
       </div>
     )
   }
@@ -158,7 +157,7 @@ function mapStateToProps(state) {
   const { channels, conversations, messages, guest, user, widget, environment } = state
   return {
     channelid: state.channels.activeChannelId,
-    conversationid: state.conversations.activeConversation,
+    conversationid: state.conversations.activeConversationId,
     isGroupChat: state.channels.channels.isGroupChat,
     messages: state.messages.messages,
     serverMessages: state.messages.serverMessages,
@@ -175,8 +174,12 @@ function mapStateToProps(state) {
     userScrollPosition: state.environment.userScrollPosition,
     botResponse: state.bot.botResponse,
     botActive: state.bot.active,
-    userScrollPosition: state.environment.userScrollPosition,
-    messageStreamNewMessage: state.messages.messageStreamNewMessage
+    messageStreamNewMessage: state.messages.messageStreamNewMessage,
+    nextFetchPage: state.messages.nextFetchPage,
+    initialLoadComplete: state.messages.initialLoadComplete,
+    reachedEnd: state.messages.reachedEnd,
+    oldestVisibleMessageUnixTimestamp: state.messages.oldestVisibleMessageUnixTimestamp,
+    emailReceived: state.bot.emailReceived
   }
 }
 

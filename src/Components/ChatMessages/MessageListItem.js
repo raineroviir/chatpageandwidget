@@ -28,7 +28,8 @@ export class MessageListItem extends React.Component {
     } else {
       return (<div>
        {dateDiff > 0 ? dateSeparator : null} <LeftAlignedMessage key={message.id} widgetConfig={widgetConfig} checkForSameUser={checkForSameUser} message={message}
-      isGroupChat={isGroupChat} handleUserEmailFromBot={this.props.handleUserEmailFromBot}/>
+      isGroupChat={isGroupChat} handleUserEmailFromBot={this.props.handleUserEmailFromBot} emailReceived={this.props.emailReceived}
+      guest={this.props.guest}/>
       </div>)
     }
   }
