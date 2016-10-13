@@ -6,7 +6,6 @@ import DefaultWidgetMessage from '../Components/DefaultMessage'
 import {ChatMessages} from '../Components/ChatMessages'
 import {changeScrollIndex} from '../actions/environment'
 import ReactDOM from 'react-dom'
-import ReactInfinite from 'react-infinite'
 import {MessageListItem} from '../Components/ChatMessages/MessageListItem'
 import Waypoint from 'react-waypoint'
 import _ from 'lodash'
@@ -31,7 +30,6 @@ class Messages extends Component {
     } else {
       userScrollPosition ? node.scrollTop = userScrollPosition : this.scrollToBottom()
     }
-    dispatch(markConversationAsRead(conversationid, token))
     if (!isGroupChat) {
       dispatch(loadBot())
     }
@@ -40,7 +38,7 @@ class Messages extends Component {
     const { conversationid, guest, user, dispatch, serverMessages, scrollIndex, messages, oldestVisibleMessageUnixTimestamp} = this.props
     const { token } = guest || user
     dispatch(getConversationHistory(conversationid, token, oldestVisibleMessageUnixTimestamp)).then((json) => {
-      if (json.messages.length > 0) {
+      if (json && json.messages.length > 0) {
         this.scrollToBottom()
         const oldestVisibleMessage = json.messages[json.messages.length - 1]
         dispatch(setOldestVisibleMessageUnixTimestamp(oldestVisibleMessage))
@@ -118,7 +116,6 @@ class Messages extends Component {
     return color[Math.floor((Math.random() * 10) + 1)]
   }
   handleUserEmailFromBot(email) {
-    console.log(email)
     const { dispatch, guest, user} = this.props
     const token = guest.token || user.token
     let firstName = guest.data.first_name || user.data.first_name

@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch';
 import moment from 'moment';
 import { getConversationHistory, fetchSocket, createConversation, createWidgetChannel, fetchChannels } from './channels'
 import { createMessage } from './messages'
+import apiService from '../api.service'
 
 /**
  * [fetchGuestToken description]
@@ -48,6 +49,30 @@ export function fetchUserInfo(token) {
   }
 }
 
+export function validateGuestTokenAndIfExpiredGiveNewGuestToken(token) {
+  return fetch(`${Config.api}/auth.test`, {
+    method: 'GET',
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    }
+  }).then(response => {
+    if (response.status >= 400) {
+      console.log("Bad response from server");
+      return response.json()
+    } else {
+      return Promise.resolve(token)
+    }
+  }).then(json => {
+    if (!json.ok) {
+      fetchGuestToken(data).then(response => response.json()).then(json => {
+        let token = json.token
+        localStorage.setItem("guest", JSON.stringify(token))
+      })
+    }
+  })
+}
+
 /**
  * [initUser description]
  * @param  {[Object]} data [This data object can include things like email, first name and last name]
@@ -58,11 +83,18 @@ export function initUser(data) {
     if (typeof(Storage) !== "undefined") {
       let token = JSON.parse(localStorage.getItem("guest")) || JSON.parse(localStorage.getItem("token"))
       if(!token) {
-        return fetchGuestToken(data).then(response => {
-          if (response.status >= 400) {
-            throw new Error("Bad response from server");
-          }
-          return response.json()
+        // return fetchGuestToken(data).then(response => {
+        //   if (response.status >= 400) {
+        //     throw new Error("Bad response from server");
+        //   }
+        //   return response.json()
+        // })
+        return apiService(Config.app + '/guest.token', {
+          method: 'POST',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
         })
           .then(json => {
             if(json.ok) {
