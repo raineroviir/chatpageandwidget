@@ -40,7 +40,6 @@ class Messages extends Component {
     const { conversationid, guest, user, dispatch, serverMessages, scrollIndex, messages, oldestVisibleMessageUnixTimestamp} = this.props
     const { token } = guest || user
     dispatch(getConversationHistory(conversationid, token, oldestVisibleMessageUnixTimestamp)).then((json) => {
-      console.log(json.messages)
       if (json.messages.length > 0) {
         this.scrollToBottom()
         const oldestVisibleMessage = json.messages[json.messages.length - 1]
@@ -137,8 +136,8 @@ class Messages extends Component {
     return (
       <div className="conversation-body">
         {this.renderWaypoint()}
-        {this.props.isInfiniteLoading ? <div style={{display: "flex", justifyContent: "center"}}>Loading History...</div>: null}
         <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/>
+        {this.props.isInfiniteLoading && !this.props.reachedEnd ? <div style={{display: "flex", justifyContent: "center"}}>Loading History...</div>: null}
         <ChatMessages
         dispatch={this.props.dispatch} className="chat-messages-wrapper" messages={this.props.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
         isGroupChat={this.props.isGroupChat} messageStatus={this.props.messageStatus}
