@@ -45,13 +45,34 @@ function processMemoizedConversationsForDispatch(channelid) {
   }
 }
 
+export function markConversationAsRead(conversationid, token, timestamp) {
+  return dispatch => {
+    return fetch(Config.app + '/conversations.read', {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({conversation_id: conversationid, timestamp: timestamp})
+    }).then(response => {
+      if (response.status >= 400) {
+        throw new Error("Bad response from server");
+      }
+      return response.json()
+    }).then(json => {
+      console.log(json)
+      dispatch({type: "MARK_ALL_MESSAGES_AS_READ"})
+      return json
+    }).catch(error => console.log(error))
+  }
+}
 export function getConversations(channel_id, token) {
   return dispatch => {
     return fetch( Config.api + '/conversations.list?channel_id=' + channel_id, {
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token.access_token || token,
+        'Authorization': 'Bearer ' + token
       }
     }).then(response => {
       if (response.status >= 400) {

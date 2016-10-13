@@ -5,21 +5,17 @@ import { connect } from 'react-redux'
 import { createConversation, prepareToCreateConversation } from '../../actions/conversations'
 
 class Footer extends React.Component {
-  onPrepareToCreateConversation() {
-    const { token, channelid, dispatch } = this.props
-    dispatch(prepareToCreateConversation())
-  }
   render() {
     return (
       <footer style={this.props.style} className="footer" >
         <CreateMessage />
         <div className="footer-message">
-          <span className="powered-by">
+          {this.props.widget.initialConfig.ccBranding ? <span className="powered-by">
             {"Powered by "}
-            <span style={{color: this.props.keyColor}}>
+            <span style={{color: this.props.widget.initialConfig.keyColor}}>
               {"Chat Center"}
             </span>
-          </span>
+          </span> : null}
         </div>
       </footer>
     )
@@ -27,13 +23,9 @@ class Footer extends React.Component {
 }
 
 function mapStateToProps(state) {
+  const { widget } = state
   return {
-    activeConversationId: state.conversations.activeConversationId,
-    token: state.guest.token,
-    channelid: state.channels.activeChannelId,
-    conversations: state.conversations,
-    preparingToCreateConversation: state.conversations.preparingToCreateConversation,
-    keyColor: state.widget.initialConfig.keyColor
+    widget
   }
 }
 function mapDispatchToProps(dispatch) {

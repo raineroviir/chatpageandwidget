@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import {FaAngleDown} from 'react-icons/lib/fa'
-import {MdClose} from 'react-icons/lib/md'
 import signInIcon from './files/group-3.svg'
 import infoIcon from './files/i.svg'
 import {GoTriangleUp} from 'react-icons/lib/go'
@@ -34,21 +33,8 @@ class Header extends Component {
     this.setState({showInfo: !this.state.showInfo, showMenu: this.state.showMenu ? !this.state.showMenu : this.state.showMenu})
   }
   enterEmailForNotificationsToggle() {
+    this.menuToggle()
     this.setState({showEnterEmailForNotifications: !this.state.showEnterEmailForNotifications})
-  }
-  componentDidMount() {
-    window.addEventListener('click', event => {
-      if (event.target.id === "your-details-modal") {
-        this.setState({showEnterEmailForNotifications: !this.state.showEnterEmailForNotifications})
-      }
-    })
-  }
-  componentWillUnmount() {
-    window.removeEventListener('click', event => {
-      if (event.target.id === "your-details-modal") {
-        this.setState({showEnterEmailForNotifications: !this.state.showEnterEmailForNotifications})
-      }
-    })
   }
   handleUserUpdate(e) {
     e.preventDefault()
@@ -83,9 +69,8 @@ class Header extends Component {
     const welcomeMessage = widget.initialConfig.content ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
     const teamName = widget.initialConfig.content ? widget.initialConfig.content.teamName : ""
     const enterInformationForNotificationsModal =
-    <div id="your-details-modal" className="modal">
-      <div className="email-for-notifications-modal">
-        <div style={{padding: "10 10 40 40", display: "flex", "flexDirection": "column"}}>
+      <div className="your-details-entry-form">
+        <div style={{padding: "10px", display: "flex", "flexDirection": "column"}}>
         <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
         <div className="your-details">
           Your Details
@@ -101,13 +86,14 @@ class Header extends Component {
             </div>
             <input ref="emailCapture" style={{padding: "0 0 0 10", opacity: "0.6", letterSpacing: "0.1px", width: "100%", border: "none", borderBottom: "2px solid", height: "30px"}}  placeholder="Enter your email"/>
             </div>
+            <div style={{padding: "10px 0 0 0"}}>
             <button type="submit" style={{padding: "0 10 0 0", backgroundColor: widget.initialConfig.keyColor, height: "48px", borderRadius: "5px", color: "#FFFFFF", display: "flex", justifyContent: "center", width: "200px"}}>
               <div style={{alignSelf: "center"}}>Save Changes</div>
             </button>
+            </div>
           </form>
         </div>
       </div>
-    </div>
     const menu = (
         <div style={{color: widget.initialConfig.keyColor}} className="menu">
           <div className="menu-popup-triangle"><GoTriangleUp /></div>
@@ -159,6 +145,59 @@ class Header extends Component {
           </div>
         </div>
       )
+    const widgetMenu = (
+      <div style={{color: widget.initialConfig.keyColor}} className="widget-menu">
+        <div style={{padding: "10 10 0 0", display: "flex", justifyContent: "flex-end"}}>
+          <div onClick={this.menuToggle.bind(this)} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
+        </div>
+          <div style={{color: "black", padding: "10px"}}>
+            <div style={{display: "flex", fontSize: "30px"}}>
+              {guest.data.first_name || user.data.first_name ?
+                <div>
+                  {guest.data.first_name || user.data.first_name}
+                </div> : null
+              }
+              {guest.data.last_name || user.data.last_name ?
+                <div style={{paddingLeft: "5px"}}>
+                  {guest.data.last_name || user.data.last_name}
+                </div> : null
+              }
+            </div>
+          {guest.data.email || user.data.email ?
+            <div>
+              <div>
+                {guest.data.email || user.data.email}
+              </div>
+              <div>
+                {guest.guest && <div style={{opacity: "0.6"}}>temporary account</div>}
+              </div>
+            </div> :
+            <div style={{border: "none"}} className="menu-item">
+              <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>
+                Enter email for notifications
+              </div>
+            </div>
+          }
+          </div>
+        {guest.data.email && <div>
+          <div className="menu-item">
+            <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>Edit</div>
+          </div>
+          <div className="menu-item">
+            <div onClick={this.forgetMe} style={{cursor: "pointer"}}>Forget me</div>
+          </div>
+        </div>}
+        <div className="menu-item">
+          <div style={{cursor: "pointer"}}>Sign in with chat.center</div>
+        </div>
+        <div className="menu-item">
+          <div>
+            <div style={{color: "#000000"}}>Don't have an account?</div>
+          </div>
+          <div style={{cursor: "pointer"}}>Sign up</div>
+        </div>
+      </div>
+    )
     const info = (
       <div className="info">
         <div className="info-popup-triangle"><GoTriangleUp /></div>
@@ -185,13 +224,13 @@ class Header extends Component {
     return (
       <div className="header">
       {this.state.showEnterEmailForNotifications && enterInformationForNotificationsModal}
-        <div className="header-arrow" onClick={this.props.onResize.bind(this)}>
+        <div className="header-arrow" onClick={this.props.onClose.bind(this)}>
           <FaAngleDown />
         </div>
-        {environment.userScrollPosition > 150 &&
+        {/* {environment.userScrollPosition > 150 &&
         <div className="header-info">
           <div style={{width: "25px", height: "25px", cursor: "pointer", backgroundImage: `url(${infoIcon})`, backgroundRepeat: "no-repeat"}} onClick={this.infoToggle.bind(this)} ></div>
-        </div>}
+        </div>} */}
         <div className="sign-in-to-chat-center" style={{color: widget.initialConfig.keyColor}}>
           <div style={{display: "flex"}}>
           </div>
@@ -200,12 +239,8 @@ class Header extends Component {
           </div>
         </div>
         </div>
-        <div className="header-close"
-        onClick={this.props.onClose.bind(this)}>
-          <MdClose />
-        </div>
-        {this.state.showInfo && environment.userScrollPosition > 150 && info}
-        {this.state.showMenu && menu}
+        {/* {this.state.showInfo && environment.userScrollPosition > 150 && info} */}
+        {this.state.showMenu && widgetMenu}
       </div>
     )
   }

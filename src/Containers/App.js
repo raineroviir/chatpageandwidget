@@ -35,22 +35,10 @@ class App extends React.Component {
   }
   createMessage(message) {
     const { dispatch, channels, conversations, guest, user } = this.props
-    const userid = guest.data.id || user.data.id
-    const sender_name = guest.data.first_name || user.data.first_name || " "
     const conversationid = conversations.activeConversationId
     const channelid = channels.activeChannelId
     const token = guest.token || user.token
-    let messageObject = {
-      text: message,
-      conversation_id: conversationid,
-      user_id: userid,
-      sender_name: sender_name,
-      id: Math.random(Date.now()),
-      status: `...`
-    }
-    // setTimeout(() => {
-    //   dispatch(createMessage(messageObject, conversationid, token, channelid))
-    // }, 3000)
+    dispatch(createMessage(message, conversationid, token, channelid))
   }
   componentWillMount() {
     const { dispatch } = this.props
@@ -127,19 +115,21 @@ class App extends React.Component {
     )
     return (
       <div>
-        {/* {(environment.inactive && messages.messagesWhileInactive.length > 0) &&
+        {environment.inactive && messages.messagesWhileInactive.length > 0 && lastMessage &&
         <div className="messages-while-inactive">
           <div>
-            {lastMessage.text.length > 121 ? `${lastMessage.text.slice(0, 121).trim()}...` : `Last Message: ${lastMessage.text}`}
+            {lastMessage.text.length > 121 ? `${lastMessage.text.slice(0, 121).trim()}...` : `${lastMessage.text}`}
           </div>
         </div>
-        } */}
-        <div className="minimized-welcome-message">
+        }
+        {messages.messages.length === 0 ? <div className="minimized-welcome-message">
           {info}
           {initialChatBox}
-        </div>
+        </div> : null}
         <div className="chat-widget-button" style={{backgroundColor: widget.initialConfig.keyColor,
-          backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundImage: messages.messagesWhileInactive.length > 3 ? `url(${lastMessage.sender_avatar})` : `url(${AvatarOne})`}}
+          backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundImage: messages.messagesWhileInactive.length > 0 ?
+          //  `url(${lastMessage.sender_avatar})` :
+            `url(${AvatarOne})` : null}}
         onClick={this.onToggle.bind(this)}>
           {messages.messagesWhileInactive.length > 0 && <div style={{backgroundColor: widget.initialConfig.keyColor}} className="unread-message-bubble">
             <div style={{alignSelf: 'center'}}>{messages.messagesWhileInactive.length}</div>

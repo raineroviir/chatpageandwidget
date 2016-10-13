@@ -20,6 +20,7 @@ export function scrollCompleteForMsgStream() {
 }
 
 export function setOldestVisibleMessageUnixTimestamp(message) {
+  console.log(message)
   const timestamp = moment(message.created_at).format("x")
   return {
     type: "SET_OLDEST_VISIBLE_MESSAGE_UNIX_TIME_STAMP", timestamp

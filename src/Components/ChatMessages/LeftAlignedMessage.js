@@ -9,11 +9,10 @@ export class LeftAlignedMessage extends React.Component {
   computeMessageBubbleColor() {
     const { emailReceived, message, widgetConfig } = this.props
     let backgroundColor = "#eeeff0"
-    console.log(emailReceived, message.bot)
     if (emailReceived && message.bot && message.attachment) {
       backgroundColor = widgetConfig.keyColor
     }
-    const borderColor = "transparent transparent transparent #f7a444"
+    const borderColor = "transparent #eeeff0 transparent transparent"
     const color = "#000000"
     return {
       backgroundColor: backgroundColor, //bubble color
