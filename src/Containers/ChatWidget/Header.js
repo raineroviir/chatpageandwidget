@@ -12,7 +12,7 @@ import AvatarFive from './files/squirtle.svg'
 import closeIcon from './files/x.svg'
 import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
-import {updateUser} from '../../actions/user'
+import {updateUser, forgetUser} from '../../actions/user'
 class Header extends Component {
   constructor(props) {
     super(props)
@@ -57,10 +57,12 @@ class Header extends Component {
     return
   }
   forgetMe() {
-    const { dispatch, guest, user } = this.props
-    const token = guest.token || user.token
-    const updates = {email: "forget@me.com", first_name: "forget", last_name: "me"}
-    dispatch(updateUser(updates, token))
+    const { dispatch } = this.props
+    // const token = guest.token || user.token
+    // const updates = {email: "forget@me.com", first_name: "forget", last_name: "me"}
+    localStorage.setItem("guest", "")
+    dispatch(forgetUser())
+    // dispatch(updateUser(updates, token))
   }
   render() {
     const { widget, guest, user, environment } = this.props

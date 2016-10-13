@@ -27,7 +27,7 @@ class App extends React.Component {
     }
   }
   getMessage(e) {
-    this.setState({show: !this.state.show})
+    this.onToggle.bind(this)
     e.preventDefault();
     if(this.refs.Message.value == "") return;
     this.createMessage(this.refs.Message.value);

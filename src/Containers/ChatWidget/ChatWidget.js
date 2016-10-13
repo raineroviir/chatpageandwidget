@@ -2,16 +2,20 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Messages from '../Messages'
 import { getConversations, backToConversationSummaryView} from '../../actions/conversations'
-import { toggleResize } from '../../actions/environment'
 import Footer from './Footer'
 import Header from './Header'
 import {styles} from './styles.scss'
+import ReactDOM from 'react-dom'
+import { storeUserScrollPosition
+} from '../../actions/environment'
 
 class ChatWidget extends React.Component {
-
-  onToggleResize() {
+  closingWidget() {
     const { dispatch } = this.props
-    dispatch(toggleResize())
+    const node = ReactDOM.findDOMNode(this)
+    const scrollPosition = node.children[1].scrollTop
+    dispatch(storeUserScrollPosition(scrollPosition))
+    this.props.onClose()
   }
   render() {
     const { height, isMobile, width } = this.props
@@ -20,8 +24,7 @@ class ChatWidget extends React.Component {
     {height: this.props.widgetHeight, top: "auto"}
     return (
       <div className="chat-widget" style={computedStyle}>
-        <Header onClose={this.props.onClose}
-        onResize={this.onToggleResize.bind(this)} />
+        <Header onClose={this.closingWidget.bind(this)} />
         <Messages />
         <Footer />
       </div>

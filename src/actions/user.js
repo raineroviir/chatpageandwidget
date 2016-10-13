@@ -132,6 +132,11 @@ function receiveUserInfo(data) {
   }
 }
 
+export function forgetUser() {
+  return {
+    type: "FORGET_USER"
+  }
+}
 export function submittedEmailToBot(email) {
   return {
     type: "SUBMITTED_EMAIL_TO_BOT", email

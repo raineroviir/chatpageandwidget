@@ -35,19 +35,8 @@ class Messages extends Component {
     if (!isGroupChat) {
       dispatch(loadBot())
     }
-    node.addEventListener('scroll', this.handleScroll.bind(this))
-  }
-  componentWillUnmount() {
-    const node = ReactDOM.findDOMNode(this)
-    node.removeEventListener('scroll', this.handleScroll.bind(this))
-  }
-  handleScroll(e) {
-    const { dispatch } = this.props
-    const scrollPosition = e.srcElement.scrollTop
-    dispatch(storeUserScrollPosition(scrollPosition))
   }
   loadInitialHistory() {
-    console.log('LOADING INITIAL HISTORY')
     const { conversationid, guest, user, dispatch, serverMessages, scrollIndex, messages, oldestVisibleMessageUnixTimestamp} = this.props
     const { token } = guest || user
     dispatch(getConversationHistory(conversationid, token, oldestVisibleMessageUnixTimestamp)).then((json) => {
