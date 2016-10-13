@@ -66,9 +66,9 @@ class Messages extends Component {
     }
   }
   botResponse() {
-    const { dispatch, conversationid, channelid, guest, user, widgetConfig } = this.props
+    const { dispatch, conversationid, channelid, guest, user, widgetConfig, emailReceived } = this.props
     const { token } = guest || user
-    dispatch(botReplyForFirstMessage(conversationid, token, channelid, widgetConfig))
+    dispatch(botReplyForFirstMessage(conversationid, token, channelid, widgetConfig, emailReceived, guest))
   }
   scrollToBottom() {
     const node = ReactDOM.findDOMNode(this)

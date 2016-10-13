@@ -128,7 +128,8 @@ function processAddMessage(response, conversationid) {
   }
 }
 
-export function botReplyForFirstMessage(conversationid, token, channelid, widgetConfig) {
+export function botReplyForFirstMessage(conversationid, token, channelid, widgetConfig, emailReceived, guest) {
+  const guestEmail = guest.data.email === 'placeholder' ? null : guest.data.email
   return dispatch => {
     const botUserId = Math.random(Date.now())
     const firstBotMsg = {
@@ -158,8 +159,10 @@ export function botReplyForFirstMessage(conversationid, token, channelid, widget
     }
     setTimeout(() => {
       dispatch(createMessage(firstBotMsg, conversationid, token, channelid))
-      dispatch(createMessage(secondBotMsg, conversationid, token, channelid))
-      dispatch(createMessage(thirdBotMsg, conversationid, token, channelid))
+      if (!emailReceived && !guestEmail) {
+        dispatch(createMessage(secondBotMsg, conversationid, token, channelid))
+        dispatch(createMessage(thirdBotMsg, conversationid, token, channelid))
+      }
     }, 1000)
     dispatch({type: "BOT_RESPONSE"})
   }

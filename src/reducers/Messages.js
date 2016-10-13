@@ -22,7 +22,6 @@ export function messages(state = initialState, action) {
     let messages = _.sortBy(action.posts.messages, a => (new Date()).getTime() - parseInt(moment(a.created_at).format("x")))
     return {
       ...state,
-      // serverMessages: messages,
       messages: messages.reverse().concat(state.messages),
       memoized: {
         ...state.memoized,
