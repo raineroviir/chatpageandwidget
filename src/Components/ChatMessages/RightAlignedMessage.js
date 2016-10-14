@@ -2,6 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import defaultAvatarUrl from './files/avatar.png'
 import moment from 'moment'
+import Gravatar from 'react-gravatar'
 export class RightAlignedMessage extends React.Component {
   computeMessageBubbleColor() {
     const { widgetConfig } = this.props
@@ -22,7 +23,8 @@ export class RightAlignedMessage extends React.Component {
     }
   }
   render() {
-    const { checkForSameUser, message } = this.props
+    const { checkForSameUser, message, previousMessage } = this.props
+    const displayTimeSentPredicate = moment(message.created_at).diff(moment(previousMessage ? previousMessage.created_at : null) , 'seconds') > 120
     const displayedTime = moment(message.created_at).fromNow()
     return (
       <div className={classNames("received-message fade-in, right-aligned-message")}>
@@ -30,14 +32,15 @@ export class RightAlignedMessage extends React.Component {
           You
         </div> : <div style={{padding: "4px 0 0 0"}}></div>}
         <div style={{padding: "0 56px 0 0", alignSelf: 'flex-end'}}>
-        {displayedTime}
+        {displayTimeSentPredicate ? displayedTime : null}
         </div>
         <div style={{flexDirection: "row"}} className="chat-message">
           <div style={this.computeMessageBubbleColor()} className={classNames("message-bubble", checkForSameUser ? "bubble-arrow-right" : "")}>
             {message.text}
           </div>
           {checkForSameUser ? <div style={{padding: "3px 12px 0 8px"}} className="avatar-wrapper">
-            <div style={{backgroundImage: `url(${defaultAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar">
+            <div className="avatar">
+              <Gravatar size="28" md5="" email="roviir@gmail.com" />
             </div>
           </div> : <div style={{padding: "0 48px 0 0"}}></div>}
         </div>

@@ -5,6 +5,8 @@ import defaultBotAvatarUrl from './files/defaultBotAvatar.png'
 import { MdCheckCircle, MdCheck } from 'react-icons/lib/md'
 import moment from 'moment'
 import ReactDOM from 'react-dom'
+import Gravatar from 'react-gravatar'
+
 export class LeftAlignedMessage extends React.Component {
   computeMessageBubbleColor() {
     const { emailReceived, message, widgetConfig } = this.props
@@ -29,8 +31,9 @@ export class LeftAlignedMessage extends React.Component {
     this.refs.emailInput.value = ""
   }
   render() {
-    const { checkForSameUser, message, widgetConfig, emailReceived, guest } = this.props
+    const { checkForSameUser, message, widgetConfig, emailReceived, guest, previousMessage } = this.props
     const userEmail = "blahblah.com"
+    const displayTimeSentPredicate = moment(message.created_at).diff(moment(previousMessage ? previousMessage.created_at : null ), 'seconds') > 60
     const displayedTime = moment(message.created_at).fromNow()
     return (
       <div className={classNames("received-message fade-in, left-aligned-message")}>
@@ -38,7 +41,7 @@ export class LeftAlignedMessage extends React.Component {
           {message.sender_name}
         </div> : <div style={{padding: "4px 0 0 0"}}></div>}
         <div style={{padding: "0 0 0 56px", alignSelf: 'flex-start'}}>
-        {displayedTime}
+        {displayTimeSentPredicate ? displayedTime : null}
         </div>
         <div style={{flexDirection: "row-reverse"}} className="chat-message">
           <div style={this.computeMessageBubbleColor()} className={classNames("message-bubble", checkForSameUser ? "bubble-arrow-left" : "")}>
@@ -66,6 +69,11 @@ export class LeftAlignedMessage extends React.Component {
           </div>
           {checkForSameUser ? <div style={{padding: "3px 8px 0 12px"}} className="avatar-wrapper">
             <div style={{backgroundImage: !message.bot ? `url(${defaultAvatarUrl})` : `url(${defaultBotAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar">
+              {!message.bot &&
+                <div className="avatar">
+                <Gravatar size="28" md5="" email="r@gmail.com" />
+              </div>
+              }
             </div>
           </div> : <div style={{padding: "0 0 0 48px"}}></div>}
         </div>
