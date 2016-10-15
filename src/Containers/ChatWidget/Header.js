@@ -238,6 +238,7 @@ class Header extends Component {
           </div>
           <div style={{display: "flex"}}>
             <div onClick={this.menuToggle.bind(this)} style={{width: "50px", height: "28px", cursor: "pointer", backgroundImage: `url(${signInIcon})`, backgroundRepeat: "no-repeat"}}>
+            <signInIcon />
           </div>
         </div>
         </div>

@@ -42,6 +42,7 @@ export class ChatMessages extends Component {
             handleUserEmailFromBot={this.props.handleUserEmailFromBot}
             emailReceived={this.props.emailReceived}
             guest={guest}
+            user={user}
             />
           )}
         </div>

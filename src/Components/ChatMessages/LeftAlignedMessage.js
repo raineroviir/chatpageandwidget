@@ -71,7 +71,7 @@ export class LeftAlignedMessage extends React.Component {
             <div style={{backgroundImage: !message.bot ? `url(${defaultAvatarUrl})` : `url(${defaultBotAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar">
               {!message.bot &&
                 <div className="avatar">
-                <Gravatar size="28" md5="" email="r@gmail.com" />
+                <Gravatar size={28} md5="" email="r@gmail.com" />
               </div>
               }
             </div>

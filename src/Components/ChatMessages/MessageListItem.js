@@ -28,7 +28,7 @@ export class MessageListItem extends React.Component {
     if (message.user_id === currentUser) {
        return (<div>
        {dateDiff !== 0 ? dateSeparator : humanizedMessageDate !== previousMessageHumanizedDate ? dateSeparator : null}
-       <RightAlignedMessage key={message.id} widgetConfig={widgetConfig} checkForSameUser={checkForSameUser} message={message} previousMessage={previousMessage}/>
+       <RightAlignedMessage key={message.id} widgetConfig={widgetConfig} checkForSameUser={checkForSameUser} message={message} previousMessage={previousMessage} guest={this.props.guest} user={this.props.user}/>
       </div>)
     } else {
       return (<div>
@@ -36,7 +36,8 @@ export class MessageListItem extends React.Component {
       <LeftAlignedMessage key={message.id} widgetConfig={widgetConfig} checkForSameUser={checkForSameUser} message={message}
       isGroupChat={isGroupChat} handleUserEmailFromBot={this.props.handleUserEmailFromBot} emailReceived={this.props.emailReceived}
       guest={this.props.guest}
-      previousMessage={previousMessage}/>
+      previousMessage={previousMessage}
+      user={this.props.user}/>
       </div>)
     }
   }
