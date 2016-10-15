@@ -89,6 +89,20 @@
   }
 }
 
+.capture-details-input {
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    opacity:  0.6;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   opacity:  0.6;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   opacity:  0.6;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   opacity:  0.6;
+}
+}
 .info {
   font-family: Rubik;
   font-size: 15px;
