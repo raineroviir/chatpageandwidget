@@ -53,7 +53,6 @@ export function dispatchMessageStream(message) {
  */
 export function createMessage(message, conversationid, token, channelid, attachment) {
   return dispatch => {
-
   dispatch(addMessage(message))
   if (message.bot === true) {
     return

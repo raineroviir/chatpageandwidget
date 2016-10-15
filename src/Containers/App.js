@@ -27,10 +27,11 @@ class App extends React.Component {
     }
   }
   getMessage(e) {
-    this.onToggle.bind(this)
+    this.onToggle()
     e.preventDefault();
     if(this.refs.Message.value == "") return;
-    this.createMessage(this.refs.Message.value);
+    // this.createMessage(this.refs.Message.value);
+    // doesn't work right now
     this.refs.Message.value = "";
   }
   createMessage(message) {
@@ -123,8 +124,8 @@ class App extends React.Component {
         </div>
         }
         {messages.messages.length === 0 ? <div className="minimized-welcome-message">
-          {info}
-          {initialChatBox}
+          {!this.state.show && info}
+          {!this.state.show && initialChatBox}
         </div> : null}
         <div className="chat-widget-button" style={{backgroundColor: widget.initialConfig.keyColor,
           backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundImage: messages.messagesWhileInactive.length > 0 ?

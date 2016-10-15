@@ -10,6 +10,7 @@ const initialState = {
   userScrollPosition: 0,
   initialLoading: false,
   inactive: true,
+  waitingOnInitialMessage: false
 };
 
 export function environment(state = initialState, action) {
@@ -49,6 +50,10 @@ export function environment(state = initialState, action) {
       return {...state, initialLoading: false}
     case "WIDGET_TOGGLE":
       return {...state, inactive: !state.inactive}
+    case "CREATED_INITIAL_MSG":
+      return {...state, waitingOnInitialMessage: true}
+    case "DISPATCHED_INITIAL_MSG":
+      return {...state, waitingOnInitialMessage: false}
     default:
       return state;
 

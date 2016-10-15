@@ -23,7 +23,7 @@ class Messages extends Component {
   }
   componentDidMount() {
     const { dispatch, userScrollPosition, isGroupChat, conversationid, guest, user, initialLoadComplete } = this.props
-    const token = guest.token || user.token
+    const { token } = guest || user
     const node = ReactDOM.findDOMNode(this)
     if (!initialLoadComplete) {
       this.loadInitialHistory()
