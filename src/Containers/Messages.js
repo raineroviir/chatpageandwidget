@@ -30,6 +30,7 @@ class Messages extends Component {
     } else {
       userScrollPosition ? node.scrollTop = userScrollPosition : this.scrollToBottom()
     }
+    dispatch(markConversationAsRead(conversationid, token))
     if (!isGroupChat) {
       dispatch(loadBot())
     }
@@ -47,7 +48,8 @@ class Messages extends Component {
     })
   }
   componentDidUpdate(prevProps) {
-    const { dispatch, totalHeightOfHistoryMessages, isInfiniteLoading, userCreatedNewMessage, messages, botResponse, botActive, userScrollPosition, messageStreamNewMessage }  = this.props
+    const { dispatch, totalHeightOfHistoryMessages, isInfiniteLoading, userCreatedNewMessage, messages, botResponse, botActive, userScrollPosition, messageStreamNewMessage, conversationid, guest, user }  = this.props
+    const token = guest.token || user.token
     const node = ReactDOM.findDOMNode(this)
     if (userCreatedNewMessage) {
       this.scrollToBottom()

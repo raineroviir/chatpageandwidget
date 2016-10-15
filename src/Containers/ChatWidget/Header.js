@@ -13,6 +13,7 @@ import closeIcon from './files/x.svg'
 import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import {updateUser, forgetUser} from '../../actions/user'
+import SignInIcon from './SignInIcon'
 class Header extends Component {
   constructor(props) {
     super(props)
@@ -238,13 +239,9 @@ class Header extends Component {
           <div style={{width: "25px", height: "25px", cursor: "pointer", backgroundImage: `url(${infoIcon})`, backgroundRepeat: "no-repeat"}} onClick={this.infoToggle.bind(this)} ></div>
         </div>} */}
         <div className="sign-in-to-chat-center" style={{color: widget.initialConfig.keyColor}}>
-          <div style={{display: "flex"}}>
+          <div onClick={this.menuToggle.bind(this)} style={{display: "flex", cursor: "pointer"}}>
+            <SignInIcon style={{color: widget.initialConfig.keyColor}}/>
           </div>
-          <div style={{display: "flex"}}>
-            <div onClick={this.menuToggle.bind(this)} style={{width: "50px", height: "28px", cursor: "pointer", backgroundImage: `url(${signInIcon})`, backgroundRepeat: "no-repeat"}}>
-            <signInIcon />
-          </div>
-        </div>
         </div>
         {/* {this.state.showInfo && environment.userScrollPosition > 150 && info} */}
         {this.state.showMenu && widgetMenu}
