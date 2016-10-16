@@ -5,8 +5,8 @@ import * as loginActions from "../Login";
 import * as createChannelActions from "../CreateChannel";
 import { fetchUserInfo } from "../Navigation";
 import { browserHistory } from 'react-router';
-let channels = require("json!./../../mocks/v1/channels.list.json");
-let conversations = require("json!./../../mocks/v1/conversations.list.json");
+let channels = require("./../../mocks/v1/channels.list.json");
+let conversations = require("./../../mocks/v1/conversations.list.json");
 var _ = require("lodash");
 export function getChannels(channelid) {
   /* Mocks */

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import * as CCActions from '../../actions/CreateChannel';
 import DocumentMeta from 'react-document-meta';
-import Navigation from 'containers/Home/Navigation';
+import Navigation from '../Home/Navigation';
 import {ChannelCreate} from '../../components/Channel/Create';
 
 const metaData = {
@@ -37,7 +37,7 @@ export class ChannelCreateContainer extends Component {
   fetchChannel(){
     if(this.props.id)
     this.props.actions.fetchChannel(this.props.id);
-    
+
   }
 
   render() {
@@ -47,13 +47,13 @@ export class ChannelCreateContainer extends Component {
             <div>
               <DocumentMeta {...metaData} />
               <Navigation historyApi={this.props.historyApi} />
-              <ChannelCreate 
-              id={this.props.id} 
+              <ChannelCreate
+              id={this.props.id}
               teamName={teamName}
-              isTeam={isTeam} 
-              fetchChannel={this.fetchChannel.bind(this)} 
-              details={this.props.createChannel} 
-              handleBack={this.handleBack.bind(this)} 
+              isTeam={isTeam}
+              fetchChannel={this.fetchChannel.bind(this)}
+              details={this.props.createChannel}
+              handleBack={this.handleBack.bind(this)}
               handleNext={this.handleNext.bind(this)} />
           </div>
     );
@@ -78,7 +78,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(CCActions, dispatch),
-    //handleBack:PropTypes.func.isRequired 
+    //handleBack:PropTypes.func.isRequired
   }
 }
 

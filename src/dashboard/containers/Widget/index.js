@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { render } from 'react-dom';
 import DocumentMeta from 'react-document-meta';
-import Navigation from 'containers/Home/Navigation';
+import Navigation from '../Home/Navigation';
 import TabNav from '../../components/TabNav';
 import * as WidgetActions from '../../actions/Widget';
 import * as tabNavActions from '../../actions/TabNav'
@@ -12,7 +12,7 @@ import { browserHistory } from 'react-router';
 import { Link } from 'react-router';
 
 import { styles} from './styles.scss';
-// 
+//
 const metaData = {
   title: 'Widget | Chat Center',
   description: 'Widget Chat Center',
@@ -25,7 +25,7 @@ const metaData = {
 };
 
 export class Widget extends Component {
-  
+
 
   constructor( props ){
     super( props );
@@ -52,7 +52,7 @@ export class Widget extends Component {
       ]
     }
   }
-  
+
   componentWillMount() {
     if( !this.props.conversations.channelid ) {
       browserHistory.push("/dashboard");
@@ -75,45 +75,45 @@ export class Widget extends Component {
     let unsavedChanges = 0;
     let originalConfig = this.props.widget.initialConfig;
     let currentConfig = this.props.widgetConfig;
-    
+
     let checkObjDiff = ( currentInner, orgInner ) => {
       for( let key in currentInner ) {
-        
+
         if( key === 'rules' ) {
 
           if( JSON.stringify(orgInner.rules ) != JSON.stringify(currentInner.rules ) ) {
             unsavedChanges++;
           }
 
-        
-          
+
+
         } else if( typeof currentInner[ key ] === 'object' && typeof orgInner[ key ] === 'object' ) {
           checkObjDiff( currentInner[ key ], orgInner[ key ]  );
         }
         else if( orgInner[ key ] != currentInner[ key ] ) {
           unsavedChanges++;
         }
-      }  
+      }
     };
     if( currentConfig && originalConfig ) {
-      checkObjDiff( currentConfig, originalConfig );  
+      checkObjDiff( currentConfig, originalConfig );
     }
-    
+
 
     let isNewChannelConfig = this.props.widget.isNewChannelConfig;
     let activeChannelDetails = {};
     if( this.props.channels ){
       activeChannelDetails = this.props.channels.channels.all.find( channel => channel.id == this.props.conversations.channelid );
     }
-    
-    
+
+
     return (
 
       <div>
         <DocumentMeta {...metaData} />
         <Navigation historyApi={this.props.historyApi} />
         <div className={"widget-component " + (this.props.tabnav.menuState? 'open-widget-menu' : '') }  >
-          
+
           <TabNav tabFooter= {
             this.state.tabFooter
           }
@@ -127,18 +127,18 @@ export class Widget extends Component {
           <div className="widget-content" >
 
             <div className={ "widget-" + classId }>
-              
+
               <div className="widget-feature-buttons">
                 <span className="save-button-wrapper">
                   {
-                    unsavedChanges > 0 && !isNewChannelConfig ? 
+                    unsavedChanges > 0 && !isNewChannelConfig ?
                     <p className="form-change-status" >{unsavedChanges} unsaved changes</p>
                     :
                     ''
                   }
-                  
-                  <button 
-                  className="cc-btn save-button" 
+
+                  <button
+                  className="cc-btn save-button"
                   disabled={unsavedChanges==0}
                   onClick={this.saveWidgetConfig.bind(this)}>PUBLISH CHANGES</button>
                 </span>
@@ -169,7 +169,7 @@ export class Widget extends Component {
                   ?<p className="form-change-status" >{unsavedChanges} unsaved changes</p>:
                   ''
                 }
-                <button className="cc-btn save-button" 
+                <button className="cc-btn save-button"
                   disabled={unsavedChanges==0}
                  onClick={this.saveWidgetConfig.bind(this)}>PUBLISH CHANGES</button>
             </div>

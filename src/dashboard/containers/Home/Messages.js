@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';
 
 /* components */
-import { ChatMessage } from 'components/ChatMessage';
+import { ChatMessage } from '../../components/ChatMessage';
 export class Messages extends Component {
   render() {
     return (

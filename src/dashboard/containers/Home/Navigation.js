@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Navigation';
 
 /* components */
-import { NavigationView } from 'components/Navigation';
+import { NavigationView } from '../../components/Navigation';
 export class Navigation extends Component {
   switchOrganization(org, orgs){
     this.props.actions.switchOrganization(org, orgs, this.props.historyApi)
@@ -17,9 +17,9 @@ export class Navigation extends Component {
   }
   render() {
     return (
-        <NavigationView orgs={this.props.orgs} 
+        <NavigationView orgs={this.props.orgs}
         userinfo = { this.props.userinfo }
-        switchOrganization={this.switchOrganization.bind(this)} 
+        switchOrganization={this.switchOrganization.bind(this)}
         addOrganization={this.addOrganization.bind(this)} />
     );
   }

@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import DocumentMeta from 'react-document-meta';
 
 /* components */
-import { HomeView } from 'components/Home';
-import Guest from 'containers/Home/Guest';
+import { HomeView } from '../../components/Home';
+import Guest from './Guest';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';
@@ -13,15 +13,15 @@ import * as ChannelsActions from '../../actions/Channels';
 
 export class Home extends Component {
   componentDidMount() {
-    $('.mCustomScrollBar').mCustomScrollbar({ 
-      theme:"dark-3"        
+    $('.mCustomScrollBar').mCustomScrollbar({
+      theme:"dark-3"
   });
-    
+
   $('.chat-contacts').height($(window).height()-$('header').height()-35);
-  
+
     $('.chat-group').height($(window).height()-$('footer').height()-$('header').height()-75);
 
-  
+
   $('.channel-list').on('click', function (e) {
     if($(e.target).closest('.leftmenu').length == -1 || !$(e.target).hasClass('glyphicon-menu-hamburger')) {
       $('.leftmenu').addClass('hidden-xs');
@@ -37,8 +37,8 @@ export class Home extends Component {
   $('.channel-list').on('click', '.user-item li:not(".header")', function() {
     $('.sidebar').toggleClass('hidden-xs hidden-sm');
     $('.main').toggleClass('hidden-xs hidden-sm');
-    $('.mCustomScrollBar').mCustomScrollbar({ 
-        theme:"dark-3"        
+    $('.mCustomScrollBar').mCustomScrollbar({
+        theme:"dark-3"
     });
   });
 
@@ -59,7 +59,7 @@ export class Home extends Component {
     $( 'body' ).on('click', '.chats-contacts li a', function  (argument) {
         $( 'body' ).removeClass( 'show-conversation-panel' ).addClass( 'show-chat-panel' );
     });
- 
+
     $('body').on('click', '.goback-icon', function() {
       if($(this).hasClass('skip-user')) {
         $( 'body' ).removeClass( 'show-chat-panel show-conversation-panel' );
@@ -77,8 +77,8 @@ export class Home extends Component {
   });
   // Bug fix for mCustomScrollbar as its updateOnBrowserResize isnt working as expected
   $(window).resize(function() {
-    $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({ 
-      theme:"dark-3"        
+    $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({
+      theme:"dark-3"
     });
   });
 
@@ -87,9 +87,9 @@ export class Home extends Component {
         let settingsMenu = $( target ).closest( '.channel-setting-link' );
         if( settingsMenu.length ) {
           e.preventDefault();
-          $( '.settings-menu' ).toggleClass( 'show-menu' );  
+          $( '.settings-menu' ).toggleClass( 'show-menu' );
         } else {
-          $( '.settings-menu' ).removeClass( 'show-menu' );  
+          $( '.settings-menu' ).removeClass( 'show-menu' );
         }
     } )*/
   }
@@ -101,11 +101,11 @@ export class Home extends Component {
     }
     else {
       return (
-        <HomeView 
-        urlparams={this.props.params} 
-        historyApi={this.props.history} 
-        isGroupChat={this.props.isGroupChat} 
-        channelname={this.props.channelname} 
+        <HomeView
+        urlparams={this.props.params}
+        historyApi={this.props.history}
+        isGroupChat={this.props.isGroupChat}
+        channelname={this.props.channelname}
         conversationname={this.props.conversationname} />
       );
     }

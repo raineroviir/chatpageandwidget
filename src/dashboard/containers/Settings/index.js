@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { render } from 'react-dom';
 import DocumentMeta from 'react-document-meta';
-import Navigation from 'containers/Home/Navigation';
+import Navigation from '../Home/Navigation';
 import TabNav from '../../components/TabNav';
 import * as tabNavActions from '../../actions/TabNav';
 import * as settingsActions from '../../actions/Settings';
@@ -45,12 +45,12 @@ let orgLink = {
 };
 
 export class Settings extends Component {
-  
+
 
   constructor( props ){
     super( props );
   }
-  
+
   componentWillMount() {
     //this.props.settingsActions.initializeSettings( this.props.userinfo );
   }
@@ -60,7 +60,7 @@ export class Settings extends Component {
 
 
   render() {
-    
+
     let settings = this.props.settings;
     let navLinks = [];
     if( settings.editSettings.team_id ) {
@@ -68,7 +68,7 @@ export class Settings extends Component {
     } else {
       navLinks = [ ...tabLinks ];
     }
-    
+
     return (
 
       <div className="settings-page">
@@ -77,7 +77,7 @@ export class Settings extends Component {
         <div className={
           classNames("primary-tabnav-component", {
             'open-widget-menu' : this.props.tabnav.menuState
-          }) 
+          })
         }>
         <div className="ovel-close-wrapper">
           <Link to="/dashboard" className="ovel-close" ></Link>
@@ -91,8 +91,8 @@ export class Settings extends Component {
         } />
 
           <div className="primary-tabnav-content" >
-            <SettingsHeader 
-              userinfo= {this.props.userinfo} 
+            <SettingsHeader
+              userinfo= {this.props.userinfo}
               settings={this.props.settings}
               saveSettings= { this.props.settingsActions.saveSettings}
             />
@@ -107,7 +107,7 @@ export class Settings extends Component {
 }
 
 Settings.propTypes = {
-  
+
 };
 
 function mapStateToProps(state) {

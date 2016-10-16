@@ -5,7 +5,7 @@ import * as CCActions from '../../actions/CreateChannel'
 import DocumentMeta from 'react-document-meta';
 
 /* components */
-import Navigation from 'containers/Home/Navigation';
+import Navigation from '../Home/Navigation';
 import { Channel } from '../../components/Channel/Index';
 import { browserHistory } from 'react-router';
 

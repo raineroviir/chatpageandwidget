@@ -1,4 +1,4 @@
-let URLS = require("json!./urls.json");
+let URLS = require("./urls.json");
 
 import fetch from 'isomorphic-fetch';
 import Config from './config';
@@ -23,7 +23,7 @@ class ApiService {
             obj.url = urlPath.url;
             obj.method = urlPath.method;
             return obj;
-        } 
+        }
     }
     parseUrl( url, params ) {
         return url.replace(
@@ -39,7 +39,7 @@ class ApiService {
         for( let  key in obj ) {
             if( typeof obj[key] != 'undefined' ) {
                 query += '&' + key + '=' + obj[key];
-            } 
+            }
         }
         return query.substr(1);
 
@@ -51,7 +51,7 @@ class ApiService {
         params = null
     } ) {
 
-        return new Promise( (resolve, reject) => { 
+        return new Promise( (resolve, reject) => {
             let obj = this.getUrlObj( action );
             if( !obj ) {
                 console.log( 'Error in calling, ' + action );
@@ -60,12 +60,12 @@ class ApiService {
 
             let url = Config[ obj.entry ];
             url = url + '/' + this.parseUrl( obj.url, params );
-            
+
             let reqObj = {
                 method: obj.method
             }
             if( payload ) {
-                
+
                 if( obj.method === 'get' || obj.method === 'GET' ) {
                     if( url.indexOf('?') === -1 ) {
                         url += '?' + this.getQueryparam(payload);
@@ -94,13 +94,13 @@ class ApiService {
                         ok : false,
                         error: 'unauthorized'
                     };
-                } 
+                }
                 return response.json();
               }
             ).then( json => {
 
                 if( json && !json.error && (json.ok  || typeof json.ok === 'undefined' )  ) {
-                    resolve( json );    
+                    resolve( json );
                 } else {
                     console.log( 'status is not 200' );
                     reject( json );
@@ -108,6 +108,6 @@ class ApiService {
             });
         } );
     }
-} 
+}
 
 export default new ApiService;

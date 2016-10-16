@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';
 
 /* components */
-import { ChatTextBox } from 'components/ChatTextBox';
+import { ChatTextBox } from '../../components/ChatTextBox';
 export class CreateMessage extends Component {
   createMessage(message){
     this.props.actions.createMessage(message, this.props.conversationid || this.props.convid);

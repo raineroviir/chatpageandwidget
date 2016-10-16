@@ -2,60 +2,60 @@ import React from 'react';
 import { browserHistory, Route, IndexRoute } from 'react-router';
 
 /* containers */
-import { App } from 'containers/App';
-import Home from 'containers/Home';
-import Login from 'containers/Login';
-import Registration from 'containers/Registration';
-import RegisterStart from 'components/Register';
-import RegisterOrgName from 'containers/Registration/Organization/Name';
-import RegisterOrgDomain from 'containers/Registration/Organization/Domain';
-import RegisterOrgVerify from 'containers/Registration/Organization/Verify';
-import RegisterOrgDetail from 'containers/Registration/Organization/Detail';
-import RegisterOrgAddress from 'containers/Registration/Organization/Address';
-import OrgInvite from 'components/Register/Organization/Invite';
-import OrgJoin from 'components/Register/Organization/Join';
-import RegisterIndividual from 'components/Register/Individual';
-import RegisterIndividualDomain from 'components/Register/Individual/Domain';
-import Channel from 'containers/Channel/Index';
-import ChannelCreate from 'containers/Channel/Create';
-import ChannelMembers from 'containers/Channel/Members';
+import { App } from './containers/App';
+import Home from './containers/Home';
+import Login from './containers/Login';
+import Registration from './containers/Registration';
+import RegisterStart from './components/Register';
+import RegisterOrgName from './containers/Registration/Organization/Name';
+import RegisterOrgDomain from './containers/Registration/Organization/Domain';
+import RegisterOrgVerify from './containers/Registration/Organization/Verify';
+import RegisterOrgDetail from './containers/Registration/Organization/Detail';
+import RegisterOrgAddress from './containers/Registration/Organization/Address';
+import OrgInvite from './components/Register/Organization/Invite';
+import OrgJoin from './components/Register/Organization/Join';
+import RegisterIndividual from './components/Register/Individual';
+import RegisterIndividualDomain from './components/Register/Individual/Domain';
+import Channel from './containers/Channel/Index';
+import ChannelCreate from './containers/Channel/Create';
+import ChannelMembers from './containers/Channel/Members';
 
-import Installation from 'components/Widget/Installation';
-import Invitations from 'components/Widget/Invitations';
-import Appearance from 'components/Widget/Appearance';
-import Labels from 'components/Widget/Labels';
-import Widget from 'containers/Widget';
-
-
-import Settings from 'containers/Settings';
-import BillingPayment from 'components/Settings/BillingPayment';
-import PersonalSettings from 'components/Settings/PersonalSettings';
-import SettingsOrganization from 'components/Settings/Organization';
+import Installation from './components/Widget/Installation';
+import Invitations from './components/Widget/Invitations';
+import Appearance from './components/Widget/Appearance';
+import Labels from './components/Widget/Labels';
+import Widget from './containers/Widget';
 
 
+import Settings from './containers/Settings';
+import BillingPayment from './components/Settings/BillingPayment';
+import PersonalSettings from './components/Settings/PersonalSettings';
+import SettingsOrganization from './components/Settings/Organization';
 
 
 
 
-import UpgradeVew from 'containers/Upgrade';
-import UpgradePlans from 'components/Upgrade/UpgradePlans';
-import UpgradeForm from 'components/Upgrade/UpgradeForm';
-import UpgradeSuccess from 'components/Upgrade/UpgradeSuccess';
-import TransactionHistory from 'components/Upgrade/TransactionHistory';
-import UpdateCard from 'components/Upgrade/UpdateCard';
 
-import RegisterJoinDetail from 'containers/Registration/Join/Detail';
-import RegisterJoinAddress from 'containers/Registration/Join/Address';
+
+import UpgradeVew from './containers/Upgrade';
+import UpgradePlans from './components/Upgrade/UpgradePlans';
+import UpgradeForm from './components/Upgrade/UpgradeForm';
+import UpgradeSuccess from './components/Upgrade/UpgradeSuccess';
+import TransactionHistory from './components/Upgrade/TransactionHistory';
+import UpdateCard from './components/Upgrade/UpdateCard';
+
+import RegisterJoinDetail from './containers/Registration/Join/Detail';
+import RegisterJoinAddress from './containers/Registration/Join/Address';
 
 
 export default (
-    
-<Route path="/" component={App} > 
+
+<Route path="/" component={App} >
     <IndexRoute component={Login} />
-    <Route path="dashboard">
+    <Route path=".">
         <IndexRoute component={Home} />
-        <Route path="/dashboard/:channel" component={Home}/>
-        <Route path="/dashboard/:channel/:conversation" component={Home}/>
+        <Route path="/./:channel" component={Home}/>
+        <Route path="/./:channel/:conversation" component={Home}/>
     </Route>
     <Route path="login" component={Login} />
     <Route path="signup" component={Registration} />
@@ -110,5 +110,5 @@ export default (
     <Route status={404} path="*" component={Login} />
 
 </Route>
-  
+
 );

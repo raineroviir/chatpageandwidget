@@ -6,7 +6,7 @@ import { createHistory } from 'history';
 //import { createHashHistory } from 'history';
 import configureStore from './store/configureStore';
 import routes from './routes';
-require("containers/App/scripts/chatcenter.js");
+require("./containers/App/scripts/chatcenter.js");
 import ApiService from './api.service';
 
 

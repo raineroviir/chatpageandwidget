@@ -4,9 +4,9 @@ var path = require('path')
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: {
-    // dashboard: ['bootstrap-loader',
-    // 'webpack-hot-middleware/client',
-    // './src/dashboard/index'],
+    dashboard: ['bootstrap-loader',
+    'webpack-hot-middleware/client',
+    './src/dashboard/index'],
     widget: ['webpack-hot-middleware/client', './src/widget/widget.js']
   },
   output: {
@@ -19,7 +19,8 @@ module.exports = {
           {
             test: /\.js$/,
             loader: 'babel',
-            exclude: [/node_modules/, path.join(__dirname, 'src/dashboard')],
+            exclude: /node_modules/,
+            // exclude: [/node_modules/, path.join(__dirname, 'src/dashboard')],
             // include: [path.join(__dirname, 'src/common'), path.join(__dirname, 'src/widget')],
             query: {
               presets: [ 'react-hmre', "react", "es2015" , "stage-0" ]

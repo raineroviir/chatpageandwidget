@@ -2,12 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import DocumentMeta from 'react-document-meta';
 
 /* components */
-import Navigation from 'containers/Home/Navigation';
-import Header from 'containers/Home/Header';
-import Channels from 'containers/Home/Channels';
-import Conversations from 'containers/Home/Conversations';
-import Messages from 'containers/Home/Messages';
-import CreateMessage from 'containers/Home/CreateMessage';
+import Navigation from '../../containers/Home/Navigation';
+import Header from '../../containers/Home/Header';
+import Channels from '../../containers/Home/Channels';
+import Conversations from '../../containers/Home/Conversations';
+import Messages from '../../containers/Home/Messages';
+import CreateMessage from '../../containers/Home/CreateMessage';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';
@@ -40,7 +40,7 @@ export class HomeView extends Component {
                 <Messages />
                 <CreateMessage />
               </div>
-            
+
             </section>
           </div>
       </div>

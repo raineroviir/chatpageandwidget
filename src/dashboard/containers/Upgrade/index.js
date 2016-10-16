@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { render } from 'react-dom';
 import DocumentMeta from 'react-document-meta';
-import Navigation from 'containers/Home/Navigation';
+import Navigation from '../Home/Navigation';
 
 //import {Installation} from '../../components/Widget/Installation';
 import * as UpgradeActions from '../../actions/Upgrade'
@@ -22,16 +22,16 @@ const metaData = {
 };
 
 export class UpgradeVew extends Component {
-  
+
 
   constructor( props ){
     super( props );
   }
-  
+
   componentWillMount() {
 
   }
-  
+
 
   render() {
     //let classId = this.props.upgrade ? this.props.upgrade.classId : '';

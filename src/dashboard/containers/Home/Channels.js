@@ -8,7 +8,7 @@ import { fetchSocket } from '../../actions/Channels';
 
 
 /* components */
-import { ChannelList } from 'components/ChannelList';
+import { ChannelList } from '../../components/ChannelList';
 
 /*import io from 'socket.io-client';
 const socket = io("ws://ec2-54-169-64-117.ap-southeast-1.compute.amazonaws.com:28080");
@@ -26,7 +26,7 @@ socket.on('message', state => {
 export class Channels extends Component {
   selectChannel(channel){
     this.props.actions.getConversations(channel.id, this.props.channels.channels.all);
-    browserHistory.push("/dashboard/" + (channel.address.channel || ""))    
+    browserHistory.push("/dashboard/" + (channel.address.channel || ""))
   }
   createChannel(type){
     let attr = {}
@@ -80,12 +80,12 @@ export class Channels extends Component {
   render() {
 
     return (
-        <ChannelList 
-        createChannel={this.createChannel.bind(this)} 
-        channels={this.props.channels.channels} 
-        user={this.props.user} 
-        selectChannel={this.selectChannel.bind(this)} 
-        activeChannel={this.props.activeChannel} 
+        <ChannelList
+        createChannel={this.createChannel.bind(this)}
+        channels={this.props.channels.channels}
+        user={this.props.user}
+        selectChannel={this.selectChannel.bind(this)}
+        activeChannel={this.props.activeChannel}
         org={this.props.org} />
     );
   }

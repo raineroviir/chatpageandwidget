@@ -5,7 +5,7 @@ import * as CCActions from '../../actions'
 import DocumentMeta from 'react-document-meta';
 
 /* components */
-import { Register } from 'components/Register';
+import { Register } from '../../components/Register';
 
 const metaData = {
   title: 'Register | Chat Center',

@@ -5,11 +5,11 @@ import * as ChannelsActions from '../../actions/Channels';
 import { browserHistory } from 'react-router';
 
 /* components */
-import { ConversationsView } from 'components/Conversations';
+import { ConversationsView } from '../../components/Conversations';
 export class Conversations extends Component {
   selectConversation(conversationid){
-    this.props.actions.getConversationHistory (conversationid); 
-    browserHistory.push("/dashboard/" + this.props.activeChannel.address.channel + "/" + conversationid) 
+    this.props.actions.getConversationHistory (conversationid);
+    browserHistory.push("/dashboard/" + this.props.activeChannel.address.channel + "/" + conversationid)
   }
   render() {
     return (

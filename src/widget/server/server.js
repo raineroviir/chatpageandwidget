@@ -17,7 +17,7 @@ app.use(require('morgan')('short'));
     log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000,
   }));
 
-app.get('/', function(req, res) {
+app.get('/widget', function(req, res) {
   res.sendFile(path.join(__dirname, '..', '..', '..', './dist/widget/index.html'));
 });
 

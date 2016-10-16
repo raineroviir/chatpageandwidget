@@ -7,7 +7,7 @@ import { browserHistory } from 'react-router';
 import { fetchUserInfo } from '../../actions/Navigation';
 
 /* components */
-import LoginComponent from 'components/Login';
+import LoginComponent from '../../components/Login';
 
 const metaData = {
   title: 'Login | Chat Center',

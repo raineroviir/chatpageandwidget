@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import * as CCActions from '../../actions/CreateChannel';
 import DocumentMeta from 'react-document-meta';
-import Navigation from 'containers/Home/Navigation';
+import Navigation from '../Home/Navigation';
 import {ChannelMembers} from '../../components/Channel/Members';
 
 const metaData = {
@@ -21,11 +21,11 @@ const metaData = {
 export class ChannelMembersContainer extends Component {
 
   // constructor(props) {
-  //   super(props); 
+  //   super(props);
   // }
 
   handleBack(){
-    //console.log('Moving 1 step back'); 
+    //console.log('Moving 1 step back');
     this.props.actions.clearErrorMessage();
     window.history.back();
   }
@@ -53,7 +53,7 @@ export class ChannelMembersContainer extends Component {
   }
 
   validateEmail(email){
-    var allowed=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$)/; 
+    var allowed=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$)/;
     return allowed.test(email);
   }
 
@@ -94,19 +94,19 @@ export class ChannelMembersContainer extends Component {
         <div>
           <DocumentMeta {...metaData} />
           <Navigation historyApi={this.props.historyApi} />
-          <ChannelMembers 
-            id={this.props.id} 
-            validateEmail={this.validateEmail.bind(this)} 
-            updateMembers={this.updateMembers.bind(this)} 
+          <ChannelMembers
+            id={this.props.id}
+            validateEmail={this.validateEmail.bind(this)}
+            updateMembers={this.updateMembers.bind(this)}
             deleteMembers={this.deleteMembers.bind(this)}
             isTeam={isTeam}
             teamDesc={teamDesc}
-            toggleFind={this.toggleFind.bind(this)} 
-            getDirectUser={this.getDirectUser.bind(this)} 
+            toggleFind={this.toggleFind.bind(this)}
+            getDirectUser={this.getDirectUser.bind(this)}
             fetchMembersList={this.fetchMembersList.bind(this)}
             updateAutoSuggest={this.updateAutoSuggest.bind(this)}
-            details={this.props.createChannel} 
-            handleBack={this.handleBack.bind(this)} 
+            details={this.props.createChannel}
+            handleBack={this.handleBack.bind(this)}
             handleNext={this.handleNext.bind(this)} />
         </div>
     );
@@ -132,7 +132,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(CCActions, dispatch),
-    //handleBack:PropTypes.func.isRequired 
+    //handleBack:PropTypes.func.isRequired
   }
 }
 
