@@ -1,0 +1,237 @@
+.cc-btn {
+    border-radius: 5px;
+    /*background-color: #fdb22b;*/
+    border: 0;
+    /*color: #fff;*/
+    padding: 8px 28px 5px 28px;
+    font-size: 14px;
+    letter-spacing: 0.8px;
+    text-decoration: none;
+    &:hover,&:focus{
+        /*color: #fff;*/
+        text-decoration: none;
+    }
+    &.disabled,&[disabled] {
+        background-color: #d5d6d8;
+        cursor: default;
+    }
+    &.wait {
+        cursor: wait
+    }
+}
+
+.widget-component {
+    margin-left: 72px;
+    position: relative;
+    .save-button {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .widget-content {
+
+        min-height: 100vh;
+        margin-left: 216px;
+        padding: 48px 49px 0 49px;
+        color: #474848;
+        position: relative;
+        .widget-feature-buttons {
+            position: absolute;
+            right: 48px;
+            top: 48px;
+            .cc-btn {
+                display:inline-block;
+                vertical-align: middle;
+                margin-right: 15px;
+            }
+            .form-change-status {
+                display: inline-block;
+                margin-right: 20px;
+                color: #555860;
+                opacity: 0.5;
+            }
+        }
+        .widget-close {
+            background: url( '../../components/images/widget-close.png' ) no-repeat center center;
+            background-size: 100%;
+            width: 48px;
+            height: 48px;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .widget-labels  {
+            .widget-feature-buttons {
+                right: 0px;
+                top: 0px;
+                .form-change-status {
+                    position: absolute;
+                    top: -24px;
+                    left: 12px;
+                }
+            }   
+        }
+        
+    }
+    .email-camp-channel {
+        font-size: 15px;
+        line-height: 34px;
+    }
+    .email-icon-wrapper {        
+        border-radius: 2px;
+        border: solid 2px rgba(150, 150, 150, 0.23);
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 12px;
+        color: #157EFB;
+        width: 30px;
+        height: 30px;
+        background:#ffffff url('../../components/images/msg-env.png') no-repeat center center;
+        background-size: 21px 14px;
+
+    }
+    .widget-title {
+        font-size: 40px;
+        line-height: 1.4;
+        letter-spacing: -0.1px;
+        color: #000000;
+        font-family: "Rubik-Medium";
+        margin-top: 28px;
+
+    }
+    .widget-sub-title {
+        font-family: Rubik;
+        font-size: 20px;
+        line-height: 1.2;
+        color: #000000;
+        margin-top: 15px;
+    }
+    .widget-description {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-top: 16px;
+        margin-bottom: 0;
+    }
+    .wc-primary-section {
+        background-color: rgba(249, 249, 249, 0.99);
+        box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.1);
+        padding-top: 23.6px;
+        margin: 0 -49px;
+        padding:  24px 51px 33px 51px;
+        margin-top: 26px;
+        .wc-primary-section-content {
+            max-width: 625px;
+        }
+    }
+    .widget-switch {
+        width: 48px;
+        height: 24px;
+        border-radius: 100px;
+        background-color: #fff;
+        display: inline-block;
+        position: relative;
+        border: solid 1px #bfbfbf;
+        cursor: pointer;
+        vertical-align: middle;
+        .switch-point{
+            width: 18px;
+            height: 18px;
+            position: absolute;
+            border-radius: 100px;
+            background-color: #afafb5;
+            top: 2px;
+            left: 3px;
+        }
+        &.switch-on {
+            .switch-point{
+                right: 2px;
+                left: auto;
+                background-color: #fff;
+            }
+        }
+    }
+    .angle-down-arrow {
+        display: inline-block;
+        vertical-align: middle;
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(230deg);
+        margin-top: 8px;
+        position: relative;
+        cursor: pointer;
+        &:after{
+            position: absolute;
+            content: '';
+            width: 2px;
+            height: 7px;
+            background-color: #9a9da1;
+        }
+        &:before{
+            position: absolute;
+            content: "";
+            width: 7px;
+            height: 2px;
+            background-color: #9a9da1;
+            top: -1px;
+            left: 0px;
+            -ms-transform: rotate(-19deg);
+            -webkit-transform: rotate(-19deg);
+            transform: rotate(-19deg);
+        }
+    }
+    .widget-save-button-bottom {
+        display: none;
+        margin-top: 10px;
+        text-align: center;
+    }
+}
+
+
+/*just targetted for mobile resolution*/
+@media screen and (max-width: 767px) {
+    .widget-component {
+        margin-left:0;
+        .widget-title {
+            font-size: 24px;
+        }
+        .widget-sub-title {
+            font-size: 16px;   
+        }
+        .widget-content {
+            margin-left: 0;
+            padding: 15px;
+            padding-top: 5px;
+            .widget-feature-buttons {
+                top: 10px;
+                right: 10px;
+                .save-button-wrapper {
+                    display: none;
+                }
+            }
+            .widget-close {
+                width: 25px;
+                height: 25px;
+            }
+        }
+        .wc-primary-section { 
+            margin: 0 -15px;
+            margin-top: 26px;
+            padding: 24px 15px 33px;
+        }
+        .email-camp-channel {
+            margin-left: 22px;   
+        }
+        &.open-widget-menu {
+            overflow: hidden;
+            .widget-content {
+                left: 216px;
+                position: relative;
+                overflow: hidden;
+            }
+            
+        }
+        .widget-save-button-bottom {
+            display: block;
+        }
+    }
+    
+}

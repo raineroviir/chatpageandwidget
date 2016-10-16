@@ -1,0 +1,20 @@
+.poptart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    .poptart-layer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 101;
+    }
+    .poptart-component {
+        z-index: 102;
+        position: relative;
+    }
+}

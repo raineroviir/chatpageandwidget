@@ -1,0 +1,280 @@
+.material-input {
+    position: relative;
+    label {
+        margin: 0;
+        font-family: Rubik;
+        font-size: 18px;
+        letter-spacing: 0.1px;
+        display: block;
+        margin-left: 11px;
+        position: absolute;
+        bottom: 26px;
+        color: #b0b0b0;
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        transition: -webkit-transform cubic-bezier(0.25,.8,.25,1) .25s;
+        transition: transform cubic-bezier(0.25,.8,.25,1) .25s;
+        -webkit-transform-origin: left top;
+        transform-origin: left top;
+    }
+    
+    .fixed-top-label, &.float-label label  {
+        color: #474848;
+        -webkit-transform: translate3d(0,-38px,0);
+        transform: translate3d(0,-38px,0);
+        transition: -webkit-transform cubic-bezier(0.25,.8,.25,1) .25s;
+        transition: transform cubic-bezier(0.25,.8,.25,1) .25s;
+        -webkit-transform-origin: left top;
+        transform-origin: left top;
+    }
+    .input-field {
+        font-size: 18px;
+        letter-spacing: 0.1px;
+        color: #000000;
+        box-shadow: inset 0 -2px 0 0 #474848;
+        width: 100%;
+        border: 0;
+        background: none;
+        padding: 37px 11px 25px 11px;
+        outline: none;
+        position: relative;
+        z-index: 2;
+    }
+    
+}
+
+.upgrade-form-view {
+    max-width: 705px;
+    .choosed-plan-name {
+        text-transform: capitalize;
+    }
+    .error-message {
+        color: #c91913;
+        border-top: 2px solid #c91913;
+        border-bottom: 2px solid #c91913;
+        padding: 10px 0;
+        margin: 10px 0;
+    }
+    .selected-details {
+        margin-top: 17px;
+        font-size: 15px;
+        font-weight: normal;
+        line-height: 1.6;
+        letter-spacing: 0.1px;
+        .details-cell {
+            margin-top: 2px;
+            font-size: 20px;
+            font-weight: normal;
+            line-height: 1.2;
+        }
+    }   
+    .upgrade-form-wrapper {
+        padding: 24px 55px;
+        background-color: rgba(249, 249, 249, 0.99);
+        margin-top: 24px;
+        color: #474848;
+        margin-left: -54px;
+        padding-left: 42px;
+        .upgrade-form {
+            max-width:  464px;
+        }
+        .form-header {
+            font-size: 15px;
+            font-weight: normal;
+            letter-spacing: 0.1px;
+            background-image: url(../../images/password-icon.svg);  
+            padding-left: 32px;
+            background-repeat: no-repeat;
+            background-size: 20px;
+            line-height: 24px;
+            margin-left: 11px;
+        }
+        .form-row {
+            overflow: auto;
+        }
+        .field-wrapper {
+            margin-top: 28px;
+            &.error-field {
+                .material-input label {
+                    color: red;
+                }
+                .material-input .input-field {
+                    color: red;
+                    box-shadow: inset 0 -2px 0 0 red;
+                }
+                
+            }
+        }
+        .promo-link {
+            font-size: 15px;
+            font-weight: normal;
+            line-height: 1.4;
+            letter-spacing: 0.1px;
+        }
+        .cc-btn.submit-btn {
+            font-size: 20px;
+            padding: 12px 26px 9px 25px;
+            width: 250px;
+            .cc-btn {
+                position: absolute;
+            }
+        }
+        .double-field-wrapper {
+            .field-wrapper {
+                width: 44%;
+                float: left;
+            }
+            .second-field {
+                float: right;
+            }
+        }
+        .promo-code-row {
+            
+            .field-wrapper {
+                position: relative;
+                margin-top: 16px;
+            }
+            .cc-btn {
+                position: absolute;
+                bottom: 20px;
+                right: 0px;
+                font-family: 'Rubik-Medium';
+                z-index: 3;
+            }
+            .promo-success {
+                position: absolute;
+                bottom: 58px;
+                -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+                right: 30px;
+                display: none;
+                &:after {
+                    position: absolute;
+                    width: 6px;
+                    height: 2px;
+                    left: 11px;
+                    top: 19px;
+                    content: '';
+                }
+                &:before{
+                    position: absolute;
+                    width: 2px;
+                    height: 12px;
+                    left: 16px;
+                    top: 8px;
+                    content: "";
+                }
+            }
+            &.promo-status-success {
+                .promo-success {
+                    display: inline-block;
+                }            
+                .cc-btn {
+                    display: none;
+                }
+            }
+            .promo-status-error-msg {
+                display: none;
+            }
+            .promo-status-error-msg {
+                margin-top: 5px;
+                margin-left: 11px;
+                display: none;
+            }
+
+            &.promo-status-error {
+                .input-field {
+                    color: red;
+                    box-shadow: inset 0 -2px 0 0 red;
+                }
+                .promo-status-error-msg {
+                    display: block;
+                    color: red;
+                }
+            }
+        }
+        .promo-link-wrapper {
+            margin-top: 28px;
+            margin-left: 11px;
+        }
+        .buttons-wrapper {
+            margin-top: 32px;
+            margin-left: 11px;
+        }
+        .powered-by {
+            float: right;
+            margin-top: 18px;
+            opacity: 0.5;
+        }
+    }
+    .card-number-wrapper {
+        position: relative;
+        .card-logo {
+            height: 17px;
+            width: 46px;
+            position: absolute;
+            right: 10px;
+            bottom: 24px;
+            background-repeat:no-repeat;
+            background-size: contain;
+            background-position: center center;
+            height: 28px;
+        }
+        .visa {
+            background-image: url('../../images/cards/visa.png');
+        }
+        .mastercard {
+            background-image: url('../../images/cards/mastercard.png');
+            
+        }
+        .amex {
+            background-image: url('../../images/cards/amex.png');
+        }
+        .visa-electron {
+            background-image: url('../../images/cards/visa-electron.png');
+        }
+        .jcb {
+            background-image: url('../../images/cards/jcb.png');
+        }
+        .disover {
+            background-image: url('../../images/cards/disover.png');
+        }
+        .diners {
+            background-image: url('../../images/cards/diners.png');
+        }
+    }
+}
+
+
+/*just targetted for mobile resolution*/
+@media screen and (max-width: 767px) {
+
+    .upgrade-form-view {
+        .upgrade-form-wrapper {
+            padding: 10px;
+            margin-left: 0;
+            margin-top: 10px;
+            .double-field-wrapper .field-wrapper {
+                width: 100%;
+            }
+            .cc-btn.submit-btn {
+                width: 100%;
+            }
+            .promo-code-row .cc-btn {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .buttons-wrapper {
+                margin-left: 0;
+            }
+            .promo-link-wrapper {
+                margin-left: 0;   
+            }
+        }
+        .selected-details {
+            .col-sm-4 {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

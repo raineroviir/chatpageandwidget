@@ -1,0 +1,506 @@
+$primaryColor: #fdb22b;
+$primaryInvertColor: #fff;
+
+
+.master-nav {
+    background: $primaryColor;
+    &:before {
+        position:absolute;
+        left:0;
+        right: 0;
+        top: 0;
+        bottom:0;
+        content:'';
+        background: rgba(31, 31, 31, 0.9);
+        z-index: -1;
+    }
+}
+
+.secondary-nav {
+    background: $primaryColor;
+    .layer1{
+        background-color: rgba(171, 173, 179, 0.1);
+    }
+    .layer2{
+        background-color: rgba(31, 33, 44, 0.87);
+    }
+    .msg-count {
+        color: $primaryInvertColor;
+        background: $primaryColor;
+    }
+    .direct-message {
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        &.active { 
+            background: $primaryColor;
+            .msg-count {
+              background: $primaryInvertColor;
+              color:#000;
+            }   
+        }
+    }
+    .msg-count {
+
+    }
+    .chat-message { 
+        .img-rounded, .avatar {
+            background-color: $primaryColor;
+            color: $primaryInvertColor;
+        }
+        &.active,&.active:hover {
+            .avatar {
+                background-color: $primaryInvertColor;
+                color: $primaryColor;
+            }
+        }
+        &:hover {
+            
+            .avatar {
+                background-color: $primaryInvertColor;
+                color: $primaryColor;
+            }
+        }
+        &.active,&.active:hover {
+          a {
+              background: $primaryColor;
+          }
+          .msg-count {
+              background: $primaryInvertColor;
+              color:#000;
+          }   
+          .avatar {
+                background-color: $primaryInvertColor;
+                color: $primaryColor;
+          }   
+        }
+
+    }
+
+    
+}
+
+
+
+
+.master-nav {
+    
+    .org-list {
+        li {
+            &.logo .avatar {
+                background-color: $primaryColor;
+                color: $primaryInvertColor;
+            }
+            &.active,&:hover {
+                .avatar {
+                    background-color: $primaryInvertColor;
+                    color: $primaryColor;
+                }
+            }
+        }
+    }
+    .org-list {
+        li {
+            &.active,&:hover {
+                .nav-link {
+                    background: $primaryColor;
+                }
+            }    
+        }
+    }
+    .add-org-btn-wrapper {        
+        a {
+            &:hover {
+                background-color: $primaryColor;
+            }
+        }
+        
+    }
+
+}
+
+
+
+
+
+
+
+
+.upgrade-form-view {
+    .upgrade-form-wrapper {
+        .promo-code-row {
+            .promo-success {
+                &:after {
+                    background-color: $primaryColor;
+                }
+                &:before{
+                    background-color: $primaryColor;
+                }
+            }
+            
+        }
+    }
+}
+
+
+
+.chat-widget {    
+    .chat-widget-header {
+        color: $primaryColor;
+        a {
+            color: $primaryColor;
+        }
+    }
+    .chat-center-team {
+     
+        a {
+            color: $primaryColor;
+        }
+    }
+    .chat-widget-messages {
+        .chat-message {
+            background-color: $primaryColor;
+            color: $primaryInvertColor;
+            &:after {
+                border-color: transparent transparent transparent $primaryColor;
+            }
+        }
+    }
+    .email-prompt {
+        button {
+            background-color: $primaryColor;
+        }
+    }
+
+}
+
+
+
+
+.leftmenu .navbar-nav>li>a:hover {
+  color: $primaryInvertColor;
+  background-color: $primaryColor;
+}
+
+.pull-right + .bubble  {
+  &:after {
+    border-color: transparent transparent transparent $primaryColor;
+  }
+}
+
+
+
+.bubble--alt {
+  background-color: $primaryColor;
+  color: $primaryInvertColor;
+}
+
+.badge {
+  background-color: $primaryColor;
+}
+.leftmenu {
+  .nav>li>a:focus, .nav>li>a:hover, .nav>li>a.active {
+    background-color: $primaryColor;
+    color: $primaryInvertColor;
+  }  
+}
+
+.channel-list .messages .user-item li:hover a, .channel-list .messages .user-item li.active a{ background-color:$primaryColor; }
+.user-item li a:hover .badge, .user-item li a.active .badge {
+  background: $primaryInvertColor;
+  color: $primaryColor;
+}
+.chat-contacts .user-item li:hover, .chat-contacts .user-item li.active{
+  background-color: $primaryColor;
+}
+.chat-contacts .user-item li:hover a .name, .chat-contacts .user-item li.active a .name {
+  color: $primaryInvertColor;
+}
+.chat-contacts .user-item li:hover a .user-presence, .chat-contacts .user-item li.active a .user-presence{
+  color: $primaryInvertColor;
+}
+.chat-contacts .user-item li:hover a .message, .chat-contacts .user-item li.active a .message{
+  color: $primaryInvertColor;
+}
+.chat-contacts .user-item li:hover a .user-presence.online:before, .chat-contacts .user-item li.active a .user-presence.online:before {
+  background-color: $primaryInvertColor;
+}
+a:hover .avatar, li.active .avatar, a:focus .avatar{
+  background-color: $primaryInvertColor;
+  color: $primaryColor;
+}
+
+
+
+
+.leftmenu .navbar-nav>li.active>a {
+    color: $primaryInvertColor;
+    background-color: $primaryColor;
+}
+
+
+footer {
+  
+  .messages .nav.user-item > li.active:hover > a{
+    background: $primaryColor;
+  }
+  
+}
+
+
+
+
+.chat-messages {
+    &>li {
+        &.sent-message  {
+            .message-bubble {
+                background-color: $primaryColor;
+                color: $primaryInvertColor;
+                &:after{
+                    border-color: transparent transparent transparent $primaryColor;
+                }
+            }
+        }
+    }
+    .img-circle,.avatar {
+      color: $primaryInvertColor;
+      background: $primaryColor;
+    }
+}
+
+.chats-contacts-wrapper {
+    
+    .chats-contacts {
+        ul {
+            .img-circle,.avatar {
+                color: $primaryInvertColor;
+                background: $primaryColor;
+                
+            }
+            
+            li.active, li:hover {
+                a {
+                    background: $primaryColor;
+                }
+                .img-circle,.avatar { 
+                    background: $primaryInvertColor;
+                    color: $primaryColor;
+                }
+                .message,.time-wrapper, a,.name {
+                    color: $primaryInvertColor;
+                }
+            }            
+        }
+    }
+}
+
+
+
+.channel-menu {
+    
+    ul {
+        
+        a:hover {
+            background: $primaryColor;
+            color: $primaryInvertColor;
+        }
+    
+    }
+}
+
+
+
+
+
+@media screen and (min-width: 786px) {  
+  .messages .badge{
+    background: $primaryColor;
+  }
+}
+
+
+
+
+
+#create-ext-chat-form,.create-ext-chat-form{
+    .browse {
+        color: $primaryColor;
+    }
+
+    .moderator-item {
+        .avatar-wrapper {
+            .avatar-text, avatar-img {
+                background-color: $primaryColor;
+                color: $primaryInvertColor;
+            }
+        }   
+    }
+    .btn {
+        background-color: $primaryColor;
+        color: $primaryInvertColor;
+    }
+}
+#signupbox {
+    .moderator-item {
+        .avatar-wrapper {
+            .avatar-text, avatar-img {
+                background-color: $primaryColor;
+                color: $primaryInvertColor;
+            }
+        }   
+    }
+    
+}
+.create-ext-chat {
+    
+    .master-link {
+        background: $primaryColor;
+        color: $primaryInvertColor;
+        &:hover{
+            background: $primaryColor;
+            .icon-wapper {
+                color:  $primaryColor;
+            }   
+        }
+        .icon-wapper {
+            background: $primaryInvertColor;
+            color: $primaryColor;
+        }
+
+    }
+}
+
+
+
+.upgrade-form-view {    
+    .upgrade-form-wrapper {
+        .promo-link {
+            color: $primaryColor;
+        }
+    }
+}
+
+
+
+.upgrade-plans {
+    .plan-term {
+        ul {
+            li {
+                a {                    
+                    &.active-link {
+                        box-shadow: inset 0 -4px 0 0 $primaryColor;
+                    }
+                }
+            }
+        }   
+    }
+}
+
+
+.tab-nav {
+    .nav-links {
+        a.active-link {
+            color: #000;
+            box-shadow: inset -4px 0px 0 0 $primaryColor;
+        }
+        
+    }
+}
+.widget-component {    
+    .widget-switch {
+        &.switch-on {
+            border: solid 1px $primaryColor;
+            background: $primaryColor;
+        }
+    }
+}
+
+
+
+.widget-appearance {
+    .channel-logo-input-wrapper {
+        button {    
+            color: $primaryColor;
+        }
+    }
+    .widget-preview-label-wrapper {
+        .edit-label-link {
+            color: $primaryColor;
+        }
+    }
+}
+
+.chat-widget {
+    .chat-widget-footer {
+        .promo-section {
+            a {
+                color: $primaryColor;
+            }
+        } 
+    }
+}
+
+.cc-btn {
+    background-color: $primaryColor;
+    color: $primaryInvertColor;
+    
+    &:hover,&:focus{
+        color: $primaryInvertColor;
+    }    
+}
+
+.widget-installation {
+    .widget-link {
+        color: $primaryColor;
+    }
+    .pulgin-for-tile {
+     
+        .pulgin-for {
+            background-color: $primaryColor;
+            color: $primaryInvertColor;
+        }
+    }
+}
+
+
+.widget-labels {
+    .labels-form {
+        .bot-avatar-wrapper {
+            button {    
+                color: $primaryColor;
+            }
+        }
+    }
+}
+
+.master-link {
+        
+    .icon-wapper {
+        .individual-chat {
+            background-image: url( 'data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg width="75px" height="33px" viewBox="0 0 75 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <title>Group 4</title> <desc>Created with Sketch.</desc> <defs></defs> <g id="Creating-external-chat-[Organization]" stroke="none" stroke-width="1" fill="#{$primaryColor}" fill-rule="evenodd" opacity="0.8"> <g id="Creating-external-chat-[Organization]-1" transform="translate(-316.000000, -294.000000)"> <g id="Group-2" transform="translate(236.000000, 223.000000)"> <g id="PrivateIconBig" transform="translate(57.000000, 30.000000)"> <g id="Group-4" transform="translate(23.000000, 41.000000)"> <path d="M16.6126777,16.5 L17.2804859,16.5 C21.5021056,16.5 24.7372835,19.9564466 24.4682549,24.1705652 L24.0804278,30.2455652 C23.9077454,32.002533 19.999817,33 12.4999085,33 C5.00000009,33 1.09802246,32.1123047 0.919507389,30.2455653 L0.531680182,24.1705653 C0.26206105,19.9471993 3.48546845,16.5 7.71944899,16.5 L8.38196218,16.5 C7.0098685,15.3630009 6.09732229,13.6778175 6.00777702,11.7912983 L5.76923585,6.76576704 C5.5921057,3.03402931 8.49584147,0 12.2431114,0 L12.7569496,0 C16.4995653,0 19.4075956,3.04160742 19.2308252,6.76576704 L18.992284,11.7912983 C18.9028603,13.6752567 17.9871111,15.3618454 16.6126777,16.5 Z" id="Shape-Copy-4"></path> <path d="M67.0967518,16.5 L67.7645599,16.5 C71.9861796,16.5 75.2213576,19.9564466 74.9523289,24.1705652 L74.5645018,30.2455652 C74.3918195,32.002533 70.483891,33 62.9839826,33 C55.4840741,33 51.5820965,32.1123047 51.4035814,30.2455653 L51.0157542,24.1705653 C50.7461351,19.9471993 53.9695425,16.5 58.203523,16.5 L58.8660362,16.5 C57.4939425,15.3630009 56.5813963,13.6778175 56.491851,11.7912983 L56.2533099,6.76576704 C56.0761797,3.03402931 58.9799155,0 62.7271854,0 L63.2410236,0 C66.9836393,0 69.8916697,3.04160742 69.7148992,6.76576704 L69.476358,11.7912983 C69.3869343,13.6752567 68.4711851,15.3618454 67.0967518,16.5 Z" id="Shape-Copy-5"></path> <g id="Group-17" transform="translate(29.000000, 15.000000)"> <ellipse id="Oval-159-Copy" cx="9" cy="1.90909091" rx="1.90909091" ry="1.90909091"></ellipse> <ellipse id="Oval-159-Copy-3" cx="1.90909091" cy="1.90909091" rx="1.90909091" ry="1.90909091"></ellipse> <ellipse id="Oval-159-Copy-2" cx="16.0909091" cy="1.90909091" rx="1.90909091" ry="1.90909091"></ellipse> </g> </g> </g> </g> </g> </g></svg>' )
+        }
+        .individual-group {
+            background-image: url( 'data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg width="71px" height="73px" viewBox="0 0 71 73" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <title>Group 4</title> <desc>Created with Sketch.</desc> <defs></defs> <g id="Creating-external-chat-[Organization]" stroke="none" stroke-width="1" fill="#{$primaryColor}" fill-rule="evenodd" opacity="0.8"> <g id="Creating-external-chat-[Organization]-1" transform="translate(-603.000000, -275.000000)"> <g id="Group-3" transform="translate(521.000000, 223.000000)"> <g id="Group-Copy-3" transform="translate(58.000000, 30.000000)"> <g id="Group-4" transform="translate(24.000000, 22.000000)"> <path d="M29.0083211,51.8027602 L28.7692358,46.765767 C28.5922579,43.0372359 31.4926282,40 35.2247702,40 L35.7752908,40 C39.5083349,40 42.4075696,43.042155 42.2308252,46.765767 L41.99174,51.8027602 C41.902548,53.681836 40.9883204,55.3640364 39.6158913,56.5 L40.2804859,56.5 C44.503203,56.5 47.7381787,59.9424252 47.4693911,64.1527674 L47.0804278,70.2455652 C47.0834748,71.6760589 46.0789589,71.9864942 43.0266402,72.4725984 C40.9515752,72.8030678 38.3240872,73 35.4999674,73 C32.6758477,73 30.0483597,72.8030678 27.9732947,72.4725984 C24.920976,71.9864942 23.9164601,71.6760589 23.9195074,70.2455653 L23.530544,64.1527674 C23.2619088,59.9448138 26.5018081,56.5 30.719449,56.5 L31.3807742,56.5 C30.0097031,55.3646233 29.0975747,53.6831358 29.0083211,51.8027602 Z" id="Shape"></path> <path d="M20.4446147,33.8606484 C20.796559,33.8668838 21.1524122,33.8700666 21.5114435,33.8700666 C24.3355632,33.8700666 26.9630513,33.6731344 29.0381163,33.3426651 C32.0904349,32.8565609 33.0949509,32.5461255 33.0949509,31.0200666 L33.0919039,31.1156319 L33.4808671,25.022834 C33.7496547,20.8124918 30.514679,17.3700666 26.291962,17.3700666 L25.6273673,17.3700666 C26.9997965,16.234103 27.9140241,14.5519027 28.003216,12.6728269 L28.2423013,7.63583369 C28.4190457,3.91222164 25.519811,0.870066643 21.7867669,0.870066643 L21.2362463,0.870066643 C17.5041043,0.870066643 14.603734,3.90730257 14.7807119,7.63583369 L15.0197971,12.6728269 C15.1090508,14.5532025 16.0211792,16.23469 17.3922503,17.3700666 L17.3922503,17.3700666 L16.7309251,17.3700666 C13.606507,17.3700666 11.018655,19.260515 9.99622644,21.9512158 C10.6134053,21.7809085 11.2665705,21.6899667 11.9446408,21.6899667 L12.5515469,21.6899667 C16.6669376,21.6899667 20.8631185,25.0437059 20.6682715,29.1486986 L20.4446147,33.8606484 Z" id="Combined-Shape"></path> <path d="M61.0051624,21.9518594 C59.9843784,19.2599825 57.3978326,17.3700666 54.2690098,17.3700666 L53.6044152,17.3700666 C54.9768443,16.234103 55.8910719,14.5519027 55.9802639,12.6728269 L56.2193491,7.63583369 C56.3960936,3.91222164 53.4968588,0.870066643 49.7638148,0.870066643 L49.2132941,0.870066643 C45.4811521,0.870066643 42.5807818,3.90730257 42.7577598,7.63583369 L42.996845,12.6728269 C43.0860987,14.5532025 43.998227,16.23469 45.3692982,17.3700666 L45.3692982,17.3700666 L44.7079729,17.3700666 C40.490332,17.3700666 37.2504327,20.8148804 37.5190679,25.0228341 L37.9080313,31.1156319 C37.904984,32.5461255 38.9094999,32.8565609 41.9618186,33.3426651 C44.0368836,33.6731344 46.6643717,33.8700666 49.4884914,33.8700666 C49.9031097,33.8700666 50.3134899,33.8658219 50.7185059,33.8575331 L50.7185059,29.1486988 C50.5234015,25.0382832 54.3341268,21.6899667 58.4485231,21.6899667 L59.0554292,21.6899667 C59.7340273,21.6899667 60.3876323,21.7811536 61.0051624,21.9518594 Z" id="Combined-Shape"></path> <path d="M5.75637991,35.1826936 L5.51729468,30.1457004 C5.34031674,26.4171693 8.24068704,23.3799334 11.972829,23.3799334 L12.5233497,23.3799334 C16.2563937,23.3799334 19.1556285,26.4220883 18.978884,30.1457004 L18.7397988,35.1826936 C18.6506068,37.0617694 17.7363792,38.7439697 16.3639501,39.8799334 L17.0285447,39.8799334 C21.2512618,39.8799334 24.4862375,43.3223585 24.2174499,47.5327008 L23.8284866,53.6254986 C23.8315337,55.0559923 22.8270177,55.3664276 19.7746991,55.8525318 C17.699634,56.1830011 15.072146,56.3799334 12.2480263,56.3799334 C9.42390656,56.3799334 6.79641851,56.1830011 4.72135349,55.8525318 C1.66903485,55.3664276 0.664518888,55.0559923 0.667566223,53.6254986 L0.278602805,47.5327008 C0.0099675915,43.3247471 3.24986692,39.8799334 7.46750783,39.8799334 L8.12883305,39.8799334 C6.75776194,38.7445567 5.84563356,37.0630692 5.75637991,35.1826936 Z" id="Path"></path> <path d="M54.6327154,39.8799334 C53.2616443,38.7445567 52.3495159,37.0630692 52.2602622,35.1826936 L52.021177,30.1457004 C51.8441991,26.4171693 54.7445694,23.3799334 58.4767114,23.3799334 L59.027232,23.3799334 C62.7602761,23.3799334 65.6595108,26.4220883 65.4827664,30.1457004 L65.2436811,35.1826936 C65.1544892,37.0617694 64.2402616,38.7439697 62.8678324,39.8799334 L63.5324271,39.8799334 C67.7551441,39.8799334 70.9901198,43.3223585 70.7213322,47.5327008 L70.332369,53.6254986 L70.335416,53.5299334 C70.335416,55.0559923 69.3309,55.3664276 66.2785814,55.8525318 C64.2035164,56.1830011 61.5760283,56.3799334 58.7519086,56.3799334 C55.9277889,56.3799334 53.3003008,56.1830011 51.2252358,55.8525318 C48.1729172,55.3664276 47.1684012,55.0559923 47.1714486,53.6254986 L46.7824851,47.5327008 C46.5138499,43.3247471 49.7537493,39.8799334 53.9713902,39.8799334 L54.6327154,39.8799334 L54.6327154,39.8799334 Z" id="Path"></path> </g> </g> </g> </g> </g></svg>' )
+        }
+    }
+}
+
+
+.chat-panel {
+ 
+    .unread-message-notification {
+        background-color: $primaryInvertColor;
+        box-shadow: inset 0 -2px 0 0 $primaryColor, inset 0 1px 0 0 rgba(0, 0, 0, 0.05);
+        a {
+            color: $primaryColor;
+        }
+    }
+}
+
+
+.loader-wrapper {
+    .double-bounce1, .double-bounce2 {
+      
+        background-color: $primaryColor ;
+    }
+}

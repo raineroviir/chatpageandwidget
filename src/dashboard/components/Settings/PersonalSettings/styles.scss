@@ -1,0 +1,81 @@
+.personal-settings {
+    .first-name-wrapper {
+        margin-right: 99px;
+    }
+    .profile-img-wrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .change-password-form {
+        .primary-label {
+            margin-left: 12px;
+        }
+    }
+    .change-password-section {
+        margin-top:70px;
+    }
+    .change-password-btn-section {
+        margin-left: 12px;
+        .btn-wrapper {
+            padding-top: 10px;
+            .cc-btn {
+                display: inline-block;
+            }
+        }
+    }
+    .change-password-form {
+        .btns-wrapper {
+            padding: 30px 12px;
+            .cc-btn,.primary-link  {
+                display: inline-block;   
+            }
+            .cc-btn{
+                margin-right: 26px;
+            }
+        }
+    }
+    .personal-chat-address {
+        .primary-label {
+            margin-left: 12px;
+        }
+
+    }
+
+    .personal-chat-address {
+        margin-top:60px;
+        .use-cc-address-label {
+            border-radius: 3px;
+            background-color: #c3c8ce;
+            line-height: 1.31;
+            color: #ffffff;
+            font-size: 16px;
+            padding: 2px 7px;
+            margin-left: 12px;
+            display: inline-block;
+        }
+        .use-cc-domain {
+            .input-field {
+                padding-top: 20px;
+            }
+        }
+        .use-own-domain {
+            margin-top: 0;
+        }
+    }
+
+    .use-cc-domain {
+        .prefix-text {
+            position: absolute;
+            left: 2px;
+            bottom: 26px;
+            font-size: 18px;
+            color: #474848;
+            opacity: 0.5;
+
+        }
+    }
+
+    
+        
+}
