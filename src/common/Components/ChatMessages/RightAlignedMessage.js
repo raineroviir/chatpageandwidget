@@ -5,10 +5,10 @@ import moment from 'moment'
 import Gravatar from 'react-gravatar'
 export class RightAlignedMessage extends React.Component {
   computeMessageBubbleColor() {
-    const { widgetConfig } = this.props
-      const backgroundColor = widgetConfig ? widgetConfig.keyColor :
+    const { widget } = this.props
+      const backgroundColor = widget.initialConfig ? widget.initialConfig.keyColor :
       "#f7a444"
-      const borderColor = widgetConfig ? `transparent transparent transparent ${widgetConfig.keyColor}` :
+      const borderColor = widget.initialConfig ? `transparent transparent transparent ${widget.initialConfig.keyColor}` :
       "transparent transparent transparent #f7a444"
       const color = "#FFFFFF"
     return {

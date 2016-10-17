@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { getConversationHistory, setactiveConversationId } from '../actions/conversations'
+import { getConversationHistory, setactiveactiveConversationId } from '../actions/conversations'
 import { Conversations } from '../Components/Conversations';
 import DefaultWidgetMessage from '../Components/DefaultMessage'
 import {ChatMessages} from '../Components/ChatMessages'
@@ -22,23 +22,23 @@ class Messages extends Component {
     this.loadMoreHistory = this.loadMoreHistory.bind(this)
   }
   componentDidMount() {
-    const { dispatch, userScrollPosition, isGroupChat, conversationid, guest, user, initialLoadComplete } = this.props
+    const { dispatch, userScrollPosition, isGroupChat, activeConversationId, guest, user, initialLoadComplete } = this.props
     const { token } = guest || user
     const node = ReactDOM.findDOMNode(this)
-    if (!initialLoadComplete) {
+    if (!initialLoadComplete && activeConversationId) {
       this.loadInitialHistory()
+      dispatch(markConversationAsRead(activeConversationId, token))
     } else {
       userScrollPosition ? node.scrollTop = userScrollPosition : this.scrollToBottom()
     }
-    dispatch(markConversationAsRead(conversationid, token))
     if (!isGroupChat) {
       dispatch(loadBot())
     }
   }
   loadInitialHistory() {
-    const { conversationid, guest, user, dispatch, serverMessages, scrollIndex, messages, oldestVisibleMessageUnixTimestamp} = this.props
+    const { activeConversationId, guest, user, dispatch, serverMessages, scrollIndex, oldestVisibleMessageUnixTimestamp} = this.props
     const { token } = guest || user
-    dispatch(getConversationHistory(conversationid, token, oldestVisibleMessageUnixTimestamp)).then((json) => {
+    dispatch(getConversationHistory(activeConversationId, token, oldestVisibleMessageUnixTimestamp)).then((json) => {
       if (json && json.messages.length > 0) {
         this.scrollToBottom()
         const oldestVisibleMessage = json.messages[json.messages.length - 1]
@@ -48,8 +48,8 @@ class Messages extends Component {
     })
   }
   componentDidUpdate(prevProps) {
-    const { dispatch, totalHeightOfHistoryMessages, isInfiniteLoading, userCreatedNewMessage, messages, botResponse, botActive, userScrollPosition, messageStreamNewMessage, conversationid, guest, user }  = this.props
-    const token = guest.token || user.token
+    const { dispatch, totalHeightOfHistoryMessages, isInfiniteLoading, userCreatedNewMessage, bot, userScrollPosition, messageStreamNewMessage, activeConversationId, guest, user }  = this.props
+    const { token } = guest || user
     const node = ReactDOM.findDOMNode(this)
     if (userCreatedNewMessage) {
       this.scrollToBottom()
@@ -57,31 +57,31 @@ class Messages extends Component {
     }
     if (messageStreamNewMessage) {
       this.scrollToBottom()
-      dispatch(markConversationAsRead(conversationid, token))
+      dispatch(markConversationAsRead(activeConversationId, token))
       dispatch(scrollCompleteForMsgStream())
     }
-    if (userCreatedNewMessage && !botResponse && botActive) {
+    if (userCreatedNewMessage && !bot.botResponse && bot.botActive) {
       this.botResponse()
     }
   }
   botResponse() {
-    const { dispatch, conversationid, channelid, guest, user, widgetConfig, emailReceived } = this.props
+    const { dispatch, activeConversationId, activeChannelId, guest, user, widget, emailReceived } = this.props
     const { token } = guest || user
-    dispatch(botReplyForFirstMessage(conversationid, token, channelid, widgetConfig, emailReceived, guest))
+    dispatch(botReplyForFirstMessage(activeConversationId, token, activeChannelId, widget.initialConfig, emailReceived, guest))
   }
   scrollToBottom() {
     const node = ReactDOM.findDOMNode(this)
     node.scrollTop = node.scrollHeight
   }
   loadMoreHistory() {
-    const { dispatch, serverMessages, messages, conversationid, scrollIndex, guest, user, nextFetchPage, reachedEnd, totalHeightOfHistoryMessages, oldestVisibleMessageUnixTimestamp } = this.props
+    const { dispatch, activeConversationId, scrollIndex, guest, user, nextFetchPage, reachedEnd, totalHeightOfHistoryMessages, oldestVisibleMessageUnixTimestamp } = this.props
     const { token } = guest || user
     const node = ReactDOM.findDOMNode(this)
     if (reachedEnd) {
       return
     }
     dispatch(infiniteLoading())
-    dispatch(getConversationHistory(conversationid, token, oldestVisibleMessageUnixTimestamp)).then((json) => {
+    dispatch(getConversationHistory(activeConversationId, token, oldestVisibleMessageUnixTimestamp)).then((json) => {
       if (json.messages.length === 0) {
         dispatch({type: "REACHED_CONVERSATION_HISTORY_END"})
         dispatch(infiniteLoadingDone())
@@ -135,10 +135,10 @@ class Messages extends Component {
     return (
       <div className="conversation-body">
         {this.renderWaypoint()}
-        <DefaultWidgetMessage widgetConfig={this.props.widgetConfig}/>
+        <DefaultWidgetMessage widget={this.props.widget}/>
         {this.props.isInfiniteLoading && !this.props.reachedEnd ? <div style={{display: "flex", justifyContent: "center"}}>Loading History...</div>: null}
         <ChatMessages
-        dispatch={this.props.dispatch} className="chat-messages-wrapper" messages={this.props.messages}  widgetConfig={this.props.widgetConfig}  user={this.props.user} guest={this.props.guest}
+        dispatch={this.props.dispatch} className="chat-messages-wrapper" messagesList={this.props.messagesList}  widget={this.props.widget}  user={this.props.user} guest={this.props.guest}
         isGroupChat={this.props.isGroupChat} messageStatus={this.props.messageStatus}
         handleUserEmailFromBot={this.handleUserEmailFromBot}
         emailReceived={this.props.emailReceived}/>
@@ -148,32 +148,20 @@ class Messages extends Component {
 }
 
 function mapStateToProps(state) {
-  const { channels, conversations, messages, guest, user, widget, environment } = state
+  const { channels, conversations, messages, guest, user, widget, environment, bot } = state
+  const { activeactiveChannelId, isGroupChat } = channels
+  const { messagesList, userCreatedNewMessage, messageStreamNewMessage, initialLoadComplete, reachedEnd, oldestVisibleMessageUnixTimestamp } = messages
+  const { height, width, isInfiniteLoading, scrollToBottom, totalHeightOfHistoryMessages, userScrollPosition } = environment
+  const { activeactiveConversationId } = conversations
   return {
-    channelid: state.channels.activeChannelId,
-    conversationid: state.conversations.activeConversationId,
-    isGroupChat: state.channels.channels.isGroupChat,
-    messages: state.messages.messages,
-    serverMessages: state.messages.serverMessages,
-    user: state.user,
-    guest: state.guest,
-    widgetConfig: state.widget.initialConfig,
-    scrollIndex: state.environment.scrollIndex,
-    scrollToBottom: state.environment.scrollToBottom,
-    height: state.environment.height,
-    width: state.environment.width,
-    isInfiniteLoading: state.environment.isInfiniteLoading,
-    userCreatedNewMessage: state.messages.userCreatedNewMessage,
-    totalHeightOfHistoryMessages: state.environment.totalHeightOfHistoryMessages,
-    userScrollPosition: state.environment.userScrollPosition,
-    botResponse: state.bot.botResponse,
-    botActive: state.bot.active,
-    messageStreamNewMessage: state.messages.messageStreamNewMessage,
-    nextFetchPage: state.messages.nextFetchPage,
-    initialLoadComplete: state.messages.initialLoadComplete,
-    reachedEnd: state.messages.reachedEnd,
-    oldestVisibleMessageUnixTimestamp: state.messages.oldestVisibleMessageUnixTimestamp,
-    emailReceived: state.bot.emailReceived
+    activeactiveChannelId, isGroupChat,
+    activeactiveConversationId,
+    messagesList, userCreatedNewMessage, messageStreamNewMessage, initialLoadComplete, reachedEnd, oldestVisibleMessageUnixTimestamp,
+    height, width, isInfiniteLoading, scrollToBottom, totalHeightOfHistoryMessages, userScrollPosition,
+    bot,
+    guest,
+    user,
+    widget
   }
 }
 

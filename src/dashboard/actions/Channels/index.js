@@ -222,14 +222,14 @@ export function createChannelDetailsReset() {
   createChannelActions.resetDetails();
 }
 
-export function fetchSocket (token) {
-  return dispatch => {
-    let getSocket = getSocketURL(token);
-    if(getSocket){
-      getSocket.then(response => response.json()).then(json => initializeSocket(json, dispatch));
-    }
-  }
-}
+// export function fetchSocket (token) {
+//   return dispatch => {
+//     let getSocket = getSocketURL(token);
+//     if(getSocket){
+//       getSocket.then(response => response.json()).then(json => initializeSocket(json, dispatch));
+//     }
+//   }
+// }
 
 export function registerGuestInfo(data) {
   return dispatch => {
@@ -467,14 +467,14 @@ function processIsGroupForDispatch(channelid, channels) {
 function processConversationsForDispatch(conversations, channelid) {
   return {
     type: 'FETCH_CONVERSATIONS',
-    posts: { ...conversations, channelid},
+    data: { ...conversations, channelid},
     receivedAt: Date.now()
   }
 }
 function processConversationsHistoryForDispatch(messages, conversationid) {
   return {
     type: 'FETCH_MESSAGES',
-    posts: { ...messages, conversationid},
+    data: { ...messages, conversationid},
     receivedAt: Date.now()
   }
 }

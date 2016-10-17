@@ -8,11 +8,11 @@ import AvatarFive from './files/squirtle.svg'
 
 export default class DefaultMessage extends Component {
   render() {
-    const { user, guest, widgetConfig } = this.props
-    const teamAvatarUrl = widgetConfig.channel.avatarUrl ? widgetConfig.channel.avatarUrl : null
-    const teamChannelUrl = widgetConfig.channelUrl ||  "seaShells.com"
-    const welcomeMessage = widgetConfig.content ? widgetConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
-    const teamName = widgetConfig.content ? widgetConfig.content.teamName : ""
+    const { user, guest, widget } = this.props
+    const teamAvatarUrl = widget.initialConfig.channel.avatarUrl ? widget.initialConfig.channel.avatarUrl : null
+    const teamChannelUrl = widget.initialConfig.channelUrl ||  "seaShells.com"
+    const welcomeMessage = widget.initialConfig.content ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
+    const teamName = widget.initialConfig.content ? widget.initialConfig.content.teamName : ""
     return (
       <div className="default-message-wrapper">
         <div className="default-message">
@@ -30,7 +30,7 @@ export default class DefaultMessage extends Component {
               {teamName}
             </div>
             <div className="team-website">
-                <a style={{color: widgetConfig.keyColor || "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
+                <a style={{color: widget.initialConfig.keyColor || "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
             </div>
             <div className="welcome-message">
               {welcomeMessage}

@@ -53,11 +53,15 @@ export function dispatchMessageStream(message) {
  */
 export function createMessage(message, conversationid, token, channelid, attachment) {
   return dispatch => {
+    console.log(message)
   dispatch(addMessage(message))
+  console.log(message.bot)
   if (message.bot === true) {
     return
   }
+
   const messageText = message.text
+  console.log(messageText)
   return postMessage(messageText, conversationid, token, channelid, attachment).then(response => {
   if (response.status >= 400) {
     throw new Error("Bad response from server");
@@ -102,6 +106,7 @@ export function loadServerMsgs(messages) {
 }
 
 function addMessage(message) {
+  console.log(message)
   return {
     type: "ADD_LOCAL_MESSAGE",
     message: message,

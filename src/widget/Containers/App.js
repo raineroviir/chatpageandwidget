@@ -10,7 +10,7 @@ import { initEnvironment, storeUserScrollPosition
  } from '../../common/actions/environment'
 import { checkForConversation } from '../../common/actions/conversations'
 import { createWidgetChannel, fetchChannelInfo, fetchChannel} from '../../common/actions/channels'
-import {loadServerMsgs, createMessage} from '../../common/actions/messages'
+import {createMessage} from '../../common/actions/messages'
 import {widgetToggle} from '../../common/actions/environment'
 import AvatarOne from './ChatWidget/files/bullbasaur.svg'
 import AvatarTwo from './ChatWidget/files/charmander.svg'
@@ -71,10 +71,11 @@ class App extends React.Component {
   }
   render() {
     const { widget, environment, messages } = this.props
+    console.log(this.props)
     if (environment.initialLoading) {
       return null
     }
-    const lastMessage = messages.messagesWhileInactive[messages.messagesWhileInactive.length - 1]
+    const lastMessage = messages.messagesWhileInactive ? messages.messagesWhileInactive[messages.messagesWhileInactive.length - 1] : null
     const teamAvatarUrl = widget.initialConfig.channel.avatarUrl ? widget.initialConfig.channel.avatarUrl : null
     const teamChannelUrl = widget.initialConfig.channelUrl ||  "seaShells.com"
     const welcomeMessage = widget.initialConfig.content ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
@@ -114,6 +115,9 @@ class App extends React.Component {
         </form>
       </div>
     )
+    console.log(messages.messagesList)
+    console.log(messages.messagesWhileInactive)
+    console.log(lastMessage)
     return (
       <div>
         {environment.inactive && messages.messagesWhileInactive.length > 0 && lastMessage &&
@@ -123,7 +127,7 @@ class App extends React.Component {
           </div>
         </div>
         }
-        {messages.messages.length === 0 ? <div className="minimized-welcome-message">
+        {messages.messagesList.length === 0 ? <div className="minimized-welcome-message">
           {!this.state.show && info}
           {!this.state.show && initialChatBox}
         </div> : null}

@@ -12,8 +12,8 @@ export class ChatMessages extends Component {
   componentDidUpdate(prevProps) {
     const { dispatch } = this.props
     const node = ReactDOM.findDOMNode(this)
-    if (prevProps.messages.length !== this.props.messages.length) {
-      if (node.children.length) {
+    if (prevProps.messagesList.length !== this.props.messagesList.length) {
+      if (node && node.children.length) {
         let totalHeight = 0;
         for (let i = 0; i < (node.children.length < 10 ? node.children.length : 10); i++) {
           totalHeight += node.children[i].offsetHeight
@@ -23,27 +23,37 @@ export class ChatMessages extends Component {
     }
   }
   render() {
-    const { messages, user, guest, widgetConfig, isGroupChat} = this.props
-    const currentUser = guest.data.id || user.data.id
-    if(this.props.channelError === true) {
+    const { messagesList, user, guest, widget, isGroupChat} = this.props
+    const currentUser = guest.data ? guest.data.id : user.data ? user.data.id : null
+    // const currentUser = null;
+    if (this.props.channelError === true) {
       return (<div className="default-message">Channel not found</div>)
     }
-    if(!this.props.channelError) {
+    // if (messagesList.length === 0) {
+    //   return null
+    // }
+    if (!this.props.channelError) {
+      console.log('NO ERROR PREPARING TO RETURN MSG LIST')
       return (
         <div className="chat-messages">
-          {messages.map((message, index, msgs) =>
-            <MessageListItem
-            widgetConfig={widgetConfig} message={message}
-            key={message.id}
-            index={index}
-            msgs={msgs}
-            currentUser={currentUser}
-            isGroupChat={isGroupChat}
-            handleUserEmailFromBot={this.props.handleUserEmailFromBot}
-            emailReceived={this.props.emailReceived}
-            guest={guest}
-            user={user}
-            />
+          {messagesList.map((message, index, msgs) =>
+            {
+              if (!message) {
+                return
+              }
+              return <MessageListItem
+                widget={widget} message={message}
+                key={message.id}
+                index={index}
+                msgs={msgs}
+                currentUser={currentUser}
+                isGroupChat={isGroupChat}
+                handleUserEmailFromBot={this.props.handleUserEmailFromBot}
+                emailReceived={this.props.emailReceived}
+                guest={guest}
+                user={user}
+              />
+            }
           )}
         </div>
       )

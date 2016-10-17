@@ -28,7 +28,7 @@ export class Navigation extends Component {
 function mapStateToProps(state) {
   return {
     orgs: state.orgs,
-    userinfo: state.userinfo.userinfo
+    userinfo: state.userinfo
   }
 }
 

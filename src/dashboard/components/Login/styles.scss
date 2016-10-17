@@ -4,7 +4,6 @@
 	padding: 95px 130px 30px;
 	font-size:16px;
 	left:50%;
-	margin-left:-300px;
 	a, a:visited, a:active, a:focus, a:hover {
 	  color: #3997fe !important;
 	  text-decoration:none !important;
@@ -151,9 +150,9 @@
     	margin-top: 59px;
     	.sign-up {
     		background: #eee;
-    		padding: 11px 17px;		    
+    		padding: 11px 17px;
 		    display: inline-block;
-		    border-radius: 3px; 
+		    border-radius: 3px;
 		    span.new-to {
 			    margin-right:9px;
 		    }
@@ -162,8 +161,8 @@
     		float: right;
     	}
     }
-    
-    
+
+
     .password-field {
     	margin-top: 8px;
     	.input-group-addon {
@@ -171,7 +170,7 @@
     	}
     }
 }
-#loginbox.logo-centered { 
+#loginbox.logo-centered {
 	padding: 30px 68px 30px;
 }
 
@@ -195,7 +194,7 @@
 		  		position:static;
 			}
 		}
-		
+
 		.support-signin-wrapper  {
 			text-align: center;
 			.forgot-password {
@@ -204,7 +203,7 @@
 		}
 
 	}
-	#loginbox.logo-centered { 
+	#loginbox.logo-centered {
 		padding: 30px 15px 30px;
 	}
 
@@ -220,7 +219,7 @@
 }
 @media only screen and (max-width : 396px) {
 	#loginbox {
-	
-		
+
+
 	}
 }

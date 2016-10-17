@@ -78,7 +78,6 @@ export class Channels extends Component {
     browserHistory.push(url);
   }
   render() {
-
     return (
         <ChannelList
         createChannel={this.createChannel.bind(this)}
@@ -93,7 +92,7 @@ export class Channels extends Component {
 
     this.props.actions.getChannels( this.props.activeChannel );
     this.props.createChannelActions.resetDetails();
-    this.props.actions.fetchSocket();
+    // this.props.actions.fetchSocket();
     if(this.props.channelname){
       this.props.actions.selectChannel(this.props.channelname, this.props.conversationname);
     }
@@ -104,6 +103,7 @@ export class Channels extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
+  console.log(state)
   return {
     channels: state.channels,
     user: state.userinfo,

@@ -3,7 +3,7 @@ import DocumentMeta from 'react-document-meta';
 
 /* components */
 import { HomeView } from '../../components/Home';
-import Guest from './Guest';
+import Guest from '../../containers/Home/Guest';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';

@@ -26,6 +26,7 @@ function fetchGuestToken(data) {
  * @return {[Promise]}
  */
 export function fetchUserInfo(token) {
+  console.log(token)
   return dispatch => {
     return fetch( Config.api + '/users.me', {
       method: 'GET',
@@ -43,7 +44,7 @@ export function fetchUserInfo(token) {
       dispatch(receiveUserInfo(json))
     },
     error => {
-      dispatch({type: 'FETCH_TOKEN_ERROR', error})
+      dispatch({type: 'FETCH_USER_INFO_ERROR', error})
       throw error
     }).catch(error => console.log(error))
   }
@@ -111,6 +112,7 @@ export function initUser(data) {
               throw error
             }).catch(error => console.log(error))
       } else {
+        console.log('IN ELSE BRACKEt WITH THE TOKEN:', token)
         dispatch(fetchUserInfo(token))
         dispatch({type: 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE', token})
         dispatch(fetchSocket(token))

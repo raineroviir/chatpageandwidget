@@ -6,7 +6,7 @@ const path = require('path')
 app.use(require('morgan')('short'));
 
   const webpack = require('webpack');
-  const webpackConfig = require('../../../webpack/dev.config');
+  const webpackConfig = require('../../../webpack/widget.dev.config');
   const compiler = webpack(webpackConfig);
 
   app.use(require('webpack-dev-middleware')(compiler, {
@@ -17,8 +17,8 @@ app.use(require('morgan')('short'));
     log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000,
   }));
 
-app.get('/widget', function(req, res) {
-  res.sendFile(path.join(__dirname, '..', '..', '..', './dist/widget/index.html'));
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
 app.use(express.static(path.join(__dirname, '..','..', '/')));
