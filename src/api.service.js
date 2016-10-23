@@ -48,7 +48,8 @@ class ApiService {
     api( {
         action,
         payload = null,
-        params = null
+        params = null,
+        headers = {}
     } ) {
 
         return new Promise( (resolve, reject) => { 
@@ -73,16 +74,29 @@ class ApiService {
                         url += '&' + this.getQueryparam(payload);
                     }
                 } else {
-                    reqObj.body = JSON.stringify( payload );
+                    if( headers.enctype === 'multipart/form-data' ) {
+                        let data = new FormData();
+                        for( let key in payload ) {
+                            data.append( key, payload[ key ] );
+                        }
+                        reqObj.body = data;
+                        
+                    } else if( headers.enctype === "application/x-www-form-urlencoded"){
+                        reqObj.body = $.param( payload );
+                        headers['Content-Type'] = 'application/json';
+                    } else {
+                        reqObj.body = JSON.stringify( payload );    
+                        headers['Content-Type'] = 'application/json';
+                    }
+                    
                 }
             }
 
             if (typeof(Storage) !== "undefined" && localStorage.getItem( "token" ) ) {
                 let token = JSON.parse(localStorage.getItem("token"));
-                reqObj.headers = {
-                  'Content-Type': 'application/json',
+                reqObj.headers = Object.assign({
                   'Authorization': 'Bearer ' + token.access_token
-                }
+                }, headers);
             }
             let status;
             fetch( url, reqObj )
@@ -95,6 +109,11 @@ class ApiService {
                         error: 'unauthorized'
                     };
                 } 
+                if( status === 204 ) {
+                  return {
+                        ok : true
+                    };  
+                }
                 return response.json();
               }
             ).then( json => {

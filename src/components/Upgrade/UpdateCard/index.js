@@ -6,6 +6,9 @@ import { Link } from 'react-router';
 import { MaterialInput } from '../../MaterialInput';
 import { AutoDetectCard } from '../../../modules/AutoDetectCard';
 import classNames from 'classnames';
+import { LoadStripe } from '../../../modules/LoadStripe';
+import * as UpgradeActions from '../../../actions/Upgrade';
+import { browserHistory } from 'react-router';
 
 export class UpdateCard extends Component {
     constructor( props ) {
@@ -18,7 +21,11 @@ export class UpdateCard extends Component {
         promoCodeValidation: false,
         cardNumberTouched : false,
         expDateTouched : false,
-        cvcNumberTouched : false
+        cvcNumberTouched : false,
+        enableFormSubmit: false,
+        cardNumber: '',
+        expDate: '',
+        cvcNumber: ''
       }
     }
 
@@ -62,22 +69,46 @@ export class UpdateCard extends Component {
       
       if( key === 'cardNumber' || key === 'expDate' || key === 'cvcNumber'  ) {
         let validateObj = {
-          cardNumber : this.props.upgradeForm.cardNumber,
-          expDate : this.props.upgradeForm.expDate.trim(),
-          cvcNumber : this.props.upgradeForm.cvcNumber
+          cardNumber : this.state.cardNumber,
+          expDate : this.state.expDate.trim(),
+          cvcNumber : this.state.cvcNumber
         }
         if( key === 'expDate' ) {
           validateObj[ key ] = value.trim();  
         } else {
           validateObj[ key ] = value;
         }
-        newState.enableFormSubmit = this.validateForm( validateObj );  
-
+        
+        newState.enableFormSubmit = this.validateForm( validateObj )
+        this.setState( newState );
       }
     }
 
 
     componentWillMount() {
+      LoadStripe();
+    }
+
+    updateCard( e ) {
+      e.preventDefault();
+      if( !this.state.enableFormSubmit ) {
+        return;
+      }
+      this.setState({
+        errorMessage: ''
+      });
+      let $form = $('#update-card');
+      this.props.actions.updateCard( $form[0], this.props.email, ( status, res ) => {
+
+        if( status === 'error' ) {
+          this.setState({
+            errorMessage: res
+          });
+        } else {
+          browserHistory.push('/settings/billing-payment');
+          alert( 'Updated card details Successfully' );
+        }
+      } );
     }
 
     render(){
@@ -94,7 +125,7 @@ export class UpdateCard extends Component {
                   Update Credit Card Info
                 </h1>
                 <div className="upgrade-form-wrapper">
-                  <form className="upgrade-form" id="update-card" method="post">
+                  <form className="upgrade-form" id="update-card" method="post" onSubmit={this.updateCard.bind(this)}>
                     <div className="form-header">
                       All transactions are secure and encrypted.
                     </div>
@@ -114,9 +145,10 @@ export class UpdateCard extends Component {
                           <input type="text" 
                           className="input-field" 
                           autoFocus
+                          value={this.state.cardNumber}
                           onChange={this.inputChange.bind(this,'cardNumber')}
                           onBlur={this.inputBlur.bind(this, 'cardNumber')}
-                          
+                          data-stripe="number"
                           /> 
                           <span className={"card-logo " + this.state.cardLogo} >
                           </span>
@@ -136,7 +168,8 @@ export class UpdateCard extends Component {
                         <MaterialInput>
                           <label>Valid Thru ( MM/YY )</label>
                           <input type="text" className="input-field" 
-                          
+                          data-stripe="exp"
+                          value={this.state.expDate}
                           onChange={this.inputChange.bind(this,'expDate')}
                           onBlur={this.inputBlur.bind(this, 'expDate')}
                           /> 
@@ -154,7 +187,8 @@ export class UpdateCard extends Component {
                         <MaterialInput>
                           <label>Secure code (CVC)</label>
                           <input type="text" className="input-field" 
-                          
+                          data-stripe="cvc"
+                          value={this.state.cvcNumber}
                           onChange={this.inputChange.bind(this,'cvcNumber')}
                           onBlur={this.inputBlur.bind(this, 'cvcNumber')}
                           /> 
@@ -163,7 +197,9 @@ export class UpdateCard extends Component {
                     </div>
 
                     <div className="form-row buttons-wrapper">
-                      <button className= "cc-btn submit-btn">Update</button>
+                      <button className= "cc-btn submit-btn"
+                        disabled = { !this.state.enableFormSubmit }
+                      >Update</button>
                       <div className="powered-by">
                         Powered by stripe
                       </div>
@@ -180,14 +216,14 @@ export class UpdateCard extends Component {
 
 function mapStateToProps(state) {
   return {
-    
+    email: state.userinfo.userinfo.email
   }
 }
 
 
 function mapDispatchToProps(dispatch) {
   return {
-    
+    actions: bindActionCreators( UpgradeActions, dispatch )
   }
 }
 

@@ -18,9 +18,7 @@ export class FileInput extends Component {
         var oFReader = new FileReader();
         oFReader.readAsDataURL(this.refs.fileInput.files[0]);
         oFReader.addEventListener("load",  (oFREvent) => {
-            
-            this.props.srcUpdated( oFREvent.target.result );
-
+            this.props.srcUpdated( oFREvent.target.result, this.refs.fileInput  );
         }, false);
     }
 
@@ -38,6 +36,7 @@ export class FileInput extends Component {
                 placeholder="avatar" 
                 aria-describedby="file-addon" 
                 onChange={ this.inputFileChanged.bind( this )}
+
                 />
 
                 <div className="file-input-preview" 

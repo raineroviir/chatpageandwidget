@@ -33,6 +33,8 @@ export function  getTeamMemberCount() {
   }
 }
 
+
+
 export function submitPayment (form, settings, callback ) {
     
     return dispatch => {
@@ -58,6 +60,7 @@ export function submitPayment (form, settings, callback ) {
               "stripe_email": settings.emailId,
               "stripe_token": newState.stripeToken,
               "plan_id": settings.plan_id,
+              "plan": settings.plan_id,
               "coupon": settings.coupon
             }
           })
@@ -230,3 +233,39 @@ export function  updateUpgradeSource( source ) {
 
 
 
+export function updateCard (form, emailId, callback ) {
+    
+    return dispatch => {
+      dispatch({
+        type: 'SHOW_LOADER'
+      });
+      Stripe.card.createToken(form, (status, res) => {
+        if( res && res.error ) {
+          dispatch({
+            type: 'HIDE_LOADER'
+          });
+          callback( 'error', res.error.message );
+          return;
+        } 
+        ApiService.api({
+          action: "widget.cards.update",
+          payload: {
+            stripe_email: emailId,
+            stripe_token: res && res.id
+          }
+        })
+        .then( res => {
+
+          dispatch({
+            type: 'HIDE_LOADER'
+          });
+          callback( 'success', res );
+        }, err=> {
+          dispatch({
+            type: 'HIDE_LOADER'
+          });
+          callback( 'error', err.message );
+        });
+      });
+    }
+}

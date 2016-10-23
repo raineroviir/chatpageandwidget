@@ -22,7 +22,6 @@ export class SettingsHeader extends Component {
         this.setState({
           errorMessage: res.error
         });
-
       } else {
         alert( 'updated successfully' );
       }
@@ -47,6 +46,9 @@ export class SettingsHeader extends Component {
       if( editSettings.personal_chat_address != userinfo.username ) {
         unsavedCount++;
       }
+      if( typeof editSettings.personal_avatar_upload === 'object' ) {
+        unsavedCount++;
+      } 
       if( userinfo.team  ) {
         if( editSettings.organizationName !=  ( userinfo.team.full_name || userinfo.team.description ) ) {
           unsavedCount++;
@@ -62,6 +64,9 @@ export class SettingsHeader extends Component {
             unsavedCount++;
           }  
         }
+        if( typeof editSettings.org_avatar === 'object' ) {
+          unsavedCount++;
+        } 
         
       } 
       
@@ -70,7 +75,7 @@ export class SettingsHeader extends Component {
 
     return (
       <div>
-        <div className="save-changes-wrapper">
+        <div className="save-changes-wrapper save-changes-top">
           {
             unsavedCount > 0 ?
             <span className="status-text"> { unsavedCount } unsaved changes</span>
@@ -78,7 +83,9 @@ export class SettingsHeader extends Component {
             ''  
           }
           <button disabled = {
-            unsavedCount === 0 || this.props.settings.initialized === false
+            unsavedCount === 0 || this.props.settings.initialized === false 
+            || this.props.settings.organizationFormInValid
+            || this.props.settings.personalFormInValid
           } className="cc-btn"
           onClick = {
             this.saveSettings.bind(this)

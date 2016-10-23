@@ -38,7 +38,8 @@ export function saveSettings( settings, chat_center_domain, callback ) {
                 dispatch({
                     type: 'SETTINGS_SET_STATE',
                     newState: {
-                        errorMessage: false
+                        errorMessage: false,
+                        initialized: false
                     }
                 });
                 dispatch(populateUserInfo());
@@ -67,6 +68,7 @@ export function saveSettings( settings, chat_center_domain, callback ) {
         });
 
         if( apiCallCount === 2 ) {
+
             let payload = {
                 full_name: settings.organizationName,
                 team_id: settings.team_id
@@ -76,9 +78,23 @@ export function saveSettings( settings, chat_center_domain, callback ) {
             } else {
                 payload.domain = settings.ownDomain;
             }
+            payload.avatar = settings.org_avatar;
+
+            let data = new FormData();
+            data.append('full_name',payload.full_name);
+            data.append('team_id',payload.team_id);
+            data.append('domain',payload.domain);
+
+            if( typeof settings.org_avatar === 'object' ) {
+                data.append('avatar', settings.org_avatar);
+            }
+            
             ApiService.api({
               action: "api.settings.organization-update",
-              payload: payload
+              payload: payload,
+              headers: {
+                "enctype":"multipart/form-data"
+              }
             })
             .then( 
               successHandler,
@@ -87,14 +103,19 @@ export function saveSettings( settings, chat_center_domain, callback ) {
 
         }
 
-        
+        let data = {};
+        data.first_name = settings.first_name;
+        data.last_name = settings.last_name;
+        data.email = settings.email;
+        data.personal_chat_address = settings.personal_chat_address;
+        if( typeof settings.personal_avatar_upload === 'object' ) {
+            data.avatar =  settings.personal_avatar_upload;
+        }
         ApiService.api({
           action: "api.settings.personnal-update",
-          payload: {
-            first_name: settings.first_name,
-            last_name: settings.last_name,
-            email: settings.email,
-            personal_chat_address: settings.personal_chat_address
+          payload: data,
+          headers: {
+            "enctype":"multipart/form-data"
           }
         })
         .then( 
@@ -115,6 +136,16 @@ export function toggleUseDomain( value ) {
                 chat_center_domain : value
             }
         })
+    }
+}
+
+export function setSettingsState( newState ) {
+    return dispatch => {
+        
+        dispatch({
+            type: 'SETTINGS_SET_STATE',
+            newState
+        });
     }
 }
 
@@ -173,4 +204,48 @@ export function changePassword( payload, callback ) {
           }
         );
     }
+}
+
+
+export function getBillingDetails() {
+    return (dispatch) => {
+        dispatch({
+            type: 'SHOW_LOADER'
+        });
+        ApiService.api({
+          action: "widget.plans.outstandingAmount"
+        })
+        .then(res=>{
+            dispatch({
+                type: 'BILLING_INFO_SET_STATE',
+                newState: {
+                    outstandingAmount: res.amount    
+                }
+            });
+        },err=>{
+            
+        });
+
+        ApiService.api({
+          action: "widget.billing.info"
+        })
+        .then(res=>{
+            if( res.message ) {
+                dispatch({
+                    type: 'BILLING_INFO_SET_STATE',
+                    newState: {
+                        cardLastDigits: res.message.card_last_4_digits,
+                        nextBilling: res.message.billing_cycle[1]
+                    }
+                });    
+            }
+            dispatch({
+                type: 'HIDE_LOADER'
+            });
+        },err=>{
+            dispatch({
+                type: 'HIDE_LOADER'
+            });
+        });
+    };
 }

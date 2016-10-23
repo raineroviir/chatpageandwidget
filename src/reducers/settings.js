@@ -10,9 +10,13 @@ const initialState = {
         team_id: '',
         ccdomain: '',
         ownDomain: '',
-        username: ''
+        username: '',
+        org_avatar: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTOLxYk4-Pid7UmTM803YWqHXbrB8_4O0s3hxHMSpoA0LiNUTIrIX2Dkg',
+        personal_avatar: ''
     },
-    chat_center_domain: false    
+    chat_center_domain: false,
+    organizationFormInValid: false,
+    personalFormInValid: false
 };
 
 export function settings(state = initialState, action) {
@@ -24,7 +28,9 @@ export function settings(state = initialState, action) {
             first_name: action.userinfo.first_name,
             last_name: action.userinfo.last_name,
             personal_chat_address: action.userinfo.username,
-            email: action.userinfo.email
+            email: action.userinfo.email,
+            personal_avatar: action.userinfo.avatar_96,
+            personal_avatar_upload: ''
         };
         let index = -1;
         if(  action.userinfo.team ) {
@@ -33,6 +39,7 @@ export function settings(state = initialState, action) {
             original.team_id = action.userinfo.team.id;
             original.ownDomain =  action.userinfo.team.name;
             index = original.ownDomain.indexOf( '.' + window.config.cc  );
+
         }
         
         if( index != -1 ) {
@@ -53,7 +60,9 @@ export function settings(state = initialState, action) {
             return {
                 ...state,
                 editSettings: {
+                    ...state.editSettings,
                     ...original
+
                 },
                 initialized: true
             };

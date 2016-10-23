@@ -19,6 +19,7 @@ import { upgradePlan } from './upgradePlan';
 import { poptart } from './poptart';
 import { loader } from './loader';
 import { tabnav } from './tabnav';
+import { billingInfo } from './billingInfo';
 
 import { settings } from './settings'; 
 
@@ -44,7 +45,8 @@ const rootReducer = combineReducers({
   poptart,
   loader,
   tabnav,
-  settings
+  settings,
+  billingInfo
 });
 
 export default rootReducer;

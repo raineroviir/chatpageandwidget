@@ -22,7 +22,7 @@ export class TransactionHistory extends Component {
       this.setState({
         status:'loading'
       });
-      this.props.thActions.getTransactionHistory(1, ( status, res ) => {
+      this.props.thActions.getTransactionHistory(3, ( status, res ) => {
         let obj = {
           status : 'loaded',
           errorMsg: ''
@@ -31,7 +31,10 @@ export class TransactionHistory extends Component {
           //obj.errorMsg = res.error;
           obj.status = 'error';
         } else {
-          obj.transactions = res.transactions;
+          obj.transactions = res.transactions || [];
+          if( obj.transactions.length === 0 ) {
+            obj.errorMsg = "No transactions Available";
+          }
         }
         this.setState(obj);
       });
@@ -69,7 +72,7 @@ export class TransactionHistory extends Component {
                         {
                           this.state.transactions.map((item,index) => {
                             return (<tr>
-                              <td>{moment(item.created_at).format("LLL")}</td>
+                              <td>{moment(item.created_at).format("L")} {moment(item.created_at).format("LT")}</td>
                               <td>${item.amount}</td>
                             </tr>)
                           })

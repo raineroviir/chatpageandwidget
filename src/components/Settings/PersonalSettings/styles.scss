@@ -1,10 +1,12 @@
 .personal-settings {
+    margin-top: 3px;
     .first-name-wrapper {
         margin-right: 99px;
     }
+    
     .profile-img-wrapper {
         position: absolute;
-        top: 0;
+        top: 2px;
         right: 0;
     }
     .change-password-form {
@@ -12,15 +14,25 @@
             margin-left: 12px;
         }
     }
+    .form-input-wrapper {
+        &.first-name-input-wrapper {
+            margin-top: 6px;
+        }
+        &.use-cc-domain {
+            margin-top: 11px;
+        }
+    }
     .change-password-section {
-        margin-top:70px;
+        margin-top:60px;
     }
     .change-password-btn-section {
         margin-left: 12px;
         .btn-wrapper {
-            padding-top: 10px;
+            padding-top: 11px;
             .cc-btn {
                 display: inline-block;
+                padding-left:19px;
+                padding-right: 21px;
             }
         }
     }
@@ -35,46 +47,62 @@
             }
         }
     }
-    .personal-chat-address {
-        .primary-label {
-            margin-left: 12px;
-        }
-
-    }
 
     .personal-chat-address {
-        margin-top:60px;
+        margin-top: 64px;
         .use-cc-address-label {
             border-radius: 3px;
             background-color: #c3c8ce;
             line-height: 1.31;
             color: #ffffff;
             font-size: 16px;
-            padding: 2px 7px;
+            padding: 2px 8px 2px 5px;
             margin-left: 12px;
             display: inline-block;
         }
         .use-cc-domain {
             .input-field {
-                padding-top: 20px;
+                padding-left: 20px;
+                padding-top: 22px;
             }
         }
         .use-own-domain {
             margin-top: 0;
         }
+        .primary-label {
+            margin-left: 12px;
+        }
+
     }
 
     .use-cc-domain {
+
         .prefix-text {
             position: absolute;
-            left: 2px;
-            bottom: 26px;
+            left: 12px;
+            bottom: 23px;
             font-size: 18px;
             color: #474848;
             opacity: 0.5;
 
         }
     }
+
+    .settings-page-content {
+        margin-left: -13px;
+    }
+    .material-input .input-field {
+        padding-left: 7px;
+    }
+
+    .last-name-input-wrapper,.email-input-wrapper {
+        .material-input.float-label .with-addon-icon label {
+            -webkit-transform: translate3d(-34px, -48px, 0);
+            transform: translate3d(-34px, -48px, 0);
+        }
+    }
+    
+
 
     
         

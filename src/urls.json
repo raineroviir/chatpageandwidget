@@ -24,6 +24,16 @@
             "method": "post",
             "url": "plans.switch"
         },
+        "cards": {
+            "update": {
+                "method": "post",
+                "url": "cards.update"      
+            },
+            "info": {
+                "method": "get",
+                "url": "cards.info"      
+            }
+        },
         "plans": {
             "transactions" : {
                 "history": {
@@ -34,6 +44,12 @@
             "outstandingAmount" : {
                 "method": "get",
                 "url": "plans.outstandingAmount"    
+            }
+        },
+        "billing": {
+            "info": {
+                "method": "get",
+                "url": "billing.info"
             }
         }
     },
@@ -50,11 +66,11 @@
         },
         "settings" : {
             "organization-update": {
-                "method": "put",
+                "method": "PUT",
                 "url": "teams.update"   
             },
             "personnal-update": {
-                "method": "put",
+                "method": "PUT",
                 "url": "users.update"   
             }
         },

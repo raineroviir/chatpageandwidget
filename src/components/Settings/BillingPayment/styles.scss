@@ -2,15 +2,26 @@
     .cc-btn {
         display: inline-block;
         margin-top: 20px;
+        min-width: 188px;
     }
     .next-billing-cycle {
-        margin-top: 55px
+        margin-top: 54px
     }
     .payment-method {
-        margin-top: 50px;
+        margin-top: 52px;
         .card-number { 
             margin: 0;
             margin-top: 20px;
+            font-size: 18px;
         }
+    }
+    .next-billing-cycle-data {
+        font-size: 18px;
+        vertical-align: top;
+        margin-left: 4px;
+    }
+    .transaction-history-link {
+        margin-top: 6px;
+        letter-spacing: 0.4px;
     }
 }

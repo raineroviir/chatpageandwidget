@@ -16,9 +16,8 @@ export class PersonalSettings extends Component {
     constructor( props ){
         super( props );
         this.state = {
-          src: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTOLxYk4-Pid7UmTM803YWqHXbrB8_4O0s3hxHMSpoA0LiNUTIrIX2Dkg',
-          owndomain: false
-          
+          src: '',
+          owndomain: false          
         }
     }
 
@@ -32,10 +31,11 @@ export class PersonalSettings extends Component {
 
     
 
-    changedProfileImage( src) {
+    changedProfileImage( src, input ) {
       this.setState({
         src: src
       });
+      this.props.settingsActions.updateEditSettings( 'personal_avatar_upload', input.files[0] );
     }
 
     updateInputKey( key, e ) {
@@ -45,9 +45,6 @@ export class PersonalSettings extends Component {
     componentWillMount() {
       this.props.tabNavActions.setTabNavState( false );
     }
-
-    
-
     render() {
 
         let editSettings = this.props.settings.editSettings;
@@ -56,7 +53,7 @@ export class PersonalSettings extends Component {
             <h2 className="primary-label">Personal settings</h2>
 
             <div className="settings-page-content">
-              <div className="form-input-wrapper">
+              <div className="form-input-wrapper first-name-input-wrapper">
                 <div className="first-name-wrapper">
                   <MaterialInput>
                     <div className="with-addon-icon">
@@ -75,12 +72,15 @@ export class PersonalSettings extends Component {
                 </div>
                 <div className="profile-img-wrapper">
                   <FileInput 
-                  src={this.state.src}
+                  refs = {(personalAvatar)=> 
+                    this.personalAvatar = personalAvatar
+                  }
+                  src={this.state.src || editSettings.personal_avatar}
                   srcUpdated={this.changedProfileImage.bind( this )}/>
                 </div>
               </div>
 
-              <div className="form-input-wrapper">
+              <div className="form-input-wrapper last-name-input-wrapper">
                 <MaterialInput>
                   <div className="with-addon-icon">
                     <label>Last Name</label>
@@ -96,7 +96,7 @@ export class PersonalSettings extends Component {
               </div>
 
 
-              <div className="form-input-wrapper">
+              <div className="form-input-wrapper email-input-wrapper">
                 <MaterialInput>
                   <div className="with-addon-icon">
                     <label>Email</label>

@@ -1,20 +1,18 @@
 import React, { Component, PropTypes } from 'react';
-import { common, classNames, Link } from './../common';
+import { common, Link } from './../common';
 import * as tabNavActions from '../../../actions/TabNav';
 import { MaterialInput } from '../../MaterialInput';
 import * as settingsActions from '../../../actions/Settings';
 import { FileInput } from '../../FileInput';
-
 import styles from './styles.scss';
-
-
+import classNames from 'classnames';
 
 export class SettingsOrganization extends Component {
     constructor( props ){
         super( props );
         this.state = {
-          src: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTOLxYk4-Pid7UmTM803YWqHXbrB8_4O0s3hxHMSpoA0LiNUTIrIX2Dkg',
-          deleteMessage: ''
+          deleteMessage: '',
+          src: ''
         }
     }
 
@@ -33,6 +31,14 @@ export class SettingsOrganization extends Component {
       let width = $('#calc-input-width').html(this.refs.ccChatAddress.value).width();
       this.refs.ccChatAddress.style.width = width + 3;
       this.props.settingsActions.updateEditSettings( 'ccdomain', value );
+
+      let error = this.errorValidation( 'ccdomain', {
+        ccdomain: value
+      } );
+      
+      this.props.settingsActions.setSettingsState({
+        personalFormInValid: !!error
+      }); 
     }
 
     validateCcChatAddress( team_desc ){
@@ -45,14 +51,23 @@ export class SettingsOrganization extends Component {
       this.props.settingsActions.toggleUseDomain( !this.props.settings.chat_center_domain );
     }
 
-    changedOrgImage( src) {
+    changedOrgImage( src, input) {
       this.setState({
         src: src
       });
+      this.props.settingsActions.updateEditSettings( 'org_avatar', input.files[0] );
     }
 
     updateInputKey( key, e ) {
       this.props.settingsActions.updateEditSettings( key, e.target.value );
+      let error = this.errorValidation( key, {
+        [key]: e.target.value
+      } );
+      
+      this.props.settingsActions.setSettingsState({
+        personalFormInValid: !!error
+      });  
+    
     }
 
     componentWillMount() {
@@ -79,6 +94,26 @@ export class SettingsOrganization extends Component {
       };
     }
 
+    errorValidation( key, obj ) {
+      let editSettings = obj || this.props.settings.editSettings;
+      let ret = false;
+      if( key === 'organizationName'  ) {
+        if(!editSettings[key] ) {
+          ret = "Required";
+        }
+      }
+      else if( key === 'ccdomain' &&  this.props.settings.chat_center_domain ) {
+        if(!editSettings[key] ) {
+          ret = "Required";
+        }
+      } else if( key === 'ownDomain' &&  !this.props.settings.chat_center_domain ){
+        if( !editSettings[key] ) {
+          ret = "Required";
+        }
+      }
+      return ret;
+    }
+
     render() {
         let editSettings = this.props.settings.editSettings;
         return (
@@ -86,8 +121,11 @@ export class SettingsOrganization extends Component {
             <h2 className="primary-label">Organization settings</h2>
 
             <div className="settings-page-content">
-              <div className="form-input-wrapper">
-                <div className="org-name-wrapper">
+              <div className ={
+                classNames("form-input-wrapper", {
+                'error-field': this.errorValidation( 'organizationName' )
+              })}>
+                <div className="org-name-wrapper" >
                   <MaterialInput>
                     <label>Organization Name</label>
                     <input type="text" 
@@ -99,11 +137,17 @@ export class SettingsOrganization extends Component {
                 </div>
                 <div className="org-img-wrapper">
                   <FileInput 
-                  src={this.state.src}
+                  src={ this.state.src || editSettings.org_avatar}
                   srcUpdated={this.changedOrgImage.bind( this )}/>
                 </div>
               </div>
-              <div className="form-input-wrapper chat-center-domain" style={{display: !this.props.settings.chat_center_domain ? 'none' : ''}}>
+              <div className={ 
+                classNames("form-input-wrapper chat-center-domain", {
+                  'error-field': this.errorValidation( 'ccdomain' )
+                })
+              }
+              style={{display: !this.props.settings.chat_center_domain ? 'none' : ''}}
+              >
                   <MaterialInput>
                     <label className="fixed-top-label">Chat Address</label>
                     <div className="with-addon" onClick={
@@ -125,7 +169,13 @@ export class SettingsOrganization extends Component {
                     </a>
                   </div>
               </div>
-              <div className="form-input-wrapper use-own-domain" style={{display: this.props.settings.chat_center_domain ? 'none' : ''}}>
+              <div className={ 
+                classNames("form-input-wrapper use-own-domain", {
+                  'error-field': this.errorValidation( 'ownDomain' )
+                })
+              } 
+              style={{display: this.props.settings.chat_center_domain ? 'none' : ''}}
+              >
                   <MaterialInput>
                     <label className="fixed-top-label">Chat Address</label>
                     <div className="with-addon">

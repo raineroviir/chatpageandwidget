@@ -1,13 +1,14 @@
 .transaction-history {
     position: relative;
     padding-top: 30px;
-    max-width: 862px;
+    max-width: 820px;
     .transaction-table-wrapper {
         max-width: 500px;
     }
     .transaction-table {
         letter-spacing: 0.1px;
         color: #474848;
+        margin-top: 19px;
         thead {
             font-size: 14px;
             font-weight: 500;
@@ -20,7 +21,7 @@
             padding: 10px 0;
             font-size: 18px;
             &:first-child {
-                padding-right: 66px;
+                padding-right: 63px;
             }
         }
     }

@@ -88,7 +88,7 @@ export default class ChangePassword extends Component {
     return (
       <div className="change-password-section">
           <div className="change-password-btn-section" style={{display: this.state.showPwdForm ? 'none' : ''}}>
-            <h2 className="primary-label">password</h2>
+            <h2 className="primary-label">Password</h2>
             <div className="btn-wrapper">
               <a href="#" className="cc-btn" onClick={this.togglePwdForm.bind(this)}>CHANGE PASSWORD</a>
             </div>

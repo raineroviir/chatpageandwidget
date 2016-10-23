@@ -2,8 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { common, classNames, Link } from './../common';
 import * as tabNavActions from '../../../actions/TabNav';
 import * as upgradeActions from '../../../actions/Upgrade';
+import * as settingsActions from '../../../actions/Settings';
 import { browserHistory } from 'react-router';
 import ApiService  from '../../../api.service';
+import moment from 'moment';
 
 import styles from './styles.scss';
 
@@ -12,32 +14,28 @@ export class BillingPayment extends Component {
     constructor( props ){
         super( props );
         this.state = {
-          outstandingAmount: false
+          outstandingAmount: 4.99,
+          cardNumber: false
         };
+        if( !this.props.billingInfo.cardLastDigits ) {
+          this.props.settingsActions.getBillingDetails();  
+        }
 
-        ApiService.api({
-          action: "widget.plans.outstandingAmount"
-        })
-        .then(res=>{
-          this.setState({
-            outstandingAmount: res.amount
-          })
-        },err=>{
-          console.log('outstandingAmount', err);
-        });
+        
     }
 
     componentWillMount() {
       this.props.tabNavActions.setTabNavState( false );
     }
 
-    navigateToUpgradePlans( e ) {
+    setUpgradeSource( url, e ) {
         e.preventDefault();
         this.props.upgradeActions.updateUpgradeSource({
-            from: '/settings/billing-payment',
-            label: 'Billing & Payment'
+          from: '/settings/billing-payment',
+          label: 'Billing & Payment'
         });
-        browserHistory.push( "/upgrade/plans" );   
+
+        browserHistory.push( url );   
     }
 
     render() {
@@ -46,42 +44,48 @@ export class BillingPayment extends Component {
             <h2 className="primary-label">Current plan: {window.config.cc} plus.</h2>
             <div>
               <a className="cc-btn" href="/upgrade/plans"
-              onClick={this.navigateToUpgradePlans.bind(this)}>View Plans</a>
+              onClick={this.setUpgradeSource.bind(this, '/upgrade/plans')}>VIEW PLANS</a>
             </div>
-            <div className="payment-method">
-              <h2 className="primary-label">Payment method</h2>
-              <p className="card-number">
-                VISA **** 4181
-              </p>
+            {
+
+              this.props.billingInfo.cardLastDigits?
               <div>
-                <Link to="/upgrade/update-card" className="cc-btn">Change Card</Link>
-              </div>
-            </div>
-
-            <div className="next-billing-cycle">
-              {
-                this.state.outstandingAmount != false ?
-                <div>
-                  <span className="primary-label">
-                  Next billing cycle:
-                  </span>
-                  <span>
-                  &nbsp; ${this.state.outstandingAmount} on 21 July 2016
-                  </span>
+                <div className="payment-method">
+                  <h2 className="primary-label">Payment method</h2>
+                  <p className="card-number">
+                    VISA **** {this.props.billingInfo.cardLastDigits}
+                  </p>
+                  <div>
+                    <Link to="/upgrade/update-card" className="cc-btn"
+                    onClick={this.setUpgradeSource.bind(this, '/upgrade/update-card')}
+                    >CHANGE CARD</Link>
+                  </div>
                 </div>  
-                :
-                ''
-              }
-              
+                <div className="next-billing-cycle">
+                    <div>
+                      <span className="primary-label">
+                      Next billing cycle:
+                      </span>
+                      <span className="next-billing-cycle-data">
+                      ${this.props.billingInfo.outstandingAmount} &nbsp; 
+                      { moment(this.props.billingInfo.nextBilling).format("LL")}
+                      </span>
+                    </div>  
 
-              <p>
-                <Link  to="/upgrade/history"  className="primary-link">
-                  View transaction history
-                </Link>
-              </p>
-            </div>
+                  <p className="transaction-history-link">
+                    <Link  to="/upgrade/history"  className="primary-link">
+                      View transaction history
+                    </Link>
+                  </p>
+                </div>
+              </div>
+              :
 
+              ''
+            }
+            
 
+            
           </div>
         )
     }
@@ -92,11 +96,13 @@ export default common( {
   component: BillingPayment,
   mapStateToProps: ( state ) => {
     return {
-      tabnav: state.tabnav  
+      tabnav: state.tabnav,
+      billingInfo: state.billingInfo 
     }
   },
   actions : {
     tabNavActions: tabNavActions,
-    upgradeActions: upgradeActions
+    upgradeActions: upgradeActions,
+    settingsActions: settingsActions
   }
 } );
