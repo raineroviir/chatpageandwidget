@@ -33,7 +33,7 @@ export class RegisterIndividual extends Component {
 
     //store the value in STORE by dispatching event in action
     this.props.actions.registerIndividualDetails(FirstName,LastName,Email,Password);
-    
+
     //window.location.hash = "#/signup/individual/domain";
     browserHistory.push("/signup/individual/domain");
   }
@@ -85,9 +85,9 @@ export class RegisterIndividual extends Component {
                         <button type="submit" className="btn btn-default sign-in pull-right" ref="nextBtn" onClick={this.handleNext.bind(this)}>NEXT</button>
                       </div>
                     </div>
-                </div> 
+                </div>
             </form>
-       </div> 
+       </div>
     );
   }
 }

@@ -14,6 +14,11 @@ import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import {updateUser, forgetUser} from '../../../common/actions/user'
 import SignInIcon from './SignInIcon'
+
+import Register from '../../../common/Components/Register'
+import Login from '../../../common/Components/Login'
+import {RegistrationRouter} from '../../../common/Components/Register/router'
+
 class Header extends Component {
   constructor(props) {
     super(props)
@@ -21,10 +26,12 @@ class Header extends Component {
     this.enterEmailForNotificationsToggle =
     this.enterEmailForNotificationsToggle.bind(this)
     this.handleUserUpdate = this.handleUserUpdate.bind(this)
+    this.showRegistrationToggle = this.showRegistrationToggle.bind(this)
     this.state = {
       showMenu: false,
       showInfo: false,
-      showEnterEmailForNotifications: false
+      showEnterEmailForNotifications: false,
+      showRegistration: false
     }
   }
   menuToggle() {
@@ -36,6 +43,11 @@ class Header extends Component {
   enterEmailForNotificationsToggle() {
     this.menuToggle()
     this.setState({showEnterEmailForNotifications: !this.state.showEnterEmailForNotifications})
+  }
+  componentDidUpdate(prevProps) {
+    if (!prevProps.register.finished_process && this.props.register.finished_process) {
+      this.setState({showRegistration: false})
+    }
   }
   handleUserUpdate(e) {
     e.preventDefault()
@@ -61,9 +73,13 @@ class Header extends Component {
     const { dispatch } = this.props
     // const token = guest.token || user.token
     // const updates = {email: "forget@me.com", first_name: "forget", last_name: "me"}
-    localStorage.setItem("guest", "")
+    localStorage.removeItem("guest")
     dispatch(forgetUser())
     // dispatch(updateUser(updates, token))
+  }
+  showRegistrationToggle() {
+    this.menuToggle()
+    this.setState({showRegistration: !this.state.showRegistration})
   }
   render() {
     const { widget, guest, user, environment } = this.props
@@ -101,6 +117,35 @@ class Header extends Component {
           </form>
         </div>
       </div>)
+      const registration = (
+        (<div className="registration">
+          <div style={{padding: "10px", display: "flex", "flexDirection": "column"}}>
+          <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
+          <div className="your-details" style={{padding: "10 0 10 0"}}>
+            Your Details
+          </div>
+            <form onSubmit={this.handleUserUpdate} style={{fontSize: "15px"}}>
+              <div style={{padding: "10px", letterSpacing: "0.1px"}}>
+                Name or nickname
+              </div>
+              <div style={{padding: "10px"}}>
+                <input className="capture-details-input" ref="nameCapture" style={{fontSize: "15px", letterSpacing: "0.1px", width: "100%", border: "none", height: "30px", borderBottom: "2px solid"}} placeholder={currentUserName ? currentUserName : "Enter your name"}/>
+              </div>
+              <div style={{padding: "10px", letterSpacing: "0.1px"}}>
+                Email for notifications
+              </div>
+              <div style={{padding: "10px"}}>
+                <input className="capture-details-input" ref="emailCapture" style={{fontSize: "15px", letterSpacing: "0.1px", width: "100%", border: "none", borderBottom: "2px solid", height: "30px"}}  placeholder={currentUserEmail ? currentUserEmail : "Enter your email"}/>
+              </div>
+              <div style={{padding: "20px 0 0 0"}}>
+                <button type="submit" style={{ backgroundColor: widget.initialConfig.keyColor, height: "48px", borderRadius: "5px", color: "#FFFFFF", display: "flex", justifyContent: "center", width: "100%", borderStyle: "none"}}>
+                  <div style={{alignSelf: "center", fontSize: "15px"}}>Save Changes</div>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>)
+      )
     const menu = (
         <div style={{color: widget.initialConfig.keyColor}} className="menu">
           <div className="menu-popup-triangle"><GoTriangleUp /></div>
@@ -148,7 +193,7 @@ class Header extends Component {
             <div>
               <div style={{color: "#000000"}}>Don't have an account?</div>
             </div>
-            <div style={{cursor: "pointer"}}>Sign up</div>
+            <div onClick={this.showRegistrationToggle} style={{cursor: "pointer"}}>Sign up</div>
           </div>
         </div>
       )
@@ -197,11 +242,13 @@ class Header extends Component {
         <div className="menu-item">
           <div style={{cursor: "pointer"}}>Sign in with chat.center</div>
         </div>
-        <div className="menu-item">
+        <div  className="menu-item">
           <div>
             <div style={{color: "#000000"}}>Don't have an account?</div>
           </div>
-          <div style={{cursor: "pointer"}}>Sign up</div>
+          <div>
+          <div onClick={this.showRegistrationToggle} style={{cursor: "pointer"}}>Sign up</div>
+          </div>
         </div>
       </div>
     )
@@ -234,29 +281,26 @@ class Header extends Component {
         <div className="header-arrow" onClick={this.props.onClose.bind(this)}>
           <FaAngleDown />
         </div>
-        {/* {environment.userScrollPosition > 150 &&
-        <div className="header-info">
-          <div style={{width: "25px", height: "25px", cursor: "pointer", backgroundImage: `url(${infoIcon})`, backgroundRepeat: "no-repeat"}} onClick={this.infoToggle.bind(this)} ></div>
-        </div>} */}
         <div className="sign-in-to-chat-center" style={{color: widget.initialConfig.keyColor}}>
           <div onClick={this.menuToggle.bind(this)} style={{display: "flex", cursor: "pointer"}}>
             <SignInIcon style={{color: widget.initialConfig.keyColor}}/>
           </div>
         </div>
-        {/* {this.state.showInfo && environment.userScrollPosition > 150 && info} */}
-        {this.state.showMenu && widgetMenu}
+        <div>{this.state.showRegistration && <div className="registration"><RegistrationRouter /></div>}</div>
+        <div>{this.state.showMenu && widgetMenu}</div>
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  const { user, guest, widget, environment } = state
+  const { user, guest, widget, environment, register } = state
   return {
     user,
     guest,
     widget,
-    environment
+    environment,
+    register
   }
 }
 
