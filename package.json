@@ -5,7 +5,8 @@
   "main": "widget.js",
   "scripts": {
     "start": "node ./src/server/index.js",
-    "build": "webpack --config ./webpack.config.js --progress --colors"
+    "build": "webpack --config ./webpack.config.js --progress --colors",
+    "analyze": "webpack --config ./webpack.config.js --json | webpack-bundle-size-analyzer"
   },
   "author": "",
   "license": "MIT",
