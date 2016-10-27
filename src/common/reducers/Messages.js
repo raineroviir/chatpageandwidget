@@ -17,7 +17,9 @@ const initialState = {
 export function messages(state = initialState, action) {
   switch (action.type) {
   case 'FETCH_MESSAGES':
+  console.log(action)
     let messages = _.sortBy(action.data.messages, a => (new Date()).getTime() - parseInt(moment(a.created_at).format("x")))
+    console.log(messages)
     return {
       ...state,
       messagesList: messages.reverse().concat(state.messagesList),

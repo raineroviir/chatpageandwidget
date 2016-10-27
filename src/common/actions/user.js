@@ -112,7 +112,6 @@ export function initUser(data) {
               throw error
             }).catch(error => console.log(error))
       } else {
-        console.log('IN ELSE BRACKEt WITH THE TOKEN:', token)
         dispatch(fetchUserInfo(token))
         dispatch({type: 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE', token})
         dispatch(fetchSocket(token))

@@ -471,21 +471,6 @@ function processConversationsForDispatch(conversations, channelid) {
     receivedAt: Date.now()
   }
 }
-function processConversationsHistoryForDispatch(messages, conversationid) {
-  return {
-    type: 'FETCH_MESSAGES',
-    data: { ...messages, conversationid},
-    receivedAt: Date.now()
-  }
-}
-
-function processMemoizedConversationsHistoryForDispatch(conversationid) {
-  return {
-    type: 'FETCH_MESSAGES_MEMOIZED',
-    posts: { conversationid},
-    receivedAt: Date.now()
-  }
-}
 
 function processMemoizedConversationsForDispatch(channelid) {
   return {

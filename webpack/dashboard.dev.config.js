@@ -4,8 +4,7 @@ var path = require('path')
 module.exports = {
   devtool: 'eval',
   entry: {
-    dashboard:
-    './src/dashboard/index'
+    chatpage: './src/chatpage/chatpage'
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -21,7 +20,7 @@ module.exports = {
           {
             test: /\.js$/,
             loader: 'babel',
-            exclude: [/node_modules/, path.join(__dirname, 'src/widget')],
+            exclude: [/node_modules/, path.join(__dirname, 'src/widget'), path.join(__dirname, 'src/dashboard')],
             query: {
               presets: [ 'react-hmre', "react", "es2015" , "stage-0" ]
             }

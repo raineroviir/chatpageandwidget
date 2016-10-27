@@ -1,19 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { getConversationHistory, setactiveactiveConversationId } from '../actions/conversations'
-import { Conversations } from '../Components/Conversations';
-import DefaultWidgetMessage from '../Components/DefaultMessage'
-import {ChatMessages} from '../Components/ChatMessages'
-import {changeScrollIndex} from '../actions/environment'
 import ReactDOM from 'react-dom'
-import {MessageListItem} from '../Components/ChatMessages/MessageListItem'
 import Waypoint from 'react-waypoint'
 import _ from 'lodash'
-import { referenceToConversationBody, infiniteLoading, infiniteLoadingDone, storeUserScrollPosition } from '../actions/environment'
-import {loadServerMsgs, scrollCompleteForUserMessage, botReplyForFirstMessage, scrollCompleteForMsgStream, setOldestVisibleMessageUnixTimestamp } from '../actions/messages'
-import {loadBot} from '../actions/bot'
-import {updateUser, submittedEmailToBot} from '../actions/user'
-import {markConversationAsRead} from '../actions/conversations'
+
+import { getConversationHistory, setactiveConversationId } from '../../actions/conversations'
+import {MessageListItem} from '../../Components/ChatMessages/MessageListItem'
+import { referenceToConversationBody, infiniteLoading, infiniteLoadingDone, storeUserScrollPosition } from '../../actions/environment'
+import {loadServerMsgs, scrollCompleteForUserMessage, botReplyForFirstMessage, scrollCompleteForMsgStream, setOldestVisibleMessageUnixTimestamp } from '../../actions/messages'
+import { Conversations } from '../../Components/Conversations';
+import DefaultMessage from '../../Components/DefaultMessage'
+import {ChatMessages} from '../../Components/ChatMessages'
+import {changeScrollIndex} from '../../actions/environment'
+import {loadBot} from '../../actions/bot'
+import {updateUser, submittedEmailToBot} from '../../actions/user'
+import {markConversationAsRead} from '../../actions/conversations'
+
 class Messages extends Component {
   constructor(props) {
     super(props)
@@ -22,12 +24,16 @@ class Messages extends Component {
     this.loadMoreHistory = this.loadMoreHistory.bind(this)
   }
   componentDidMount() {
-    const { dispatch, userScrollPosition, isGroupChat, activeConversationId, guest, user, initialLoadComplete } = this.props
+    const { dispatch, userScrollPosition, isGroupChat, activeConversationId, guest, user, initialLoadComplete, routeParams } = this.props
+    // if (routeParams) {
+    //   dispatch({type: "SAVE_CONVOID_FROM_ROUTE_PARAMS", routeParams})
+    // }
     const { token } = guest || user
     const node = ReactDOM.findDOMNode(this)
+    console.log(initialLoadComplete, activeConversationId)
     if (!initialLoadComplete && activeConversationId) {
+      console.log('load init history')
       this.loadInitialHistory()
-      dispatch(markConversationAsRead(activeConversationId, token))
     } else {
       userScrollPosition ? node.scrollTop = userScrollPosition : this.scrollToBottom()
     }
@@ -39,9 +45,11 @@ class Messages extends Component {
     const { activeConversationId, guest, user, dispatch, serverMessages, scrollIndex, oldestVisibleMessageUnixTimestamp} = this.props
     const { token } = guest || user
     dispatch(getConversationHistory(activeConversationId, token, oldestVisibleMessageUnixTimestamp)).then((json) => {
+      console.log(json)
       if (json && json.messages.length > 0) {
         this.scrollToBottom()
         const oldestVisibleMessage = json.messages[json.messages.length - 1]
+        dispatch(markConversationAsRead(activeConversationId, token))
         dispatch(setOldestVisibleMessageUnixTimestamp(oldestVisibleMessage))
       }
       dispatch({type: "INITIAL_MSG_LOAD_COMPLETE"})
@@ -135,10 +143,10 @@ class Messages extends Component {
     return (
       <div className="conversation-body">
         {this.renderWaypoint()}
-        <DefaultWidgetMessage widget={this.props.widget}/>
+        <DefaultMessage widget={this.props.widget}/>
         {this.props.isInfiniteLoading && !this.props.reachedEnd ? <div style={{display: "flex", justifyContent: "center"}}>Loading History...</div>: null}
         <ChatMessages
-        dispatch={this.props.dispatch} className="chat-messages-wrapper" messagesList={this.props.messagesList}  widget={this.props.widget}  user={this.props.user} guest={this.props.guest}
+        dispatch={this.props.dispatch} className="chat-messages-wrapper" messagesList={this.props.messagesList} widget={this.props.widget}  user={this.props.user} guest={this.props.guest}
         isGroupChat={this.props.isGroupChat} messageStatus={this.props.messageStatus}
         handleUserEmailFromBot={this.handleUserEmailFromBot}
         emailReceived={this.props.emailReceived}/>
@@ -149,13 +157,13 @@ class Messages extends Component {
 
 function mapStateToProps(state) {
   const { channels, conversations, messages, guest, user, widget, environment, bot } = state
-  const { activeactiveChannelId, isGroupChat } = channels
+  const { activeChannelId, isGroupChat } = channels
   const { messagesList, userCreatedNewMessage, messageStreamNewMessage, initialLoadComplete, reachedEnd, oldestVisibleMessageUnixTimestamp } = messages
   const { height, width, isInfiniteLoading, scrollToBottom, totalHeightOfHistoryMessages, userScrollPosition } = environment
-  const { activeactiveConversationId } = conversations
+  const { activeConversationId } = conversations
   return {
-    activeactiveChannelId, isGroupChat,
-    activeactiveConversationId,
+    activeChannelId, isGroupChat,
+    activeConversationId,
     messagesList, userCreatedNewMessage, messageStreamNewMessage, initialLoadComplete, reachedEnd, oldestVisibleMessageUnixTimestamp,
     height, width, isInfiniteLoading, scrollToBottom, totalHeightOfHistoryMessages, userScrollPosition,
     bot,

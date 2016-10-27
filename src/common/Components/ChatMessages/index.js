@@ -33,7 +33,6 @@ export class ChatMessages extends Component {
     //   return null
     // }
     if (!this.props.channelError) {
-      console.log('NO ERROR PREPARING TO RETURN MSG LIST')
       return (
         <div className="chat-messages">
           {messagesList.map((message, index, msgs) =>

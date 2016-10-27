@@ -6,9 +6,9 @@ import Gravatar from 'react-gravatar'
 export class RightAlignedMessage extends React.Component {
   computeMessageBubbleColor() {
     const { widget } = this.props
-      const backgroundColor = widget.initialConfig ? widget.initialConfig.keyColor :
+      const backgroundColor = widget? widget.initialConfig.keyColor :
       "#f7a444"
-      const borderColor = widget.initialConfig ? `transparent transparent transparent ${widget.initialConfig.keyColor}` :
+      const borderColor = widget ? `transparent transparent transparent ${widget.initialConfig.keyColor}` :
       "transparent transparent transparent #f7a444"
       const color = "#FFFFFF"
     return {

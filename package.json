@@ -10,7 +10,8 @@
     "start": "node bin/server.js",
     "test": "karma start",
     "widget": "node ./src/widget/server/index.js",
-    "build:widget": "webpack --config ./webpack/webpack.prod.config.js --progress --colors"
+    "build:widget": "webpack --config ./webpack/webpack.prod.config.js --progress --colors",
+    "chatpage": "node ./src/chatpage/server/index.js"
   },
   "repository": {
     "type": "git",

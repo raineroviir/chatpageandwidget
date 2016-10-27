@@ -44,6 +44,12 @@ export function fetchChannelInfo(token, channel_id) {
   }
 }
 
+export function saveSubDomainAsChannel(subdomain) {
+  return {
+    type: "SAVE_SUBDOMAIN_AS_ACTIVE_CHANNEL",
+    subdomain
+  }
+}
 function getSocketURL (token) {
   if ((typeof(Storage) === "undefined" || (!localStorage.getItem("token") && !localStorage.getItem("guest"))) && !token ) return null;
   if(!token) { token = JSON.parse(localStorage.getItem("token") || localStorage.getItem("guest")) }
@@ -147,7 +153,6 @@ export function fetchChannel(channelname, team, token) {
   return response.json()
 }).then(json => {
     dispatch({type: "FETCHED_CHANNEL", json})
-    console.log(json)
     return json.channel.id
   }, error => {
     dispatch({type: 'FETCH_CHANNEL_ERROR', error})
@@ -155,9 +160,6 @@ export function fetchChannel(channelname, team, token) {
   }).catch(error => console.log(error))
   }
 }
-
-
-
 
 export function fetchChannels(token) {
   return dispatch => {

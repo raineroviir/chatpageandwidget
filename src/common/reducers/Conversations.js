@@ -62,6 +62,9 @@ export function conversations(state = initialState, action) {
     return {...state, activeConversationId: action.conversationid}
   case 'STORE_USER_SCROLL_POSITION':
     return {...state, userScrollPosition: action.userScrollPosition}
+  case 'SAVE_CONVOID_FROM_ROUTE_PARAMS':
+  console.log(action)
+    return {...state, activeConversationId: action.routeParams.conversation}
   default:
     return state;
   }

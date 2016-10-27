@@ -18,11 +18,11 @@ export class ChatTextBox extends Component {
             <input ref="Message"
             type="text"
             className="message-input"
-            placeholder={widget.initialConfig.content ? widget.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"}
-            aria-label={widget.initialConfig.content ? widget.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"} />
+            placeholder={widget ? widget.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"}
+            aria-label={widget ? widget.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"} />
           </div>
-          <button type="submit" className="submit-button" style={{color: this.props.keyColor}}>
-            {widget.initialConfig.content ? widget.initialConfig.content.sendBtnText : "Send" }
+          <button type="submit" className="submit-button" style={{color: widget ? widget.initialConfig.keyColor : "#f7a444"}}>
+            {widget ? widget.initialConfig.content.sendBtnText : "Send" }
           </button>
         </form>
       </div>

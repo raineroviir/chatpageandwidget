@@ -45,6 +45,9 @@ export function channels(state = initialState, action) {
         tempChannelInfo: action.channelInfo.channel
       }
     }
+  case 'SAVE_SUBDOMAIN_AS_ACTIVE_CHANNEL':
+  console.log(action)
+    return {...state, activeChannelId: action.subdomain}
   default:
     return state;
   }

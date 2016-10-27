@@ -7,16 +7,23 @@ import AvatarFour from './files/meowth.svg'
 import AvatarFive from './files/squirtle.svg'
 
 export default class DefaultMessage extends Component {
+  checkIfWidget() {
+    const { widget } = this.props
+    if (!widget) {
+      return {display: "flex", justifyContent: "center", textAlign: "center"}
+    }
+    return
+  }
   render() {
     const { user, guest, widget } = this.props
-    const teamAvatarUrl = widget.initialConfig.channel.avatarUrl ? widget.initialConfig.channel.avatarUrl : null
-    const teamChannelUrl = widget.initialConfig.channelUrl ||  "seaShells.com"
-    const welcomeMessage = widget.initialConfig.content ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
-    const teamName = widget.initialConfig.content ? widget.initialConfig.content.teamName : ""
+    const teamAvatarUrl = widget ? widget.initialConfig.channel.avatarUrl : null
+    const teamChannelUrl = widget ? widget.initialConfig.channelUrl : "seaShells.com"
+    const welcomeMessage = widget ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
+    const teamName = widget ? widget.initialConfig.content.teamName : ""
     return (
-      <div className="default-message-wrapper">
+      <div className="default-message-wrapper" style={this.checkIfWidget()}>
         <div className="default-message">
-          <div className="team-avatar-url-wrapper">
+          <div className="team-avatar-url-wrapper" style={this.checkIfWidget()}>
           <div style={{display: 'flex'}}>
             <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarOne})`}}></div>
             <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarTwo})`}}></div>
@@ -26,13 +33,13 @@ export default class DefaultMessage extends Component {
           </div>
           </div>
           <div className="team-details">
-            <div className="team-name">
+            <div className="team-name" style={this.checkIfWidget()}>
               {teamName}
             </div>
-            <div className="team-website">
-                <a style={{color: widget.initialConfig.keyColor || "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
+            <div className="team-website" style={this.checkIfWidget()}>
+                <a style={{color: widget ? widget.initialConfig.keyColor : "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
             </div>
-            <div className="welcome-message">
+            <div className="welcome-message" style={this.checkIfWidget()}>
               {welcomeMessage}
             </div>
           </div>

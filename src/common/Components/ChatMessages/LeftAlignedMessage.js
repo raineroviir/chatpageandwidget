@@ -9,10 +9,10 @@ import Gravatar from 'react-gravatar'
 
 export class LeftAlignedMessage extends React.Component {
   computeMessageBubbleColor() {
-    const { emailReceived, message, widgetConfig } = this.props
+    const { emailReceived, message, widget } = this.props
     let backgroundColor = "#eeeff0"
     if (emailReceived && message.bot && message.attachment) {
-      backgroundColor = widgetConfig.keyColor
+      backgroundColor = widget ? widget.initialConfig.keyColor : "#f7a444"
     }
     const borderColor = "transparent #eeeff0 transparent transparent"
     const color = "#000000"
@@ -31,7 +31,7 @@ export class LeftAlignedMessage extends React.Component {
     this.refs.emailInput.value = ""
   }
   render() {
-    const { checkForSameUser, message, widgetConfig, emailReceived, guest, previousMessage } = this.props
+    const { checkForSameUser, message, widget, emailReceived, guest, previousMessage } = this.props
     const userEmail = "blahblah.com"
     const displayTimeSentPredicate = moment(message.created_at).diff(moment(previousMessage ? previousMessage.created_at : null ), 'seconds') > 60
     const displayedTime = moment(message.created_at).fromNow()
@@ -61,7 +61,7 @@ export class LeftAlignedMessage extends React.Component {
                   aria-label="Enter your email"
                   />
                 </form>
-                <MdCheckCircle style={{cursor: "pointer", padding: "0 0 0 10px", fontSize: "32px", color: widgetConfig ? widgetConfig.keyColor : "#f7a444"}} />
+                <MdCheckCircle style={{cursor: "pointer", padding: "0 0 0 10px", fontSize: "32px", color: widget ? widget.initialConfig.keyColor : "#f7a444"}} />
               </div>
             }
             </div>

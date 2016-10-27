@@ -5,7 +5,7 @@ import moment from 'moment';
 function processConversationsHistoryForDispatch(messages, conversationid) {
   return {
     type: 'FETCH_MESSAGES',
-    posts: { ...messages, conversationid},
+    data: { ...messages, conversationid},
     receivedAt: Date.now()
   }
 }
@@ -32,7 +32,7 @@ export function backToConversationSummaryView() {
 function processMemoizedConversationsHistoryForDispatch(conversationid) {
   return {
     type: 'FETCH_MESSAGES_MEMOIZED',
-    posts: { conversationid},
+    data: {conversationid},
     receivedAt: Date.now()
   }
 }
@@ -45,7 +45,7 @@ function processMemoizedConversationsForDispatch(channelid) {
   }
 }
 
-export function markConversationAsRead(conversationid, token, timestamp) {
+export function markConversationAsRead(conversationid, token, timestamp = moment().format("x")) {
   return dispatch => {
     return fetch(Config.app + '/conversations.read', {
       method: 'POST',
@@ -60,7 +60,6 @@ export function markConversationAsRead(conversationid, token, timestamp) {
       }
       return response.json()
     }).then(json => {
-      console.log(json)
       dispatch({type: "MARK_ALL_MESSAGES_AS_READ"})
       return json
     }).catch(error => console.log(error))
@@ -158,6 +157,7 @@ export function checkForConversation(channel_id, token) {
   const localStorageConversationId = JSON.parse(localStorage.getItem(channel_id))
   return dispatch => {
     if (!localStorageConversationId) {
+      console.log(channel_id, token)
       dispatch(createConversation(channel_id, token))
     } else {
       dispatch(setactiveConversationId(localStorageConversationId))

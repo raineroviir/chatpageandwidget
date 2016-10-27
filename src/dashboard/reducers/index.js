@@ -27,7 +27,6 @@ import { conversations } from '../../common/reducers/conversations';
 import { messages } from '../../common/reducers/messages';
 import { user } from '../../common/reducers/user';
 import { guest } from '../../common/reducers/guest';
-import { widget } from '../../common/reducers/widget';
 import { environment } from '../../common/reducers/environment';
 import { bot } from '../../common/reducers/bot'
 
@@ -38,7 +37,6 @@ const rootReducer = combineReducers({
   items,
   user,
   bot,
-  widget,
   channels,
   conversations,
   environment,
