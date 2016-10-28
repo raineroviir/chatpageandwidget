@@ -23,10 +23,11 @@ export class RightAlignedMessage extends React.Component {
     }
   }
   render() {
-    const { checkForSameUser, message, previousMessage, guest, user } = this.props
+    const { checkForSameUser, message, previousMessage, guest, user, nextMessage } = this.props
     const displayTimeSentPredicate = moment(message.created_at).diff(moment(previousMessage ? previousMessage.created_at : null) , 'seconds') > 120
     const displayedTime = moment(message.created_at).fromNow()
     const userEmail = guest.guest ? guest.data.email : user.data.email
+    console.log((nextMessage && nextMessage.status || !nextMessage))
     return (
       <div className={classNames("received-message fade-in, right-aligned-message")}>
         {checkForSameUser ? <div style={{alignSelf: "flex-end", padding: "0 56px 0 0"}}>
@@ -45,7 +46,7 @@ export class RightAlignedMessage extends React.Component {
             </div>
           </div> : <div style={{padding: "0 48px 0 0"}}></div>}
         </div>
-        {message.status ? message.status === "..." ?
+        {!nextMessage ? message.status ? message.status === "..." ?
         <div className="message-status">
           <div className="loading_dots">
             <span></span>
@@ -56,7 +57,7 @@ export class RightAlignedMessage extends React.Component {
         : <div className="message-status">
           {message.status}
         </div>
-        : null }
+        : null : null}
       </div>
     )
   }

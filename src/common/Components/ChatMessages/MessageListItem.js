@@ -6,6 +6,7 @@ export class MessageListItem extends React.Component {
   render() {
     const { widget, msgs, index, message, currentUser, isGroupChat } = this.props
     const previousMessage = msgs[index - 1]
+    const nextMessage = msgs[index + 1] ? msgs[index + 1] : null
     const previousMessageUserId = previousMessage ? previousMessage.user_id : null
     const currentMessageUserId = message.user_id
     const checkForSameUser = currentMessageUserId !== previousMessageUserId
@@ -28,7 +29,7 @@ export class MessageListItem extends React.Component {
     if (message.user_id === currentUser) {
        return (<div>
        {dateDiff !== 0 ? dateSeparator : humanizedMessageDate !== previousMessageHumanizedDate ? dateSeparator : null}
-       <RightAlignedMessage key={message.id} widget={widget} checkForSameUser={checkForSameUser} message={message} previousMessage={previousMessage} guest={this.props.guest} user={this.props.user}/>
+       <RightAlignedMessage key={message.id} widget={widget} checkForSameUser={checkForSameUser} message={message} previousMessage={previousMessage} guest={this.props.guest} user={this.props.user} nextMessage={nextMessage} />
       </div>)
     } else {
       return (<div>
