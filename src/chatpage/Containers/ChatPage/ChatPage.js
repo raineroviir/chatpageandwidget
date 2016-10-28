@@ -3,10 +3,9 @@ import { connect } from 'react-redux'
 import Messages from '../../../common/Containers/Messaging/Messages'
 import Footer from '../../../common/Containers/Messaging/Footer'
 import Header from '../../../common/Containers/Messaging/Header'
-import {styles} from './styles.scss'
 import ReactDOM from 'react-dom'
 import {ChannelRouter} from '../ChannelRouter'
-
+import styles from './styles.scss';
 class ChatPage extends React.Component {
   render() {
     const { height, isMobile, width } = this.props

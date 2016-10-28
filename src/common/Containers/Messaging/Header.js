@@ -72,7 +72,7 @@ class Header extends Component {
     const { dispatch } = this.props
     // const token = guest.token || user.token
     // const updates = {email: "forget@me.com", first_name: "forget", last_name: "me"}
-    localStorage.removeItem("guest")
+    localStorage.clear()
     dispatch(forgetUser())
     // dispatch(updateUser(updates, token))
   }
@@ -277,18 +277,17 @@ class Header extends Component {
     return (
       <div className="header">
       {this.state.showEnterEmailForNotifications && enterInformationForNotificationsModal}
-        <div className="header-arrow" onClick={this.infoToggle.bind(this)}>
+        {this.props.environment.userScrollPosition > 150 && <div className="header-arrow" onClick={this.infoToggle.bind(this)}>
           <InfoIcon />
-          {this.state.showInfo && info}
-        </div>
+        </div>}
         <div className="sign-in-to-chat-center" style={{color: widget ? widget.initialConfig.keyColor : "#f7a444"}}>
           <div onClick={this.menuToggle.bind(this)} style={{display: "flex", cursor: "pointer"}}>
             <SignInIcon style={{color: widget ? widget.initialConfig.keyColor : "#f7a444"}}/>
           </div>
         </div>
         <div>{this.state.showRegistration && <div className="registration"><RegistrationRouter /></div>}</div>
-
-        <div>{this.state.showMenu && widgetMenu}</div>
+        {this.state.showMenu && (widget ? widgetMenu : menu)}
+        {this.state.showInfo && this.props.environment.userScrollPosition > 150 && info}
       </div>
     )
   }

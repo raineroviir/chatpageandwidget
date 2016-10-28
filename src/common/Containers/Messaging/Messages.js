@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ReactDOM from 'react-dom'
 import Waypoint from 'react-waypoint'
 import _ from 'lodash'
-
+import styles from './styles.scss';
 import { getConversationHistory, setactiveConversationId } from '../../actions/conversations'
 import {MessageListItem} from '../../Components/ChatMessages/MessageListItem'
 import { referenceToConversationBody, infiniteLoading, infiniteLoadingDone, storeUserScrollPosition } from '../../actions/environment'
@@ -24,7 +24,7 @@ class Messages extends Component {
     this.loadMoreHistory = this.loadMoreHistory.bind(this)
   }
   componentDidMount() {
-    const { dispatch, userScrollPosition, isGroupChat, activeConversationId, guest, user, initialLoadComplete, routeParams } = this.props
+    const { dispatch, userScrollPosition, isGroupChat, activeConversationId, guest, user, initialLoadComplete, routeParams, widget } = this.props
     // if (routeParams) {
     //   dispatch({type: "SAVE_CONVOID_FROM_ROUTE_PARAMS", routeParams})
     // }
@@ -39,6 +39,9 @@ class Messages extends Component {
     }
     if (!isGroupChat) {
       dispatch(loadBot())
+    }
+    if (!widget) {
+      node.addEventListener('scroll', this.handleScroll.bind(this))
     }
   }
   loadInitialHistory() {
@@ -124,6 +127,18 @@ class Messages extends Component {
   returnRandomColor() {
     let color = ["Green","Red","Blue","Yellow","Purple","Orange","White","Black","Brown","Pink"]
     return color[Math.floor((Math.random() * 10) + 1)]
+  }
+  handleScroll(e) {
+    const { dispatch } = this.props
+    const scrollPosition = e.srcElement.scrollTop
+    dispatch(storeUserScrollPosition(scrollPosition))
+  }
+  componentWillUnmount() {
+    const { widget } = this.props
+    if (!widget) {
+      const node = ReactDOM.findDOMNode(this)
+      node.removeEventListener('scroll', this.handleScroll.bind(this))
+    }
   }
   handleUserEmailFromBot(email) {
     const { dispatch, guest, user} = this.props

@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import ReactDOM from 'react-dom'
 import ChatPage from './ChatPage/ChatPage'
 import { bindActionCreators } from 'redux'
-import { styles } from './styles.scss'
 import { initUser, fetchUserInfo } from '../../common/actions/user'
 import { initEnvironment, storeUserScrollPosition
  } from '../../common/actions/environment'
