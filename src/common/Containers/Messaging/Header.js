@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import {FaAngleDown} from 'react-icons/lib/fa'
 import signInIcon from './files/group-3.svg'
-import {GoTriangleUp} from 'react-icons/lib/go'
 import AvatarOne from './files/bullbasaur.svg'
 import AvatarTwo from './files/charmander.svg'
 import AvatarThree from './files/eevee.svg'
@@ -147,7 +146,6 @@ class Header extends Component {
       )
     const menu = (
         <div style={{color: widget ? widget.initialConfig.keyColor : "#f7a444"}} className="menu">
-          <div className="menu-popup-triangle"><GoTriangleUp /></div>
             <div style={{color: "black"}}>
               <div>
                 {guest.data.first_name || user.data.first_name ?
@@ -253,7 +251,6 @@ class Header extends Component {
     )
     const info = (
       <div className="info" >
-        <div className="info-popup-triangle"><GoTriangleUp /></div>
         <div className="team-avatar-wrapper">
           <div style={{display: 'flex'}}>
             <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarOne})`}}></div>

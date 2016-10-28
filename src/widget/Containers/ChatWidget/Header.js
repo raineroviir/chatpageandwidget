@@ -254,7 +254,6 @@ class Header extends Component {
     )
     const info = (
       <div className="info">
-        <div className="info-popup-triangle"><GoTriangleUp /></div>
         <div className="team-avatar-wrapper">
           <div style={{display: 'flex'}}>
             <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarOne})`}}></div>

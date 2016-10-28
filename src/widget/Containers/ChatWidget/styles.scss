@@ -51,6 +51,7 @@
 .registration {
   background-color: #FFFFFF;
   position: absolute;
+  padding: 10px 10px 10px
   top: 0;
   height: 100%;
   width: 320px;
@@ -144,12 +145,20 @@
   width: 320px;
   display: flex;
   flex-direction: column;
-  .info-popup-triangle {
+
+  border-color: transparent transparent transparent #f8f8f8;
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
     position: absolute;
+    display: inline-block;
+    transition: all ease-in 0.5s;
+    border-color: inherit;
     top: -16px;
-    font-size: 28px;
-    right: 246px;
-    color: white;
+    border-width: 7 0 7 8;
+    transform: rotate(90deg);
   }
   .team-avatar-wrapper {
     padding: 15px 13px 4px 13px;

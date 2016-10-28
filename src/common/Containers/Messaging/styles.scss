@@ -15,12 +15,20 @@
     border-top: 1px solid #d5d6d8;
     padding: 10px 10px 10px 10px;
   }
-  .menu-popup-triangle {
+  border-color: transparent transparent transparent white;
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
     position: absolute;
-    top: -16px;
-    font-size: 28px;
-    right: 55px;
-    color: white;
+    display: inline-block;
+    transition: all ease-in 0.5s;
+    border-color: inherit;
+    top: -11px;
+    right: 33px;
+    border-width: 7 0 7 8;
+    transform: rotate(-90deg);
   }
 }
 
@@ -299,12 +307,21 @@
   width: 320px;
   display: flex;
   flex-direction: column;
-  .info-popup-triangle {
+
+  border-color: transparent transparent transparent white;
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
     position: absolute;
-    top: -16px;
-    font-size: 28px;
-    right: 246px;
-    color: white;
+    display: inline-block;
+    transition: all ease-in 0.5s;
+    border-color: inherit;
+    top: -11px;
+    left: 20;
+    border-width: 7 0 7 8;
+    transform: rotate(-90deg);
   }
   .team-avatar-wrapper {
     padding: 15px 13px 4px 13px;
