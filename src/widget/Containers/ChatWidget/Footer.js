@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateMessage from '../../../common/Containers/CreateMessage'
+import CreateMessage from '../../../common/Containers/Messaging/CreateMessage'
 import { connect } from 'react-redux'
 import { createConversation, prepareToCreateConversation } from '../../../common/actions/conversations'
 

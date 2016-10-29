@@ -57,10 +57,10 @@ class App extends React.Component {
     dispatch(initUser(data))
     .then((token) => {
       token = token.access_token
-      dispatch(fetchChannel(channelname, team, token)).then((channel_id) => {
-        dispatch(getWidget(channel_id, channel_url, token)).then(() => dispatch({type: "FINISHED_INITIAL_LOADING"}))
+      dispatch(fetchChannel(channelname, team, token)).then((channel) => {
+        dispatch(getWidget(channel.id, channel_url, token)).then(() => dispatch({type: "FINISHED_INITIAL_LOADING"}))
         dispatch(checkForConversation(channel_id, token))
-        dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
+        // dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
       }).catch(error => console.log(error))
     }).catch(error => console.log(error))
   }
@@ -76,7 +76,7 @@ class App extends React.Component {
       return null
     }
     const lastMessage = messages.messagesWhileInactive ? messages.messagesWhileInactive[messages.messagesWhileInactive.length - 1] : null
-    const teamAvatarUrl = widget.initialConfig.channel.avatarUrl ? widget.initialConfig.channel.avatarUrl : null
+    // const teamAvatarUrl = widget.initialConfig.channel.avatarUrl ? widget.initialConfig.channel.avatarUrl : null
     const teamChannelUrl = widget.initialConfig.channelUrl ||  "seaShells.com"
     const welcomeMessage = widget.initialConfig.content ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
     const teamName = widget.initialConfig.content ? widget.initialConfig.content.teamName : ""
@@ -117,10 +117,10 @@ class App extends React.Component {
     )
     console.log(messages.messagesList)
     console.log(messages.messagesWhileInactive)
-    console.log(lastMessage)
+    // console.log(lastMessage.text)
     return (
       <div>
-        {environment.inactive && messages.messagesWhileInactive.length > 0 && lastMessage &&
+        {environment.inactive && messages.messagesWhileInactive.length > 0 && lastMessage.text &&
         <div className="messages-while-inactive">
           <div>
             {lastMessage.text.length > 121 ? `${lastMessage.text.slice(0, 121).trim()}...` : `${lastMessage.text}`}

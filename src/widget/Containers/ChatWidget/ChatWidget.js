@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Messages from '../../../common/Containers/Messages'
+import Messages from '../../../common/Containers/Messaging/Messages'
 import { getConversations, backToConversationSummaryView} from '../../../common/actions/conversations'
 import Footer from './Footer'
 import Header from './Header'
