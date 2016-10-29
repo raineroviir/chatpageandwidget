@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom'
 import ChatPage from './ChatPage/ChatPage'
 import { bindActionCreators } from 'redux'
 import { initUser, fetchUserInfo } from '../../common/actions/user'
-import { initEnvironment, storeUserScrollPosition
+import { initEnvironment
  } from '../../common/actions/environment'
-import { checkForConversation } from '../../common/actions/conversations'
+import { checkForConversation, setactiveConversationId} from '../../common/actions/conversations'
 import { fetchChannelInfo, fetchChannel} from '../../common/actions/channels'
 import {createMessage} from '../../common/actions/messages'
 import saveSubDomainAsChannel from '../../common/actions/channels'
@@ -52,9 +52,14 @@ class App extends React.Component {
     dispatch(initUser(data))
     .then((token) => {
       token = token.access_token
-      dispatch(fetchChannel(channelName, team, token)).then((channel_id) => {
-        dispatch(checkForConversation(channel_id, token))
-        dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: location})
+      dispatch(fetchChannel(channelName, team, token)).then((channel) => {
+        if (!channel.is_group) {
+          dispatch(checkForConversation(channel.id, token))
+        }
+        if (channel.conversation) {
+          console.log(channel.conversation)
+          dispatch(setactiveConversationId(channel.conversation.id))
+        }
       }).catch(error => console.log(error))
     }).catch(error => console.log(error))
   }

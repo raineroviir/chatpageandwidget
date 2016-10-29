@@ -152,8 +152,9 @@ export function fetchChannel(channelname, team, token) {
   }
   return response.json()
 }).then(json => {
+    console.log(json)
     dispatch({type: "FETCHED_CHANNEL", json})
-    return json.channel.id
+    return json.channel
   }, error => {
     dispatch({type: 'FETCH_CHANNEL_ERROR', error})
     throw error

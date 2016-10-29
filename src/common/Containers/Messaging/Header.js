@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import {FaAngleDown} from 'react-icons/lib/fa'
+import {FaAngleDown} from 'react-icons/lib/fa/angle-down'
 import signInIcon from './files/group-3.svg'
 import AvatarOne from './files/bullbasaur.svg'
 import AvatarTwo from './files/charmander.svg'

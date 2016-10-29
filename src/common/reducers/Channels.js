@@ -27,16 +27,18 @@ export function channels(state = initialState, action) {
       ...state,
       channels: Object.assign({}, state.channels, action.posts.processed, { count: action.posts.meta.count})
     };
-  case 'SET_IS_GROUP':
+  case 'FETCHED_CHANNEL':
     return {
       ...state,
-      channels: Object.assign({}, state.channels, { isGroupChat: action.posts.isGroupChat })
-    };
+      channels: [...state.channels, action.json.channel],
+      isGroupChat: action.json.channel.is_group,
+      activeChannelId: action.json.channel.id
+    }
   case 'RESET_CHANNELS':
     return initialState;
-
-  case 'STORE_CHANNEL_INFO':
-    return {...state, activeChannelId: action.channelId, activeChannelUrl: action.channelUrl}
+  //
+  // case 'STORE_CHANNEL_INFO':
+  //   return {...state, activeChannelId: action.channelId, activeChannelUrl: action.channelUrl}
 
   case 'RECEIVE_CHANNEL_INFO':
     return {...state,
