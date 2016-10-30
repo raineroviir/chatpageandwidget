@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import { registerTeam, ownDomainStateFunction } from '../../../actions/register'
+import { registerTeam, ownDomainStateFunction, checkTeamName } from '../../../actions/register'
 class RegisterOrgDomain extends Component {
 
   constructor(props) {
@@ -82,12 +82,13 @@ class RegisterOrgDomain extends Component {
     return value.match(regex);
   }
 
-  inputChange(){
+  inputChange() {
+    const { dispatch } = this.props
     this.refs.RegisterTeam.value = this.validateTeam(this.refs.RegisterTeam.value);
 
-    this.refs.RegisterTeam.style.width = width;
+    // this.refs.RegisterTeam.style.width = width;
 
-    this.props.checkForTeamNameAvailability(this.refs.RegisterTeam.value);
+    dispatch(checkTeamName(this.refs.RegisterTeam.value));
 
     if(this.refs.RegisterTeam.value){
         this.refs.nextButton.disabled = false;

@@ -2,6 +2,7 @@ import Config from '../config';
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
 import {loginUser, submitLogin} from './login'
+// import {fetchUserInfo} from './user'
 
 export function registerOrganizationName(organizationName) {
   return (dispatch, getState) => {
@@ -243,25 +244,19 @@ function addMembers(team, emails, token) {
 function postActionConstruct(json, isIndividual) {
 
   return (dispatch, getState) => {
-
-    // dispatch({
-    //   type: 'REGISTER_ORGANISATION_DETAILS',
-    //   value:{"error":json.error}
-    // })
-
-    dispatch({
-      type:'RESET_USER_DETAILS'
-    });
-
     if(json){
-
-      if(!json.ok){
-        dispatch({
-          type: 'REGISTER_ORGANISATION_DETAILS',
-          value:{"error":json.error}
-        });
-        return;
-      }
+      console.log(json)
+      dispatch({
+        type: "RECEIVED_USER_INFO",
+        user: json.user
+      })
+      // if(!json.ok){
+      //   dispatch({
+      //     type: 'REGISTER_ORGANISATION_DETAILS',
+      //     value:{"error":json.error}
+      //   });
+      //   return;
+      // }
 
       var payload = getState().register.payload,
         username = ((payload.team) ? (payload.team + '.'+ window.config.cc +'/') : window.config.cc + '/' ) + payload.channel,
@@ -280,12 +275,12 @@ function postActionConstruct(json, isIndividual) {
       }
       // TODO: Need to reset org details after successful registration followed by successful login
       // dispatch({
-      //   type:'RESET_ORGANISATION_DETAILS'
+      //   type:'RESET_ORGANIZATION_DETAILS'
       // })
-
-      dispatch({
-        type:'SUCCESSFUL_REGISTRATION_ACK'
-      })
+      //
+      // dispatch({
+      //   type:'SUCCESSFUL_REGISTRATION_ACK'
+      // })
     }
   }
 }
@@ -348,6 +343,7 @@ function postRegistration(payload1) {
     if(OrgObject.ownDomain){
       payload.team = OrgObject.ownDomainValue;
     }
+    console.log(payload)
     postLoginRequest(payload).then(response => {return response.json()})
       .then(json => {
         console.log(json)
@@ -361,7 +357,14 @@ function postRegistration(payload1) {
   }
 }
 
+function setUserInfo(payload) {
+  return {
+    type: "SETTING_USER_INFO",
+    payload
+  }
+}
 export function postLoginRequest(payload){
+  console.log(payload)
   return fetch(Config.api + '/users.signup',
   	{
   		method: 'POST',

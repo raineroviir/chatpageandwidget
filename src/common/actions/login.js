@@ -56,39 +56,9 @@ function postActionConstruct(json, payload, addOrg, goToInvitePage) {
       // browserHistory.push('/dashboard/' + payload.username.split("/")[1]);
     }
   }
+  console.log(json)
+  console.log(payload)
   return (dispatch, getState) => {
-    dispatch({
-      type: 'RESET_CHANNELS',
-      value:"Login Success",
-      receivedAt: Date.now()
-    });
-    dispatch({
-      type: 'SET_ADD_ORG',
-      posts: { addOrg: false },
-      receivedAt: Date.now()
-    });
-    dispatch({
-      type: 'RESET_USER',
-      value:"Login Success",
-      receivedAt: Date.now()
-    });
-    dispatch({
-      type: 'RESET_CONVERSATIONS',
-      value:"Login Success",
-      receivedAt: Date.now()
-    });
-    dispatch({
-      type: 'RESET_MESSAGES',
-      value:"Login Success",
-      receivedAt: Date.now()
-    });
-    dispatch({
-      type: 'LOGIN_USER_RESPONSE',
-      value:{"error":json.error,"token":json.token}
-    });
-    dispatch({
-      type:'RESET_ORGANISATION_DETAILS'
-    })
     dispatch({
       type: "FINISHED_REGISTRATION_PROCESS"
     })
@@ -106,6 +76,7 @@ export function postLogin(payload, addOrg, goToInvitePage) {
     postLoginRequest(payload)
       .then(response => {return response.json()})
       .then(json => {
+        console.log(json)
         dispatch(postActionConstruct(json, payload, addOrg, goToInvitePage))
         dispatch({
           type: "SET_GUEST",
@@ -130,6 +101,7 @@ export function postLogin(payload, addOrg, goToInvitePage) {
 }
 
 export function postLoginRequest(payload){
+  console.log(payload)
 	  return fetch(Config.authBase,
     			{
     				method: 'POST',

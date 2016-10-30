@@ -18,12 +18,15 @@ const initialState = {
 export function user(state = initialState, action) {
   switch (action.type) {
   case 'RECEIVED_USER_INFO':
+  console.log(action.user)
     return {
       ...state,
-      data: action.data,
+      data: action.user,
     };
-  case 'RESET_USER':
-    return initialState;
+  // case 'RESET_USER':
+  //   return initialState;
+  // // case 'SETTING_USER_INFO':
+  // //   return initialState
   case 'USER_UPDATED':
     return {
       ...state,

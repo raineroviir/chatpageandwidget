@@ -116,7 +116,7 @@ export function register(state = initialState, action) {
         ChannelAvailable:action.posts
     };
 
-    case 'RESET_ORGANISATION_DETAILS':
+    case 'RESET_ORGANIZATION_DETAILS':
       return {
         ...state,
         payload: initialState.payload

@@ -192,27 +192,27 @@ export function getConversationHistory (conversationid, token) {
   }
 }
 
-export function setUserInfo(user, history) {
-  if (typeof(Storage) !== "undefined") {
-    var orgs = JSON.parse(localStorage.getItem("orgs")) || [],
-      org;
-    if(orgs.length > 1){
-      org = orgs.find(item => {
-        item.active = false;
-        return item.name.indexOf(user) > 0;
-      });
-    }
-    if(org){
-      org.active = true;
-      localStorage.setItem("token", JSON.stringify(org.token));
-    }
-  }
-  return {
-    type: "DUMMY_DISPATCH",
-    posts : null,
-    receivedAt: Date.now()
-  };
-}
+// export function setUserInfo(user, history) {
+//   if (typeof(Storage) !== "undefined") {
+//     var orgs = JSON.parse(localStorage.getItem("orgs")) || [],
+//       org;
+//     if(orgs.length > 1){
+//       org = orgs.find(item => {
+//         item.active = false;
+//         return item.name.indexOf(user) > 0;
+//       });
+//     }
+//     if(org){
+//       org.active = true;
+//       localStorage.setItem("token", JSON.stringify(org.token));
+//     }
+//   }
+//   return {
+//     type: "DUMMY_DISPATCH",
+//     posts : null,
+//     receivedAt: Date.now()
+//   };
+// }
 
 export function createChannelChatType(attr) {
   createChannelActions.chatType(attr);
