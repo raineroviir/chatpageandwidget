@@ -175,8 +175,8 @@ export function submittedEmailToBot(email) {
     type: "SUBMITTED_EMAIL_TO_BOT", email
   }
 }
-// function receiveGuestInfo (data) {
-//   return {
-//     type: "RECEIVED_GUEST_INFO", data
-//   }
-// }
+function receiveGuestInfo (data) {
+  return {
+    type: "RECEIVED_GUEST_INFO", data
+  }
+}

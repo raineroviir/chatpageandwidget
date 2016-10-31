@@ -11,7 +11,9 @@
     "test": "karma start",
     "widget": "node ./src/widget/server/index.js",
     "build:widget": "webpack --config ./webpack/webpack.prod.config.js --progress --colors",
-    "chatpage": "node ./src/chatpage/server/index.js"
+    "chatpage": "node ./src/chatpage/server/index.js",
+    "build:chatpage": "webpack --config ./webpack/chatpage.prod.config.js --progress --colors",
+    "production:chatpage": "node ./productiontest/chatpage"
   },
   "repository": {
     "type": "git",

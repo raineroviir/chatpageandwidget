@@ -39,8 +39,8 @@ class Header extends Component {
     this.setState({showInfo: !this.state.showInfo, showMenu: this.state.showMenu ? !this.state.showMenu : this.state.showMenu})
   }
   enterEmailForNotificationsToggle() {
-    this.menuToggle()
-    this.setState({showEnterEmailForNotifications: !this.state.showEnterEmailForNotifications})
+    // this.menuToggle()
+    // this.setState({showEnterEmailForNotifications: !this.state.showEnterEmailForNotifications})
   }
   componentDidUpdate(prevProps) {
     if (!prevProps.register.finished_process && this.props.register.finished_process) {
@@ -71,13 +71,13 @@ class Header extends Component {
     const { dispatch } = this.props
     // const token = guest.token || user.token
     // const updates = {email: "forget@me.com", first_name: "forget", last_name: "me"}
-    localStorage.clear()
-    dispatch(forgetUser())
+    // localStorage.clear()
+    // dispatch(forgetUser())
     // dispatch(updateUser(updates, token))
   }
   showRegistrationToggle() {
-    this.menuToggle()
-    this.setState({showRegistration: !this.state.showRegistration})
+    // this.menuToggle()
+    // this.setState({showRegistration: !this.state.showRegistration})
   }
   render() {
     const { widget, guest, user, environment } = this.props

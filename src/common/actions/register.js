@@ -250,6 +250,7 @@ function postActionConstruct(json, isIndividual) {
         type: "RECEIVED_USER_INFO",
         user: json.user
       })
+      // dispatch(fetchUserInfo())
       // if(!json.ok){
       //   dispatch({
       //     type: 'REGISTER_ORGANISATION_DETAILS',
@@ -268,6 +269,7 @@ function postActionConstruct(json, isIndividual) {
       }
 
       dispatch(loginUser(username, password));
+      dispatch()
       // dispatch(submitLogin(getState().orgs.addOrg, !isIndividual));
 
       if (typeof(Storage) !== "undefined") {
@@ -357,12 +359,6 @@ function postRegistration(payload1) {
   }
 }
 
-function setUserInfo(payload) {
-  return {
-    type: "SETTING_USER_INFO",
-    payload
-  }
-}
 export function postLoginRequest(payload){
   console.log(payload)
   return fetch(Config.api + '/users.signup',

@@ -139,6 +139,7 @@ export function selectChannel (channelname, conversationname) {
 }
 
 export function fetchChannel(channelname, team, token) {
+  console.log(channelname, team, token)
   return dispatch => {
   return fetch(`${Config.api}/channels.find?channel=${channelname}&team=${team}`, {
     method: 'GET',

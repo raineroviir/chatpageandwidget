@@ -42,7 +42,10 @@ class App extends React.Component {
     const data = {email: "placeholder"}
     const hostName = window.location.hostname
     const channelSubDomain = hostName.split('.')[0]
-    const channelName = window.location.pathname.slice(1)
+    let channelName = window.location.pathname.slice(1)
+    if (channelName[channelName.length - 1] === '/') {
+      channelName = channelName.slice(0, channelName.length - 1)
+    }
     let channelHost = hostName.split('.')[1]
     if (channelHost = "localhost") {
       channelHost = "chat3.center"
