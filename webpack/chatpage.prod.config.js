@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path')
 module.exports = {
-  devtool: 'eval',
+  devtool: 'source-map',
   entry: {
     chatpage: './src/chatpage/chatpage'
   },
