@@ -9,7 +9,7 @@ import { getWidget } from '../actions/widget'
 import { initEnvironment, storeUserScrollPosition
  } from '../../common/actions/environment'
 import { checkForConversation } from '../../common/actions/conversations'
-import { createWidgetChannel, fetchChannelInfo, fetchChannel} from '../../common/actions/channels'
+import { createWidgetChannel, fetchChannelInfo, fetchChannel, fetchSocket} from '../../common/actions/channels'
 import {createMessage} from '../../common/actions/messages'
 import {widgetToggle} from '../../common/actions/environment'
 import AvatarOne from './ChatWidget/files/bullbasaur.svg'
@@ -56,8 +56,8 @@ class App extends React.Component {
     dispatch(initEnvironment())
     dispatch(initUser(data))
     .then((token) => {
+      dispatch(fetchSocket(token))
       dispatch(fetchChannel(channelname, team, token)).then((channel) => {
-        console.log(channel)
         dispatch(getWidget(channel.id, channel_url, token)).then(() => dispatch({type: "FINISHED_INITIAL_LOADING"}))
         dispatch(checkForConversation(channel.id, token))
         // dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})

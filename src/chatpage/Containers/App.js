@@ -54,7 +54,6 @@ class App extends React.Component {
     dispatch(initEnvironment())
     dispatch(initUser(data))
     .then((token) => {
-      token = token.access_token
       dispatch(fetchChannel(channelName, team, token)).then((channel) => {
           dispatch(fetchSocket(token, channel.id))
         if (!channel.is_group) {

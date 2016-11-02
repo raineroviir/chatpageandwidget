@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 import moment from 'moment';
 import {loginUser, submitLogin} from './login'
 // import {fetchUserInfo} from './user'
-
+import {receiveUserInfo} from './user'
 export function registerOrganizationName(organizationName) {
   return (dispatch, getState) => {
     console.log(organizationName)
@@ -246,10 +246,7 @@ function postActionConstruct(json, isIndividual) {
   return (dispatch, getState) => {
     if(json){
       console.log(json)
-      dispatch({
-        type: "RECEIVED_USER_INFO",
-        user: json.user
-      })
+      dispatch(receiveUserInfo(json))
       // dispatch(fetchUserInfo())
       // if(!json.ok){
       //   dispatch({

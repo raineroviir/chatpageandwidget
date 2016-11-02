@@ -113,7 +113,6 @@ export function initUser(data) {
               throw error
             }).catch(error => console.log(error))
       } else {
-        token = token.access_token
         console.log(token)
         dispatch(fetchUserInfo(token))
         dispatch({type: 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE', token})
@@ -160,7 +159,7 @@ export function updateUser(updates, token) {
   }
 }
 
-function receiveUserInfo(data) {
+export function receiveUserInfo(data) {
   return {
     type: "RECEIVED_USER_INFO", data
   }
@@ -171,11 +170,13 @@ export function forgetUser() {
     type: "FORGET_USER"
   }
 }
+
 export function submittedEmailToBot(email) {
   return {
     type: "SUBMITTED_EMAIL_TO_BOT", email
   }
 }
+
 function receiveGuestInfo (data) {
   return {
     type: "RECEIVED_GUEST_INFO", data
