@@ -30,9 +30,7 @@ class Messages extends Component {
     // }
     const { token } = guest || user
     const node = ReactDOM.findDOMNode(this)
-    console.log(initialLoadComplete, activeConversationId)
     if (!initialLoadComplete && activeConversationId) {
-      console.log('load init history')
       this.loadInitialHistory()
     } else {
       userScrollPosition ? node.scrollTop = userScrollPosition : this.scrollToBottom()
@@ -48,7 +46,6 @@ class Messages extends Component {
     const { activeConversationId, guest, user, dispatch, serverMessages, scrollIndex, oldestVisibleMessageUnixTimestamp} = this.props
     const { token } = guest || user
     dispatch(getConversationHistory(activeConversationId, token, oldestVisibleMessageUnixTimestamp)).then((json) => {
-      console.log(json)
       if (json && json.messages.length > 0) {
         this.scrollToBottom()
         const oldestVisibleMessage = json.messages[json.messages.length - 1]

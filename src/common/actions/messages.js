@@ -20,7 +20,6 @@ export function scrollCompleteForMsgStream() {
 }
 
 export function setOldestVisibleMessageUnixTimestamp(message) {
-  console.log(message)
   const timestamp = moment(message.created_at).format("x")
   return {
     type: "SET_OLDEST_VISIBLE_MESSAGE_UNIX_TIME_STAMP", timestamp
@@ -28,7 +27,6 @@ export function setOldestVisibleMessageUnixTimestamp(message) {
 }
 export function dispatchMessageStream(message) {
   return (dispatch, getState) => {
-    console.log(message)
     const state = getState()
     const userid = state.user.data.id || state.guest.data.id
     if (message.user_id === userid) {
@@ -102,7 +100,6 @@ export function loadServerMsgs(messages) {
 }
 
 function addMessage(message) {
-  console.log(message)
   return {
     type: "ADD_LOCAL_MESSAGE",
     message: message,

@@ -17,9 +17,7 @@ const initialState = {
 export function messages(state = initialState, action) {
   switch (action.type) {
   case 'FETCH_MESSAGES':
-  console.log(action)
     let messages = _.sortBy(action.data.messages, a => (new Date()).getTime() - parseInt(moment(a.created_at).format("x")))
-    console.log(messages)
     return {
       ...state,
       messagesList: messages.reverse().concat(state.messagesList),
@@ -47,8 +45,6 @@ export function messages(state = initialState, action) {
       memoized: Object.assign({}, state.memoized, { [action.message.conversationid]: action.message })
     };
   case 'ADD_LOCAL_MESSAGE':
-  console.log(action)
-  console.log(state.messages)
     return {
       ...state,
       userCreatedNewMessage: true,
@@ -68,7 +64,6 @@ export function messages(state = initialState, action) {
     }
   case 'MESSAGE_STREAM':
     let message = action.message
-    console.log(message)
     message.created_at = moment().format()
     return {
       ...state,

@@ -90,9 +90,7 @@ export function getConversations(channel_id, token) {
   }
 }
 export function getConversationHistory(conversationid, token, oldestVisibleMessageUnixTimestamp, page, perpage) {
-  console.log(oldestVisibleMessageUnixTimestamp)
   const created_before = oldestVisibleMessageUnixTimestamp ? `&created_before=${oldestVisibleMessageUnixTimestamp}` : ""
-  console.log(created_before)
   return dispatch => {
     /* Trigger API service to retrieve latest conversation history */
     return fetch( Config.api + `/conversations.history?conversation_id=${conversationid}${created_before}&page=${page || 1}&per_page=${perpage || 50}`, {
@@ -157,7 +155,6 @@ export function checkForConversation(channel_id, token) {
   const localStorageConversationId = JSON.parse(localStorage.getItem(channel_id))
   return dispatch => {
     if (!localStorageConversationId) {
-      console.log(channel_id, token)
       dispatch(createConversation(channel_id, token))
     } else {
       dispatch(setactiveConversationId(localStorageConversationId))

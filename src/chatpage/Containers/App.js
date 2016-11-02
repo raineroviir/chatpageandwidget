@@ -7,7 +7,7 @@ import { initUser, fetchUserInfo } from '../../common/actions/user'
 import { initEnvironment
  } from '../../common/actions/environment'
 import { checkForConversation, setactiveConversationId} from '../../common/actions/conversations'
-import { fetchChannelInfo, fetchChannel} from '../../common/actions/channels'
+import { fetchChannelInfo, fetchChannel, fetchSocket} from '../../common/actions/channels'
 import {createMessage} from '../../common/actions/messages'
 import saveSubDomainAsChannel from '../../common/actions/channels'
 
@@ -56,6 +56,7 @@ class App extends React.Component {
     .then((token) => {
       token = token.access_token
       dispatch(fetchChannel(channelName, team, token)).then((channel) => {
+          dispatch(fetchSocket(token, channel.id))
         if (!channel.is_group) {
           dispatch(checkForConversation(channel.id, token))
         }

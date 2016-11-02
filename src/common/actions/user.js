@@ -1,7 +1,7 @@
 import Config from '../config';
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
-import { getConversationHistory, fetchSocket, createConversation, createWidgetChannel, fetchChannels } from './channels'
+import { getConversationHistory, createConversation, createWidgetChannel, fetchChannels } from './channels'
 import { createMessage } from './messages'
 import apiService from '../api.service'
 
@@ -26,7 +26,6 @@ function fetchGuestToken(data) {
  * @return {[Promise]}
  */
 export function fetchUserInfo(token) {
-  console.log(token)
   return dispatch => {
     return fetch( Config.api + '/users.me', {
       method: 'GET',
@@ -103,7 +102,6 @@ export function initUser(data) {
               localStorage.setItem("guest", JSON.stringify(token))
               dispatch(fetchUserInfo(token))
               dispatch({type: 'TOKEN_SET', token})
-              dispatch(fetchSocket(token))
               return token
             }
           },
@@ -114,7 +112,6 @@ export function initUser(data) {
       } else {
         dispatch(fetchUserInfo(token))
         dispatch({type: 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE', token})
-        dispatch(fetchSocket(token))
         return Promise.resolve(token)
       }
     } else {
@@ -144,7 +141,6 @@ export function updateUser(updates, token) {
       }
       return response.json()
     }).then(user => {
-      console.log(user)
       if (user.guest) {
         const guest = user.guest
         dispatch({type: "GUEST_UPDATED", guest})

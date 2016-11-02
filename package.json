@@ -14,7 +14,9 @@
     "chatpage": "node ./src/chatpage/server/index.js",
     "build:chatpage": "webpack --config ./webpack/chatpage.prod.config.js --progress --colors",
     "production:chatpage": "node ./productiontest/chatpage",
-    "production:widget": "node ./productiontest/widget"
+    "production:widget": "node ./productiontest/widget",
+    "bundletest:widget": "webpack --json --config ./webpack/widget.prod.config.js | webpack-bundle-size-analyzer",
+    "bundletest:chatpage": "webpack --json --config ./webpack/chatpage.prod.config.js | webpack-bundle-size-analyzer"
   },
   "repository": {
     "type": "git",

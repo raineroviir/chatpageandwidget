@@ -7,7 +7,7 @@ import { getConversations, processConversationsForDispatch } from './conversatio
 import { scrollToBottom } from './environment'
 import {dispatchMessageStream} from './messages'
 
-export function fetchSocket(token, userid) {
+export function fetchSocket(token, channelid) {
   return dispatch => {
     let getSocket = getSocketURL(token);
     if(getSocket) {
@@ -17,7 +17,7 @@ export function fetchSocket(token, userid) {
         }
         return response.json()
       }).then(json => {
-        return initializeSocket(json, dispatch)
+        return initializeSocket(json, dispatch, channelid)
       }, error => {
         dispatch({type: 'FETCH_SOCKET_ERROR', error})
         throw error
@@ -51,21 +51,26 @@ export function saveSubDomainAsChannel(subdomain) {
   }
 }
 function getSocketURL (token) {
-  if ((typeof(Storage) === "undefined" || (!localStorage.getItem("token") && !localStorage.getItem("guest"))) && !token ) return null;
-  if(!token) { token = JSON.parse(localStorage.getItem("token") || localStorage.getItem("guest")) }
   return fetch( Config.api + '/users.websocket.url', {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token.access_token || token,
+      'Authorization': 'Bearer ' + token
     }
   });
 }
 
-function initializeSocket(socket, dispatch) {
+function initializeSocket(socket, dispatch, channelid) {
   const ws = new WebSocket(socket.url)
   ws.onopen = function() {
-    ws.send(JSON.stringify(socket.subscription))
+    if (channelid) {
+        console.log('CHANNEL SUBSCRIPTION ID',channelid)
+      ws.send(JSON.stringify({
+        command:"subscribe", identifier: JSON.stringify({channel:"PublicGroupChannel",channel_id:channelid})
+      }))
+    } else {
+      ws.send(JSON.stringify(socket.subscription))
+    }
   }
   ws.onmessage = function(msg) {
     if(msg && msg.data && JSON.parse(msg.data)) {
@@ -139,7 +144,6 @@ export function selectChannel (channelname, conversationname) {
 }
 
 export function fetchChannel(channelname, team, token) {
-  console.log(channelname, team, token)
   return dispatch => {
   return fetch(`${Config.api}/channels.find?channel=${channelname}&team=${team}`, {
     method: 'GET',
@@ -153,7 +157,6 @@ export function fetchChannel(channelname, team, token) {
   }
   return response.json()
 }).then(json => {
-    console.log(json)
     dispatch({type: "FETCHED_CHANNEL", json})
     return json.channel
   }, error => {

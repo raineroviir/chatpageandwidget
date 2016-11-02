@@ -5,7 +5,7 @@ import Messages from '../../common/Containers/Messaging/Messages'
 export class ChannelRouter extends Component {
   render() {
     return (
-      <Router history={browserHistory}>
+      <Router key={Math.random()} history={browserHistory}>
         <Route path="/*" component={Messages} />
       </Router>
     )

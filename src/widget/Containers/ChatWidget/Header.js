@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import {FaAngleDown} from 'react-icons/lib/fa'
+import {FaAngleDown} from 'react-icons/lib/fa/angle-down'
 import signInIcon from './files/group-3.svg'
 import infoIcon from './files/i.svg'
-import {GoTriangleUp} from 'react-icons/lib/go'
 import AvatarOne from './files/bullbasaur.svg'
 import AvatarTwo from './files/charmander.svg'
 import AvatarThree from './files/eevee.svg'
@@ -143,7 +142,6 @@ class Header extends Component {
       )
     const menu = (
         <div style={{color: widget.initialConfig.keyColor}} className="menu">
-          <div className="menu-popup-triangle"><GoTriangleUp /></div>
             <div style={{color: "black"}}>
               <div>
                 {guest.data.first_name || user.data.first_name ?
