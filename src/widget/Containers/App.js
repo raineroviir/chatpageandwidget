@@ -56,10 +56,10 @@ class App extends React.Component {
     dispatch(initEnvironment())
     dispatch(initUser(data))
     .then((token) => {
-      token = token.access_token
       dispatch(fetchChannel(channelname, team, token)).then((channel) => {
+        console.log(channel)
         dispatch(getWidget(channel.id, channel_url, token)).then(() => dispatch({type: "FINISHED_INITIAL_LOADING"}))
-        dispatch(checkForConversation(channel_id, token))
+        dispatch(checkForConversation(channel.id, token))
         // dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
       }).catch(error => console.log(error))
     }).catch(error => console.log(error))
@@ -71,7 +71,6 @@ class App extends React.Component {
   }
   render() {
     const { widget, environment, messages } = this.props
-    console.log(this.props)
     if (environment.initialLoading) {
       return null
     }

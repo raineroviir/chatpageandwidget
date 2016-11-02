@@ -26,12 +26,13 @@ function fetchGuestToken(data) {
  * @return {[Promise]}
  */
 export function fetchUserInfo(token) {
+  console.log(token)
   return dispatch => {
     return fetch( Config.api + '/users.me', {
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token.access_token
+        'Authorization': 'Bearer ' + token
       }
     }).then(response => {
       if (response.status >= 400) {
@@ -39,6 +40,7 @@ export function fetchUserInfo(token) {
       }
       return response.json()
     }).then(json => {
+      console.log(json)
       json.guest ? dispatch(receiveGuestInfo(json)) :
       dispatch(receiveUserInfo(json))
     },
@@ -98,7 +100,8 @@ export function initUser(data) {
         })
           .then(json => {
             if(json.ok) {
-              let token = json.token;
+              let token = json.token.access_token;
+              console.log(token)
               localStorage.setItem("guest", JSON.stringify(token))
               dispatch(fetchUserInfo(token))
               dispatch({type: 'TOKEN_SET', token})
@@ -110,6 +113,8 @@ export function initUser(data) {
               throw error
             }).catch(error => console.log(error))
       } else {
+        token = token.access_token
+        console.log(token)
         dispatch(fetchUserInfo(token))
         dispatch({type: 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE', token})
         return Promise.resolve(token)
@@ -155,11 +160,11 @@ export function updateUser(updates, token) {
   }
 }
 
-// function receiveUserInfo(data) {
-//   return {
-//     type: "RECEIVED_USER_INFO", data
-//   }
-// }
+function receiveUserInfo(data) {
+  return {
+    type: "RECEIVED_USER_INFO", data
+  }
+}
 
 export function forgetUser() {
   return {

@@ -146,56 +146,6 @@ class Header extends Component {
           </div>
         </div>)
       )
-    const menu = (
-        <div style={{color: widget.initialConfig.keyColor}} className="menu">
-            <div style={{color: "black"}}>
-              <div>
-                {guest.data.first_name || user.data.first_name ?
-                  <div>
-                    {guest.data.first_name || user.data.first_name}
-                  </div> : null
-                }
-                {guest.data.last_name || user.data.last_name ?
-                  <div style={{paddingLeft: "5px"}}>
-                    {guest.data.last_name || user.data.last_name}
-                  </div> : null
-                }
-              </div>
-            {guest.data.email || user.data.email ?
-              <div>
-                <div>
-                  {guest.data.email || user.data.email}
-                </div>
-                <div>
-                  {guest.guest && <div>temporary account</div>}
-                </div>
-              </div> :
-              <div style={{border: "none"}} className="menu-item">
-                <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>
-                  Enter email for notifications
-                </div>
-              </div>
-            }
-            </div>
-          {guest.data.email && <div>
-            <div className="menu-item">
-              <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>Edit</div>
-            </div>
-            <div className="menu-item">
-              <div onClick={this.forgetMe} style={{cursor: "pointer"}}>Forget me</div>
-            </div>
-          </div>}
-          <div className="menu-item">
-            <div style={{cursor: "pointer"}}>Sign in with chat.center</div>
-          </div>
-          <div className="menu-item">
-            <div>
-              <div style={{color: "#000000"}}>Don't have an account?</div>
-            </div>
-            <div onClick={this.showRegistrationToggle} style={{cursor: "pointer"}}>Sign up</div>
-          </div>
-        </div>
-      )
     const widgetMenu = (
       <div style={{color: widget.initialConfig.keyColor}} className="widget-menu">
         <div style={{padding: "10 10 0 0", display: "flex", justifyContent: "flex-end"}}>
@@ -238,17 +188,25 @@ class Header extends Component {
             <div onClick={this.forgetMe} style={{cursor: "pointer"}}>Forget me</div>
           </div>
         </div>}
-        <div className="menu-item">
-          <div onClick={this.showLoginToggle} style={{cursor: "pointer"}}>Sign in with chat.center</div>
-        </div>
-        <div  className="menu-item">
-          <div>
-            <div style={{color: "#000000"}}>Don't have an account?</div>
+        {user.data.id ?
+          <div className="menu-item">
+            <div style={{cursor: "pointer"}}>Sign out
+            </div>
           </div>
+          :
           <div>
-          <div onClick={this.showRegistrationToggle} style={{cursor: "pointer"}}>Sign up</div>
-          </div>
-        </div>
+            <div className="menu-item">
+              <div onClick={this.showLoginToggle} style={{cursor: "pointer"}}>Sign in with chat.center</div>
+            </div>
+            <div  className="menu-item">
+              <div>
+                <div style={{color: "#000000"}}>Don't have an account?</div>
+              </div>
+              <div>
+              <div onClick={this.showRegistrationToggle} style={{cursor: "pointer"}}>Sign up</div>
+              </div>
+            </div>
+        </div>}
       </div>
     )
     const info = (

@@ -73,10 +73,12 @@ export function postLogin(payload, addOrg, goToInvitePage) {
         loginRequest: 'loading'
       }
     })
+    console.log(payload)
     postLoginRequest(payload)
-      .then(response => {return response.json()})
+      .then(response => response.json())
       .then(json => {
-        console.log(json.token.access_token)
+        console.log(json)
+        const token = json.token.access_token
         dispatch(postActionConstruct(json, payload, addOrg, goToInvitePage))
         dispatch({
           type: "SET_GUEST",
@@ -91,10 +93,10 @@ export function postLogin(payload, addOrg, goToInvitePage) {
         })
         dispatch({
           type: "USER_LOGIN_SUCCESS",
-          token: json.token.access_token
+          token: token
         })
-        console.log(json.token.access_token)
-        dispatch(fetchUserInfo(json.token.access_token))
+        console.log(token)
+        dispatch(fetchUserInfo(token))
       }, err => {
         dispatch({
           type: 'SET_LOGIN_DETAIL_STATE',
@@ -107,7 +109,9 @@ export function postLogin(payload, addOrg, goToInvitePage) {
 }
 
 export function postLoginRequest(payload){
-  console.log(payload)
+  if (payload.password) {
+    payload.grant_type = "password"
+  }
 	  return fetch(Config.authBase,
     			{
     				method: 'POST',

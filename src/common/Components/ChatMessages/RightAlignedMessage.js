@@ -17,11 +17,6 @@ export class RightAlignedMessage extends React.Component {
       color: color //font-color
     }
   }
-  computeMessageBubbleSharing() {
-    return {
-
-    }
-  }
   render() {
     const { checkForSameUser, message, previousMessage, guest, user, nextMessage } = this.props
     const displayTimeSentPredicate = moment(message.created_at).diff(moment(previousMessage ? previousMessage.created_at : null) , 'seconds') > 120

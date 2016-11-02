@@ -24,8 +24,9 @@ export class ChatMessages extends Component {
   }
   render() {
     const { messagesList, user, guest, widget, isGroupChat} = this.props
-    const currentUser = guest.data ? guest.data.id : user.data ? user.data.id : null
-    // const currentUser = null;
+    const currentUser = guest.token ? guest.data.id : user.data.id
+    console.log(user.data.id)
+    console.log(currentUser)
     if (this.props.channelError === true) {
       return (<div className="default-message">Channel not found</div>)
     }

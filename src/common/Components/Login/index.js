@@ -24,7 +24,7 @@ export class LoginComponent extends Component {
       //currently always adding org
       const addOrg = true
       dispatch(loginUser(Username, Password))
-      dispatch(submitLogin(addOrg))
+      // dispatch(submitLogin(addOrg))
   }
 
   inputChange(){

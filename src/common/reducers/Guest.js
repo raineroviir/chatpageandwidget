@@ -40,13 +40,13 @@ export function guest(state = initialState, action) {
     return {
       ...state,
       guest: true,
-      token: action.token.access_token
+      token: action.token
     }
   case 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE':
     return {
       ...state,
       guest: true,
-      token: action.token.access_token
+      token: action.token
     }
   case 'GUEST_UPDATED':
     return {
@@ -65,6 +65,8 @@ export function guest(state = initialState, action) {
     return {...state, conversations: action.conversation}
   case 'RECEIVED_CHANNELS_FROM_SERVER':
     return {...state, channel: action.channels[0]}
+  case 'USER_LOGIN_SUCCESS':
+    return initialState
   default:
     return state;
   }
