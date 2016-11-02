@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 import Config from '../config';
 //import postLoginRequest from '../services/common/login';
 // import { browserHistory } from 'react-router';
-
+import {fetchUserInfo} from './user'
 export function loginUser(Username,Password) {
   return (dispatch, getState) => {
       dispatch({
@@ -17,7 +17,7 @@ export function loginUser(Username,Password) {
 export function submitLogin(addOrg,goToInvitePage) {
   //alert('submitRegistration');
   return (dispatch, getState) => {
-      return dispatch(postLogin(getState().loginDetails.User.payload, addOrg, goToInvitePage))
+      return dispatch(postLogin(getState().login.user.payload, addOrg, goToInvitePage))
   }
 }
 
@@ -76,7 +76,7 @@ export function postLogin(payload, addOrg, goToInvitePage) {
     postLoginRequest(payload)
       .then(response => {return response.json()})
       .then(json => {
-        console.log(json)
+        console.log(json.token.access_token)
         dispatch(postActionConstruct(json, payload, addOrg, goToInvitePage))
         dispatch({
           type: "SET_GUEST",
@@ -89,6 +89,12 @@ export function postLogin(payload, addOrg, goToInvitePage) {
             loginRequest: 'loaded'
           }
         })
+        dispatch({
+          type: "USER_LOGIN_SUCCESS",
+          token: json.token.access_token
+        })
+        console.log(json.token.access_token)
+        dispatch(fetchUserInfo(json.token.access_token))
       }, err => {
         dispatch({
           type: 'SET_LOGIN_DETAIL_STATE',

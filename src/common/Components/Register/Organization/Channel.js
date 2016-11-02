@@ -46,7 +46,6 @@ class RegisterOrgChannel extends Component {
   }
 
   render() {
-    console.log("RENDERING ADDRESS")
     //redirect to first page if refreshed
     // if(this.props.registrationDetails.Organisation.payload.team_description === ''){
     //   //window.location.hash = "#/signup/organization/name";

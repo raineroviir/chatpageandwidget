@@ -32,6 +32,11 @@ export function user(state = initialState, action) {
       ...state,
       data: action.user
     }
+  case 'USER_LOGIN_SUCCESS':
+    console.log(action)
+    return {
+      ...state, token: action.token
+    }
   default:
     return state;
   }

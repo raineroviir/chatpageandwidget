@@ -9,19 +9,22 @@ import { styles } from './styles.scss';
 import Logo from "../images/logo.svg"
 import UserIcon from "../images/user-icon.svg"
 import PasswordIcon from "../images/password-icon.svg"
+import { loginUser, submitLogin } from '../../actions/login'
 
 export class LoginComponent extends Component {
 
   handleLogin(e){
       e.preventDefault();
+      const { dispatch } = this.props
         //service call to register and move to chat message home screen
       let Username = this.refs.Username.value;
       let Password = this.refs.Password.value;
 
       //store the value in STORE by dispatching event in action
-      this.props.actions.loginUser(Username, Password);
-      this.props.actions.submitLogin(this.props.addOrg);
-
+      //currently always adding org
+      const addOrg = true
+      dispatch(loginUser(Username, Password))
+      dispatch(submitLogin(addOrg))
   }
 
   inputChange(){
@@ -29,16 +32,16 @@ export class LoginComponent extends Component {
   }
 
   componentDidMount() {
-    this.refs.loginBtn.disabled = true;
+    // this.refs.loginBtn.disabled = true;
   }
-
-  render() {
-
-    var errorCls = '';
-    if(!this.props.loginDetails.User.error) {
-      errorCls = 'hide';
+  determineIfError() {
+    if(!this.props.login.user.error) {
+      return 'none';
+    } else {
+      return 'block'
     }
-
+  }
+  render() {
     return (
       <div id="loginbox" className="login-wrapper">
             <form id="signupform" className="form-horizontal" role="form">
@@ -47,24 +50,24 @@ export class LoginComponent extends Component {
                 </div>
                 <h1 className="title text-center">{window.config.cc}</h1>
                 <div className="details text-center">Sign in to your account</div>
-                <div className={'login-error-message ' + errorCls}>
+                <div style={{display: this.determineIfError()}} className={'login-error-message '}>
                   Incorrect Chat Address or Password
                 </div>
-                <div className="input-group input-group-lg">
-                  <label htmlFor="username" className="input-group-addon user-name" id="username-addon"><img className="prefix" src={UserIcon} /><span className="prefix-text">https:<span className="double-slashes">//</span></span></label>
-                  <input autoFocus id="username" type="text" className="form-control" ref="Username" placeholder="your chat address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
+                <div style={{display: "flex"}} className="input-group input-group-lg">
+                  <label style={{display: "flex", "alignItems": "center"}} htmlFor="username" className="input-group-addon user-name" id="username-addon"><img className="prefix" src={UserIcon} /><span className="prefix-text">https:<span className="double-slashes">//</span></span></label>
+                  <input style={{width: "100%"}} autoFocus id="username" type="text" className="form-control" ref="Username" placeholder="your chat address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
                 </div>
                 <div className="desc">Examples: {window.config.cc}/you; yourteam.{window.config.cc}/you; chat.yourdomain.com/you</div>
-                <div className="input-group input-group-lg password-field">
-                  <label htmlFor="password" className="input-group-addon" id="password-addon"><img className="prefix" src={PasswordIcon} /></label>
-                  <input id="password" type="password" className="form-control" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
+                <div style={{display: "flex"}} className="input-group input-group-lg password-field">
+                  <label style={{display: "flex", "alignItems": "center"}} htmlFor="password" className="input-group-addon" id="password-addon"><img className="prefix" src={PasswordIcon} /></label>
+                  <input style={{width: "100%"}} id="password" type="password" className="form-control" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
                 </div>
                 <div className="form-group">
                     <div className="col-sm-12 text-center">
                       <button type="submit" className=
                       {
                         classNames("btn btn-default sign-in", {
-                        'btn-loading': this.props.loginDetails.loginRequest === 'loading'
+                        'btn-loading': this.props.login.loginRequest === 'loading'
                         })
                       }
                       ref="loginBtn"
@@ -83,18 +86,16 @@ export class LoginComponent extends Component {
                   </div>
             </form>
        </div>
-
     );
   }
 }
 
 function mapStateToProps(state) {
+  const { login } = state
   return {
-    loginDetails: state.loginDetails,
-    registrationDetails: state.registrationDetails
+    login
   }
 }
-
 
 function mapDispatchToProps(dispatch) {
   return {

@@ -8,9 +8,11 @@ import { guest } from '../../common/reducers/guest';
 import { bot } from '../../common/reducers/bot'
 
 import { environment } from './environment';
+import { login } from '../../common/reducers/login'
 
 const rootReducer = combineReducers({
   /* your reducers */
+  login,
   register,
   environment,
   channels,

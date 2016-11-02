@@ -82,6 +82,9 @@ function initializeSocket(socket, dispatch, channelid) {
         case "message": {
           dispatch(dispatchMessageStream(data.message.payload))
         }
+        case "public_group_message": {
+          dispatch(dispatchMessageStream(data.message.payload))
+        }
       }
     }
   }

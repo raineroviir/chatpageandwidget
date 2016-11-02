@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import {FaAngleDown} from 'react-icons/lib/fa/angle-down'
+import FaAngleDown from 'react-icons/lib/fa/angle-down'
 import signInIcon from './files/group-3.svg'
 import infoIcon from './files/i.svg'
 import AvatarOne from './files/bullbasaur.svg'
@@ -25,22 +25,24 @@ class Header extends Component {
     this.enterEmailForNotificationsToggle.bind(this)
     this.handleUserUpdate = this.handleUserUpdate.bind(this)
     this.showRegistrationToggle = this.showRegistrationToggle.bind(this)
+    this.showLoginToggle = this.showLoginToggle.bind(this)
     this.state = {
       showMenu: false,
       showEnterEmailForNotifications: false,
-      showRegistration: false
+      showRegistration: false,
+      showLogin: false
     }
   }
   menuToggle() {
     this.setState({showMenu: !this.state.showMenu})
   }
   enterEmailForNotificationsToggle() {
-    // this.menuToggle()
-    // this.setState({showEnterEmailForNotifications: !this.state.showEnterEmailForNotifications})
+    this.menuToggle()
+    this.setState({showEnterEmailForNotifications: !this.state.showEnterEmailForNotifications})
   }
   componentDidUpdate(prevProps) {
     if (!prevProps.register.finished_process && this.props.register.finished_process) {
-      this.setState({showRegistration: false})
+      this.setState({showRegistration: false, showLogin: false})
     }
   }
   handleUserUpdate(e) {
@@ -65,15 +67,19 @@ class Header extends Component {
   }
   forgetMe() {
     const { dispatch } = this.props
-    // const token = guest.token || user.token
-    // const updates = {email: "forget@me.com", first_name: "forget", last_name: "me"}
-    // localStorage.removeItem("guest")
-    // dispatch(forgetUser())
-    // dispatch(updateUser(updates, token))
+    const token = guest.token || user.token
+    const updates = {email: "forget@me.com", first_name: "forget", last_name: "me"}
+    localStorage.clear()
+    dispatch(forgetUser())
+    dispatch(updateUser(updates, token))
+  }
+  showLoginToggle() {
+    this.menuToggle()
+    this.setState({showLogin: !this.state.showLogin})
   }
   showRegistrationToggle() {
-    // this.menuToggle()
-    // this.setState({showRegistration: !this.state.showRegistration})
+    this.menuToggle()
+    this.setState({showRegistration: !this.state.showRegistration})
   }
   render() {
     const { widget, guest, user, environment } = this.props
@@ -233,7 +239,7 @@ class Header extends Component {
           </div>
         </div>}
         <div className="menu-item">
-          <div style={{cursor: "pointer"}}>Sign in with chat.center</div>
+          <div onClick={this.showLoginToggle} style={{cursor: "pointer"}}>Sign in with chat.center</div>
         </div>
         <div  className="menu-item">
           <div>
@@ -279,6 +285,7 @@ class Header extends Component {
           </div>
         </div>
         <div>{this.state.showRegistration && <div className="registration"><RegistrationRouter /></div>}</div>
+        <div>{this.state.showLogin && <div className="registration"><Login /></div>}</div>
         <div>{this.state.showMenu && widgetMenu}</div>
       </div>
     )
