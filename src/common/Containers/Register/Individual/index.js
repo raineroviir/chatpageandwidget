@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MailIcon from "../../images/iconMail.svg"
-import PasswordIcon from "../../images/password-icon.svg"
-import UserIcon from "../../images/user-icon.svg"
+import MailIcon from "../../../Components/images/iconMail.svg"
+import PasswordIcon from "../../../Components/images/password-icon.svg"
+import UserIcon from "../../../Components/images/user-icon.svg"
 /* component styles */
 import { styles } from '../styles.scss';
 
@@ -31,7 +31,7 @@ class RegisterIndividual extends Component {
     this.refs.nextBtn.disabled = !(this.refs.FirstName.value && this.refs.LastName.value && this.refs.Password.value && this.refs.Password.value.length>=8 && this.validateEmail(this.refs.Email.value))
   }
   handleBack() {
-    
+
   }
   validateEmail(email){
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

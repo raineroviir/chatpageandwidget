@@ -4,14 +4,16 @@ import { browserHistory, Route, IndexRoute } from 'react-router';
 /* containers */
 import App from './containers/App';
 import Home from './containers/Home';
-import Login from './containers/Login';
-import Registration from './containers/Registration';
-import RegisterStart from './components/Register';
-import RegisterOrgName from './containers/Registration/Organization/Name';
-import RegisterOrgDomain from './containers/Registration/Organization/Domain';
-import RegisterOrgVerify from './containers/Registration/Organization/Verify';
-import RegisterOrgDetail from './containers/Registration/Organization/Detail';
-import RegisterOrgAddress from './containers/Registration/Organization/Address';
+import Login from '../common/Containers/Login';
+
+import Registration from '../common/Containers/Register';
+import RegisterStart from '../common/Containers/Register';
+import RegisterOrgName from '../common/Containers/Register/Organization/Name';
+import RegisterOrgDomain from '../common/Containers/Register/Organization/Domain';
+import RegisterOrgVerify from '../common/Containers/Register/Organization/Verify';
+import RegisterOrgDetail from '../common/Containers/Register/Organization/Detail';
+import RegisterOrgAddress from '../common/Containers/Register/Organization/Channel';
+
 import OrgInvite from './components/Register/Organization/Invite';
 import OrgJoin from './components/Register/Organization/Join';
 import RegisterIndividual from './components/Register/Individual';

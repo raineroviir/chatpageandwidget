@@ -7,8 +7,6 @@ import { items } from './items';
 import { orgs } from './Organizations';
 import { createMessage } from './CreateMessage';
 import { userinfo } from './Userinfo';
-import { registrationDetails } from './registrationDetails';
-import { loginDetails } from './loginDetails';
 // import { guest } from './Guest';
 import { channelDetails } from './ChannelDetails';
 import { createChannel } from './CreateChannel';
@@ -19,8 +17,10 @@ import { upgradePlan } from './upgradePlan';
 import { poptart } from './poptart';
 import { loader } from './loader';
 import { tabnav } from './tabnav';
-
 import { settings } from './settings';
+
+import { login } from '../../common/reducers/login'
+
 
 import { channels } from '../../common/reducers/channels';
 import { conversations } from '../../common/reducers/conversations';
@@ -34,6 +34,7 @@ import { bot } from '../../common/reducers/bot'
 const rootReducer = combineReducers({
   form: formReducer,
   /* your reducers */
+  login,
   items,
   user,
   bot,
@@ -42,8 +43,6 @@ const rootReducer = combineReducers({
   environment,
   messages,
   createMessage,
-  registrationDetails,
-  loginDetails,
   userinfo,
   orgs,
   guest,

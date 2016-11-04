@@ -13,9 +13,9 @@ import {connect} from 'react-redux'
 import {updateUser, forgetUser} from '../../../common/actions/user'
 import SignInIcon from '../../../common/Components/svgs/SignInIcon'
 import InfoIcon from '../../../common/Components/svgs/InfoIcon'
-import Register from '../../../common/Components/Register'
-import Login from '../../../common/Components/Login'
-import {RegistrationRouter} from '../../../common/Components/Register/router'
+import Register from '../../../common/Containers/Register'
+import Login from '../../../common/Containers/Login'
+import {RegistrationRouter} from '../../../common/Containers/Register/router'
 
 class Header extends Component {
   constructor(props) {

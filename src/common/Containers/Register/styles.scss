@@ -1,9 +1,6 @@
 #signupbox {
-	width:600px;
-	box-sizing:border-box;
-	padding: 95px 68px 30px;
-	font-size:16px;
-	left:50%;
+	width: 100%;
+	padding: 10px;
 	a, a:visited, a:active, a:focus, a:hover {
 	  color: #3997fe !important;
 	  text-decoration:none !important;
@@ -27,14 +24,12 @@
 	.logo {
 		width: 75.6px;
   		height: 65.5px;
-  		position:absolute;
   		left:-34px;
   		top: 40px;
 	}
 	.logo-wrapper {
 		text-align:center;
 		.logo {
-	  		position:static;
 	  		margin-left: -10px;
 		}
 	}
@@ -50,7 +45,6 @@
 		font-family: Rubik-Medium;
 	}
 	.inner-title {
-		font-size:40px;
 		margin-top: 29px;
 	    letter-spacing: -0.2px;
 	    margin-bottom: 30px;
@@ -275,7 +269,6 @@
 	  	margin:24px 0;
 	}
 	.user-status {
-		position:absolute;
 		top:10px;
 		left:10px;
 		span{
@@ -362,13 +355,11 @@
     .sign-in-wrapper {
         background: #eee;
 	    clear: both;
-	    padding: 11px 17px;
+	    padding: 11px;
 	    margin: 30px auto 0;
 	    display: inline-block;
 	    margin-top: 55px;
 	    letter-spacing: 0.4px;
-	    padding-left: 25px;
-	    padding-right: 25px;
 	    border-radius: 3px;
 	    span {
 	    margin-right:5px;
@@ -449,10 +440,18 @@
     		margin-top: 8px;
     	}
     	.form-control {
-    		width: auto;
-    		min-width: 10px;
-    		width: 10px;
-    		max-width: calc( 100% - 110px );
+				::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+					max-width: 80%;
+				}
+				:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+				 	max-width: 80%;
+				}
+				::-moz-placeholder { /* Mozilla Firefox 19+ */
+				 	max-width: 80%;
+				}
+				:-ms-input-placeholder { /* Internet Explorer 10-11 */
+					max-width: 80%;
+				}
     	}
     	.input-group-addon.suffix {
     		display: inline-block;
@@ -469,7 +468,6 @@
 }
 
 #signupbox.logo-centered {
-	padding: 30px 130px 30px;
 	.logo {
 		width: 121.4px;
   		height: 105.3px;
@@ -485,98 +483,10 @@
 }
 /* Validation error message styles ends here*/
 
-/* media queries */
-@media only screen and (max-width : 650px) {
-	#signupbox {
-		width:100%;
-		box-sizing:border-box;
-		padding: 40px 15px 30px 15px;
-		left:auto;
-		margin-left:auto;
-		.logo {
-	  		position:static;
-		}
-		.own-domain-wrapper {
-			text-align:center;
-		    .own-domain {
-		    	color:#474848 !important;
-		    	text-decoration:underline !important;
-		    	font-size:14px;
-		    	float:none;
-		    }
-	    }
-	}
-}
-@media only screen and (max-width : 599px) {
-	#signupbox.logo-centered {
-		padding: 30px 15px 30px;
-		.logo {
-			width: 121.4px;
-	  		height: 105.3px;
-		}
-	}
-}
-
-@media only screen and (max-width : 489px) {
-	#signupbox.logo-centered {
-		padding: 30px 15px 30px;
-		.logo {
-			width: 121.4px;
-	  		height: 105.3px;
-		}
-	}
-	#signupbox {
-		.domain-small {
-	    	display:block;
-	    }
-	    .domain-big {
-	    	display:none;
-	    }
-	    button.domain-big-button {
-	    	width: 100px !important;
-	    }
-    }
-}
-
-@media only screen and (max-width : 335px) {
-	#signupbox {
-		button.sign-up {
-			width: 100%;
-		}
-		button.sign-in {
-			width: 130px;
-		}
-		button.back {
-			background-color: transparent;
-			width: 100px;
-		}
-		.user-type a span.user-type-content{
-	    	max-width:200px;
-	    }
-	}
-}
-
-@media only screen and (min-width : 651px) {
-	#signupbox {
-		.domain-form, .org-detail-form, .org-address-form, .ind-details-from,.name-chat-form {
-			button.back {
-				margin-left: 30px;
-			}
-		}
-	}
-
-	#signupbox {
-		.message-wrapper {
-			float: left;
-		}
-	}
-}
-
 
 #calc-input-width  {
 	font-size: 18px;
 	font-family: inherit;
-	position: absolute;
 	z-index: -1;
 	left: -99999px;
 }

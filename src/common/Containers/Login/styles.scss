@@ -1,19 +1,19 @@
 .login-wrapper {
 	background-color: #FFFFFF;
-	position: absolute;
 	top: 0;
 	height: 100%;
-	width: 320px;
 	align-self: center;
-	right: 0;
 	font-family: Rubik;
 	font-size: 16px;
 	font-weight: normal;
 	font-style: normal;
 	font-stretch: normal;
 	color: #474848;
+	width: 100%;
 }
 #loginbox {
+	display: flex;
+	justify-content: center;
 	a, a:visited, a:active, a:focus, a:hover {
 	  color: #3997fe !important;
 	  text-decoration:none !important;

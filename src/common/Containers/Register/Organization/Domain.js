@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import loaderDots from '../../images/loader-dots.gif'
+import loaderDots from '../../../Components/images/loader-dots.gif'
 import { registerTeam, ownDomainStateFunction, checkTeamName } from '../../../actions/register'
 class RegisterOrgDomain extends Component {
 

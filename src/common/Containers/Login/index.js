@@ -6,9 +6,9 @@ import classNames from 'classnames'
 /* component styles */
 import { styles } from './styles.scss';
 
-import Logo from "../images/logo.svg"
-import UserIcon from "../images/user-icon.svg"
-import PasswordIcon from "../images/password-icon.svg"
+import Logo from "../../Components/images/logo.svg"
+import UserIcon from "../../Components/images/user-icon.svg"
+import PasswordIcon from "../../Components/images/password-icon.svg"
 import { loginUser, submitLogin } from '../../actions/login'
 
 export class LoginComponent extends Component {

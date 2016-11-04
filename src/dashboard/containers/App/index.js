@@ -50,15 +50,15 @@ class App extends Component {
     const channelname = channel_url.slice(index + 1)
     const team = channel_url.slice(0,index)
     // dispatch(initEnvironment())
-    dispatch(initUser(data))
-    .then((token) => {
-      token = token.access_token
-      console.log(token)
-      dispatch(fetchChannel(channelname, team, token)).then((channel_id) => {
-        dispatch(checkForConversation(channel_id, token))
-        dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
-      }).catch(error => console.log(error))
-    }).catch(error => console.log(error))
+    // dispatch(initUser(data))
+    // .then((token) => {
+    //   token = token.access_token
+    //   console.log(token)
+    //   dispatch(fetchChannel(channelname, team, token)).then((channel_id) => {
+    //     dispatch(checkForConversation(channel_id, token))
+    //     dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
+    //   }).catch(error => console.log(error))
+    // }).catch(error => console.log(error))
   }
 
   render() {

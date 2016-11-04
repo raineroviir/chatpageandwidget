@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import { Link } from 'react-router';
-import Logo from "../images/logo.svg"
-import IndIcon from "../images/ind-icon.svg"
-import OrgIcon from "../images/org-icon.svg"
+import Logo from "../../Components/images/logo.svg"
+import IndIcon from "../../Components/images/ind-icon.svg"
+import OrgIcon from "../../Components/images/org-icon.svg"
 
 const metaData = {
   title: 'Register | Chat Center',
