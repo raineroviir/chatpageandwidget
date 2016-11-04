@@ -26,7 +26,8 @@ class RegisterOrgDomain extends Component {
     var ownDomainValue = this.refs.RegisterTeamOwnDomain.value;
     dispatch(registerTeam(domain))
     dispatch(ownDomainStateFunction(ownDomainState, ownDomainValue))
-    this.context.router.push("orgdetail")
+    this.context.router.push("signup/organization/detail")
+    console.log(this.props)
   }
   handleOwnDomain(e){
     if(e){

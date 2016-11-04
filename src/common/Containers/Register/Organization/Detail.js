@@ -21,7 +21,7 @@ class RegisterOrgDetail extends Component {
     let LastName = this.refs.LastName.value;
     let Email = this.refs.Email.value;
     dispatch(registerPersonalDetails(FirstName,LastName,Email))
-    this.context.router.push("orgaddress")
+    this.context.router.push("signup/organization/address")
   }
   handleBack() {
     this.context.router.goBack()

@@ -35,7 +35,7 @@ class Messages extends Component {
     } else {
       userScrollPosition ? node.scrollTop = userScrollPosition : this.scrollToBottom()
     }
-    if (!isGroupChat) {
+    if (!isGroupChat && widget) {
       dispatch(loadBot())
     }
     if (!widget) {

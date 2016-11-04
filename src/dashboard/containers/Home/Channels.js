@@ -6,7 +6,6 @@ import * as CreateChannelActions from '../../actions/CreateChannel';
 import { browserHistory } from 'react-router';
 import { fetchSocket } from '../../actions/Channels';
 
-
 /* components */
 import { ChannelList } from '../../components/ChannelList';
 
@@ -21,7 +20,6 @@ socket.on("connect", () => {
 socket.on('message', state => {
   console.log(state);
 });*/
-
 
 export class Channels extends Component {
   selectChannel(channel){
@@ -79,23 +77,23 @@ export class Channels extends Component {
   }
   render() {
     return (
-        <ChannelList
-        createChannel={this.createChannel.bind(this)}
-        channels={this.props.channels.channels}
-        user={this.props.user}
-        selectChannel={this.selectChannel.bind(this)}
-        activeChannel={this.props.activeChannel}
-        org={this.props.org} />
+      <ChannelList
+      createChannel={this.createChannel.bind(this)}
+      channels={this.props.channels.channels}
+      user={this.props.user}
+      selectChannel={this.selectChannel.bind(this)}
+      activeChannel={this.props.activeChannel}
+      org={this.props.org} />
     );
   }
   componentDidMount(){
-
-    this.props.actions.getChannels( this.props.activeChannel );
-    this.props.createChannelActions.resetDetails();
+    console.log('channels HOME MOUNTED')
+    // this.props.actions.getChannels( this.props.activeChannel );
+    // this.props.createChannelActions.resetDetails();
     // this.props.actions.fetchSocket();
-    if(this.props.channelname){
-      this.props.actions.selectChannel(this.props.channelname, this.props.conversationname);
-    }
+    // if(this.props.channelname){
+    //   this.props.actions.selectChannel(this.props.channelname, this.props.conversationname);
+    // }
   }
   componentDidUpdate(){
     //window.setTimeout(() => this.props.actions.testSocket(), 2000);

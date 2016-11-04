@@ -18,7 +18,7 @@ class RegisterOrgName extends Component {
     const { dispatch } = this.props
     let organizationName = this.capitalizeFirstLetter(this.refs.RegisterOrganizationName.value)
     dispatch(registerOrganizationName(organizationName))
-    this.context.router.push("orgdomain")
+    this.context.router.push("signup/organization/domain")
   }
   handleBack() {
     this.context.router.goBack()

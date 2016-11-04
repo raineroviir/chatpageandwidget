@@ -18,7 +18,7 @@ class RegisterOrgChannel extends Component {
     const { dispatch } = this.props
     let RegisterChannel = this.refs.RegisterChannel.value;
     dispatch(registerChannel(RegisterChannel))
-    this.context.router.push("orgverify")
+    this.context.router.push("signup/organization/verify")
   }
   handleBack() {
     this.context.router.goBack()

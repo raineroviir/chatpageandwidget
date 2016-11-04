@@ -42,13 +42,13 @@ class App extends Component {
   componentDidMount() {
     const { dispatch } = this.props
     console.log(dispatch)
-    const data = {email: "placeholder"}
-    const checkLocalStorage = JSON.parse(localStorage.getItem("orgs"))
-    const channel_url = checkLocalStorage ? checkLocalStorage[0].name : "r.chat.center/o"
-    console.log(channel_url)
-    const index = channel_url.indexOf('/')
-    const channelname = channel_url.slice(index + 1)
-    const team = channel_url.slice(0,index)
+    // const data = {email: "placeholder"}
+    // const checkLocalStorage = JSON.parse(localStorage.getItem("orgs"))
+    // const channel_url = checkLocalStorage ? checkLocalStorage[0].name : "r.chat.center/o"
+    // console.log(channel_url)
+    // const index = channel_url.indexOf('/')
+    // const channelname = channel_url.slice(index + 1)
+    // const team = channel_url.slice(0,index)
     // dispatch(initEnvironment())
     // dispatch(initUser(data))
     // .then((token) => {
