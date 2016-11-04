@@ -1,7 +1,7 @@
 import React from 'react'
-import CreateMessage from './CreateMessage'
+import CreateMessage from '../../../common/Containers/Messaging/CreateMessage'
 import { connect } from 'react-redux'
-import { createConversation, prepareToCreateConversation } from '../../actions/conversations'
+import { createConversation, prepareToCreateConversation } from '../../../common/actions/conversations'
 
 class Footer extends React.Component {
   render() {

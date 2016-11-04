@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Messages from '../../../common/Containers/Messaging/Messages'
-import Footer from '../../../common/Containers/Messaging/Footer'
-import Header from '../../../common/Containers/Messaging/Header'
+import Footer from './Footer'
+import Header from './Header'
 import ReactDOM from 'react-dom'
 import {ChannelRouter} from '../ChannelRouter'
 import styles from './styles.scss';

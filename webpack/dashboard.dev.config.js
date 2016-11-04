@@ -20,7 +20,7 @@ module.exports = {
           {
             test: /\.js$/,
             loader: 'babel',
-            exclude: [/node_modules/, path.join(__dirname, 'src/widget'), path.join(__dirname, 'src/chatpage')],
+            include: [path.join(__dirname, '..', 'src/common'), path.join(__dirname, '..', 'src/dashboard')],
             query: {
               presets: [ 'react-hmre', "react", "es2015" , "stage-0" ]
             }
