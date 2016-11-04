@@ -121,10 +121,10 @@ export function inviteMembers (emails) {
       }
       else{
         token = getState().loginDetails.User.token.access_token;
-      } 
+      }
       fetchUserInfo(token).then(response => {return response.json()})
         .then(json => {
-          return addMembers(json.user.team.id, emails, token).then(response => {return response.json()})   
+          return addMembers(json.user.team.id, emails, token).then(response => {return response.json()})
         })
         .then(json => {
           if(json.ok){
@@ -239,9 +239,9 @@ function addMembers(team, emails, token) {
 }
 
 function postActionConstruct(json, isIndividual) {
- 
+
   return (dispatch, getState) => {
-    
+
     // dispatch({
     //   type: 'REGISTER_ORGANISATION_DETAILS',
     //   value:{"error":json.error}
@@ -261,7 +261,7 @@ function postActionConstruct(json, isIndividual) {
         return;
       }
 
-      var payload = getState().registrationDetails.Organisation.payload, 
+      var payload = getState().registrationDetails.Organisation.payload,
         username = ((payload.team) ? (payload.team + '.'+ window.config.cc +'/') : window.config.cc + '/' ) + payload.channel,
         password = payload.password;
 
@@ -271,7 +271,7 @@ function postActionConstruct(json, isIndividual) {
       }
 
       dispatch(LoginActions.loginUser(username, password));
-      dispatch(LoginActions.submitLogin(getState().orgs.addOrg, !isIndividual));          
+      dispatch(LoginActions.submitLogin(getState().orgs.addOrg, !isIndividual));
 
       if (typeof(Storage) !== "undefined") {
         localStorage.setItem("user_channel", payload.channel);
@@ -283,13 +283,13 @@ function postActionConstruct(json, isIndividual) {
 
       dispatch({
         type:'SUCCESSFUL_REGISTRATION_ACK'
-      })       
-    }   
+      })
+    }
   }
 }
 
 function postJoinActionConstruct(json) {
- 
+
   return (dispatch, getState) => {
 
     // dispatch({
@@ -306,12 +306,12 @@ function postJoinActionConstruct(json) {
         return;
       }
 
-      var payload = getState().registrationDetails.Organisation.joinDetails, 
+      var payload = getState().registrationDetails.Organisation.joinDetails,
         username = payload.team_name + '/' + payload.username,
         password = payload.password;
 
       dispatch(LoginActions.loginUser(username, password));
-      dispatch(LoginActions.submitLogin(getState().orgs.addOrg));          
+      dispatch(LoginActions.submitLogin(getState().orgs.addOrg));
 
       if (typeof(Storage) !== "undefined") {
         localStorage.setItem("user_channel", payload.channel);
@@ -319,8 +319,8 @@ function postJoinActionConstruct(json) {
 
       dispatch({
         type:'SUCCESSFUL_REGISTRATION_ACK'
-      })       
-    }   
+      })
+    }
   }
 }
 
@@ -344,9 +344,9 @@ function postRegistration(payload1, isIndividual, OrgObject) {
     if(OrgObject.ownDomain){
       payload.team = OrgObject.ownDomainValue;
     }
-    postLoginRequest(payload).then(response => {return response.json()})	
+    postLoginRequest(payload).then(response => {return response.json()})
       .then(json => {
-        
+
         dispatch(postActionConstruct(json, isIndividual));
         dispatch({
           type: 'SET_SIGNUP_REQ_STATUS',
@@ -371,7 +371,7 @@ function postLoginRequest(payload){
 function postJoinRegistration(payload1) {
   return dispatch => {
     var payload = Object.assign({},payload1);
-    postJoinRequest(payload).then(response => {return response.json()})  
+    postJoinRequest(payload).then(response => {return response.json()})
       .then(json => dispatch(postJoinActionConstruct(json)))
   }
 }
@@ -402,31 +402,16 @@ export function checkTeamName(team_description) {
   }
 }
 
-function teamNameAvailable(team_description) {  
+function teamNameAvailable(team_description) {
   //console.log('teamNameAvailable');
   return dispatch => {
-    postTeamName(team_description).then(response => {return response.json()})  
+    postTeamName(team_description).then(response => {return response.json()})
       .then(json => dispatch(postTeamAvailabilityResponse(json)))
   }
 }
 
 function postTeamName(team_description){
     return fetch(Config.api + '/teams.find?team='+team_description)
-} 
-
-function postTeamAvailabilityResponse(json) {
-  //console.log(JSON.stringify(json));
-  // if(!json.ok){
-  //   return {
-  //     type: 'TEAM_AVAILABILITY_RESULT',
-  //     posts:{}
-  //   }
-  // }
-
-  return {
-    type: 'TEAM_AVAILABILITY_RESULT',
-    posts: json
-  }
 }
 
 export function checkChannelName(register_channel, team_description) {
@@ -435,17 +420,17 @@ export function checkChannelName(register_channel, team_description) {
   }
 }
 
-function channelNameAvailable(register_channel, team_description) {  
+function channelNameAvailable(register_channel, team_description) {
   //console.log('channelNameAvailable');
   return dispatch => {
-    postChannelName(register_channel, team_description).then(response => {return response.json()})  
+    postChannelName(register_channel, team_description).then(response => {return response.json()})
       .then(json => dispatch(postChannelAvailabilityResponse(json)))
   }
 }
 
 function postChannelName(register_channel, team_description){
     return fetch(Config.api + '/channels.find?channel='+ register_channel + '&team=' + team_description)
-} 
+}
 
 function postChannelAvailabilityResponse(json) {
   return {

@@ -114,8 +114,6 @@ class App extends React.Component {
         </form>
       </div>
     )
-    console.log(messages.messagesList)
-    console.log(messages.messagesWhileInactive)
     // console.log(lastMessage.text)
     return (
       <div>

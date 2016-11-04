@@ -23,6 +23,7 @@ class RegisterOrgVerify extends Component {
       alert('please enter password');
       return;
     }
+    console.log(RegisterPassword)
     dispatch(submitRegistration(RegisterPassword))
   }
   static contextTypes = {

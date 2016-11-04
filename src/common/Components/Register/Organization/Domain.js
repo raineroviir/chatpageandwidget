@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
+import loaderDots from '../../images/loader-dots.gif'
 import { registerTeam, ownDomainStateFunction, checkTeamName } from '../../../actions/register'
 class RegisterOrgDomain extends Component {
 
@@ -14,23 +15,19 @@ class RegisterOrgDomain extends Component {
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   }
-  handleBack(){
-    //window.location.hash = "#/signup/organization/name";
+  handleBack() {
     this.context.router.goBack()
   }
-
   handleNext(e) {
     e.preventDefault();
     const { dispatch } = this.props
-    let RegisterTeam = this.refs.RegisterTeam.value;
+    let domain = this.props.register.payload.teamDomain
     var ownDomainState = this.refs.ownDomainLink.style.display === 'none'?true:false;
     var ownDomainValue = this.refs.RegisterTeamOwnDomain.value;
-    console.log(RegisterTeam)
-    dispatch(registerTeam(RegisterTeam))
+    dispatch(registerTeam(domain))
     dispatch(ownDomainStateFunction(ownDomainState, ownDomainValue))
     this.context.router.push("orgdetail")
   }
-
   handleOwnDomain(e){
     if(e){
       e.preventDefault();
@@ -47,8 +44,7 @@ class RegisterOrgDomain extends Component {
       this.refs.nextButton.disabled = true;
     }
   }
-
-  handleChatCenterDomain(e){
+  handleChatCenterDomain(e) {
     e.preventDefault();
     this.refs.registerTeamWrapper.style.display = 'table';
     this.refs.registerOwnDomainWrapper.style.display = 'none';
@@ -56,7 +52,7 @@ class RegisterOrgDomain extends Component {
     this.refs.ownDomainLink.style.display = 'block';
 
     //enable/disable next button
-    this.refs.RegisterTeam.value = this.validateTeam(this.refs.RegisterTeam.value);
+    // this.refs.RegisterTeam.value = this.validateTeam(this.refs.RegisterTeam.value);
     if(this.refs.RegisterTeam.value){
         this.refs.nextButton.disabled = false;
     }else{
@@ -64,134 +60,68 @@ class RegisterOrgDomain extends Component {
     }
 
   }
-
-  inputDomainChange(){
-    //enable/disable next button
+  inputDomainChange() {
     if(this.refs.RegisterTeamOwnDomain.value && this.validateUrl(this.refs.RegisterTeamOwnDomain.value)){
       this.refs.nextButton.disabled = false;
     }else{
       this.refs.nextButton.disabled = true;
     }
   }
-
-  validateUrl(value){
+  validateUrl(value) {
     var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expression);
-    //var t = 'www.google.com';
-
     return value.match(regex);
   }
-
-  inputChange() {
-    const { dispatch } = this.props
-    this.refs.RegisterTeam.value = this.validateTeam(this.refs.RegisterTeam.value);
-
-    // this.refs.RegisterTeam.style.width = width;
-
-    dispatch(checkTeamName(this.refs.RegisterTeam.value));
-
-    if(this.refs.RegisterTeam.value){
+  inputChange(e) {
+    e.preventDefault()
+    const { dispatch, register } = this.props
+    dispatch(registerTeam(this.validateTeam(e.target.value)))
+    dispatch(checkTeamName(register.payload.teamDomain))
+    if(register.payload.teamDomain){
         this.refs.nextButton.disabled = false;
-    }else{
+    } else {
       this.refs.nextButton.disabled = true;
     }
   }
-
   validateTeam(team_desc){
-     var finalStr = team_desc.replace(/[^a-zA-Z-0-9]/gi, '');
-
-     return finalStr.toLowerCase().substring(0,18);
-   }
-
+    let finalStr = team_desc.replace(/[^a-zA-Z-0-9]/gi, '');
+    return finalStr.toLowerCase().substring(0,18);
+  }
   componentDidMount() {
-    //console.log(this.props.registrationDetails.Organisation.ownDomain);
-    const { register } = this.props
+    const { register, dispatch } = this.props
     if(register.ownDomain){
       this.handleOwnDomain();
     }
-
-    // var team_desc = register.payload.team_description;
-    //
-    // var team_name = team_desc.split(' ');
-    // var processed_team_name =[];
-    // for(var i=0;i<team_name.length;i++){
-    //   processed_team_name.push(this.validateTeam(team_name[i]))
-    // }
-    //
-    // var finalStr = '';
-    // for(var i=0;i<processed_team_name.length;i++){
-    //   if(finalStr.length<19){
-    //     if(processed_team_name[i].length < 19){
-    //       if(finalStr.length + processed_team_name[i].length < 19){
-    //         finalStr += processed_team_name[i];
-    //       }
-    //     }else{
-    //       if(finalStr.length === 0){
-    //         finalStr = processed_team_name[i].substring(0,18);
-    //         return;
-    //       }
-    //     }
-    //   }
-    // }
-
-    // this.state.team = finalStr;
-    //
-    // this.refs.nextButton.disabled = true;
-    // if(finalStr){
-    //   if(!register.TeamAvailable.ok){
-    //     this.refs.nextButton.disabled = false;
-    //   }
-    // }
-
-    if (register.payload.teamDomain) {
-      this.refs.RegisterTeam.value = register.payload.teamDomain
-    }
-
-    //check for team name availability on component load
-    if(this.refs.RegisterTeam.value) {
-      this.props.checkForTeamNameAvailability(this.refs.RegisterTeam.value);
-    }
   }
-
-  render() {
-
-    //redirect to first page if refreshed
-    // if(this.props.registrationDetails.Organisation.payload.team_description === ''){
-    //   //window.location.hash = "#/signup/organization/name";
-    //   browserHistory.push("/signup/organization/name");
-    // }
+  isTeamAvailable() {
     const { register } = this.props
-    var availability = '';
-    var boolAvailability= true;
-    if(register.TeamAvailable.ok){
-        boolAvailability = false
-        availability = <span style={{color:'red'}}>Already exists</span>
-      }else{
-          availability = <span style={{color:'green'}}>Available</span>
+    if (register.TeamAvailable) {
+      return (<span style={{color:'green'}}>Available</span>)
     }
-
+    return (<span style={{color:'red'}}>Already exists</span>)
+  }
+  render() {
+    const { register } = this.props
+    console.log(register.TeamAvailable)
     let wrapperCls = 'loading';
     let imgSrc = '';
-
-    if(Object.keys(register.TeamAvailable).length && register.TeamAvailable.ok) {
-      wrapperCls = 'error';
-      imgSrc = '-error';
-    } else if(Object.keys(register.TeamAvailable).length && !register.TeamAvailable.ok) {
-      if(register.TeamAvailable.error.indexOf('empty') === -1)
-        wrapperCls = 'success';
-    }
-
+    // if(Object.keys(register.TeamAvailable).length && register.TeamAvailable) {
+    //   wrapperCls = 'error';
+    //   imgSrc = '-error';
+    // } else if(Object.keys(register.TeamAvailable).length && !register.TeamAvailable) {
+    //   if(register.TeamAvailable.error.indexOf('empty') === -1)
+    //   wrapperCls = 'success';
+    // }
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="signupform" className="form-horizontal domain-form" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">What address would you like for your {window.config.cc}?</h1>
-
-                <div ref="registerTeamWrapper" className={'chat-center-address-input input-group input-group-lg ' + wrapperCls }>
-
-                  <label htmlFor="registerTeam" className="input-group-addon user-name" id="username-addon"><span className="prefix-text">https:<span className="double-slashes">//</span></span></label>
-                  <input autoFocus id="registerTeam" type="text" className="form-control" ref="RegisterTeam" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
-                  <span className="input-group-addon suffix"><span className="prefix-text">.{window.config.cc}</span></span>
+                <div style={{display: "flex"}} ref="registerTeamWrapper" className={'chat-center-address-input input-group input-group-lg ' + wrapperCls }>
+                  <label style={{display: "flex", alignSelf: "center", color:"#9a9da1", fontSize: "18px"}} htmlFor="registerTeam" className=" user-name" id="username-addon"><span className="prefix-text">https:<span className="double-slashes">//</span></span></label>
+                  <input style={{width: "100%"}} autoFocus id="registerTeam" type="text" className="form-control" ref="RegisterTeam"
+                  value={this.props.register.payload.teamDomain} onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
+                  <span style={{display: "flex", color:"#9a9da1", fontSize: "18px"}}><span style={{alignSelf: "center"}} className="prefix-text">.{window.config.cc}</span></span>
 
                 </div>
 
@@ -203,9 +133,8 @@ class RegisterOrgDomain extends Component {
                 </div>
 
                 <div className="message-wrapper">
-                  <p className="error-msg">This name is already taken</p>
-                  <p className="success-msg">Available</p>
-                  <p className="loading-msg"><img src="dist/images/loader-dots.gif" title="loading" /></p>
+                  {register.payload.teamDomain.length === 0 ? <span style={{padding: "15px"}}></span> : this.isTeamAvailable()}
+                  {/* <p className="loading-msg"><img src={loaderDots} title="loading" /></p> */}
                 </div>
 
                 <div className="own-domain-wrapper">

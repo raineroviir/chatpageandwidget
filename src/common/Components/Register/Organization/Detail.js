@@ -58,20 +58,20 @@ class RegisterOrgDetail extends Component {
     console.log(this.props)
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <form id="signupform" className="form-horizontal org-detail-form" role="form">
+            <form style={{display: "flex", justifyContent: "center", flexDirection: "column"}} id="signupform" className="form-horizontal org-detail-form" role="form">
                 <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
                 <h1 className="inner-title">Your Personal Details</h1>
-                <div className="input-group input-group-lg">
-                  <label htmlFor="firstName" className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" /></label>
-                  <input autoFocus type="text" className="form-control first-name" ref="FirstName" placeholder="First Name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
+                <div style={{display: "flex"}} className="input-group input-group-lg">
+                  <label style={{display: "flex"}} htmlFor="firstName" className="input-group-addon user-name" id="username-addon"><img style={{alignSelf: "center"}} src="dist/images/user-icon.svg" /></label>
+                  <input style={{width: "100%"}} autoFocus type="text" className="form-control first-name" ref="FirstName" placeholder="First Name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
                 </div>
-                <div className="input-group input-group-lg">
-                  <label htmlFor="lastName" className="input-group-addon user-name" id="username-addon"><img src="dist/images/user-icon.svg" /></label>
-                  <input id="lastName" type="text" className="form-control last-name" ref="LastName" placeholder="Last Name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
+                <div style={{display: "flex"}} className="input-group input-group-lg">
+                  <label style={{display: "flex"}} htmlFor="lastName" className="input-group-addon user-name" id="username-addon"><img style={{alignSelf: "center"}} src="dist/images/user-icon.svg" /></label>
+                  <input style={{width: "100%"}} id="lastName" type="text" className="form-control last-name" ref="LastName" placeholder="Last Name" onChange={this.inputChange.bind(this)} aria-describedby="username-addon" />
                 </div>
-                <div className="input-group input-group-lg">
-                  <label  htmlFor="email" className="input-group-addon email" id="email-addon"><img src="dist/images/iconMail.svg" /></label>
-                  <input id="email" type="email" className="form-control" ref="Email" placeholder="Email" onChange={this.inputChange.bind(this)} aria-describedby="email-addon" />
+                <div style={{display: "flex"}} className="input-group input-group-lg">
+                  <label style={{display: "flex"}} htmlFor="email" className="input-group-addon email" id="email-addon"><img style={{alignSelf: "center"}} src="dist/images/iconMail.svg" /></label>
+                  <input style={{width: "100%"}} id="email" type="email" className="form-control" ref="Email" placeholder="Email" onChange={this.inputChange.bind(this)} aria-describedby="email-addon" />
                 </div>
                 <div className="desc">
                   <ul><li>We need your email</li>

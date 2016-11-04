@@ -21,7 +21,7 @@ export function user(state = initialState, action) {
   console.log(action.data)
     return {
       ...state,
-      data: action.data.user,
+      data: action.data,
     };
   // case 'RESET_USER':
   //   return initialState;

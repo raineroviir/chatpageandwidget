@@ -14,7 +14,7 @@ import RegisterIndividual from './Individual'
 export class RegistrationRouter extends Component {
   render() {
     return (
-      <Router history={history}>
+      <Router key={Math.random()} history={history}>
         <Route path="/" component={Index}/>
         <Route path="individual" component={RegisterIndividual} />
         <Route path="orgname" component={RegisterOrgName} />

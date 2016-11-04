@@ -46,11 +46,6 @@ class RegisterOrgChannel extends Component {
   }
 
   render() {
-    //redirect to first page if refreshed
-    // if(this.props.registrationDetails.Organisation.payload.team_description === ''){
-    //   //window.location.hash = "#/signup/organization/name";
-    // }
-    // const Organisation = this.props.registrationDetails.Organisation;
     const { register } = this.props
     return (
       <div id="signupbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -58,9 +53,9 @@ class RegisterOrgChannel extends Component {
           <img className="logo" src="dist/images/logo.svg" title="Chat Center" />
           <h1 className="inner-title">Pick your personal chat address</h1>
           <div className="chat-address">{`https://${register.address}.${window.config.cc}`}</div>
-          <div className="input-group input-group-lg">
-            <label htmlFor="registerChannel" className="input-group-addon user-name" id="username-addon"><span className="prefix-text slash">/</span></label>
-            <input autoFocus id="registerChannel" type="text" className="form-control channel-field" ref="RegisterChannel" placeholder="Your name or nickname" aria-describedby="username-addon" onChange={this.inputChange.bind(this)} />
+          <div style={{display: "flex"}} className="input-group input-group-lg">
+            <label style={{display: "flex"}} htmlFor="registerChannel" className="input-group-addon user-name" id="username-addon"><span style={{alignSelf: "center"}} className="prefix-text slash">/</span></label>
+            <input style={{width: "100%"}}autoFocus id="registerChannel" type="text" className="form-control channel-field" ref="RegisterChannel" placeholder="Your name or nickname" aria-describedby="username-addon" onChange={this.inputChange.bind(this)} />
           </div>
           <div className="desc">
             <ul><li>&ndash; Use this chat address to log in.</li>

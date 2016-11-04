@@ -94,12 +94,12 @@ export function register(state = initialState, action) {
     };
 
     case 'CLEAR_JOIN_VALUE':
-        return {
-          ...state,
-          joinError: ""
-      };
+      return {
+        ...state,
+        joinError: ""
+    };
 
-    case 'TEAM_AVAILABILITY_RESULT':
+    case 'TEAM_AVAILABLE':
       return {
         ...state,
         TeamAvailable: action.posts
@@ -168,7 +168,7 @@ export function register(state = initialState, action) {
         signupRequestStatus: action.value
       }
     }
-    case 'FINISHED_REGISTRATION_PROCESS': {
+    case 'FINISHED_REGISTRATION_OR_LOGIN_PROCESS': {
       return {...state, finished_process: true}
     }
     default: return state;

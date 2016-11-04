@@ -1,13 +1,13 @@
 import Config from '../config';
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
-import {loginUser, submitLogin} from './login'
+import {loginUser, submitLogin, postLoginRequest } from './login'
 // import {fetchUserInfo} from './user'
 import {receiveUserInfo} from './user'
 export function registerOrganizationName(organizationName) {
   return (dispatch, getState) => {
     console.log(organizationName)
-    // postLoginRequest(organizationName).then(val => console.log(val))
+    // postRegistrationRequest(organizationName).then(val => console.log(val))
     dispatch({
       type: 'REGISTER_ORGANIZATION_NAME',
       organizationName
@@ -101,7 +101,38 @@ export function submitRegistration(password) {
   return (dispatch, getState) => {
     let userPayload = getState().register.payload
     userPayload.password = password
-    return dispatch(postRegistration(userPayload))
+    userPayload.team = userPayload.teamDomain
+    dispatch({
+      type: 'SET_SIGNUP_REQ_STATUS',
+      value: 'loading'
+    });
+    var OrgObject = getState().register
+    if(OrgObject.ownDomain) {
+      userPayload.team = OrgObject.ownDomainValue;
+    }
+    postRegistrationRequest(userPayload).then(response => response.json())
+      .then(json => {
+        console.log(json)
+        console.log(userPayload.teamDomain)
+        console.log(userPayload.channel)
+        console.log(window.config.cc)
+        let authRequestPayload = {
+          username: `${userPayload.teamDomain}.${window.config.cc}/${userPayload.channel}`,
+          password: password,
+          grant_type: "password"
+        }
+        console.log(authRequestPayload)
+        if (json) {
+          dispatch(receiveUserInfo(json.user))
+          dispatch({type:'RESET_ORGANIZATION_DETAILS'})
+          dispatch({type: "FINISHED_REGISTRATION_OR_LOGIN_PROCESS"})
+          postLoginRequest(authRequestPayload).then(() => dispatch({type: "RESET_USER_DETAILS"}))
+        }
+        dispatch({
+          type: 'SET_SIGNUP_REQ_STATUS',
+          value: 'loaded'
+        });
+      })
   }
 }
 
@@ -241,49 +272,6 @@ function addMembers(team, emails, token) {
   })
 }
 
-function postActionConstruct(json, isIndividual) {
-
-  return (dispatch, getState) => {
-    if(json){
-      console.log(json)
-      dispatch(receiveUserInfo(json))
-      // dispatch(fetchUserInfo())
-      // if(!json.ok){
-      //   dispatch({
-      //     type: 'REGISTER_ORGANISATION_DETAILS',
-      //     value:{"error":json.error}
-      //   });
-      //   return;
-      // }
-
-      var payload = getState().register.payload,
-        username = ((payload.team) ? (payload.team + '.'+ window.config.cc +'/') : window.config.cc + '/' ) + payload.channel,
-        password = payload.password;
-
-      //If incase owndomain is selected
-      if(getState().register.ownDomain){
-        username = getState().register.ownDomainValue + '/' + payload.channel;
-      }
-
-      dispatch(loginUser(username, password));
-      dispatch()
-      // dispatch(submitLogin(getState().orgs.addOrg, !isIndividual));
-
-      if (typeof(Storage) !== "undefined") {
-        localStorage.setItem("user_channel", payload.channel);
-      }
-      // TODO: Need to reset org details after successful registration followed by successful login
-      // dispatch({
-      //   type:'RESET_ORGANIZATION_DETAILS'
-      // })
-      //
-      // dispatch({
-      //   type:'SUCCESSFUL_REGISTRATION_ACK'
-      // })
-    }
-  }
-}
-
 function postJoinActionConstruct(json) {
 
   return (dispatch, getState) => {
@@ -329,34 +317,10 @@ export function clearJoinErrorValue() {
 }
 
 function postRegistration(payload1) {
-  return (dispatch, getState) => {
-    dispatch({
-      type: 'SET_SIGNUP_REQ_STATUS',
-      value: 'loading'
-    });
-    var OrgObject = getState().register
-    var payload = Object.assign({},payload1);
-    payload.team = payload.teamDomain
-    if(payload.team !== null)
-      payload.team = payload.team+'.' + window.config.cc;
-    if(OrgObject.ownDomain){
-      payload.team = OrgObject.ownDomainValue;
-    }
-    console.log(payload)
-    postLoginRequest(payload).then(response => {return response.json()})
-      .then(json => {
-        console.log(json)
-        dispatch(postActionConstruct(json));
-        dispatch({
-          type: 'SET_SIGNUP_REQ_STATUS',
-          value: 'loaded'
-        });
 
-      })
-  }
 }
 
-export function postLoginRequest(payload){
+function postRegistrationRequest(payload){
   console.log(payload)
   return fetch(Config.api + '/users.signup',
   	{
@@ -389,13 +353,10 @@ function postJoinRequest(payload){
 
 /**/
 export function checkTeamName(team_description) {
-  //if(!team_description) return;
-
-  return (dispatch, getState) => {
+  return (dispatch) => {
     if(!team_description){
       dispatch({
-        type: 'TEAM_AVAILABILITY_RESULT',
-        posts:{}
+        type: 'NO_TEAM_DESCRIPTION'
       })
     }
     return dispatch(teamNameAvailable(team_description))
@@ -403,10 +364,15 @@ export function checkTeamName(team_description) {
 }
 
 function teamNameAvailable(team_description) {
-  //console.log('teamNameAvailable');
   return dispatch => {
-    postTeamName(team_description).then(response => {return response.json()})
-      .then(json => dispatch(postTeamAvailabilityResponse(json)))
+    postTeamName(team_description).then(response =>
+      response.json()).then(json => {
+        if(json.error === "team_not_exists") {
+          dispatch(postTeamAvailabilityResponse(!json.ok))
+        } else {
+          dispatch(postTeamAvailabilityResponse(!json.ok))
+        }
+      })
   }
 }
 
@@ -415,16 +381,8 @@ function postTeamName(team_description){
 }
 
 function postTeamAvailabilityResponse(json) {
-  //console.log(JSON.stringify(json));
-  // if(!json.ok){
-  //   return {
-  //     type: 'TEAM_AVAILABILITY_RESULT',
-  //     posts:{}
-  //   }
-  // }
-
   return {
-    type: 'TEAM_AVAILABILITY_RESULT',
+    type: 'TEAM_AVAILABLE',
     posts: json
   }
 }
