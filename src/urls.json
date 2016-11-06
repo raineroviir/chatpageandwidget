@@ -53,6 +53,60 @@
             }
         }
     },
+    "chatpage": {
+        "details": {
+            "method": "get",
+            "url": "chat-page"
+        },
+        "create": {
+            "method": "post",
+            "url": "chat-page.create"
+        },
+        "update": {
+            "method": "put",
+            "url": "chat-page.update"  
+        },
+        "plan-list": {
+            "method": "get",
+            "url": "plans.list"
+        },
+        "coupon-validate": {
+            "method": "get",
+            "url":"coupons.validate"
+        },
+        "plans-switch" : {
+            "method": "post",
+            "url": "plans.switch"
+        },
+        "cards": {
+            "update": {
+                "method": "post",
+                "url": "cards.update"      
+            },
+            "info": {
+                "method": "get",
+                "url": "cards.info"      
+            }
+        },
+        "plans": {
+            "transactions" : {
+                "history": {
+                    "method": "get",
+                    "url": "plans.transactions.history"    
+                }
+            },
+            "outstandingAmount" : {
+                "method": "get",
+                "url": "plans.outstandingAmount"    
+            }
+        },
+        "billing": {
+            "info": {
+                "method": "get",
+                "url": "billing.info"
+            }
+        }
+    },
     "api": {
         "teams": {
             "members-list": {

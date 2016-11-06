@@ -14,6 +14,8 @@ import { channelDetails } from './ChannelDetails';
 import { createChannel } from './CreateChannel';
 import { widget } from './widget';
 import { widgetConfig } from './widget-config';
+import { chatPage} from './ChatPage';
+import { chatPageConfig } from './ChatPage-config';
 import { upgradeForm } from './upgradeForm';
 import { upgradePlan } from './upgradePlan';
 import { poptart } from './poptart';
@@ -40,6 +42,8 @@ const rootReducer = combineReducers({
   createChannel,
   widget,
   widgetConfig,
+  chatPage,
+  chatPageConfig,
   upgradePlan,
   upgradeForm,
   poptart,

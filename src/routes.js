@@ -27,6 +27,11 @@ import Labels from 'components/Widget/Labels';
 import Widget from 'containers/Widget';
 
 
+import ChagePageAppearance from 'components/ChatPage/Appearance';
+import ChatPageLabels from 'components/ChatPage/Labels';
+import ChatPage from 'containers/ChatPage';
+
+
 import Settings from 'containers/Settings';
 import BillingPayment from 'components/Settings/BillingPayment';
 import PersonalSettings from 'components/Settings/PersonalSettings';
@@ -95,6 +100,11 @@ export default (
         <Route path="labels" component={Labels}/>
     </Route>
 
+    <Route path="chatPage" component={ChatPage}>
+        <IndexRoute  component={ChagePageAppearance} />
+        <Route path="appearance" component={ChagePageAppearance}/>
+        <Route path="labels" component={ChatPageLabels}/>
+    </Route>
 
     <Route path="settings" component={Settings}>
         <IndexRoute component={SettingsOrganization} />

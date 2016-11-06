@@ -1,0 +1,185 @@
+.widget-labels {
+    
+    position: relative;
+    /*margin-right: 320px;*/
+
+    .free-user + .wc-primary-section {
+        margin-top: 0;
+        background: #ffffff;
+        box-shadow: none;
+        padding-top: 17px;
+    }
+        
+    .widget-label-chat-preview {
+        /*width: 647px;*/
+        position: fixed;
+        top: 0;
+        right: 0;
+        background: #f9f9f9;
+        height: 100vh;
+        border-left: solid 1px #e5e7e9;
+        display: none;
+        .chat-widget {
+            height: 100%;
+        }
+
+    }
+    .labels-form {
+        .input-label {
+            font-family: 'Rubik-Medium';
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.6;
+            letter-spacing: 0.1px;
+            color: #474848;
+            display: block;
+            margin-bottom: 0;
+
+        }
+        .input-field {
+            border-radius: 5px;
+            background-color: #ffffff;
+            border: solid 0.5px #e7eaec;
+            width: 100%;
+            font-size: 14px;
+            line-height: 1.71;
+            color: #555860;
+            padding: 4px 13px 3px 13px;
+            outline: none;
+            margin-top: 7px;
+        }
+        textarea.input-field {
+            padding: 8px 13px;
+            min-height: 75px;
+            margin-top: 10px;
+        }
+        .input-wrapper {
+            margin-bottom: 23px;
+        }
+
+        .input-desc {
+            opacity: 0.5;
+            font-size: 13px;
+            line-height: 1.85;
+            color: #555860;
+        }        
+        .auto-answer-wrapper {
+            .input-desc {
+                margin-left: 14px;
+                margin-top: 12px;
+                margin-bottom: 0;
+            }
+        }
+        .bot-avatar-wrapper {
+            display: table;
+            #botAvatar {
+                width: 0;
+                height: 0;
+                position: absolute;
+                overflow: hidden;
+            }
+            .cell {
+                display: table-cell;
+                vertical-align: middle;
+                padding-left: 24px;
+            }
+            .bot-avatar-preview {
+                width: 72px;
+                height: 72px;
+                border-radius: 2px;
+                background-color: #ffffff;
+                border: solid 1px rgba(150, 150, 150, 0.23);
+                text-align: center;
+                display: table-cell;
+                vertical-align: middle;
+                img {
+                    max-width: 100%;
+                }
+                .input-label {
+                    margin-bottom: 5px;
+                }
+                
+                
+            }
+            button {    
+                border-radius: 5px;
+                border: solid 1px #fec039;
+                background: none;
+                font-family: 'Rubik-Medium';
+                font-size: 14px;
+                letter-spacing: 0.7px;
+                /*color: #fdb22b;*/
+                padding: 6px 16px 5px 16px;
+            }
+        }
+        .cc-branding-wrapper {
+            .widget-switch {
+                float: right;
+            }
+            &.active-remove-ccbrand {
+                .input-label {
+                    color: #000;
+                }
+                .disable-remove-ccbrand {
+                    position: relative;
+                    .layer {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right:0;
+                        bottom: 0;
+                        background-color: rgba(249, 249, 249, 0.65);
+                        z-index: 1;
+                    }
+                }
+            }
+        }
+        .email-placeholder-row {
+            margin-top: 7px;
+        }
+    }
+    .page-desc {
+        .buttons-wrapper {
+            margin-top: 16px;
+        }
+        .cc-btn {
+            display: inline-block;
+            font-size: 20px;
+            padding: 10px 29px;
+            letter-spacing: normal;
+        }
+    }
+    .mask-primary-section {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+       /* background-color: rgba(255, 255, 255, 0.9);*/
+
+        z-index: 1;
+    }
+    .wc-primary-section {
+        position: relative;
+    }
+}
+
+
+/*just targetted for mobile resolution*/
+@media screen and (max-width: 767px) {
+    .widget-labels {
+        margin-right: 0;
+        
+    }
+
+}
+
+
+
+@media screen and (min-width: 1000px) {
+    .widget-labels {
+    
+        margin-right: 10px;
+        
+    }
+}

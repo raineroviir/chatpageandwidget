@@ -39,7 +39,7 @@ export class ChannelMenu extends Component {
             <a>Click to Chat button setup</a>
           </li>
           <li>
-            <a>Chat page setup</a>
+            <Link to="/ChatPage/Appearance" onClick= { this.hideMenu.bind(this) }>Chat page setup</Link>
           </li>
           <li className="separator">
             <Link to={channel ? '/channel/edit/' + channel.id : 'javascript:;'} onClick= { this.hideMenu.bind(this) }>Channel name and URL</Link>
