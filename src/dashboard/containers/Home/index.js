@@ -9,10 +9,15 @@ import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';
 
 
-
+import { initUser } from '../../../common/actions/user'
+import { fetchChannel, fetchSocket } from '../../../common/actions/channels'
+import { checkForConversation, setactiveConversationId } from '../../../common/actions/conversations'
+import {getChannels} from '../../actions/Channels'
 
 export class Home extends Component {
   componentDidMount() {
+
+
     $('.mCustomScrollBar').mCustomScrollbar({
       theme:"dark-3"
   });
@@ -93,6 +98,40 @@ export class Home extends Component {
         }
     } )*/
   }
+  componentDidUpdate(prevProps) {
+
+        // dispatch(initEnvironment())
+        // dispatch(initUser(data))
+        // .then((token) => {
+        //   token = token.access_token
+        //   console.log(token)
+        //   dispatch(fetchChannel(channelname, team, token)).then((channel_id) => {
+        //     dispatch(checkForConversation(channel_id, token))
+        //     dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
+        //   }).catch(error => console.log(error))
+        // }).catch(error => console.log(error))
+
+
+    if (!prevProps.user.token && this.props.user.token) {
+      const { dispatch, guest, user } = this.props
+      // const data = {email: "placeholder"}
+      const checkLocalStorage = JSON.parse(localStorage.getItem("orgs"))
+      // const channel_url = checkLocalStorage ? checkLocalStorage[0].name : "rainer5.chat3.center/sales"
+      const token = guest.token || user.token
+      // dispatch(initEnvironment())
+      dispatch(fetchChannel('sales','rainer5.chat3.center', token)).then((channel) => {
+        console.log(token, channel.id)
+          dispatch(fetchSocket(token, channel.id))
+        if (!channel.is_group) {
+          dispatch(checkForConversation(channel.id, token))
+        }
+        if (channel.conversation) {
+          console.log(channel.conversation)
+          dispatch(setactiveConversationId(channel.conversation.id))
+        }
+      }).catch(error => console.log(error))
+    }
+  }
   render() {
     if(this.props.isGuest){
       return (
@@ -114,6 +153,11 @@ export class Home extends Component {
 
 function mapStateToProps(state, ownProps) {
   return {
+    user: state.user,
+    guest: state.guest,
+    login: state.login,
+    channels: state.channels,
+    conversations: state.conversations,
     isGroupChat: state.channels.channels.isGroupChat,
     isGuest: state.guest.guest,
     channelname: ownProps.params.channel,
@@ -123,7 +167,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(ChannelsActions, dispatch)
+    dispatch
   }
 }
 

@@ -30,6 +30,7 @@ export class ChannelContainer extends Component {
   }
 
   componentDidMount(){
+    console.log('channelcontainer')
     this.props.actions.resetDetails();
   }
 

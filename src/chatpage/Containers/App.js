@@ -51,6 +51,7 @@ class App extends React.Component {
       channelHost = "chat3.center"
     }
     const team = `${channelSubDomain}.${channelHost}`
+    console.log(channelName, team)
     dispatch(initEnvironment())
     dispatch(initUser(data))
     .then((token) => {

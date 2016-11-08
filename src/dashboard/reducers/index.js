@@ -17,7 +17,7 @@ import { upgradePlan } from './upgradePlan';
 import { poptart } from './poptart';
 import { loader } from './loader';
 import { tabnav } from './tabnav';
-import { settings } from './settings';
+// import { settings } from './settings';
 
 import { login } from '../../common/reducers/login'
 
@@ -53,8 +53,7 @@ const rootReducer = combineReducers({
   upgradeForm,
   poptart,
   loader,
-  tabnav,
-  settings
+  tabnav
 });
 
 export default rootReducer;

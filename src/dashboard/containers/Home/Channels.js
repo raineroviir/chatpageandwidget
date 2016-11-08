@@ -79,7 +79,7 @@ export class Channels extends Component {
     return (
       <ChannelList
       createChannel={this.createChannel.bind(this)}
-      channels={this.props.channels.channels}
+      channels={this.props.channels}
       user={this.props.user}
       selectChannel={this.selectChannel.bind(this)}
       activeChannel={this.props.activeChannel}
@@ -88,12 +88,7 @@ export class Channels extends Component {
   }
   componentDidMount(){
     console.log('channels HOME MOUNTED')
-    // this.props.actions.getChannels( this.props.activeChannel );
-    // this.props.createChannelActions.resetDetails();
-    // this.props.actions.fetchSocket();
-    // if(this.props.channelname){
-    //   this.props.actions.selectChannel(this.props.channelname, this.props.conversationname);
-    // }
+
   }
   componentDidUpdate(){
     //window.setTimeout(() => this.props.actions.testSocket(), 2000);

@@ -1,61 +1,62 @@
 import Config from '../../config';
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
-import * as loginActions from "../Login";
+import * as loginActions from "../../../common/actions/login";
 import * as createChannelActions from "../CreateChannel";
 import { fetchUserInfo } from "../Navigation";
 import { browserHistory } from 'react-router';
 let channels = require("./../../mocks/v1/channels.list.json");
 let conversations = require("./../../mocks/v1/conversations.list.json");
 var _ = require("lodash");
-export function getChannels(channelid) {
+export function getChannels(channelid, token) {
   /* Mocks */
   /*return (dispatch, getState) => {
     return dispatch(processChannelsForDispatch(channels));
   }*/
   return dispatch => {
-    if(typeof(Storage) === "undefined" || !localStorage.getItem("token")){
-      dispatch(initGuestMessaging());
-      let url = window.location.href,
-        channel = url.match(/\/([^\/]+)\/?$/),
-        token = false;
-      channel = (typeof channel[1] === "number") ? url.substr(0, url.length - channel[0].length).match(/\/([^\/]+)\/?$/)[1] : channel[1];
+    // if(typeof(Storage) === "undefined" || !localStorage.getItem("token")) {
+    //   dispatch(initGuestMessaging());
+    //   let url = window.location.href,
+    //     channel = url.match(/\/([^\/]+)\/?$/),
+    //     token = false;
+    //   channel = (typeof channel[1] === "number") ? url.substr(0, url.length - channel[0].length).match(/\/([^\/]+)\/?$/)[1] : channel[1];
 
-      if(localStorage.getItem("guest")){
-        token = JSON.parse(localStorage.getItem("guest"));
-        dispatch(setGuestUserId(token.user_id));
-      }
-      getChannel(channel, window.location.hostname).then(response => response.json())
-        .then(json => {
-          if(!json.ok) {
-            dispatch(messageError(true));
-          }
-          else {
-            dispatch(messageError(false))
-            if(json.channel && json.channel.is_group){
-              dispatch({
-                type: "SET_GUEST_GROUP_CONV_ID",
-                posts: { conversationid: json.channel.conversation.id },
-                receivedAt: Date.now()
-              })
-            }
-          }
-        })
+      // if(localStorage.getItem("guest")){
+      //   token = JSON.parse(localStorage.getItem("guest"));
+      //   dispatch(setGuestUserId(token.user_id));
+      // }
+      // getChannel(channel, window.location.hostname).then(response => response.json())
+      //   .then(json => {
+      //     console.log(json)
+      //     if(!json.ok) {
+      //       dispatch(messageError(true));
+      //     }
+      //     else {
+      //       dispatch(messageError(false))
+      //       if(json.channel && json.channel.is_group){
+      //         dispatch({
+      //           type: "SET_GUEST_GROUP_CONV_ID",
+      //           posts: { conversationid: json.channel.conversation.id },
+      //           receivedAt: Date.now()
+      //         })
+      //       }
+      //     }
+      //   })
 
-      if(localStorage.getItem("guestMessages")){
-        let guestMessages = JSON.parse(localStorage.getItem("guestMessages")),
-          guestChannelInfo = guestMessages.find(a => a.channel === channel);
-        !!guestChannelInfo.conversationid && dispatch(getConversationHistory(guestChannelInfo.conversationid, token))
-      }
-      return;
-    }
+      // if(localStorage.getItem("guestMessages")){
+      //   let guestMessages = JSON.parse(localStorage.getItem("guestMessages")),
+      //     guestChannelInfo = guestMessages.find(a => a.channel === channel);
+      //   !!guestChannelInfo.conversationid && dispatch(getConversationHistory(guestChannelInfo.conversationid, token))
+      // }
+    //   return;
+    // }
 
-    fetchChannels().then(response => {return response.json()})
+    fetchChannels(token).then(response => {return response.json()})
     .then(json => {
       /* If there is error in json stop proceeding */
       if(json.error) { return; }
       /* Invoke Channels Service when we recieve new channels */
-      if(json.channels.length){
+      if(json.channels.length) {
         dispatch(getConversations(channelid || Array.prototype.slice.call(json.channels).reverse().find(chl => chl.is_direct).id, json.channels))
       }
       else{
@@ -65,6 +66,8 @@ export function getChannels(channelid) {
     })
   }
 }
+
+
 export function getConversations(channelid, channels, conversationname) {
   /* Mocks */
   /*return (dispatch, getState) => {
@@ -164,8 +167,10 @@ export function createMessage(message, conversationid) {
   }
 
 }
+
 export function getChannel(channel, team) {
   var url =  Config.api + '/channels.find?channel=' + channel;
+  console.log(channel, team)
   if(team && team !== "localhost"){
     url+= ("&team=" + team);
   }
@@ -366,15 +371,12 @@ function dispatchMessageStream (message) {
   }
 }
 
-function fetchChannels() {
-  if (typeof(Storage) !== "undefined") {
-    var token = JSON.parse(localStorage.getItem("token"));
-  }
+function fetchChannels(token) {
   return fetch( Config.api + '/channels.list', {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token.access_token,
+      'Authorization': 'Bearer ' + token,
     }
   })
 }

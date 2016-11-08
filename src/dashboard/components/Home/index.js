@@ -26,13 +26,13 @@ const metaData = {
 export class HomeView extends Component {
   render() {
     return (
-      <div>
+      <div style={{display: "flex", flexDirection: "row"}}>
           <DocumentMeta {...metaData} />
-          <div>
+          <div style={{display: "flex", alignSelf: "flex-start", flexGrow: "0", height: "100%", backgroundColor: "rgba(31, 31, 31, 0.9)"}}>
             <Navigation historyApi={this.props.historyApi} />
             <Channels channelname={this.props.channelname} conversationname={this.props.conversationname} />
           </div>
-          <div className="main-section">
+          <div className="main-section" style={{display: "flex", flexDirection: "column", flexGrow: "1"}}>
             <Header poptartActons= {this.props.poptartActons}/>
             <section className={ this.props.isGroupChat ? "group-chat conversations-panel" : "conversations-panel"} style={{display: "flex"}}>
               <Conversations />

@@ -4,7 +4,7 @@ import { browserHistory, Route, IndexRoute } from 'react-router';
 /* containers */
 import App from './containers/App';
 import Home from './containers/Home';
-import Login from '../common/Containers/Login';
+import Login from './containers/Login';
 
 import Registration from '../common/Containers/Register';
 import RegisterStart from '../common/Containers/Register';

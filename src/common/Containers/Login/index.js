@@ -18,18 +18,11 @@ export class LoginComponent extends Component {
   handleLogin(e){
       e.preventDefault();
       const { dispatch } = this.props
-        //service call to register and move to chat message home screen
       let Username = this.refs.Username.value;
       let Password = this.refs.Password.value;
-
-      //store the value in STORE by dispatching event in action
       //currently always adding org
       const addOrg = true
       dispatch(loginUser(Username, Password))
-      // dispatch(submitLogin(addOrg))
-      console.log(this.context.router)
-      console.log(this.props)
-      this.context.router.push("dashboard")
   }
 
   inputChange(){

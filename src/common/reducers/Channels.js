@@ -30,7 +30,10 @@ export function channels(state = initialState, action) {
   case 'FETCHED_CHANNEL':
     return {
       ...state,
-      channels: [...state.channels, action.json.channel],
+      channels: {
+        ...state.channels,
+        all: [...state.channels.all, action.json.channel]
+      },
       isGroupChat: action.json.channel.is_group,
       activeChannelId: action.json.channel.id
     }

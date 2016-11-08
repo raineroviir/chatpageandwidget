@@ -6,10 +6,10 @@ import classNames from 'classnames'
 /* component styles */
 import { styles } from './styles.scss';
 
-import Logo from "../../Components/images/logo.svg"
-import UserIcon from "../../Components/images/user-icon.svg"
-import PasswordIcon from "../../Components/images/password-icon.svg"
-import { loginUser, submitLogin } from '../../actions/login'
+import Logo from "../../../common/Components/images/logo.svg"
+import UserIcon from "../../../common/Components/images/user-icon.svg"
+import PasswordIcon from "../../../common/Components/images/password-icon.svg"
+import { loginUser, submitLogin } from '../../../common/actions/login'
 
 export class LoginComponent extends Component {
   static contextTypes = {
@@ -18,17 +18,15 @@ export class LoginComponent extends Component {
   handleLogin(e){
       e.preventDefault();
       const { dispatch } = this.props
-        //service call to register and move to chat message home screen
       let Username = this.refs.Username.value;
       let Password = this.refs.Password.value;
 
-      //store the value in STORE by dispatching event in action
       //currently always adding org
       const addOrg = true
       dispatch(loginUser(Username, Password))
       // dispatch(submitLogin(addOrg))
       console.log(this.context.router)
-      this.context.router.push("dashboard")
+      this.context.router.push("dashboard/sales")
   }
 
   inputChange(){
@@ -37,6 +35,7 @@ export class LoginComponent extends Component {
 
   componentDidMount() {
     // this.refs.loginBtn.disabled = true;
+    localStorage.clear()
   }
   determineIfError() {
     if(!this.props.login.user.error) {
@@ -59,12 +58,14 @@ export class LoginComponent extends Component {
                 </div>
                 <div style={{display: "flex"}} className="input-group input-group-lg">
                   <label style={{display: "flex", "alignItems": "center"}} htmlFor="username" className="input-group-addon user-name" id="username-addon"><img className="prefix" src={UserIcon} /><span className="prefix-text">https:<span className="double-slashes">//</span></span></label>
-                  <input style={{width: "100%"}} autoFocus id="username" type="text" className="form-control" ref="Username" placeholder="your chat address" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
+                  <input style={{width: "100%"}} autoFocus id="username" type="text" className="form-control" ref="Username" placeholder="your chat address"
+                  value="rainer5.chat3.center/sales" aria-describedby="username-addon" onChange={this.inputChange.bind(this)}/>
                 </div>
                 <div className="desc">Examples: {window.config.cc}/you; yourteam.{window.config.cc}/you; chat.yourdomain.com/you</div>
                 <div style={{display: "flex"}} className="input-group input-group-lg password-field">
                   <label style={{display: "flex", "alignItems": "center"}} htmlFor="password" className="input-group-addon" id="password-addon"><img className="prefix" src={PasswordIcon} /></label>
-                  <input style={{width: "100%"}} id="password" type="password" className="form-control" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
+                  <input style={{width: "100%"}} id="password" type="password" className="form-control"
+                  value="12345678" ref="Password" placeholder="Password" aria-describedby="password-addon" onChange={this.inputChange.bind(this)} />
                 </div>
                 <div className="form-group">
                     <div className="col-sm-12 text-center">
