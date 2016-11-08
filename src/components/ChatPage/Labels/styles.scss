@@ -3,7 +3,7 @@
     position: relative;
     /*margin-right: 320px;*/
 
-    .free-user + .wc-primary-section {
+    .free-user + .chat-primary-section {
         margin-top: 0;
         background: #ffffff;
         box-shadow: none;
@@ -56,6 +56,24 @@
         .input-wrapper {
             margin-bottom: 23px;
         }
+        .widget-preview-label-wrapper {
+        margin-top: 32px;       
+        .preview-label {
+            font-size: 20px;
+            font-weight: normal;
+            line-height: 1.2;
+            color: #000000;
+
+        }
+        .edit-label-link {
+            float: right;
+            /*color: #fdb22b;*/
+            font-family: 'Rubik-Medium';
+            margin-top: 4px;
+            letter-spacing: 0.1px;
+
+        }    
+    }
 
         .input-desc {
             opacity: 0.5;
@@ -159,7 +177,7 @@
 
         z-index: 1;
     }
-    .wc-primary-section {
+    .chat-primary-section {
         position: relative;
     }
 }

@@ -72,7 +72,7 @@ export class Labels extends Component {
         e.preventDefault();
         this.props.upgradeActions.updateUpgradeSource({
             from: '/ChatPage/labels',
-            label: 'Widget Labels & Localization'
+            label: 'ChatPage Labels & Localization'
         });
         browserHistory.push( "/upgrade/plans" );
 
@@ -129,7 +129,7 @@ export class Labels extends Component {
                         pageDesc
                     }
                     
-                    <div className="wc-primary-section">
+                    <div className="chat-primary-section">
                         <div className="primary-section" 
                         className={ (userPlan === 'free') ? 'mask-primary-section' : ''
                         }></div>
@@ -236,15 +236,15 @@ export class Labels extends Component {
                                                 <a href="/upgrade/plans"
                                                 onClick={this.navigateToUpgradePlans.bind(this)} className="cc-btn">View plans</a>
                                             </div>
-                                            <div className="widget-preview-label-wrapper">
-                                                <span className="preview-label">Chat page preview</span>
-                                                 <Link to="/ChatPage/labels" className="edit-label-link">Edit Labels</Link>
-                                            </div>
+                                            
                                         </div> 
                                     )
                                 }
                             </div>
-                            
+                            <div className="widget-preview-label-wrapper">
+                                                <span className="preview-label">Chat page preview</span>
+                                                 <Link to="/ChatPage/appearance" className="edit-label-link">Edit Appearance</Link>
+                                            </div>
                         
                         </div>
                     </div>
