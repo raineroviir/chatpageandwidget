@@ -36,7 +36,7 @@ export function initChatPageConfig( channelid ) {
           } 
           
           if( res && res.channel ) {
-            if( userPlan != 'premium' ) {
+            if( userPlan != 'premium_yearly' ) {
               res.ccBranding = false;
             }
           }
