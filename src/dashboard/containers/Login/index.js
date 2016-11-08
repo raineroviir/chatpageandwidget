@@ -28,7 +28,6 @@ export class LoginComponent extends Component {
       dispatch(loginUser(Username, Password))
       // dispatch(submitLogin(addOrg))
       console.log(this.context.router)
-      console.log(this.props)
       this.context.router.push("dashboard")
   }
 

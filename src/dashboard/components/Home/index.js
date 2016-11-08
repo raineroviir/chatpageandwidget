@@ -34,9 +34,9 @@ export class HomeView extends Component {
           </div>
           <div className="main-section">
             <Header poptartActons= {this.props.poptartActons}/>
-            <section className={ this.props.isGroupChat ? "group-chat conversations-panel" : "conversations-panel"}>
+            <section className={ this.props.isGroupChat ? "group-chat conversations-panel" : "conversations-panel"} style={{display: "flex"}}>
               <Conversations />
-              <div className="chat-panel">
+              <div className="chat-panel" style={{display: "flex", flexDirection: "column", width: "100%"}}>
                 <Messages />
                 <CreateMessage />
               </div>

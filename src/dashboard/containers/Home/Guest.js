@@ -4,8 +4,6 @@ import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';
 
 /* components */
-import { ChatMessage } from '../../components/ChatMessage';
-import CreateMessage from './CreateMessage';
 import GuestInfo from './GuestInfo';
 export class Messages extends Component {
   render() {
@@ -17,9 +15,6 @@ export class Messages extends Component {
           </div>
           <h1>Chat Center</h1>
         </div>
-
-        <ChatMessage messages={this.props.messages.messages} user={this.props.user} guest={this.props.guest} channelError={this.props.channelError} />
-        <CreateMessage isGuest={this.props.isGuest} convid={this.props.convid} />
         <GuestInfo />
       </div>
     );
