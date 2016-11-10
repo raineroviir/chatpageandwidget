@@ -68,6 +68,7 @@ export class RegisterOrgDomainComp extends Component {
     }else{
       this.refs.nextButton.disabled = true;
     }
+    this.props.checkForTeamNameAvailability(this.refs.RegisterTeamOwnDomain.value);
   }
 
   validateUrl(value){
@@ -83,8 +84,8 @@ export class RegisterOrgDomainComp extends Component {
     
     let width = $('#calc-input-width').html(this.refs.RegisterTeam.value).width();
     this.refs.RegisterTeam.style.width = width;
-
-    this.props.checkForTeamNameAvailability(this.refs.RegisterTeam.value);
+   
+    this.props.checkForTeamNameAvailability(this.refs.RegisterTeam.value+ '.' + window.config.cc);
     
     if(this.refs.RegisterTeam.value){
         this.refs.nextButton.disabled = false;
@@ -147,8 +148,7 @@ export class RegisterOrgDomainComp extends Component {
 
     //check for team name availability on component load
     if(this.refs.RegisterTeam.value) {
-      
-      this.props.checkForTeamNameAvailability(this.refs.RegisterTeam.value);
+      this.props.checkForTeamNameAvailability(this.refs.RegisterTeam.value+ '.' + window.config.cc);
       let width = $('#calc-input-width').html( this.refs.RegisterTeam.value  ).width();
       this.refs.RegisterTeam.style.width = width;
       

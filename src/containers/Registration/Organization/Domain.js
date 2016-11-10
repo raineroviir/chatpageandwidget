@@ -25,7 +25,7 @@ export class RegisterOrgDomain extends Component {
   }
 
   checkForTeamNameAvailability(CurrentTeamName){
-    this.props.actions.checkTeamName(CurrentTeamName + '.' + window.config.cc);
+    this.props.actions.checkTeamName(CurrentTeamName);
   }
 
   render() {
