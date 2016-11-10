@@ -13,9 +13,9 @@ export class RegisterOrgVerify extends Component {
     browserHistory.push("/signup/organization/address");
   }
 
-  handleNext(RegisterPassword){
+  handleNext(){
     //store the value in STORE by dispatching event in action
-    this.props.actions.registerPassword(RegisterPassword);
+    //this.props.actions.registerPassword(RegisterPassword);
     this.props.actions.submitRegistration();
   }
 

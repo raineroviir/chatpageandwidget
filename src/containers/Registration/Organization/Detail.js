@@ -14,10 +14,10 @@ export class RegisterOrgDetail extends Component {
     browserHistory.push("/signup/organization/domain");
   }
 
-  handleNext(FirstName,LastName,Email){
+  handleNext(FirstName,LastName,Email,password){
 
     //store the value in STORE by dispatching event in action
-    this.props.actions.registerPersonalDetails(FirstName,LastName,Email);
+    this.props.actions.registerPersonalDetails(FirstName,LastName,Email,password);
     //console.log('Moving 1 step back');
     //window.location.hash = "#/signup/organization/address";
     browserHistory.push("/signup/organization/address");

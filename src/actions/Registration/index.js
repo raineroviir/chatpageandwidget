@@ -35,11 +35,11 @@ export function ownDomainState(ownDomainState, ownDomainValue) {
   }
 }
 
-export function registerPersonalDetails(FirstName,LastName,Email) {
+export function registerPersonalDetails(FirstName,LastName,Email,Password) {
   return (dispatch, getState) => {
       dispatch({
       type: 'REGISTER_PERSONAL_DETAILS',
-      value:{"first_name":FirstName,"last_name":LastName,"email":Email}
+      value:{"first_name":FirstName,"last_name":LastName,"email":Email,"password":Password}
     })
   }
 }
