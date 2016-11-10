@@ -41,7 +41,7 @@ export class BillingPayment extends Component {
     render() {
         return (
           <div className="billing-settings">
-            <h2 className="primary-label">Current plan: {window.config.cc} plus.</h2>
+            <h2 className="primary-label">Current plan: {window.config.cc} {this.props.userinfo.plan.name}</h2>
             <div>
               <a className="cc-btn" href="/upgrade/plans"
               onClick={this.setUpgradeSource.bind(this, '/upgrade/plans')}>VIEW PLANS</a>
@@ -97,7 +97,8 @@ export default common( {
   mapStateToProps: ( state ) => {
     return {
       tabnav: state.tabnav,
-      billingInfo: state.billingInfo 
+      billingInfo: state.billingInfo,
+      userinfo: state.userinfo.userinfo
     }
   },
   actions : {

@@ -16,7 +16,7 @@ export class RegisterOrgName extends Component {
   handleBack(){
     //console.log('Moving 1 step back'); 
     //window.location.hash = "#/signup/organization";
-    browserHistory.push("/signup/organization");
+    browserHistory.push("/login");
   }
 
   handleNext(RegisterOrganisationName){

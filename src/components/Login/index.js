@@ -74,7 +74,7 @@ export class LoginComponent extends Component {
                   <div className="support-signin-wrapper">
                     <div className="sign-up">
                       <span className="new-to">New to {window.config.cc}?</span>
-                      <Link to="/signup" title="Sign up" className="pull-right">Sign up.</Link>
+                      <Link to="/signup/organization/name" title="Sign up" className="pull-right">Sign up.</Link>
                     </div>
                     <div className="forgot-password">
                       <a className="quick-link" href="javascript:;" title="Forgot password">Forgot password?</a>
