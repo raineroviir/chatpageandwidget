@@ -64,8 +64,8 @@ export default (
         <Route path="/dashboard/:channel/:conversation" component={Home}/>
     </Route>
     <Route path="login" component={Login} />
-    <Route path="signup" component={Registration} />
-    <Route path="signup/organization" component={RegisterStart} />
+    <Route path="signup" component={RegisterOrgName} />
+    <Route path="signup/organization" component={RegisterOrgName} />
     <Route path="signup/organization/name" component={RegisterOrgName} />
     <Route path="signup/organization/domain" component={RegisterOrgDomain} />
     <Route path="signup/organization/verify" component={RegisterOrgVerify} />
