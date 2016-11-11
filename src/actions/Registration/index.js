@@ -44,11 +44,11 @@ export function registerPersonalDetails(FirstName,LastName,Email,Password) {
   }
 }
 
-export function registerPersonalDetailsJoin(InviteToken,FirstName,LastName,Password,TeamName) {
+export function registerPersonalDetailsJoin(InviteToken,FirstName,LastName,Password,TeamName,Email) {
   return (dispatch, getState) => {
       dispatch({
       type: 'REGISTER_PERSONAL_DETAILS_JOIN',
-      value:{"invite_token":InviteToken,"first_name":FirstName,"last_name":LastName,"password":Password,"team_name":TeamName}
+      value:{"invite_token":InviteToken,"first_name":FirstName,"last_name":LastName,"password":Password,"team_name":TeamName,"email":Email}
     })
   }
 }
@@ -127,7 +127,7 @@ export function inviteMembers (emails) {
           return addMembers(json.user.team.id, emails, token).then(response => {return response.json()})   
         })
         .then(json => {
-          if(json.ok){
+        if(json.meta_key == 'ok'){
             dispatch(inviteStatus(true));
             if (typeof(Storage) !== "undefined") {
               //window.location.hash = "#/" + localStorage.getItem("user_channel");

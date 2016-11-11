@@ -14,10 +14,10 @@ export class RegisterJoinDetail extends Component {
     browserHistory.push("/signup/organization/domain");
   }
 
-  handleNext(InviteToken,FirstName,LastName,Password,TeamName){
+  handleNext(InviteToken,FirstName,LastName,Password,TeamName,Email){
 
     //store the value in STORE by dispatching event in action
-    this.props.actions.registerPersonalDetailsJoin(InviteToken, FirstName, LastName, Password, TeamName);
+    this.props.actions.registerPersonalDetailsJoin(InviteToken, FirstName, LastName, Password, TeamName,Email);
     
     //browserHistory.push("/signup/organization/address");
     browserHistory.push("/join/address");

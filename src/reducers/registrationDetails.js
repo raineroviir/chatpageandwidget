@@ -25,7 +25,8 @@ const initialState = {
       username:'',
       first_name:'',
       last_name:'',
-      password:''
+      password:'',
+      email:''
     }
   },
   sendInviteRequestStatus: '',
