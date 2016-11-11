@@ -131,8 +131,9 @@ export function inviteMembers (emails) {
             dispatch(inviteStatus(true));
             if (typeof(Storage) !== "undefined") {
               //window.location.hash = "#/" + localStorage.getItem("user_channel");
-              browserHistory.push("/dashboard/" + localStorage.getItem("user_channel"));
-              localStorage.setItem("user_channel", "");
+              //browserHistory.push("/dashboard/" + localStorage.getItem("user_channel"));
+             // localStorage.setItem("user_channel", "");
+              browserHistory.push("/signup/organization/sucess");
             }
           }
           dispatch({

@@ -16,11 +16,8 @@ export class RegisterIndividualDomain extends Component {
 
   handleBack(){
     //console.log(this.props.registrationDetails);
-    if (typeof(Storage) !== "undefined") {
-      //window.location.hash = "#/" + localStorage.getItem("user_channel");
-      browserHistory.push("/dashboard/" + localStorage.getItem("user_channel"));
-      localStorage.setItem("user_channel", "");
-    }
+    
+    browserHistory.push("/signup/organization/sucess");
   }
   deleteMember(member){
     this.props.actions.clearMessages();

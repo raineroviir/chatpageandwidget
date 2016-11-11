@@ -11,9 +11,9 @@ export class RegisterOrgVerifyComp extends Component {
   handleNext(e){
     e.preventDefault();
     //service call to register and move to chat message home screen
-    let RegisterPassword = this.refs.RegisterPassword.value;
+    //let RegisterPassword = this.refs.RegisterPassword.value;
 
-    this.refs.submitButton.disabled = true;
+   // this.refs.submitButton.disabled = true;
     
     // if(RegisterPassword === ''){
     //   alert('please enter password');
@@ -21,17 +21,17 @@ export class RegisterOrgVerifyComp extends Component {
     // } 
 
     //store the value in STORE by dispatching event in action
-    this.props.handleNext(RegisterPassword);
+    this.props.handleNext();
     //this.props.actions.submitRegistration();
     //window.location.hash = "#";
   }
 
   inputChange(){
-    this.refs.submitButton.disabled = !(this.refs.RegisterPassword.value&&this.refs.RegisterPassword.value.length>=8);
+    //this.refs.submitButton.disabled = !(this.refs.RegisterPassword.value&&this.refs.RegisterPassword.value.length>=8);
   }
 
   componentDidMount() {
-    this.refs.submitButton.disabled = true;
+   // this.refs.submitButton.disabled = true;
     //console.log(this.props.registrationDetails.Organisation);
   }
 
@@ -78,10 +78,7 @@ export class RegisterOrgVerifyComp extends Component {
                   <span className={"ans-label "+ notOwnDomainContent }>https://{Organisation.team}.{window.config.cc}/{Organisation.channel}</span>
                   <span className={"ans-label "+ ownDomainContent }>http://{this.props.registrationDetails.Organisation.ownDomainValue}/{Organisation.channel}</span>
                 </div>
-                <div className="input-group input-group-lg password-input-group">
-                  <label htmlFor="password" className="input-group-addon" onChange={this.inputChange.bind(this)} id="password-addon"><img className="prefix" src="dist/images/password-icon.svg" /></label>
-                  <input autoFocus id="password" type="password" ref="RegisterPassword" onChange={this.inputChange.bind(this)} className="form-control" placeholder="Set password" aria-describedby="password-addon" />
-                </div>
+                
                 <div className="error-message">
                   {this.props.registrationDetails.Organisation.error}
                 </div>

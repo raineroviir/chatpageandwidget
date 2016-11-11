@@ -12,6 +12,7 @@ import RegisterOrgDomain from 'containers/Registration/Organization/Domain';
 import RegisterOrgVerify from 'containers/Registration/Organization/Verify';
 import RegisterOrgDetail from 'containers/Registration/Organization/Detail';
 import RegisterOrgAddress from 'containers/Registration/Organization/Address';
+import RegisterOrgSucess from 'components/Register/Organization/Sucess';
 import OrgInvite from 'components/Register/Organization/Invite';
 import OrgJoin from 'components/Register/Organization/Join';
 import RegisterIndividual from 'components/Register/Individual';
@@ -70,6 +71,7 @@ export default (
     <Route path="signup/organization/verify" component={RegisterOrgVerify} />
     <Route path="signup/organization/detail" component={RegisterOrgDetail} />
     <Route path="signup/organization/address" component={RegisterOrgAddress} />
+    <Route path="signup/organization/sucess" component={RegisterOrgSucess} />
     <Route path="organization/invite" component={OrgInvite} />
     <Route path="organization/join" component={OrgJoin} />
     <Route path="signup/individual" component={RegisterIndividual} />
