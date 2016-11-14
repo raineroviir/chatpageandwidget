@@ -1,6 +1,21 @@
 $primaryColor: #fdb22b;
 $primaryInvertColor: #fff;
 
+
+.master-nav {
+    background: $primaryColor;
+    &:before {
+        position:absolute;
+        left:0;
+        right: 0;
+        top: 0;
+        bottom:0;
+        content:'';
+        background: rgba(31, 31, 31, 0.9);
+        z-index: -1;
+    }
+}
+
 .secondary-nav {
     background: $primaryColor;
     .layer1{
