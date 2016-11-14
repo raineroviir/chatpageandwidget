@@ -98,6 +98,12 @@ export class Labels extends Component {
         this.refs.botAvatar.click();
     }
 
+    componentWillReceiveProps(newProps){
+        //console.log("user plan...................."+newProps);
+         this.setState({
+           userPlan : newProps.userinfo.plan.stripe_id
+         });
+    }
     render(){
         let userPlan = this.state.userPlan,  pageDesc;
         

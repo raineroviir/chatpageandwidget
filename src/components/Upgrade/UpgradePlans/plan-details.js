@@ -21,8 +21,29 @@ export class PlanDetails extends Component {
 
     }
     
+    
     render(){
-
+      let getButtonvalue = (plan) => {
+      if(this.props.currentPlan.stripe_id == 'free'){
+        return 'UPGRADE';
+      }else if(this.props.currentPlan.stripe_id == 'premium' || this.props.currentPlan.stripe_id == 'premium_yearly'){
+        if(plan.stripe_id == 'plus' || plan.stripe_id == 'plus_yearly'|| plan.stripe_id =='free' ){
+          return 'DOWNGRADE';
+        }else{
+          return 'UPGRADE';
+        }
+        
+        
+      }
+      else if(this.props.currentPlan.stripe_id == 'plus' || this.props.currentPlan.stripe_id == 'plus_yearly'){
+        if(plan.stripe_id == 'premium' || plan.stripe_id == 'premium_yearly'){
+          return 'UPGRADE';
+         }else{
+          return 'DOWNGRADE';
+         }
+      }
+     
+    }
         let planDesc = {
           'free': <div className="plan-detail-desc">
                       <p>
@@ -95,8 +116,8 @@ export class PlanDetails extends Component {
                             }
                             >
                               {
-                                (plan.stripe_id === this.props.currentPlan.stripe_id  ? 'CURRENT PLAN' : 'UPGRADE')
-                              }
+                              (plan.stripe_id === this.props.currentPlan.stripe_id  ? 'CURRENT PLAN' : getButtonvalue(plan))
+                            }
                             </Link>
                           </div>
                         </div>
@@ -116,7 +137,7 @@ export class PlanDetails extends Component {
                           }
                           >
                             {
-                              (plan.stripe_id === this.props.currentPlan.stripe_id  ? 'CURRENT PLAN' : 'UPGRADE')
+                              (plan.stripe_id === this.props.currentPlan.stripe_id  ? 'CURRENT PLAN' : getButtonvalue(plan))
                             }
                           </Link>
                         </div>)
