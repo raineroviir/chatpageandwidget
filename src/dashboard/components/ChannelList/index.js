@@ -10,7 +10,7 @@ export class ChannelList extends Component {
     this.props.selectChannel(channel);
   }
   render() {
-    let user = this.props.user.userinfo, activeChannel = this.props.activeChannel;
+    const { user, channels } = this.props
     console.log('this props channellist',this.props.channels)
     return (
           <div style={{color: "white", fontFamily: "Rubik"}} className="layer1">
@@ -73,7 +73,6 @@ export class ChannelList extends Component {
                   <div className="chat-list-title">
                       <span className="title-text ellipsis">INTERNAL CHATS</span>
                       <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'TEAM_INTERNAL_CHANNEL')}>
-
                       </span>
                   </div>
                   {

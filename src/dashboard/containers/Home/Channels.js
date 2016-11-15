@@ -74,7 +74,7 @@ export class Channels extends Component {
     }
     this.props.createChannelActions.chatType(attr);
     //window.location.hash = url;
-    browserHistory.push(url);
+    // browserHistory.push(url);
   }
   render() {
     return (
@@ -100,7 +100,7 @@ function mapStateToProps(state, ownProps) {
   console.log(state)
   return {
     channels: state.channels,
-    user: state.userinfo,
+    user: state.user,
     activeChannel: state.conversations.channelid,
     org: state.orgs.orgs.find(org => org.active)
   }
