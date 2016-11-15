@@ -1,4 +1,4 @@
-@import './icon-fonts.scss';  
+@import './icon-fonts.scss';
 
 .cc-icon-cross:before {
   content: "\e900";
@@ -19,11 +19,13 @@
 }
 
 /* Font Icons */
-@import './rubik.scss';  
+@import './rubik.scss';
 
 html, body {
   font-family: 'Rubik', sans-serif !important;
   -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
 }
 ::-webkit-input-placeholder {
    color: #9a9da1 !important;
@@ -31,17 +33,17 @@ html, body {
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   color: #9a9da1 !important;  
+   color: #9a9da1 !important;
    font-family: 'Rubik', sans-serif;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-   color: #9a9da1 !important;  
+   color: #9a9da1 !important;
    font-family: 'Rubik', sans-serif;
 }
 
-:-ms-input-placeholder {  
-   color: #9a9da1 !important;  
+:-ms-input-placeholder {
+   color: #9a9da1 !important;
    font-family: 'Rubik', sans-serif;
 }
 html, body, .wrapper, .wrapper > .row, .main, .sidebar{
@@ -302,10 +304,10 @@ li.available .user-presence::before {
 .leftmenu {
   .nav>li>a:focus, .nav>li>a:hover, .nav>li>a.active {
     cursor:pointer;
-  }  
+  }
 }
 
-.nav.user-item > li > a:hover, .nav.user-item > li > a:focus{ background-color:transparent; 
+.nav.user-item > li > a:hover, .nav.user-item > li > a:focus{ background-color:transparent;
 cursor: pointer;
 }
 .user-item {
@@ -344,7 +346,7 @@ cursor: pointer;
 .chat-contacts .user-item a, .chat-contacts .user-item a:focus, .chat-contacts .user-item a:hover, .chat-contacts .user-item li.active a, {
   float: left;
   width: 100%;
-  background-color: transparent; 
+  background-color: transparent;
 }
 .chat-contacts .user-item a .name {
   color: #474848;
@@ -373,7 +375,7 @@ cursor: pointer;
 .chat-flow {
   float: left;
   padding:0px;
-  list-style-type: none;
+  list-style: none;
 }
 .chat-flow li img {
   height: 28px;
@@ -385,12 +387,12 @@ cursor: pointer;
 /* media queries */
 /*==========  Mobile First Method  ==========*/
 
-/* Custom, iPhone Retina */ 
+/* Custom, iPhone Retina */
 @media only screen and (min-width : 320px) {
-    
+
 }
 
-/* Extra Small Devices, Phones */ 
+/* Extra Small Devices, Phones */
 @media only screen and (min-width : 480px) {
 
 }
@@ -464,7 +466,7 @@ cursor: pointer;
   }
 }
 
-/* Extra Small Devices, Phones */ 
+/* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
   .user-item li .name, .user-item li .message {
     margin-left: 5px;
@@ -520,9 +522,9 @@ cursor: pointer;
   }
 }
 
-/* Custom, iPhone Retina */ 
+/* Custom, iPhone Retina */
 @media only screen and (max-width : 320px) {
-    
+
 }
 
 /*Ravi styles overridden -  Start */
@@ -600,7 +602,7 @@ cursor: pointer;
 }
 
 .horizontal-list{
-  list-style-type: none;
+  list-style: none;
 }
 
 .horizontal-list >li{
@@ -642,7 +644,7 @@ cursor: pointer;
     bottom: 5px;
     right: 0;
 }
-  
+
 .chat-flow li img.img-circle.pull-left{
   bottom: 5px;
     position: absolute;
@@ -719,7 +721,7 @@ footer {
       }
     }
   }
-  .leftmenu .navbar-nav>li>a>span{ 
+  .leftmenu .navbar-nav>li>a>span{
     top: -5px;
   }
   .leftmenu .navbar-nav>li.logo img{
@@ -833,12 +835,12 @@ footer {
     background: rgba(171, 173, 179, 0.1);
     cursor: pointer;
   }
-  
+
   .chat-contacts .user-item li span.middle-content {
 
     .name {
       font-weight: normal;
-      margin-left: 0; 
+      margin-left: 0;
     }
     .message {
       font-size: 12px;
@@ -859,7 +861,7 @@ footer {
     }
 
   }
-  
+
   header h1{
     font-size: 24px;
     font-weight: normal;
@@ -873,7 +875,7 @@ footer {
   .chat-contacts + .chat {
     max-height: calc(100vh - 142px)
   }
-  
+
 }
 
 .common-error-message {

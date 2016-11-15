@@ -3,7 +3,7 @@
     .layer1,.layer2 {
         min-height: 100vh;
     }
-    
+
     color: #fff;
     margin-left: 0px;
     .msg-count {
@@ -29,7 +29,7 @@
             font-family: Rubik-Medium;
             text-transform: capitalize;
         }
-        
+
     }
     .menu-hamburger {
         position: absolute;
@@ -96,12 +96,14 @@
         }
 
 
-        
+
     }
     .chat-lists-wrapper {
+      display: flex;
         padding: 10px 12px;
     }
-    .chat-list {
+    .channel-chat-list {
+      font-size: 12px;
         margin: 0;
         padding: 0;
         list-style: none;
@@ -184,17 +186,17 @@
             top: 10px;
             right: 13px;
         }
-        
+
         &:hover {
             a {
-                background-color: rgba(0, 0, 0, 0.1); 
-            } 
-           
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+
         }
     }
     .group-chat-list {
         .groups-icon, .lock-icon {
-            background-image: url(../images/password-icon-white.svg);   
+            background-image: url(../images/password-icon-white.svg);
             height: 13px;
             width: 13px;
             display: inline-block;
@@ -206,9 +208,9 @@
             top: 2px;
             right: 4px;
         }
-        
+
         .groups-icon {
-            background-image: url(../images/groups.svg);   
+            background-image: url(../images/groups.svg);
         }
         .private-channel {
             padding-right: 38px;
@@ -247,8 +249,8 @@
     .secondary-nav {
         .chat-list {
             margin-top: 20px;
-        }  
-    }   
+        }
+    }
 }
 
 @media screen and (min-width: 1000px) {

@@ -59,7 +59,7 @@ export function conversations(state = initialState, action) {
   case 'BACK_TO_CONVERSATIONS_SUMMARY_VIEW':
     return {...state, activeConversationId: null, preparingToCreateConversation: false}
   case 'SET_ACTIVE_CONVERSATION':
-    return {...state, activeConversationId: action.conversationid}
+    return {...state, activeConversationId: action.conversationid, conversations: [...state.conversations, action.conversationid]}
   case 'STORE_USER_SCROLL_POSITION':
     return {...state, userScrollPosition: action.userScrollPosition}
   case 'SAVE_CONVOID_FROM_ROUTE_PARAMS':

@@ -16,12 +16,6 @@ import {getChannels} from '../../actions/Channels'
 
 export class Home extends Component {
   componentDidMount() {
-
-
-    $('.mCustomScrollBar').mCustomScrollbar({
-      theme:"dark-3"
-  });
-
   $('.chat-contacts').height($(window).height()-$('header').height()-35);
 
     $('.chat-group').height($(window).height()-$('footer').height()-$('header').height()-75);
@@ -42,39 +36,36 @@ export class Home extends Component {
   $('.channel-list').on('click', '.user-item li:not(".header")', function() {
     $('.sidebar').toggleClass('hidden-xs hidden-sm');
     $('.main').toggleClass('hidden-xs hidden-sm');
-    $('.mCustomScrollBar').mCustomScrollbar({
-        theme:"dark-3"
-    });
   });
 
     $('.user-info').on('click', '.menu-hamburger', function () {
-        $( 'body' ).toggleClass( 'show-master-nav' );
+        // $( 'body' ).toggleClass( 'show-master-nav' );
     });
 
     //show chat-panel on click of the chat message
     $( '.chat-lists-wrapper, .direct-message' ).on('click', '.chat-message', function  (e) {
       if($(this).hasClass('no-user')) {
-        $( 'body' ).addClass( 'show-chat-panel' );
+        // $( 'body' ).addClass( 'show-chat-panel' );
         $('.goback-icon').addClass('skip-user');
       } else {
-        $( 'body' ).addClass( 'show-conversation-panel' );
+        // $( 'body' ).addClass( 'show-conversation-panel' );
       }
     });
 
-    $( 'body' ).on('click', '.chats-contacts li a', function  (argument) {
-        $( 'body' ).removeClass( 'show-conversation-panel' ).addClass( 'show-chat-panel' );
-    });
+    // $( 'body' ).on('click', '.chats-contacts li a', function  (argument) {
+    //     $( 'body' ).removeClass( 'show-conversation-panel' ).addClass( 'show-chat-panel' );
+    // });
 
-    $('body').on('click', '.goback-icon', function() {
-      if($(this).hasClass('skip-user')) {
-        $( 'body' ).removeClass( 'show-chat-panel show-conversation-panel' );
-        $('.goback-icon').removeClass('skip-user')
-      } else if($( 'body' ).hasClass( 'show-chat-panel' )) {
-        $( 'body' ).removeClass( 'show-chat-panel' ).addClass( 'show-conversation-panel' );
-      } else if($( 'body' ).hasClass( 'show-conversation-panel' )) {
-        $( 'body' ).removeClass( 'show-chat-panel show-conversation-panel' );
-      }
-    } );
+    // $('body').on('click', '.goback-icon', function() {
+    //   if($(this).hasClass('skip-user')) {
+    //     $( 'body' ).removeClass( 'show-chat-panel show-conversation-panel' );
+    //     $('.goback-icon').removeClass('skip-user')
+    //   } else if($( 'body' ).hasClass( 'show-chat-panel' )) {
+    //     $( 'body' ).removeClass( 'show-chat-panel' ).addClass( 'show-conversation-panel' );
+    //   } else if($( 'body' ).hasClass( 'show-conversation-panel' )) {
+    //     $( 'body' ).removeClass( 'show-chat-panel show-conversation-panel' );
+    //   }
+    // } );
 
   $('.main header').on('click', '.glyphicon-circle-arrow-left', function() {
     $('.sidebar').toggleClass('hidden-xs hidden-sm');
@@ -82,9 +73,6 @@ export class Home extends Component {
   });
   // Bug fix for mCustomScrollbar as its updateOnBrowserResize isnt working as expected
   $(window).resize(function() {
-    $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({
-      theme:"dark-3"
-    });
   });
 
     /*$( 'body' ).on( 'click', function ( e ) {
@@ -121,6 +109,7 @@ export class Home extends Component {
       // dispatch(initEnvironment())
       dispatch(fetchChannel('sales','rainer5.chat3.center', token)).then((channel) => {
         console.log(token, channel.id)
+        dispatch({type: "RECEIVE_MY_DIRECT_CHANNEL", directChannel: channel.id})
           dispatch(fetchSocket(token, channel.id))
         if (!channel.is_group) {
           dispatch(checkForConversation(channel.id, token))

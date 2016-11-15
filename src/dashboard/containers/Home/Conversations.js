@@ -8,10 +8,14 @@ import { browserHistory } from 'react-router';
 import { ConversationsView } from '../../components/Conversations';
 export class Conversations extends Component {
   selectConversation(conversationid){
-    this.props.actions.getConversationHistory (conversationid);
-    browserHistory.push("/dashboard/" + this.props.activeChannel.address.channel + "/" + conversationid)
+    const { user, guest } = this.props
+    const { token } = user || guest
+    console.log(token)
+    this.props.actions.getConversationHistory(conversationid, token);
+    // browserHistory.push("/dashboard/" + this.props.activeChannel.address.channel + "/" + conversationid)
   }
   render() {
+    console.log(this.props.conversations)
     return (
       <ConversationsView conversations={this.props.conversations.conversations} selectConversation={this.selectConversation.bind(this)} activeConversation={this.props.activeConversation} />
     );
@@ -20,6 +24,8 @@ export class Conversations extends Component {
 
 function mapStateToProps(state) {
   return {
+    user: state.user,
+    guest: state.guest,
     conversations: state.conversations,
     channelid: (state.channels.channels.otherChannels[0]) ? state.channels.channels.otherChannels[0].id : null,
     activeConversation: state.messages.conversationid,

@@ -6,13 +6,14 @@ import { styles } from './styles.scss';
 let classNames = require("classnames");
 export class ChannelList extends Component {
   selectChannel(channel){
+    console.log(channel)
     this.props.selectChannel(channel);
   }
   render() {
     let user = this.props.user.userinfo, activeChannel = this.props.activeChannel;
     console.log('this props channellist',this.props.channels)
     return (
-          <div style={{color: "white"}} className="layer1">
+          <div style={{color: "white", fontFamily: "Rubik"}} className="layer1">
             <div className="layer2">
               <div className="user-info">
                 <span className="glyphicon glyphicon-menu-hamburger menu-hamburger" aria-hidden="true"></span>
@@ -39,18 +40,18 @@ export class ChannelList extends Component {
               </div>
               <div className="chat-lists-wrapper">
 
-                <ul className="chat-list" style={{display:((!user.team) ? "none" : "")}}>
-                  <li className="chat-list-title">
+                <div style={{listStyle: "none"}} className="channel-chat-list" style={{display:((!user.team) ? "none" : "")}}>
+                  <div className="chat-list-title">
                       <span className="title-text ellipsis">EXTERNAL CHATS</span>
                       <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'TEAM_EXTERNAL_CHANNEL')}>
                       </span>
-                  </li>
+                  </div>
                    {
                     user.team && this.props.channels.publicChannels ? this.props.channels.publicChannels.map(channel => {
                       let avatarText = (channel.name) ? channel.name.charAt(0) : "";
                       return (
 
-                        <li onClick={this.selectChannel.bind(this, channel)}
+                        <div onClick={this.selectChannel.bind(this, channel)}
                         key={channel.id}
                         className={ (channel.id == activeChannel) ? "chat-message active" :
                         "chat-message" }>
@@ -62,25 +63,25 @@ export class ChannelList extends Component {
                             </span>
                             <span className="msg-count">2</span>
                           </a>
-                        </li>
+                        </div>
                       );
                     }) : null
                   }
 
-                </ul>
-                <ul className="chat-list" style={{display:((!user.team) ? "none" : "")}}>
-                  <li className="chat-list-title">
+                </div>
+                <div style={{listStyle: "none"}} className="channel-chat-list" style={{display:((!user.team) ? "none" : "")}}>
+                  <div className="chat-list-title">
                       <span className="title-text ellipsis">INTERNAL CHATS</span>
                       <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'TEAM_INTERNAL_CHANNEL')}>
 
                       </span>
-                  </li>
+                  </div>
                   {
                     user.team && this.props.channels.privateChannels ?  this.props.channels.privateChannels.map(channel => {
                       let avatarText = (channel.name) ? channel.name.charAt(0) : "";
                       return (
 
-                        <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message active" : "chat-message" }>
+                        <div onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message active" : "chat-message" }>
                           <a>
                             <img className={classNames("img-rounded", { hide: !channel.avatar_96})} src={channel.avatar_96 || ""} title={channel.name} alt={channel.name} />
                             <span className={classNames("avatar", { hide: !!channel.avatar_96})}>{avatarText}</span>
@@ -89,23 +90,23 @@ export class ChannelList extends Component {
                             </span>
                             <span className="msg-count">2</span>
                           </a>
-                        </li>
+                        </div>
                       );
                     }) : null
                   }
-                </ul>
-                <ul className="chat-list" style={{display:((user.team) ? "none" : "")}}>
-                  <li className="chat-list-title">
+                </div>
+                <div style={{listStyle: "none"}} className="channel-chat-list" style={{display:((user.team) ? "none" : "")}}>
+                  <div className="chat-list-title">
                       <span className="title-text ellipsis">PUBLIC CHATS</span>
                       <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'INDIVIDUAL_PUBLIC_CHANNEL')}>
 
                       </span>
-                  </li>
+                  </div>
                   {
                     !user.team && this.props.channels.otherChannels ?  this.props.channels.otherChannels.map(channel => {
                       let avatarText = (channel.name) ? channel.name.charAt(0) : "";
                       return (
-                        <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message active" : "chat-message" }>
+                        <div onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message active" : "chat-message" }>
                           <a>
                             <img className={classNames("img-rounded", { hide: !channel.avatar_96})} src={channel.avatar_96 || ""} title={channel.name} alt={channel.name} />
                             <span className={classNames("avatar", { hide: !!channel.avatar_96})}>{avatarText}</span>
@@ -114,23 +115,23 @@ export class ChannelList extends Component {
                             </span>
                             <span className="msg-count">2</span>
                           </a>
-                        </li>
+                        </div>
                       );
                     }) : null
                   }
-                </ul>
-                <ul className="chat-list group-chat-list" style={{display:((user.team) ? "none" : "")}}>
-                  <li className="chat-list-title">
+                </div>
+                <div style={{listStyle: "none"}} className="chat-list group-chat-list" style={{display:((user.team) ? "none" : "")}}>
+                  <div className="chat-list-title">
                       <span className="title-text ellipsis">PRIVATE GROUP CHATS</span>
                       <span className="plus-icon" onClick={this.props.createChannel.bind(this, 'INDIVIDUAL_PRIVATE_GROUP_CHANNEL')}>
 
                       </span>
-                  </li>
+                  </div>
                   {
                     !user.team && this.props.channels.groupChannels ?  this.props.channels.groupChannels.map(channel => {
                       let avatarText = (channel.name) ? channel.name.charAt(0) : "";
                       return (
-                        <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message no-user active" : "chat-message no-user" }>
+                        <div onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message no-user active" : "chat-message no-user" }>
                           <a className={channel.is_public? 'public-channel': 'private-channel'  }>
 
                             <img className={classNames("img-rounded", { hide: !channel.avatar_96})} src={channel.avatar_96 || ""} title={channel.name} alt={channel.name} />
@@ -146,7 +147,7 @@ export class ChannelList extends Component {
                               <span className="msg-count">2</span>
 
                           </a>
-                        </li>
+                        </div>
                       );
                     }) : null
                   }
@@ -155,7 +156,7 @@ export class ChannelList extends Component {
                       let avatarText = (channel.name) ? channel.name.charAt(0) : "";
                       console.log(channel)
                       return (
-                        <li onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message no-user active" : "chat-message no-user" }>
+                        <div onClick={this.selectChannel.bind(this, channel)} key={channel.id} className={ (channel.id == activeChannel) ? "chat-message no-user active" : "chat-message no-user" }>
                           <a className={channel.is_public? 'public-channel': 'private-channel'  }>
 
                             <img className={classNames("img-rounded", { hide: !channel.avatar_96})} src={channel.avatar_96 || ""} title={channel.name} alt={channel.name} />
@@ -171,11 +172,11 @@ export class ChannelList extends Component {
                               <span className="msg-count">2</span>
 
                           </a>
-                        </li>
+                        </div>
                       );
                     }) : null
                   }
-                </ul>
+                </div>
               </div>
             </div>
           </div>

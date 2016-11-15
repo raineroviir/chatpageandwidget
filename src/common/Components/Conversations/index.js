@@ -4,11 +4,6 @@ import classNames from 'classnames'
 import { styles } from './styles.scss';
 
 export class Conversations extends Component {
-  componentDidUpdate (){
-    $('.mCustomScrollBar').removeAttr("style").mCustomScrollbar({
-      theme:"dark-3"
-    });
-  }
   selectConversation(conversation) {
     this.props.selectConversation(conversation.id)
   }

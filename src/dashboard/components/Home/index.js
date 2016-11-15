@@ -28,11 +28,11 @@ export class HomeView extends Component {
     return (
       <div style={{display: "flex", flexDirection: "row"}}>
           <DocumentMeta {...metaData} />
-          <div style={{display: "flex", alignSelf: "flex-start", flexGrow: "0", height: "100%", backgroundColor: "rgba(31, 31, 31, 0.9)"}}>
+          <div className="left-side-nav-container" style={{display: "flex", alignSelf: "flex-start", flexGrow: "0", height: "100%"}}>
             <Navigation historyApi={this.props.historyApi} />
             <Channels channelname={this.props.channelname} conversationname={this.props.conversationname} />
           </div>
-          <div className="main-section" style={{display: "flex", flexDirection: "column", flexGrow: "1"}}>
+          <div className="main-section" style={{display: "flex", flexDirection: "column", flexGrow: "1", height: "100%"}}>
             <Header poptartActons= {this.props.poptartActons}/>
             <section className={ this.props.isGroupChat ? "group-chat conversations-panel" : "conversations-panel"} style={{display: "flex"}}>
               <Conversations />

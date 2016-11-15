@@ -14,11 +14,6 @@ export class ChatWidget extends Component {
         super( props );
         this.state = {};
     }
-    componentDidMount (){
-        $('#chat-body').removeAttr("style").mCustomScrollbar({ 
-            theme:"dark-3"        
-        });
-    }
     emailPromptSubmit(e) {
         e.preventDefault();
         if(!this.refs.emailPromptInput.value) {
@@ -32,7 +27,7 @@ export class ChatWidget extends Component {
         if(!this.refs.postMsgInput.value) {
             return;
         }
-        
+
         //console.log('postMessage functionality');
         this.refs.postMsgInput.value = '';
     }
@@ -42,7 +37,7 @@ export class ChatWidget extends Component {
         <div className="chat-widget">
             <div className="chat-widget-header">
                 <span className="angle-down-arrow">
-                    
+
                 </span>
                 <a href="javascript:">
                     Sign in to {window.config.cc}
@@ -64,7 +59,7 @@ export class ChatWidget extends Component {
                                     <img src={avatarImg} />
                                 </div>
                             </div>
-                        
+
                             <div className="chat-center-team-name">Chat Center Team</div>
                             <p className="chat-center-team-link">
                                 <a href={"https://team."+window.config.cc+"/" + this.props.channelInfo.address.channel }>
@@ -81,7 +76,7 @@ export class ChatWidget extends Component {
                             <li className="chat-widget-message">
                                 <div className={"chat-avatar " + ( this.state.src ? '' : 'default-icon')}>
                                     <img src={this.state.src ? this.state.src : avatarImg} /
-                                    > 
+                                    >
                                 </div>
                                 <div className="chat-message-wrapper">
                                     <p className="message-by">You</p>
@@ -93,7 +88,7 @@ export class ChatWidget extends Component {
                             <li className="chat-widget-message received">
                                 <div className={"chat-avatar " + ( this.props.widgetConfig.bot.avatarUrl ? '' : 'default-icon')}>
                                     <img src={this.props.widgetConfig.bot.avatarUrl ? this.props.widgetConfig.bot.avatarUrl : avatarImg} /
-                                    > 
+                                    >
                                 </div>
                                 <div className="chat-message-wrapper">
                                     <p className="message-by">{this.props.widgetConfig.bot.name}</p>
@@ -124,7 +119,7 @@ export class ChatWidget extends Component {
                             <li className="chat-widget-message">
                                 <div className={"chat-avatar " + ( this.state.src ? '' : 'default-icon')}>
                                     <img src={this.state.src ? this.state.src : avatarImg} /
-                                    > 
+                                    >
                                 </div>
                                 <div className="chat-message-wrapper">
                                     <p className="message-by">You</p>

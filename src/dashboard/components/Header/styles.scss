@@ -1,9 +1,8 @@
 .header {
     padding: 16px 12px;
-    padding-bottom: 17px;
     padding-right:0;
     box-shadow: 0 0.5px 0 0 rgba(0, 0, 0, 0.2);
-
+    flex-grow:0;
     .title-section {
         margin-left: 20px;
         position: relative;
@@ -47,7 +46,7 @@
                 margin-right: 7px;
             }
         }
-        
+
     }
 
     .goback-icon {
@@ -99,14 +98,14 @@
     .feature-list {
         margin: 0;
         padding: 0;
-        list-style: none; 
+        list-style: none;
         white-space: nowrap;
         li {
             display: inline-block;
             vertical-align: middle;
             &.button-user-li {
                 border-right: solid 2px #d5d6d8;
-                
+
                 padding-right: 23px;
                 margin-right: 4px;
                 a {
@@ -141,7 +140,7 @@
                 margin: .5em;
                 cursor: pointer;
                 border-radius: 50%;
-                display: inline-block; 
+                display: inline-block;
                 &:hover {
                     background-color: hsla(220,4%,84%,.5);
                 }
@@ -153,7 +152,7 @@
     }
 
     .button-new{
-      background-image:url(../images/headbar_new.svg); 
+      background-image:url(../images/headbar_new.svg);
     }
 
     .button-mention{
@@ -169,8 +168,8 @@
     }
 
 
-    
-    
+
+
 }
 
 @media screen and (min-width: 768px) {
@@ -189,7 +188,7 @@
                     z-index: 1
                 }
             }
-            
+
         }
         .feature-panel {
             margin-top: 12px;
@@ -198,7 +197,7 @@
                 li {
                     &.button-user-li {
                         padding-top:8px;
-                        padding-bottom: 8px; 
+                        padding-bottom: 8px;
                     }
                     a  {
                         margin: 0 .5em;
@@ -216,5 +215,3 @@
         }
     }
 }
-
-

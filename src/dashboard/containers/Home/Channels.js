@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';
 import * as CreateChannelActions from '../../actions/CreateChannel';
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router';
 import { fetchSocket } from '../../actions/Channels';
 
 /* components */
@@ -23,8 +23,9 @@ socket.on('message', state => {
 
 export class Channels extends Component {
   selectChannel(channel){
-    this.props.actions.getConversations(channel.id, this.props.channels.channels.all);
-    browserHistory.push("/dashboard/" + (channel.address.channel || ""))
+    console.log(channel)
+    // this.props.actions.getConversations(channel.id, this.props.channels.channels.all);
+    // browserHistory.push("/dashboard/" + (channel.address.channel || ""))
   }
   createChannel(type){
     let attr = {}

@@ -16,13 +16,11 @@
 }
 
 .master-nav {
-    width: 72px;
-    height: 100vh;
-    float: left;
+    display: flex;
+    background-color: rgba(31, 31, 31, 0.9);
     padding: 12px 10px;
-    padding-bottom: 60px;
-    display: none;
-    position: fixed;
+    width: 52px;
+    justify-content: center;
     .available-wrapper {
         display: none;
         white-space: nowrap;
@@ -139,11 +137,7 @@
     }
     .add-org-btn-wrapper {
         text-align: center;
-        position: absolute;
-        bottom: 10px;
-        left: 0;
-        width: 72px;
-
+        align-self: flex-end;
         a {
             height: 40px;
             width: 40px;
@@ -164,7 +158,6 @@
 }
 .show-master-nav {
     .master-nav {
-        display: block
     }
     .secondary-nav {
         margin-left: 72px;
@@ -227,10 +220,4 @@
     padding: 0px;
     overflow: hidden;
     position: relative;
-}
-@media screen and (min-width: 768px) {
-    .master-nav {
-        display: block
-    }
-
 }

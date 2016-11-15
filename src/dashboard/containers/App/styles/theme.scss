@@ -3,85 +3,77 @@ $primaryInvertColor: #fff;
 
 
 .master-nav {
-    background: $primaryColor;
-    &:before {
-        position:absolute;
-        left:0;
-        right: 0;
-        top: 0;
-        bottom:0;
-        content:'';
-        background: rgba(31, 31, 31, 0.9);
-        z-index: -1;
-    }
+  background: $primaryColor;
 }
 
-.secondary-nav {
+// .layer1 {
+//   background-color: rgba(171, 173, 179, 0.1);
+// }
+
+.layer2 {
+  height: 100%;
+  background-color: rgba(31, 33, 44, 0.87);
+  display: flex;
+  flex-direction: column;
+  padding: 0 10 0 10;
+  width: 210px;
+}
+
+
+
+.msg-count {
+    color: $primaryInvertColor;
     background: $primaryColor;
-    .layer1{
-        background-color: rgba(171, 173, 179, 0.1);
+}
+.direct-message {
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
     }
-    .layer2{
-        background-color: rgba(31, 33, 44, 0.87);
-    }
-    .msg-count {
-        color: $primaryInvertColor;
+    &.active {
         background: $primaryColor;
-    }
-    .direct-message {
-        &:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-        &.active {
-            background: $primaryColor;
-            .msg-count {
-              background: $primaryInvertColor;
-              color:#000;
-            }
+        .msg-count {
+          background: $primaryInvertColor;
+          color:#000;
         }
     }
-    .msg-count {
-
-    }
-    .chat-message {
-        .img-rounded, .avatar {
-            background-color: $primaryColor;
-            color: $primaryInvertColor;
-        }
-        &.active,&.active:hover {
-            .avatar {
-                background-color: $primaryInvertColor;
-                color: $primaryColor;
-            }
-        }
-        &:hover {
-
-            .avatar {
-                background-color: $primaryInvertColor;
-                color: $primaryColor;
-            }
-        }
-        &.active,&.active:hover {
-          a {
-              background: $primaryColor;
-          }
-          .msg-count {
-              background: $primaryInvertColor;
-              color:#000;
-          }
-          .avatar {
-                background-color: $primaryInvertColor;
-                color: $primaryColor;
-          }
-        }
-
-    }
-
+}
+.msg-count {
 
 }
 
+.chat-message {
+    .img-rounded, .avatar {
+        background-color: $primaryColor;
+        color: $primaryInvertColor;
+    }
+    &.active,&.active:hover {
+        .avatar {
+            background-color: $primaryInvertColor;
+            color: $primaryColor;
+        }
+    }
+    &:hover {
 
+        .avatar {
+            background-color: $primaryInvertColor;
+            color: $primaryColor;
+        }
+    }
+    &.active,&.active:hover {
+      a {
+          background: $primaryColor;
+      }
+      .msg-count {
+          background: $primaryInvertColor;
+          color:#000;
+      }
+      .avatar {
+            background-color: $primaryInvertColor;
+            color: $primaryColor;
+      }
+    }
 
+}
 
 .master-nav {
 
