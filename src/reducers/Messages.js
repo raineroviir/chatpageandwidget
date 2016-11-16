@@ -18,7 +18,7 @@ export function messages(state = initialState, action) {
   console.log(state);
   switch (action.type) {
   case 'FETCH_MESSAGES':
-  console.log("in fetch messages ");
+//  console.log("in fetch messages ");
 //  console.log(action.data.messages);
 
 
@@ -27,6 +27,7 @@ export function messages(state = initialState, action) {
     return {
       ...state,
       messagesList: messages.reverse().concat(state.messagesList),
+      conversationid: action.data.conversationid,
       memoized: {
         ...state.memoized,
         [action.data.conversationid]: messages
