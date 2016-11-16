@@ -1,0 +1,236 @@
+
+
+.left-aligned-message {
+  align-self: flex-start;
+  flex-direction: column;
+  padding: 0 68px 0 0;
+}
+
+.right-aligned-message {
+  align-self: flex-end;
+  flex-direction: column;
+  padding: 0 0 0 68px;
+}
+
+.message-status {
+  padding: 0 48px 0 0px;
+  display: flex;
+  height: 20px;
+  justify-content: flex-end;
+}
+.unread-message-notification {
+    font-size: 13px;
+    font-weight: 400;
+    color: #474848;
+    opacity: 0.9;
+    position : absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    padding: 13px 13px 12px 13px;
+    display: none;
+    a {
+        float: right;
+        font-family: 'Rubik-Bold';
+    }
+}
+
+@-webkit-keyframes fadeIn { from { opacity:0; opacity: 1\9; /* IE9 only */ } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; opacity: 1\9; /* IE9 only */ } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; opacity: 1\9; /* IE9 only */ } to { opacity:1; } }
+
+.fade-in {
+    opacity:0;  /* make things invisible upon start */
+    -webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+    -moz-animation:fadeIn ease-in 1;
+    animation:fadeIn ease-in 1;
+
+    -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+    -moz-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;
+
+    -webkit-animation-duration:0.5s;
+    -moz-animation-duration:0.5s;
+    animation-duration:0.5s;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-top: 9px;
+  margin-bottom: 9px;
+  font-family: Rubik;
+
+  .chat-message {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  .bubble-arrow-left {
+    color: #333;
+    padding: 0 0 0 8px;
+    &:after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      position: absolute;
+      top: 10.445px;
+      content: '';
+      display: inline-block;
+      transition: all ease-in 0.5s;
+      border-color: inherit;
+      left: -4px;
+      right: auto;
+      border-width: 7px 8px 7px 0px;
+    }
+  }
+  .bubble-arrow-right {
+    padding: 0 8px 0 0;
+    color: #FFFFFF;
+    &:after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      position: absolute;
+      left: -4px;
+      top: 10.445px;
+      content: '';
+      display: inline-block;
+      transition: all ease-in 0.5s;
+      border-color: inherit;
+      right: -4px;
+      left: auto;
+      border-width: 7px 0 7px 8px;
+    }
+  }
+  .message-bubble {
+    padding: 7px 8px;
+    border-radius: 9px;
+    position: relative;
+    max-width: 400px;
+    transition: all ease-in 0.5s;
+  }
+  .avatar-wrapper {
+  }
+  .avatar {
+    height: 28px;
+    width: 28px;
+    object-fit: contain;
+  }
+  .received-message {
+    display: flex;
+  }
+  .email-input {
+    padding: 0 0 0 8px;
+    height: 100%;
+    font-size: 14px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: solid 0.5px #e7eaec;
+  }
+}
+
+.loading_dots
+ {
+   border-radius: 5px;
+   font-size: 1em; /* set size here */
+   line-height: 1;
+   width: 2.75em;
+   display: flex;
+   /*
+     position just for demo
+   */
+ }
+ .loading_dots span
+ {
+   background: transparent;
+   border-radius: 50%;
+   display: inline-block;
+   height: 0.6em;
+   width:  0.6em;
+     -webkit-animation:  loading_dots 0.8s linear infinite;
+     -moz-animation:     loading_dots 0.8s linear infinite;
+     -ms-animation:      loading_dots 0.8s linear infinite;
+   animation:            loading_dots 0.8s linear infinite;
+ }
+   .loading_dots span:nth-child(2)
+   {
+       -webkit-animation-delay:  0.2s;
+       -moz-animation-delay:     0.2s;
+       -ms-animation-delay:      0.2s;
+     animation-delay:            0.2s;
+   }
+   .loading_dots span:nth-child(1)
+   {
+   -webkit-animation-delay:  0.4s;
+       -moz-animation-delay:     0.4s;
+       -ms-animation-delay:      0.4s;
+     animation-delay:            0.4s;
+   }
+
+/*
+ Define the animation for every efing vendor prefix
+*/
+ @-webkit-keyframes loading_dots
+ {
+   0% {
+     background: transparent;
+   }
+   50% {
+     background: #E4E4E4;
+   }
+   100% {
+     background: transparent;
+   }
+ }
+
+ @-moz-keyframes loading_dots
+ {
+   0% {
+     background: transparent;
+   }
+   50% {
+     background: #E4E4E4;
+   }
+   100% {
+     background: transparent;
+   }
+ }
+ @-ms-keyframes loading_dots
+ {
+   0% {
+     background: transparent;
+   }
+   50% {
+     background: #E4E4E4;
+   }
+   100% {
+     background: transparent;
+   }
+ }
+ @keyframes loading_dots
+ {
+   0% {
+     background: transparent;
+   }
+   50% {
+     background: #E4E4E4;
+   }
+   100% {
+     background: transparent;
+   }
+ }

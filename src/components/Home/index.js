@@ -6,11 +6,13 @@ import Navigation from 'containers/Home/Navigation';
 import Header from 'containers/Home/Header';
 import Channels from 'containers/Home/Channels';
 import Conversations from 'containers/Home/Conversations';
-import Messages from 'containers/Home/Messages';
-import CreateMessage from 'containers/Home/CreateMessage';
+import Messages from 'containers/Messaging/Messages';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ChannelsActions from '../../actions/Channels';
+
+import CreateMessage from 'containers/Messaging/CreateMessage';
 
 const metaData = {
   title: 'Chat Center',
@@ -40,7 +42,7 @@ export class HomeView extends Component {
                 <Messages />
                 <CreateMessage />
               </div>
-            
+
             </section>
           </div>
       </div>

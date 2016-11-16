@@ -23,7 +23,11 @@ import { loader } from './loader';
 import { tabnav } from './tabnav';
 import { billingInfo } from './billingInfo';
 
-import { settings } from './settings'; 
+import { settings } from './settings';
+import { environment } from './environment';
+
+import { user } from './user';
+
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -50,7 +54,9 @@ const rootReducer = combineReducers({
   loader,
   tabnav,
   settings,
-  billingInfo
+  billingInfo,
+  environment,
+  user
 });
 
 export default rootReducer;

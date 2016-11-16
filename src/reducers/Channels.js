@@ -14,7 +14,10 @@ const initialState = {
       first_name: null,
       last_name: null
     }
-  }
+  },
+  activeChannelId: null,
+  activeChannelUrl: null,
+
 };
 
 export function channels(state = initialState, action) {

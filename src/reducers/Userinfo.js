@@ -22,7 +22,7 @@ export function userinfo(state = initialState, action) {
       userinfo: action.posts
     };
   case 'RESET_USER':
-    return initialState;    
+    return initialState;
   default:
     return state;
   }

@@ -474,7 +474,7 @@ function processConversationsForDispatch(conversations, channelid) {
 function processConversationsHistoryForDispatch(messages, conversationid) {
   return {
     type: 'FETCH_MESSAGES',
-    posts: { ...messages, conversationid},
+    data: { ...messages, conversationid},
     receivedAt: Date.now()
   }
 }

@@ -1,0 +1,386 @@
+.menu {
+  box-shadow: 0 14px 30px 0 rgba(0, 0, 0, 0.4);
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  position: absolute;
+  top: 50px;
+  width: 320px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  .menu-item {
+    border-top: 1px solid #d5d6d8;
+    padding: 10px 10px 10px 10px;
+  }
+  border-color: transparent transparent transparent white;
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    display: inline-block;
+    transition: all ease-in 0.5s;
+    border-color: inherit;
+    top: -11px;
+    right: 33px;
+    border-width: 7 0 7 8;
+    transform: rotate(-90deg);
+  }
+}
+
+.widget-menu {
+  background-color: #FFFFFF;
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  width: 320px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  .menu-item {
+    border-top: 1px solid #d5d6d8;
+    padding: 10px 10px 10px 10px;
+  }
+}
+
+.messages-while-inactive {
+  width: 200px;
+  top: auto;
+  left: auto;
+  bottom: 70px;
+  right: 15px;
+  position: absolute;
+  background-color: #f8f8f8;
+  position: absolute;
+  border-color: transparent transparent transparent #f8f8f8;
+  border-radius:5px;
+
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    display: inline-block;
+    transition: all ease-in 0.5s;
+    border-color: inherit;
+    right: 20px;
+    bottom: -10px;
+    border-width: 7 0 7 8;
+    transform: rotate(90deg);
+  }
+}
+
+.minimized-welcome-message {
+  font-family: Rubik;
+  font-size: 15px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.4;
+  color: #474848;
+  width: 250px;
+  top: auto;
+  left: auto;
+  bottom: 70px;
+  right: 15px;
+  background-color: #f8f8f8;
+  position: absolute;
+  border-color: transparent transparent transparent #f8f8f8;
+  border-radius:5px;
+  display: flex;
+  flex-direction: column;
+  .post-form-wrapper {
+      width: inherit;
+      bottom: 32px;
+      border-top: 1px solid #eee;
+      background: #f8f8f8;
+      color: #555;
+      height:55px;
+      font-family: Rubik;
+
+      .post-form {
+        margin: 0;
+        height: 32px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 14px 0px 12px;
+        border-collapse: separate;
+      }
+      .message-input {
+        padding: 0 8px 0 8px;
+        height: 100%;
+        width: 100%;
+        border-radius: 5px;
+        background-color: #ffffff;
+        border: solid 0.5px #e7eaec;
+      }
+      .submit-button {
+        border: 0;
+        background: 0;
+        color: #f7a444;
+        cursor: pointer;
+      }
+      .message-input-wrapper {
+        width: 100%;
+        padding: 0px 11px 0px 12px;
+      }
+  }
+}
+
+.initial-info {
+  background-color: #FFFFFF;
+  position: initial;
+  border-color: transparent transparent transparent #f8f8f8;
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    display: inline-block;
+    transition: all ease-in 0.5s;
+    border-color: inherit;
+    right: 20px;
+    bottom: -10px;
+    border-width: 7 0 7 8;
+    transform: rotate(90deg);
+  }
+  .team-avatar-wrapper {
+    padding: 15px 13px 4px 13px;
+  }
+  .team-avatar {
+    object-fit: contain;
+    background-repeat: no-repeat;
+    width: 116px;
+    height: 28px;
+  }
+  .team-url {
+    font-weight: 500;
+    line-height: 1.6;
+    padding: 0px 13px 0px 13px;
+  }
+  .team-name {
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    padding: 4px 13px 4px 13px;
+  }
+  .welcome-message {
+    padding: 20px 13px 10px 13px;
+  }
+}
+
+.unread-message-bubble {
+  width: 19px;
+  height: 19px;
+  border-radius: 19px;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+.lastmessage-popdown-triangle {
+  position: absolute;
+  bottom: -16px;
+  font-size: 28px;
+  right: 55px;
+  color: white;
+}
+.chat-messages-wrapper {
+  width: inherit;
+}
+
+.conversation-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.conversation-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+  }
+  ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(0,0,0,.5);
+      -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+  }
+}
+
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+}
+
+.your-details-entry-form {
+  background-color: #FFFFFF;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 320px;
+  align-self: center;
+  right: 0;
+  font-family: Rubik;
+  font-size: 15px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  color: #474848;
+  .your-details {
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+}
+.registration {
+  background-color: #FFFFFF;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 320px;
+  align-self: center;
+  right: 0;
+  font-family: Rubik;
+  font-size: 15px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  color: #474848;
+  .your-details {
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+}
+.capture-details-input {
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    opacity:  0.6;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   opacity:  0.6;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   opacity:  0.6;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   opacity:  0.6;
+}
+}
+.info {
+  font-family: Rubik;
+  font-size: 15px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.4;
+  color: #474848;
+  box-shadow: 0 14px 30px 0 rgba(0, 0, 0, 0.4);
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  position: absolute;
+  top: 50px;
+  height: 196px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+
+  border-color: transparent transparent transparent white;
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    display: inline-block;
+    transition: all ease-in 0.5s;
+    border-color: inherit;
+    top: -11px;
+    left: 20;
+    border-width: 7 0 7 8;
+    transform: rotate(-90deg);
+  }
+  .team-avatar-wrapper {
+    padding: 15px 13px 4px 13px;
+  }
+  .team-avatar {
+    object-fit: contain;
+    background-repeat: no-repeat;
+    width: 116px;
+    height: 28px;
+  }
+  .team-url {
+    font-weight: 500;
+    line-height: 1.6;
+    padding: 0px 13px 0px 13px;
+  }
+  .team-name {
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    padding: 4px 13px 4px 13px;
+  }
+  .welcome-message {
+    padding: 20px 13px 10px 13px;
+  }
+}
+
+.member-avatar-icon {
+  width: 28px;
+  height: 28px;
+  margin: 0 -5px 0 -5px;
+}
+
+.avatar {
+  color: #f7a444;
+  height: 28px;
+  width: 28px;
+  object-fit: contain;
+  align-self: center;
+}
+
+.footer {
+  flex-shrink: 0;
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .footer-message {
+    height: 32px;
+    width: 100%;
+    background-color: #fbfcfe;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+  .powered-by {
+    font-family: Rubik;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    color: #7f7f7f;
+  }
+}
