@@ -48,8 +48,8 @@ class App extends React.Component {
   componentDidMount() {
     const { dispatch, channel_url } = this.props
     // setting some dummy data here for now while we get the actual data flow set up
+    localStorage.clear()
     const data = {email: "placeholder"}
-    console.log(channel_url)
     const index = channel_url.indexOf('/')
     const channelname = channel_url.slice(index + 1)
     const team = channel_url.slice(0,index)

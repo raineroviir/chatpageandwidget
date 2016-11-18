@@ -39,6 +39,7 @@ class App extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props
     // setting some dummy data here for now while we get the actual data flow set up
+    localStorage.clear()
     const data = {email: "placeholder"}
     const hostName = window.location.hostname
     const channelSubDomain = hostName.split('.')[0]
@@ -51,7 +52,6 @@ class App extends React.Component {
       channelHost = "chat3.center"
     }
     const team = `${channelSubDomain}.${channelHost}`
-    console.log(channelName, team)
     dispatch(initEnvironment())
     dispatch(initUser(data))
     .then((token) => {

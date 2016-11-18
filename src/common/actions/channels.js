@@ -8,9 +8,6 @@ import { scrollToBottom } from './environment'
 import {dispatchMessageStream} from './messages'
 
 export function fetchSocket(token, channelid) {
-    console.log()
-  console.log("FETCH SOCKET", token, channelid)
-  console.log()
   return dispatch => {
     let getSocket = getSocketURL(token);
     if(getSocket) {
