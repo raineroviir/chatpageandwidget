@@ -6,7 +6,7 @@ const path = require('path')
 app.use(require('morgan')('short'));
 
   const webpack = require('webpack');
-  const webpackConfig = require('../../../webpack/chatpage.dev.config');
+  const webpackConfig = require('../../../webpack/webpack.dev.config');
   const compiler = webpack(webpackConfig);
 
   app.use(require('webpack-dev-middleware')(compiler, {

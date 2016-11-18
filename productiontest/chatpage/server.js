@@ -7,10 +7,13 @@ const path = require('path')
 //   res.sendFile(path.join(__dirname, '..', '..', '/dist/chatpage/index.html'));
 // });
 
-const publicPath = express.static(path.join(__dirname, '..', '..', '/dist/chatpage/'))
+const publicPath = express.static(path.join(__dirname, '..', '..', '/'))
 
-app.use('/dist', publicPath)
-app.use('/*/', express.static(path.join(__dirname, '..', '..', '/dist/chatpage/')))
+app.use(publicPath)
+
+app.get('/*/', function(req, res) {
+  res.sendFile(path.join(__dirname, '..', '..', 'chatpage.html'));
+});
 
 app.listen(port, (error) => {
   if (error) {
