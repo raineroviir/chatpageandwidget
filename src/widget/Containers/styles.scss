@@ -68,15 +68,38 @@
   }
 }
 
-.messages-while-inactive {
-  width: 200px;
+.proactive-notification-container {
   top: auto;
   left: auto;
   bottom: 70px;
   right: 15px;
   position: absolute;
+  width: 260px;
+}
+
+.mini-widget {
+  cursor: pointer;
+  background-color: white;
+  border-color: transparent transparent transparent #f8f8f8;
+  border-radius:5px;
+
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    display: inline-block;
+    transition: all ease-in 0.5s;
+    border-color: inherit;
+    right: 20px;
+    bottom: 116px;
+    border-width: 7 0 7 8;
+    transform: rotate(90deg);
+  }
+}
+.messages-while-inactive {
   background-color: #f8f8f8;
-  position: absolute;
   border-color: transparent transparent transparent #f8f8f8;
   border-radius:5px;
 
@@ -104,13 +127,7 @@
   font-stretch: normal;
   line-height: 1.4;
   color: #474848;
-  width: 250px;
-  top: auto;
-  left: auto;
-  bottom: 70px;
-  right: 15px;
   background-color: #f8f8f8;
-  position: absolute;
   border-color: transparent transparent transparent #f8f8f8;
   border-radius:5px;
   display: flex;

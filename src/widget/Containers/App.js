@@ -12,34 +12,18 @@ import { checkForConversation } from '../../common/actions/conversations'
 import { createWidgetChannel, fetchChannelInfo, fetchChannel, fetchSocket} from '../../common/actions/channels'
 import {createMessage} from '../../common/actions/messages'
 import {widgetToggle} from '../../common/actions/environment'
-import AvatarOne from './ChatWidget/files/bullbasaur.svg'
-import AvatarTwo from './ChatWidget/files/charmander.svg'
-import AvatarThree from './ChatWidget/files/eevee.svg'
-import AvatarFour from './ChatWidget/files/meowth.svg'
-import AvatarFive from './ChatWidget/files/squirtle.svg'
+import MiniWidget from '../Components/MiniWidget'
+import AvatarOne from '../Containers/ChatWidget/files/bullbasaur.svg'
+
 import moment from 'moment'
 
 class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      show: false
+      show: false,
+      miniWidgetShow: true
     }
-  }
-  getMessage(e) {
-    this.onToggle()
-    e.preventDefault();
-    if(this.refs.Message.value == "") return;
-    // this.createMessage(this.refs.Message.value);
-    // doesn't work right now
-    this.refs.Message.value = "";
-  }
-  createMessage(message) {
-    const { dispatch, channels, conversations, guest, user } = this.props
-    const conversationid = conversations.activeConversationId
-    const channelid = channels.activeChannelId
-    const token = guest.token || user.token
-    dispatch(createMessage(message, conversationid, token, channelid))
   }
   componentWillMount() {
     const { dispatch } = this.props
@@ -47,8 +31,9 @@ class App extends React.Component {
   }
   componentDidMount() {
     const { dispatch, channel_url } = this.props
+    // clearing storage has its drawbacks as well for now it's off for testing
+    // localStorage.clear()
     // setting some dummy data here for now while we get the actual data flow set up
-    localStorage.clear()
     const data = {email: "placeholder"}
     const index = channel_url.indexOf('/')
     const channelname = channel_url.slice(index + 1)
@@ -64,6 +49,9 @@ class App extends React.Component {
       }).catch(error => console.log(error))
     }).catch(error => console.log(error))
   }
+  onCloseMiniWidget() {
+    this.setState({miniWidgetShow: !this.state.miniWidgetShow})
+  }
   onToggle() {
     const { dispatch } = this.props
     this.setState({ show: !this.state.show });
@@ -75,58 +63,29 @@ class App extends React.Component {
       return null
     }
     const lastMessage = messages.messagesWhileInactive ? messages.messagesWhileInactive[messages.messagesWhileInactive.length - 1] : null
-    // const teamAvatarUrl = widget.initialConfig.channel.avatarUrl ? widget.initialConfig.channel.avatarUrl : null
     const teamChannelUrl = widget.initialConfig.channelUrl ||  "seaShells.com"
-    const welcomeMessage = widget.initialConfig.content ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
-    const teamName = widget.initialConfig.content ? widget.initialConfig.content.teamName : ""
-    const info = (
-      <div className="initial-info">
-        <div className="team-avatar-wrapper">
-          <div style={{display: 'flex'}}>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarOne})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarTwo})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarThree})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFour})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFive})`}}></div>
-          </div>
-        </div>
-        <div className="team-name">
-          {teamName ? teamName : "She Sells Sea Shells Customer Support"}
-        </div>
-        <div className="welcome-message">
-          {welcomeMessage}
-        </div>
-      </div>
-    )
-    const initialChatBox = (
-      <div className="post-form-wrapper">
-        <form onSubmit={this.getMessage.bind(this)} className="post-form">
-          <div className="message-input-wrapper">
-            <input ref="Message"
-            type="text"
-            className="message-input"
-            placeholder={widget.initialConfig.content ? widget.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"}
-            aria-label={widget.initialConfig.content ? widget.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"} />
-          </div>
-          <button type="submit" className="submit-button" style={{color: this.props.keyColor}}>
-            {widget.initialConfig.content ? widget.initialConfig.content.sendBtnText : "Send" }
-          </button>
-        </form>
-      </div>
-    )
     // console.log(lastMessage.text)
     return (
       <div>
         {environment.inactive && messages.messagesWhileInactive.length > 0 && lastMessage.text &&
-        <div className="messages-while-inactive">
-          <div>
-            {lastMessage.text.length > 121 ? `${lastMessage.text.slice(0, 121).trim()}...` : `${lastMessage.text}`}
+        <div className="proactive-notification-container">
+          <div style={{display: "flex", flexDirection: "column"}}>
+            {this.state.miniWidgetShow && <MiniWidget onToggle={this.onToggle.bind(this)} widget={widget} onClose={this.onCloseMiniWidget.bind(this)}/>}
+            {this.state.miniWidgetShow && <div style={{alignSelf: "flex-end"}}>
+              <div style={{padding: "10 0 0 0"}}></div>
+              <div onClick={this.onToggle.bind(this)} style={{cursor: "pointer", borderRadius: "30px", width: "48px", height: "48px", boxShadow: "0 0 8px rgba(0, 0, 0, 0.2)", backgroundColor: "white", alignSelf: "flex-end"}}></div>
+              <div style={{padding: "40 0 0 0"}}></div>
+            </div>}
+          </div>
+          <div style={{alignSelf: "flex-end", boxShadow: "0 1px 5px rgba(0, 50, 100, 0.25)", borderRadius: "5px", padding: "5px", margin: "0 0 0 20px"}}>
+            <div>
+              {lastMessage.text.length > 121 ? `${lastMessage.text.slice(0, 121).trim()}...` : `${lastMessage.text}`}
+            </div>
           </div>
         </div>
         }
         {messages.messagesList.length === 0 ? <div className="minimized-welcome-message">
-          {!this.state.show && info}
-          {!this.state.show && initialChatBox}
+          {!this.state.show && this.state.miniWidgetShow && <MiniWidget onToggle={this.onToggle.bind(this)} widget={widget} onClose={this.onCloseMiniWidget.bind(this)} />}
         </div> : null}
         <div className="chat-widget-button" style={{backgroundColor: widget.initialConfig.keyColor,
           backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundImage: messages.messagesWhileInactive.length > 0 ?
