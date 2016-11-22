@@ -161,7 +161,8 @@ class Messages extends Component {
         dispatch={this.props.dispatch} className="chat-messages-wrapper" messagesList={this.props.messagesList} widget={this.props.widget}  user={this.props.user} guest={this.props.guest}
         isGroupChat={this.props.isGroupChat} messageStatus={this.props.messageStatus}
         handleUserEmailFromBot={this.handleUserEmailFromBot}
-        emailReceived={this.props.emailReceived}/>
+        emailReceived={this.props.emailReceived}
+        channels={this.props.channels}/>
       </div>
     )
   }
@@ -181,7 +182,8 @@ function mapStateToProps(state) {
     bot,
     guest,
     user,
-    widget
+    widget,
+    channels
   }
 }
 

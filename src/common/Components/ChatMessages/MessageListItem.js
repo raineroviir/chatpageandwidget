@@ -38,7 +38,8 @@ export class MessageListItem extends React.Component {
       isGroupChat={isGroupChat} handleUserEmailFromBot={this.props.handleUserEmailFromBot} emailReceived={this.props.emailReceived}
       guest={this.props.guest}
       previousMessage={previousMessage}
-      user={this.props.user}/>
+      user={this.props.user}
+      conversationParticipants={this.props.conversationParticipants} />
       </div>)
     }
   }

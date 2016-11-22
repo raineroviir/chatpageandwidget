@@ -6,6 +6,7 @@ import AvatarThree from './files/eevee.svg'
 import AvatarFour from './files/meowth.svg'
 import AvatarFive from './files/squirtle.svg'
 
+
 export default class DefaultMessage extends Component {
   checkIfWidget() {
     const { widget } = this.props
@@ -16,6 +17,12 @@ export default class DefaultMessage extends Component {
   }
   render() {
     const { user, guest, widget } = this.props
+    if (widget.initialConfig.channel.avatar) {
+      console.log("channel avatar is true")
+    }
+    if (widget.initialConfig.teamAvatar) {
+      console.log("team avatar is true")
+    }
     const teamAvatarUrl = widget ? widget.initialConfig.channel.avatarUrl : null
     const teamChannelUrl = widget ? widget.initialConfig.channelUrl : "seaShells.com"
     const welcomeMessage = widget ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"

@@ -18,15 +18,15 @@ const initialState = {
 export function user(state = initialState, action) {
   switch (action.type) {
   case 'RECEIVED_USER_INFO':
-  console.log(action.data)
     return {
       ...state,
       data: action.data,
     };
-  // case 'RESET_USER':
-  //   return initialState;
-  // // case 'SETTING_USER_INFO':
-  // //   return initialState
+  case 'RECEIVE_USER_TOKEN_FROM_LOCAL_STORAGE':
+    console.log(action)
+    return {
+      ...state, token: action.token
+    }
   case 'USER_UPDATED':
     return {
       ...state,

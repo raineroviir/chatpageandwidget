@@ -42,7 +42,8 @@ export function guest(state = initialState, action) {
       guest: true,
       token: action.token
     }
-  case 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE':
+  case 'RECEIVE_GUEST_TOKEN_FROM_LOCAL_STORAGE':
+    console.log(action)
     return {
       ...state,
       guest: true,

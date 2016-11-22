@@ -83,8 +83,10 @@ export function validateGuestTokenAndIfExpiredGiveNewGuestToken(token) {
 export function initUser(data) {
   return (dispatch, getState) => {
     if (typeof(Storage) !== "undefined") {
-      let token = JSON.parse(localStorage.getItem("guest")) || JSON.parse(localStorage.getItem("token"))
-      if(!token) {
+      // let token = JSON.parse(localStorage.getItem("guest")) || JSON.parse(localStorage.getItem("token"))
+      let guest = JSON.parse(localStorage.getItem("guest"))
+      let user = JSON.parse(localStorage.getItem("token"))
+      if(!guest && !user) {
         // return fetchGuestToken(data).then(response => {
         //   if (response.status >= 400) {
         //     throw new Error("Bad response from server");
@@ -113,9 +115,18 @@ export function initUser(data) {
               throw error
             }).catch(error => console.log(error))
       } else {
+        let token;
+        if (guest) {
+          dispatch({type: 'RECEIVE_GUEST_TOKEN_FROM_LOCAL_STORAGE', token: guest})
+          dispatch(fetchUserInfo(guest))
+          token = guest
+        }
+        if (user) {
+          dispatch({type: 'RECEIVE_USER_TOKEN_FROM_LOCAL_STORAGE', token: user})
+          dispatch(fetchUserInfo(user))
+          token = user
+        }
         console.log(token)
-        dispatch(fetchUserInfo(token))
-        dispatch({type: 'RECEIVE_TOKEN_FROM_LOCAL_STORAGE', token})
         return Promise.resolve(token)
       }
     } else {
