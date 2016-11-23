@@ -17,6 +17,64 @@ export class RightAlignedMessage extends React.Component {
       color: color //font-color
     }
   }
+  determineAvatar() {
+    const { message, user, guest, widget } = this.props
+    // if (!guest.token || !user.token) {
+    //   return (
+    //     <div style={{backgroundImage:  `url(${defaultAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+    //   )
+    // }
+    if (guest.token) {
+      if (guest.data.avatar_96 ||
+      guest.data.avatar_384 ||
+      guest.data.avatar_960) {
+        return (
+          <div style={{backgroundImage:  `url(${guest.data.avatar_96 ||
+          guest.data.avatar_384 ||
+          guest.data.avatar_960})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+        )
+      }
+      if (guest.data.email) {
+        return (
+          <div className="avatar">
+            <Gravatar size={28} md5="" email={guest.data.email} />
+          </div>
+        )
+      }
+      if (guest.data.first_name && guest.data.last_name) {
+        return (
+          <div style={{borderRadius: "50%", width: "28px", height: "28px", backgroundColor: widget ? widget.initialConfig.keyColor : "#f7a444"}}>
+          <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white"}} className="avatar">{guest.data.first_name.slice(0, 1).toUpperCase()}{guest.data.last_name.slice(0, 1).toUpperCase()}</div>
+          </div>
+        )
+      }
+    }
+    if (user.token) {
+      if (user.data.avatar_96 ||
+      user.data.avatar_384 ||
+      user.data.avatar_960) {
+        return (
+          <div style={{backgroundImage:  `url(${user.data.avatar_96 ||
+          user.data.avatar_384 ||
+          user.data.avatar_960})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+        )
+      }
+      if (user.data.email) {
+        return (
+          <div className="avatar">
+            <Gravatar size={28} md5="" email={user.data.email} />
+          </div>
+        )
+      }
+      if (user.data.first_name && user.data.last_name) {
+        return (
+          <div style={{borderRadius: "50%", width: "28px", height: "28px", backgroundColor: widget ? widget.initialConfig.keyColor : "#f7a444"}}>
+          <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white"}} className="avatar">{user.data.first_name.slice(0, 1).toUpperCase()}{user.data.last_name.slice(0, 1).toUpperCase()}</div>
+          </div>
+        )
+      }
+    }
+  }
   render() {
     const { checkForSameUser, message, previousMessage, guest, user, nextMessage } = this.props
     const displayTimeSentPredicate = moment(message.created_at).diff(moment(previousMessage ? previousMessage.created_at : null) , 'seconds') > 120
@@ -35,9 +93,10 @@ export class RightAlignedMessage extends React.Component {
             {message.text}
           </div>
           {checkForSameUser ? <div style={{padding: "3px 12px 0 8px"}} className="avatar-wrapper">
-            <div className="avatar">
+            {/* <div className="avatar">
               <Gravatar size={28} md5="" email={userEmail} />
-            </div>
+            </div> */}
+            {this.determineAvatar()}
           </div> : <div style={{padding: "0 48px 0 0"}}></div>}
         </div>
         {!nextMessage ? message.status ? message.status === "..." ?

@@ -24,7 +24,7 @@ export default class MiniWidget extends React.Component {
                 <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFive})`}}></div>
               </div>
             </div>
-            <div className="header-arrow" style={{display: "flex", justifyContent: "flex-end", padding: "10 10 0 0", fontSize: "20"}} onClick={this.props.onClose.bind(this)}>
+            <div className="header-arrow" style={{display: "flex", justifyContent: "flex-end", padding: "10 10 0 0", fontSize: "20px"}} onClick={this.props.onClose.bind(this)}>
               <FaAngleDown />
             </div>
           </div>

@@ -155,7 +155,7 @@ class Messages extends Component {
     return (
       <div className="conversation-body">
         {this.renderWaypoint()}
-        <DefaultMessage widget={this.props.widget}/>
+        <DefaultMessage channels={this.props.channels} widget={this.props.widget}/>
         {this.props.isInfiniteLoading && !this.props.reachedEnd ? <div style={{display: "flex", justifyContent: "center"}}>Loading History...</div>: null}
         <ChatMessages
         dispatch={this.props.dispatch} className="chat-messages-wrapper" messagesList={this.props.messagesList} widget={this.props.widget}  user={this.props.user} guest={this.props.guest}

@@ -5,7 +5,7 @@ import AvatarTwo from './files/charmander.svg'
 import AvatarThree from './files/eevee.svg'
 import AvatarFour from './files/meowth.svg'
 import AvatarFive from './files/squirtle.svg'
-
+import Gravatar from 'react-gravatar'
 
 export default class DefaultMessage extends Component {
   checkIfWidget() {
@@ -15,8 +15,42 @@ export default class DefaultMessage extends Component {
     }
     return
   }
+  constructAvatarCollage() {
+    const { channels, widget } = this.props
+    const activeChannelObject = channels.channels.all.filter((channel) => {
+      return channel.id === channels.activeChannelId
+    })
+    const conversationParticipants = activeChannelObject[0].conversation.users
+    return conversationParticipants.map((participant, index) => {
+      if (participant) {
+        if (participant.avatar_96 ||
+        participant.avatar_384 ||
+        participant.avatar_960) {
+          return (
+            <div style={{backgroundImage:  `url(${participant.avatar_96 ||
+            participant.avatar_384 ||
+            participant.avatar_960})`, backgroundRepeat: "no-repeat", zIndex: -index, borderColor: "white", borderStyle: "solid"}} className="default-message-member-avatar-icon" />
+          )
+        }
+        if (participant.email) {
+          return (
+            <div className="default-message-member-avatar-icon" style={{zIndex: -index}}>
+              <Gravatar style={{borderRadius: "50%", borderColor: "white", borderStyle: "solid",}} size={43} md5="" email={participant.email} />
+            </div>
+          )
+        }
+        if (participant.first_name && participant.last_name) {
+          return (
+            <div className="default-message-member-avatar-icon" style={{zIndex: -index, borderRadius: "50%", borderColor: "white", borderStyle: "solid", backgroundColor: widget ? widget.initialConfig.keyColor : "#f7a444"}}>
+            <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white", fontSize: "22.5px", width: "43px", height: "43px"}} >{participant.first_name.slice(0, 1).toUpperCase()}{participant.last_name.slice(0, 1).toUpperCase()}</div>
+            </div>
+          )
+        }
+      }
+    })
+  }
   render() {
-    const { user, guest, widget } = this.props
+    const { user, guest, widget, channels } = this.props
     if (widget.initialConfig.channel.avatar) {
       console.log("channel avatar is true")
     }
@@ -30,14 +64,8 @@ export default class DefaultMessage extends Component {
     return (
       <div className="default-message-wrapper" style={this.checkIfWidget()}>
         <div className="default-message">
-          <div className="team-avatar-url-wrapper" style={this.checkIfWidget()}>
-          <div style={{display: 'flex'}}>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarOne})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarTwo})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarThree})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFour})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFive})`}}></div>
-          </div>
+          <div className="team-avatar-url-wrapper" style={this.checkIfWidget(), {display: 'flex', flexDirection: "row"}}>
+            {this.constructAvatarCollage()}
           </div>
           <div className="team-details">
             <div className="team-name" style={this.checkIfWidget()}>

@@ -33,12 +33,10 @@ export class LeftAlignedMessage extends React.Component {
   }
   determineAvatar() {
     const { message, conversationParticipants, widget } = this.props
-    console.log(message.user_id)
-    console.log(conversationParticipants)
     const matchParticipantIdToMessageId = conversationParticipants.filter((participant) => {
       return participant.id === message.user_id
     })
-    if (!matchParticipantIdToMessageId) {
+    if (matchParticipantIdToMessageId.length === 0) {
       return (
         <div style={{backgroundImage:  `url(${defaultAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar" />
       )
@@ -79,7 +77,6 @@ export class LeftAlignedMessage extends React.Component {
     const userEmail = "blahblah.com"
     const displayTimeSentPredicate = moment(message.created_at).diff(moment(previousMessage ? previousMessage.created_at : null ), 'seconds') > 60
     const displayedTime = moment(message.created_at).fromNow()
-
     return (
       <div className={classNames("received-message fade-in, left-aligned-message")}>
         {checkForSameUser ? <div style={{alignSelf: "flex-start", padding: "0 0 0 56px"}}>
