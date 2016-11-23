@@ -14,8 +14,9 @@ import {createMessage} from '../../common/actions/messages'
 import {widgetToggle} from '../../common/actions/environment'
 import MiniWidget from '../Components/MiniWidget'
 import AvatarOne from '../Containers/ChatWidget/files/bullbasaur.svg'
-import ChatCenterLogo from '../ChatWidget/files/chatcenterlogo.svg'
+import ChatCenterLogo from './ChatWidget/ChatCenterLogo'
 import moment from 'moment'
+import Gravatar from 'react-gravatar'
 
 class App extends React.Component {
   constructor() {
@@ -57,6 +58,61 @@ class App extends React.Component {
     this.setState({ show: !this.state.show });
     dispatch(widgetToggle())
   }
+  determineConversationParticipants() {
+    const { channels } = this.props
+    const activeChannelObject = channels.channels.all.filter((channel) => {
+      return channel.id === channels.activeChannelId
+    })
+    if (activeChannelObject[0].conversation) {
+      return activeChannelObject[0].conversation.users
+    }
+    return
+  }
+  determineAvatar(lastMessage) {
+    const { widget } = this.props
+    const conversationParticipants = this.determineConversationParticipants()
+    console.log(conversationParticipants)
+    const matchParticipantIdToMessageId = conversationParticipants.filter((participant) => {
+      console.log(participant.id, lastMessage.user_id)
+      return participant.id === lastMessage.user_id
+    })
+    // if (matchParticipantIdToMessageId.length === 0) {
+    //   return (
+    //     <div style={{backgroundImage:  `url(${defaultAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+    //   )
+    // }
+    // if (message.bot) {
+    //   return (
+    //     <div style={{backgroundImage:  `url(${defaultBotAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+    //   )
+    // }
+    console.log(matchParticipantIdToMessageId)
+    if (matchParticipantIdToMessageId[0]) {
+      if (matchParticipantIdToMessageId[0].avatar_96 ||
+      matchParticipantIdToMessageId[0].avatar_384 ||
+      matchParticipantIdToMessageId[0].avatar_960) {
+        return (
+          <div style={{backgroundImage:  `url(${matchParticipantIdToMessageId[0].avatar_96 ||
+          matchParticipantIdToMessageId[0].avatar_384 ||
+          matchParticipantIdToMessageId[0].avatar_960})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+        )
+      }
+      if (matchParticipantIdToMessageId[0].email) {
+        return (
+          <div className="avatar">
+            <Gravatar size={48} md5="" email={matchParticipantIdToMessageId[0].email} />
+          </div>
+        )
+      }
+      if (matchParticipantIdToMessageId[0].first_name && matchParticipantIdToMessageId[0].last_name) {
+        return (
+          <div style={{borderRadius: "50%", width: "28px", height: "28px", backgroundColor: widget ? widget.initialConfig.keyColor : "#f7a444"}}>
+          <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white"}} className="avatar">{matchParticipantIdToMessageId[0].first_name.slice(0, 1).toUpperCase()}{matchParticipantIdToMessageId[0].last_name.slice(0, 1).toUpperCase()}</div>
+          </div>
+        )
+      }
+    }
+  }
   render() {
     const { widget, environment, messages } = this.props
     if (environment.initialLoading) {
@@ -73,9 +129,12 @@ class App extends React.Component {
             {this.state.miniWidgetShow && <MiniWidget onToggle={this.onToggle.bind(this)} widget={widget} onClose={this.onCloseMiniWidget.bind(this)}/>}
             {this.state.miniWidgetShow && <div style={{alignSelf: "flex-end"}}>
               <div style={{padding: "10 0 0 0"}}></div>
-              <div onClick={this.onToggle.bind(this)} style={{cursor: "pointer", borderRadius: "30px", width: "48px", height: "48px", boxShadow: "0 0 8px rgba(0, 0, 0, 0.2)", backgroundColor: "white", alignSelf: "flex-end"}}></div>
+              <div onClick={this.onToggle.bind(this)} style={{cursor: "pointer", borderRadius: "30px", width: "48px", height: "48px", boxShadow: "0 0 8px rgba(0, 0, 0, 0.2)", backgroundColor: "white", alignSelf: "flex-end", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <ChatCenterLogo style={{width: "40px", height: "40px"}}/>
+              </div>
               <div style={{padding: "40 0 0 0"}}></div>
-            </div>}
+            </div>
+          }
           </div>
           <div style={{alignSelf: "flex-end", boxShadow: "0 1px 5px rgba(0, 50, 100, 0.25)", borderRadius: "5px", padding: "5px", margin: "0 0 0 20px"}}>
             <div>
@@ -88,10 +147,8 @@ class App extends React.Component {
           {!this.state.show && this.state.miniWidgetShow && <MiniWidget onToggle={this.onToggle.bind(this)} widget={widget} onClose={this.onCloseMiniWidget.bind(this)} />}
         </div> : null}
         <div className="chat-widget-button" style={{backgroundColor: widget.initialConfig.keyColor,
-          backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundImage: messages.messagesWhileInactive.length > 0 ?
-          //  `url(${lastMessage.sender_avatar})` :
-            `url(${AvatarOne})` : null}}
-        onClick={this.onToggle.bind(this)}>
+          backgroundSize: 'contain', backgroundRepeat: 'no-repeat'}} onClick={this.onToggle.bind(this)}>
+          {messages.messagesWhileInactive.length > 0 && this.determineAvatar(lastMessage)}
           {messages.messagesWhileInactive.length > 0 && <div style={{backgroundColor: widget.initialConfig.keyColor}} className="unread-message-bubble">
             <div style={{alignSelf: 'center'}}>{messages.messagesWhileInactive.length}</div>
           </div>}
