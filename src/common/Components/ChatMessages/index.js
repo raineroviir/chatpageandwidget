@@ -22,14 +22,21 @@ export class ChatMessages extends Component {
       }
     }
   }
-  render() {
-    const { messagesList, user, guest, widget, isGroupChat, channels } = this.props
-    const currentUser = guest.token ? guest.data.id : user.data.id
+  determineConversationParticipants() {
+    const { channels } = this.props
     const activeChannelObject = channels.channels.all.filter((channel) => {
       console.log(channel.id, channels.activeChannelId)
       return channel.id === channels.activeChannelId
     })
-    const conversationParticipants = activeChannelObject[0].conversation.users
+    if (activeChannelObject[0].conversation) {
+      return activeChannelObject[0].conversation.users
+    }
+    return
+  }
+  render() {
+    const { messagesList, user, guest, widget, isGroupChat, channels } = this.props
+    const currentUser = guest.token ? guest.data.id : user.data.id
+
     if (this.props.channelError === true) {
       return (<div className="default-message">Channel not found</div>)
     }
@@ -52,7 +59,7 @@ export class ChatMessages extends Component {
                 emailReceived={this.props.emailReceived}
                 guest={guest}
                 user={user}
-                conversationParticipants={conversationParticipants}
+                conversationParticipants={this.determineConversationParticipants()}
               />
             }
           )}

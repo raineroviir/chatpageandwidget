@@ -20,6 +20,9 @@ export default class DefaultMessage extends Component {
     const activeChannelObject = channels.channels.all.filter((channel) => {
       return channel.id === channels.activeChannelId
     })
+    if (!activeChannelObject[0].conversation) {
+      return
+    }
     const conversationParticipants = activeChannelObject[0].conversation.users
     return conversationParticipants.map((participant, index) => {
       if (participant) {
@@ -51,12 +54,12 @@ export default class DefaultMessage extends Component {
   }
   render() {
     const { user, guest, widget, channels } = this.props
-    if (widget.initialConfig.channel.avatar) {
-      console.log("channel avatar is true")
-    }
-    if (widget.initialConfig.teamAvatar) {
-      console.log("team avatar is true")
-    }
+    // if (widget.initialConfig.channel.avatar) {
+    //   console.log("channel avatar is true")
+    // }
+    // if (widget.initialConfig.teamAvatar) {
+    //   console.log("team avatar is true")
+    // }
     const teamAvatarUrl = widget ? widget.initialConfig.channel.avatarUrl : null
     const teamChannelUrl = widget ? widget.initialConfig.channelUrl : "seaShells.com"
     const welcomeMessage = widget ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"

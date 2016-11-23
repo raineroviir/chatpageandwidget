@@ -14,7 +14,7 @@ import {createMessage} from '../../common/actions/messages'
 import {widgetToggle} from '../../common/actions/environment'
 import MiniWidget from '../Components/MiniWidget'
 import AvatarOne from '../Containers/ChatWidget/files/bullbasaur.svg'
-
+import ChatCenterLogo from '../ChatWidget/files/chatcenterlogo.svg'
 import moment from 'moment'
 
 class App extends React.Component {
