@@ -9,7 +9,10 @@ export class ChatTextBox extends Component {
     this.refs.Message.value = "";
   }
   render() {
-    const { widget } = this.props
+    const { widget, chatpage } = this.props
+    if (chatpage && !chatpage.initialConfig.content) {
+      return null
+    }
     return (
       <div className="post-form-wrapper">
         <form onSubmit={this.createMessage.bind(this)} className="post-form">
@@ -18,11 +21,11 @@ export class ChatTextBox extends Component {
             <input ref="Message"
             type="text"
             className="message-input"
-            placeholder={widget ? widget.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"}
-            aria-label={widget ? widget.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"} />
+            placeholder={widget ? widget.initialConfig.content.inputMsgholder : chatpage ? chatpage.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"}
+            aria-label={widget ? widget.initialConfig.content.inputMsgholder : chatpage ? chatpage.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"} />
           </div>
-          <button type="submit" className="submit-button" style={{color: widget ? widget.initialConfig.keyColor : "#f7a444"}}>
-            {widget ? widget.initialConfig.content.sendBtnText : "Send" }
+          <button type="submit" className="submit-button" style={{color: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor :  "#f7a444"}}>
+            {widget ? widget.initialConfig.content.sendBtnText : chatpage ? chatpage.initialConfig.content.sendBtnText : "Send" }
           </button>
         </form>
       </div>

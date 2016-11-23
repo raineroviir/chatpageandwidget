@@ -16,10 +16,14 @@ export default class DefaultMessage extends Component {
     return
   }
   constructAvatarCollage() {
-    const { channels, widget } = this.props
+    const { channels, widget, chatpage } = this.props
     const activeChannelObject = channels.channels.all.filter((channel) => {
       return channel.id === channels.activeChannelId
     })
+    console.log(activeChannelObject)
+    if (!activeChannelObject[0]) {
+      return
+    }
     if (!activeChannelObject[0].conversation) {
       return
     }
@@ -44,7 +48,7 @@ export default class DefaultMessage extends Component {
         }
         if (participant.first_name && participant.last_name) {
           return (
-            <div className="default-message-member-avatar-icon" style={{zIndex: -index, borderRadius: "50%", borderColor: "white", borderStyle: "solid", backgroundColor: widget ? widget.initialConfig.keyColor : "#f7a444"}}>
+            <div className="default-message-member-avatar-icon" style={{zIndex: -index, borderRadius: "50%", borderColor: "white", borderStyle: "solid", backgroundColor: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
             <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white", fontSize: "22.5px", width: "43px", height: "43px"}} >{participant.first_name.slice(0, 1).toUpperCase()}{participant.last_name.slice(0, 1).toUpperCase()}</div>
             </div>
           )
@@ -53,17 +57,17 @@ export default class DefaultMessage extends Component {
     })
   }
   render() {
-    const { user, guest, widget, channels } = this.props
+    const { user, guest, widget, channels, chatpage, environment } = this.props
     // if (widget.initialConfig.channel.avatar) {
     //   console.log("channel avatar is true")
     // }
     // if (widget.initialConfig.teamAvatar) {
     //   console.log("team avatar is true")
     // }
-    const teamAvatarUrl = widget ? widget.initialConfig.channel.avatarUrl : null
-    const teamChannelUrl = widget ? widget.initialConfig.channelUrl : "seaShells.com"
-    const welcomeMessage = widget ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
-    const teamName = widget ? widget.initialConfig.content.teamName : ""
+    const teamAvatarUrl = widget ? widget.initialConfig.channel.avatarUrl : chatpage ? chatpage.channel.avatarUrl : null
+    const teamChannelUrl = widget ? widget.initialConfig.channelUrl : chatpage ? chatpage.initialConfig.channelUrl : null
+    const welcomeMessage = widget ? widget.initialConfig.content.welcomeMessage : chatpage ? chatpage.initialConfig.content.welcomeMessage : null
+    const teamName = widget ? widget.initialConfig.content.teamName : chatpage ? chatpage.initialConfig.content.welcomeMessage : null
     return (
       <div className="default-message-wrapper" style={this.checkIfWidget()}>
         <div className="default-message">
@@ -74,8 +78,8 @@ export default class DefaultMessage extends Component {
             <div className="team-name" style={this.checkIfWidget()}>
               {teamName}
             </div>
-            <div className="team-website" style={this.checkIfWidget()}>
-                <a style={{color: widget ? widget.initialConfig.keyColor : "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
+            <div className="team-website" style={this.checkIfWidget(), {color: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
+                <a style={{color: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
             </div>
             <div className="welcome-message" style={this.checkIfWidget()}>
               {welcomeMessage}

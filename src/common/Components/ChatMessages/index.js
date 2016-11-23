@@ -34,7 +34,7 @@ export class ChatMessages extends Component {
     return
   }
   render() {
-    const { messagesList, user, guest, widget, isGroupChat, channels } = this.props
+    const { messagesList, user, guest, widget, isGroupChat, channels, chatpage } = this.props
     const currentUser = guest.token ? guest.data.id : user.data.id
 
     if (this.props.channelError === true) {
@@ -49,7 +49,7 @@ export class ChatMessages extends Component {
                 return
               }
               return <MessageListItem
-                widget={widget} message={message}
+                widget={widget} chatpage={chatpage} message={message}
                 key={message.id}
                 index={index}
                 msgs={msgs}

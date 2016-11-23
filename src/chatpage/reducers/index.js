@@ -9,9 +9,10 @@ import { bot } from '../../common/reducers/bot'
 
 import { environment } from './environment';
 import { login } from '../../common/reducers/login'
-
+import { chatpage } from './chatpage'
 const rootReducer = combineReducers({
   /* your reducers */
+  chatpage,
   login,
   register,
   environment,

@@ -4,7 +4,7 @@ import {LeftAlignedMessage} from './LeftAlignedMessage'
 import moment from 'moment'
 export class MessageListItem extends React.Component {
   render() {
-    const { widget, msgs, index, message, currentUser, isGroupChat } = this.props
+    const { widget, msgs, index, message, currentUser, isGroupChat, chatpage } = this.props
     const previousMessage = msgs[index - 1]
     const nextMessage = msgs[index + 1] ? msgs[index + 1] : null
     const previousMessageUserId = previousMessage ? previousMessage.user_id : null
@@ -29,12 +29,14 @@ export class MessageListItem extends React.Component {
     if (message.user_id === currentUser) {
        return (<div>
        {dateDiff !== 0 ? dateSeparator : humanizedMessageDate !== previousMessageHumanizedDate ? dateSeparator : null}
-       <RightAlignedMessage key={message.id} widget={widget} checkForSameUser={checkForSameUser} message={message} previousMessage={previousMessage} guest={this.props.guest} user={this.props.user} nextMessage={nextMessage} />
+       <RightAlignedMessage key={message.id} widget={widget}
+       chatpage={chatpage} checkForSameUser={checkForSameUser} message={message} previousMessage={previousMessage} guest={this.props.guest} user={this.props.user} nextMessage={nextMessage} />
       </div>)
     } else {
       return (<div>
        {dateDiff !== 0 ? dateSeparator : humanizedMessageDate !== previousMessageHumanizedDate ? dateSeparator : null}
-      <LeftAlignedMessage key={message.id} widget={widget} checkForSameUser={checkForSameUser} message={message}
+      <LeftAlignedMessage key={message.id} widget={widget}
+      chatpage={chatpage} checkForSameUser={checkForSameUser} message={message}
       isGroupChat={isGroupChat} handleUserEmailFromBot={this.props.handleUserEmailFromBot} emailReceived={this.props.emailReceived}
       guest={this.props.guest}
       previousMessage={previousMessage}

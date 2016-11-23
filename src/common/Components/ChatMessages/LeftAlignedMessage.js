@@ -10,10 +10,10 @@ import Gravatar from 'react-gravatar'
 
 export class LeftAlignedMessage extends React.Component {
   computeMessageBubbleColor() {
-    const { emailReceived, message, widget } = this.props
+    const { emailReceived, message, widget, chatpage } = this.props
     let backgroundColor = "#eeeff0"
     if (emailReceived && message.bot && message.attachment) {
-      backgroundColor = widget ? widget.initialConfig.keyColor : "#f7a444"
+      backgroundColor = widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"
     }
     const borderColor = "transparent #eeeff0 transparent transparent"
     const color = "#000000"
@@ -32,7 +32,7 @@ export class LeftAlignedMessage extends React.Component {
     this.refs.emailInput.value = ""
   }
   determineAvatar() {
-    const { message, conversationParticipants, widget } = this.props
+    const { message, conversationParticipants, widget, chatpage } = this.props
     const matchParticipantIdToMessageId = conversationParticipants.filter((participant) => {
       return participant.id === message.user_id
     })
@@ -65,7 +65,7 @@ export class LeftAlignedMessage extends React.Component {
       }
       if (matchParticipantIdToMessageId[0].first_name && matchParticipantIdToMessageId[0].last_name) {
         return (
-          <div style={{borderRadius: "50%", width: "28px", height: "28px", backgroundColor: widget ? widget.initialConfig.keyColor : "#f7a444"}}>
+          <div style={{borderRadius: "50%", width: "28px", height: "28px", backgroundColor: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
           <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white"}} className="avatar">{matchParticipantIdToMessageId[0].first_name.slice(0, 1).toUpperCase()}{matchParticipantIdToMessageId[0].last_name.slice(0, 1).toUpperCase()}</div>
           </div>
         )
@@ -103,7 +103,7 @@ export class LeftAlignedMessage extends React.Component {
                   aria-label="Enter your email"
                   />
                 </form>
-                <MdCheckCircle style={{cursor: "pointer", padding: "0 0 0 10px", fontSize: "32px", color: widget ? widget.initialConfig.keyColor : "#f7a444"}} />
+                <MdCheckCircle style={{cursor: "pointer", padding: "0 0 0 10px", fontSize: "32px", color: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} />
               </div>
             }
             </div>

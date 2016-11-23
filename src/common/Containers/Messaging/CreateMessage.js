@@ -22,13 +22,14 @@ class CreateMessage extends Component {
   }
   render() {
     return (
-      <ChatTextBox createMessage={this.createMessage.bind(this)} user={this.props.user} guest={this.props.guest} widget={this.props.widget} />
+      <ChatTextBox createMessage={this.createMessage.bind(this)} user={this.props.user} guest={this.props.guest} widget={this.props.widget}
+      chatpage={this.props.chatpage} />
     );
   }
 }
 
 function mapStateToProps(state) {
-  const { user, guest, channels, conversations, widget } = state
+  const { user, guest, channels, conversations, widget,chatpage } = state
   const { activeChannelId } = channels
   const { activeConversationId } = conversations
   return {
@@ -36,7 +37,8 @@ function mapStateToProps(state) {
     guest,
     widget,
     activeChannelId,
-    activeConversationId
+    activeConversationId,
+    chatpage
   }
 }
 

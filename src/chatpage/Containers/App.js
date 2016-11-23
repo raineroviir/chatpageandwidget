@@ -10,6 +10,7 @@ import { checkForConversation, setactiveConversationId} from '../../common/actio
 import { fetchChannelInfo, fetchChannel, fetchSocket} from '../../common/actions/channels'
 import {createMessage} from '../../common/actions/messages'
 import saveSubDomainAsChannel from '../../common/actions/channels'
+import {getChatPage} from '../actions/chatpage'
 
 import moment from 'moment'
 
@@ -39,7 +40,7 @@ class App extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props
     // setting some dummy data here for now while we get the actual data flow set up
-    localStorage.clear()
+    // localStorage.clear()
     const data = {email: "placeholder"}
     const hostName = window.location.hostname
     const channelSubDomain = hostName.split('.')[0]
@@ -57,11 +58,11 @@ class App extends React.Component {
     .then((token) => {
       dispatch(fetchChannel(channelName, team, token)).then((channel) => {
           dispatch(fetchSocket(token, channel.id))
+        dispatch(getChatPage(channel.id, token))
         if (!channel.is_group) {
           dispatch(checkForConversation(channel.id, token))
         }
         if (channel.conversation) {
-          console.log(channel.conversation)
           dispatch(setactiveConversationId(channel.conversation.id))
         }
       }).catch(error => console.log(error))
@@ -74,14 +75,10 @@ class App extends React.Component {
     }
   }
   render() {
-    const { environment, messages } = this.props
+    const { environment, messages, chatpage } = this.props
     if (environment.initialLoading) {
       return null
     }
-    const teamAvatarUrl = null
-    const teamChannelUrl = "seaShells.com"
-    const welcomeMessage = "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
-    const teamName = ""
     return (
       <div style={{display: "flex", justifyContent: "center"}}>
         <ChatPage />
@@ -91,8 +88,9 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { environment, messages, guest, user, channels, conversations } = state
+  const { environment, messages, guest, user, channels, conversations, chatpage } = state
   return {
+    chatpage,
     environment,
     messages,
     guest,

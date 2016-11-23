@@ -80,11 +80,11 @@ class Header extends Component {
     // this.setState({showRegistration: !this.state.showRegistration})
   }
   render() {
-    const { widget, guest, user, environment } = this.props
-    const teamAvatarUrl = widget ? widget.initialConfig.channel.avatarUrl : null
-    const teamChannelUrl = widget ? widget.initialConfig.channelUrl : "seaShells.com"
-    const welcomeMessage = widget ? widget.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
-    const teamName = widget ? widget.initialConfig.content.teamName : ""
+    const { chatpage, guest, user, environment } = this.props
+    const teamAvatarUrl = chatpage ? chatpage.initialConfig.channel.avatarUrl : null
+    const teamChannelUrl = chatpage ? chatpage.initialConfig.channelUrl : "seaShells.com"
+    const welcomeMessage = chatpage.initialConfig.content ? chatpage.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
+    const teamName = chatpage.initialConfig.content ? chatpage.initialConfig.content.teamName : ""
     const currentUserEmail = guest.guest ? guest.data.email : user.data.email
     const currentUserName = guest.guest ? guest.data.first_name : user.data.first_name
     const enterInformationForNotificationsModal =
@@ -108,7 +108,7 @@ class Header extends Component {
               <input className="capture-details-input" ref="emailCapture" style={{fontSize: "15px", letterSpacing: "0.1px", width: "100%", border: "none", borderBottom: "2px solid", height: "30px"}}  placeholder={currentUserEmail ? currentUserEmail : "Enter your email"}/>
             </div>
             <div style={{padding: "20px 0 0 0"}}>
-              <button type="submit" style={{ backgroundColor: widget ? widget.initialConfig.keyColor : "#f7a444", height: "48px", borderRadius: "5px", color: "#FFFFFF", display: "flex", justifyContent: "center", width: "100%", borderStyle: "none"}}>
+              <button type="submit" style={{ backgroundColor: chatpage ? chatpage.initialConfig.keyColor : "#f7a444", height: "48px", borderRadius: "5px", color: "#FFFFFF", display: "flex", justifyContent: "center", width: "100%", borderStyle: "none"}}>
                 <div style={{alignSelf: "center", fontSize: "15px"}}>Save Changes</div>
               </button>
             </div>
@@ -136,7 +136,7 @@ class Header extends Component {
                 <input className="capture-details-input" ref="emailCapture" style={{fontSize: "15px", letterSpacing: "0.1px", width: "100%", border: "none", borderBottom: "2px solid", height: "30px"}}  placeholder={currentUserEmail ? currentUserEmail : "Enter your email"}/>
               </div>
               <div style={{padding: "20px 0 0 0"}}>
-                <button type="submit" style={{ backgroundColor: widget ? widget.initialConfig.keyColor : "#f7a444", height: "48px", borderRadius: "5px", color: "#FFFFFF", display: "flex", justifyContent: "center", width: "100%", borderStyle: "none"}}>
+                <button type="submit" style={{ backgroundColor: chatpage ? chatpage.initialConfig.keyColor : "#f7a444", height: "48px", borderRadius: "5px", color: "#FFFFFF", display: "flex", justifyContent: "center", width: "100%", borderStyle: "none"}}>
                   <div style={{alignSelf: "center", fontSize: "15px"}}>Save Changes</div>
                 </button>
               </div>
@@ -145,7 +145,7 @@ class Header extends Component {
         </div>)
       )
     const menu = (
-        <div style={{color: widget ? widget.initialConfig.keyColor : "#f7a444"}} className="menu">
+        <div style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} className="menu">
             <div style={{color: "black"}}>
               <div>
                 {guest.data.first_name || user.data.first_name ?
@@ -194,8 +194,8 @@ class Header extends Component {
           </div>
         </div>
       )
-    const widgetMenu = (
-      <div style={{color: widget ? widget.initialConfig.keyColor : "#f7a444"}} className="widget-menu">
+    const chatpageMenu = (
+      <div style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} className="chatpage-menu">
         <div style={{padding: "10 10 0 0", display: "flex", justifyContent: "flex-end"}}>
           <div onClick={this.menuToggle.bind(this)} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
         </div>
@@ -264,7 +264,7 @@ class Header extends Component {
           {teamName ? teamName : "She Sells Sea Shells Customer Support"}
         </div>
         <div className="team-url">
-            <a style={{color: widget ? widget.initialConfig.keyColor : "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
+            <a style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
         </div>
         <div className="welcome-message">
           {welcomeMessage}
@@ -277,13 +277,13 @@ class Header extends Component {
         {this.props.environment.userScrollPosition > 150 && <div className="header-arrow" onClick={this.infoToggle.bind(this)}>
           <InfoIcon />
         </div>}
-        <div className="sign-in-to-chat-center" style={{color: widget ? widget.initialConfig.keyColor : "#f7a444"}}>
+        <div className="sign-in-to-chat-center" style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
           <div onClick={this.menuToggle.bind(this)} style={{display: "flex", cursor: "pointer"}}>
-            <SignInIcon style={{color: widget ? widget.initialConfig.keyColor : "#f7a444"}}/>
+            <SignInIcon style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}/>
           </div>
         </div>
         <div>{this.state.showRegistration && <div className="registration"><RegistrationRouter /></div>}</div>
-        {this.state.showMenu && (widget ? widgetMenu : menu)}
+        {this.state.showMenu && (chatpage ? chatpageMenu : menu)}
         {this.state.showInfo && this.props.environment.userScrollPosition > 150 && info}
       </div>
     )
@@ -291,11 +291,11 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-  const { user, guest, widget, environment, register } = state
+  const { user, guest, environment, register, chatpage } = state
   return {
     user,
     guest,
-    widget,
+    chatpage,
     environment,
     register
   }

@@ -5,10 +5,10 @@ import moment from 'moment'
 import Gravatar from 'react-gravatar'
 export class RightAlignedMessage extends React.Component {
   computeMessageBubbleColor() {
-    const { widget } = this.props
-      const backgroundColor = widget? widget.initialConfig.keyColor :
+    const { widget, chatpage } = this.props
+      const backgroundColor = widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor :
       "#f7a444"
-      const borderColor = widget ? `transparent transparent transparent ${widget.initialConfig.keyColor}` :
+      const borderColor = widget ? `transparent transparent transparent ${widget.initialConfig.keyColor}` : chatpage ? `transparent transparent transparent ${chatpage.initialConfig.keyColor}` :
       "transparent transparent transparent #f7a444"
       const color = "#FFFFFF"
     return {
@@ -18,7 +18,7 @@ export class RightAlignedMessage extends React.Component {
     }
   }
   determineAvatar() {
-    const { message, user, guest, widget } = this.props
+    const { message, user, guest, widget, chatpage } = this.props
     // if (!guest.token || !user.token) {
     //   return (
     //     <div style={{backgroundImage:  `url(${defaultAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar" />
@@ -43,7 +43,7 @@ export class RightAlignedMessage extends React.Component {
       }
       if (guest.data.first_name && guest.data.last_name) {
         return (
-          <div style={{borderRadius: "50%", width: "28px", height: "28px", backgroundColor: widget ? widget.initialConfig.keyColor : "#f7a444"}}>
+          <div style={{borderRadius: "50%", width: "28px", height: "28px", backgroundColor: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
           <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white"}} className="avatar">{guest.data.first_name.slice(0, 1).toUpperCase()}{guest.data.last_name.slice(0, 1).toUpperCase()}</div>
           </div>
         )
@@ -68,7 +68,7 @@ export class RightAlignedMessage extends React.Component {
       }
       if (user.data.first_name && user.data.last_name) {
         return (
-          <div style={{borderRadius: "50%", width: "28px", height: "28px", backgroundColor: widget ? widget.initialConfig.keyColor : "#f7a444"}}>
+          <div style={{borderRadius: "50%", width: "28px", height: "28px", backgroundColor: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
           <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white"}} className="avatar">{user.data.first_name.slice(0, 1).toUpperCase()}{user.data.last_name.slice(0, 1).toUpperCase()}</div>
           </div>
         )
@@ -76,7 +76,7 @@ export class RightAlignedMessage extends React.Component {
     }
   }
   render() {
-    const { checkForSameUser, message, previousMessage, guest, user, nextMessage } = this.props
+    const { checkForSameUser, message, previousMessage, guest, user, nextMessage, chatpage } = this.props
     const displayTimeSentPredicate = moment(message.created_at).diff(moment(previousMessage ? previousMessage.created_at : null) , 'seconds') > 120
     const displayedTime = moment(message.created_at).fromNow()
     const userEmail = guest.guest ? guest.data.email : user.data.email

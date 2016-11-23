@@ -155,10 +155,11 @@ class Messages extends Component {
     return (
       <div className="conversation-body">
         {this.renderWaypoint()}
-        <DefaultMessage channels={this.props.channels} widget={this.props.widget}/>
+        <DefaultMessage environment={this.props.environment} channels={this.props.channels} widget={this.props.widget}/>
         {this.props.isInfiniteLoading && !this.props.reachedEnd ? <div style={{display: "flex", justifyContent: "center"}}>Loading History...</div>: null}
         <ChatMessages
-        dispatch={this.props.dispatch} className="chat-messages-wrapper" messagesList={this.props.messagesList} widget={this.props.widget}  user={this.props.user} guest={this.props.guest}
+        dispatch={this.props.dispatch} className="chat-messages-wrapper" messagesList={this.props.messagesList} widget={this.props.widget}
+        chatpage={this.props.chatpage} user={this.props.user} guest={this.props.guest}
         isGroupChat={this.props.isGroupChat} messageStatus={this.props.messageStatus}
         handleUserEmailFromBot={this.handleUserEmailFromBot}
         emailReceived={this.props.emailReceived}
@@ -169,7 +170,7 @@ class Messages extends Component {
 }
 
 function mapStateToProps(state) {
-  const { channels, conversations, messages, guest, user, widget, environment, bot } = state
+  const { channels, conversations, messages, guest, user, widget, environment, bot, chatpage } = state
   const { activeChannelId, isGroupChat } = channels
   const { messagesList, userCreatedNewMessage, messageStreamNewMessage, initialLoadComplete, reachedEnd, oldestVisibleMessageUnixTimestamp } = messages
   const { height, width, isInfiniteLoading, scrollToBottom, totalHeightOfHistoryMessages, userScrollPosition } = environment
@@ -177,13 +178,15 @@ function mapStateToProps(state) {
   return {
     activeChannelId, isGroupChat,
     activeConversationId,
-    messagesList, userCreatedNewMessage, messageStreamNewMessage, initialLoadComplete, reachedEnd, oldestVisibleMessageUnixTimestamp,
+    messagesList, userCreatedNewMessage, messageStreamNewMessage,
+    environment, initialLoadComplete, reachedEnd, oldestVisibleMessageUnixTimestamp,
     height, width, isInfiniteLoading, scrollToBottom, totalHeightOfHistoryMessages, userScrollPosition,
     bot,
     guest,
     user,
     widget,
-    channels
+    channels,
+    chatpage
   }
 }
 

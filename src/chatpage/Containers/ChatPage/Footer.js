@@ -5,13 +5,14 @@ import { createConversation, prepareToCreateConversation } from '../../../common
 
 class Footer extends React.Component {
   render() {
+    const { chatpage } = this.props
     return (
       <footer style={this.props.style} className="footer" >
         <CreateMessage />
         <div className="footer-message">
           <span className="powered-by">
             {"Powered by "}
-            <span style={{color: "#f7a444"}}>
+            <span style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
               {"Chat Center"}
             </span>
           </span>
@@ -22,9 +23,9 @@ class Footer extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { widget } = state
+  const { chatpage } = state
   return {
-    widget
+    chatpage
   }
 }
 function mapDispatchToProps(dispatch) {
