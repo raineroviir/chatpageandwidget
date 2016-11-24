@@ -68,6 +68,9 @@ function initializeSocket(socket, dispatch, channelid) {
       ws.send(JSON.stringify({
         command:"subscribe", identifier: JSON.stringify({channel:"PublicGroupChannel",channel_id:channelid})
       }))
+      //add also a user channel subscription
+      //this is required if the chatpage is for individual chat
+      ws.send(JSON.stringify(socket.subscription))
     } else {
       ws.send(JSON.stringify(socket.subscription))
     }
