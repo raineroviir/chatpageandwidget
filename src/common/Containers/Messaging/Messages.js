@@ -28,7 +28,7 @@ class Messages extends Component {
     // if (routeParams) {
     //   dispatch({type: "SAVE_CONVOID_FROM_ROUTE_PARAMS", routeParams})
     // }
-    const { token } = guest || user
+    const token = guest.token || user.token
     const node = ReactDOM.findDOMNode(this)
     if (!initialLoadComplete && activeConversationId) {
       this.loadInitialHistory()
@@ -49,7 +49,7 @@ class Messages extends Component {
   }
   loadInitialHistory() {
     const { activeConversationId, guest, user, dispatch, serverMessages, scrollIndex, oldestVisibleMessageUnixTimestamp, lastTimeConversationWasRead} = this.props
-    const { token } = guest || user
+    const token = guest.token || user.token
     dispatch(getConversationHistory(activeConversationId, token, oldestVisibleMessageUnixTimestamp)).then((json) => {
       if (json && json.messages.length > 0) {
         this.scrollToBottom()
@@ -62,7 +62,7 @@ class Messages extends Component {
   }
   componentDidUpdate(prevProps) {
     const { dispatch, totalHeightOfHistoryMessages, isInfiniteLoading, userCreatedNewMessage, bot, userScrollPosition, messageStreamNewMessage, activeConversationId, guest, user, lastTimeConversationWasRead }  = this.props
-    const { token } = guest || user
+    const token = guest.token || user.token
     const node = ReactDOM.findDOMNode(this)
     if (userCreatedNewMessage) {
       this.scrollToBottom()
@@ -79,7 +79,7 @@ class Messages extends Component {
   }
   botResponse() {
     const { dispatch, activeConversationId, activeChannelId, guest, user, widget, emailReceived } = this.props
-    const { token } = guest || user
+    const token = guest.token || user.token
     dispatch(botReplyForFirstMessage(activeConversationId, token, activeChannelId, widget.initialConfig, emailReceived, guest))
   }
   scrollToBottom() {
@@ -88,7 +88,7 @@ class Messages extends Component {
   }
   loadMoreHistory() {
     const { dispatch, activeConversationId, scrollIndex, guest, user, nextFetchPage, reachedEnd, totalHeightOfHistoryMessages, oldestVisibleMessageUnixTimestamp } = this.props
-    const { token } = guest || user
+    const token = guest.token || user.token
     const node = ReactDOM.findDOMNode(this)
     if (reachedEnd) {
       return

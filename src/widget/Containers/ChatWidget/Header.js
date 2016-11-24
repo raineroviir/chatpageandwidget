@@ -16,6 +16,7 @@ import SignInIcon from './SignInIcon'
 import Register from '../../../common/Containers/Register'
 import Login from '../../../common/Containers/Login'
 import {RegistrationRouter} from '../../../common/Containers/Register/router'
+import WidgetMenu from '../../Components/WidgetMenu'
 
 class Header extends Component {
   constructor(props) {
@@ -146,91 +147,7 @@ class Header extends Component {
           </div>
         </div>)
       )
-    const widgetMenu = (
-      <div style={{color: widget.initialConfig.keyColor}} className="widget-menu">
-        <div style={{padding: "10 10 0 0", display: "flex", justifyContent: "flex-end"}}>
-          <div onClick={this.menuToggle.bind(this)} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
-        </div>
-          <div style={{color: "black", padding: "10px"}}>
-            <div style={{display: "flex", fontSize: "30px"}}>
-              {guest.data.first_name || user.data.first_name ?
-                <div>
-                  {guest.data.first_name || user.data.first_name}
-                </div> : null
-              }
-              {guest.data.last_name || user.data.last_name ?
-                <div style={{paddingLeft: "5px"}}>
-                  {guest.data.last_name || user.data.last_name}
-                </div> : null
-              }
-            </div>
-          {guest.data.email || user.data.email ?
-            <div>
-              <div>
-                {guest.data.email || user.data.email}
-              </div>
-              <div>
-                {guest.guest && <div style={{opacity: "0.6"}}>temporary account</div>}
-              </div>
-            </div> :
-            <div style={{border: "none"}} className="menu-item">
-              <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>
-                Enter email for notifications
-              </div>
-            </div>
-          }
-          </div>
-        {guest.data.email && <div>
-          <div className="menu-item">
-            <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>Edit</div>
-          </div>
-          <div className="menu-item">
-            <div onClick={this.forgetMe} style={{cursor: "pointer"}}>Forget me</div>
-          </div>
-        </div>}
-        {user.data.id ?
-          <div className="menu-item">
-            <div style={{cursor: "pointer"}}>Sign out
-            </div>
-          </div>
-          :
-          <div>
-            <div className="menu-item">
-              <div onClick={this.showLoginToggle} style={{cursor: "pointer"}}>Sign in with chat.center</div>
-            </div>
-            <div  className="menu-item">
-              <div>
-                <div style={{color: "#000000"}}>Don't have an account?</div>
-              </div>
-              <div>
-              <div onClick={this.showRegistrationToggle} style={{cursor: "pointer"}}>Sign up</div>
-              </div>
-            </div>
-        </div>}
-      </div>
-    )
-    const info = (
-      <div className="info">
-        <div className="team-avatar-wrapper">
-          <div style={{display: 'flex'}}>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarOne})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarTwo})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarThree})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFour})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFive})`}}></div>
-          </div>
-        </div>
-        <div className="team-name">
-          {teamName ? teamName : "She Sells Sea Shells Customer Support"}
-        </div>
-        <div className="team-url">
-            <a style={{color: widget.initialConfig.keyColor || "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
-        </div>
-        <div className="welcome-message">
-          {welcomeMessage}
-        </div>
-      </div>
-    )
+
     return (
       <div className="header">
       {this.state.showEnterEmailForNotifications && enterInformationForNotificationsModal}
@@ -244,7 +161,13 @@ class Header extends Component {
         </div>
         <div>{this.state.showRegistration && <div className="registration"><RegistrationRouter /></div>}</div>
         <div>{this.state.showLogin && <div className="registration"><Login /></div>}</div>
-        <div>{this.state.showMenu && widgetMenu}</div>
+        <div>{this.state.showMenu && <WidgetMenu widget={widget}
+        user={user} guest={guest} forgetMe={this.forgetMe.bind(this)}
+        menuToggle={this.menuToggle.bind(this)}
+        showLoginToggle={this.showLoginToggle.bind(this)
+        }
+        showRegistrationToggle={this.showRegistrationToggle.bind(this)}
+        />}</div>
       </div>
     )
   }
