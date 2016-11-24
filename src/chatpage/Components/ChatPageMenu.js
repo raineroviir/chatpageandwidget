@@ -6,9 +6,9 @@ export default class ChatPageMenu extends React.Component {
     const { chatpage, guest, user } = this.props
     return (
       <div style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} className="chatpage-menu">
-        <div style={{padding: "10 10 0 0", display: "flex", justifyContent: "flex-end"}}>
+        {/* <div style={{padding: "10 10 0 0", display: "flex", justifyContent: "flex-end"}}>
           <div onClick={this.props.menuToggle.bind(this)} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
-        </div>
+        </div> */}
           <div style={{color: "black", padding: "10px"}}>
             <div style={{display: "flex", fontSize: "30px"}}>
               {guest.data.first_name || user.data.first_name ?
@@ -47,7 +47,7 @@ export default class ChatPageMenu extends React.Component {
           </div>
         </div>}
         <div className="menu-item">
-          <div style={{cursor: "pointer"}}>Sign in with chat.center</div>
+          <div onClick={this.props.showLoginToggle} style={{cursor: "pointer"}}>Sign in with chat.center</div>
         </div>
         <div  className="menu-item">
           <div>

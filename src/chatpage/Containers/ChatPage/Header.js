@@ -2,11 +2,7 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import FaAngleDown from 'react-icons/lib/fa/angle-down'
 import signInIcon from '../../../common/Components/images/group-3.svg'
-import AvatarOne from '../../../common/Components/images/bullbasaur.svg'
-import AvatarTwo from '../../../common/Components/images/charmander.svg'
-import AvatarThree from '../../../common/Components/images/eevee.svg'
-import AvatarFour from '../../../common/Components/images/meowth.svg'
-import AvatarFive from '../../../common/Components/images/squirtle.svg'
+
 import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import {updateUser, forgetUser} from '../../../common/actions/user'
@@ -17,6 +13,8 @@ import Login from '../../../common/Containers/Login'
 import {RegistrationRouter} from '../../../common/Containers/Register/router'
 import ChatPageMenu from '../../Components/ChatPageMenu'
 import closeIcon from '../../../common/Components/images/x.svg'
+
+import InfoPopUp from '../../Components/InfoPopUp'
 
 class Header extends Component {
   constructor(props) {
@@ -30,7 +28,8 @@ class Header extends Component {
       showMenu: false,
       showInfo: false,
       showEnterEmailForNotifications: false,
-      showRegistration: false
+      showRegistration: false,
+      showLogin: false
     }
   }
   menuToggle() {
@@ -69,8 +68,8 @@ class Header extends Component {
     return
   }
   showLoginToggle() {
-    this.menuToggle()
-    this.setState({showLogin: !this.state.showLogin})
+    // this.menuToggle()
+    // this.setState({showLogin: !this.state.showLogin})
   }
   forgetMe() {
     const { dispatch } = this.props
@@ -81,8 +80,8 @@ class Header extends Component {
     // dispatch(updateUser(updates, token))
   }
   showRegistrationToggle() {
-    this.menuToggle()
-    this.setState({showRegistration: !this.state.showRegistration})
+    // this.menuToggle()
+    // this.setState({showRegistration: !this.state.showRegistration})
   }
   render() {
     const { chatpage, guest, user, environment } = this.props
@@ -149,96 +148,75 @@ class Header extends Component {
           </div>
         </div>)
       )
-    const menu = (
-        <div style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} className="menu">
-            <div style={{color: "black"}}>
-              <div>
-                {guest.data.first_name || user.data.first_name ?
-                  <div>
-                    {guest.data.first_name || user.data.first_name}
-                  </div> : null
-                }
-                {guest.data.last_name || user.data.last_name ?
-                  <div style={{paddingLeft: "5px"}}>
-                    {guest.data.last_name || user.data.last_name}
-                  </div> : null
-                }
-              </div>
-            {guest.data.email || user.data.email ?
-              <div>
-                <div>
-                  {guest.data.email || user.data.email}
-                </div>
-                <div>
-                  {guest.guest && <div>temporary account</div>}
-                </div>
-              </div> :
-              <div style={{border: "none"}} className="menu-item">
-                <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>
-                  Enter email for notifications
-                </div>
-              </div>
-            }
-            </div>
-          {guest.data.email && <div>
-            <div className="menu-item">
-              <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>Edit</div>
-            </div>
-            <div className="menu-item">
-              <div onClick={this.forgetMe} style={{cursor: "pointer"}}>Forget me</div>
-            </div>
-          </div>}
-          <div className="menu-item">
-            <div style={{cursor: "pointer"}}>Sign in with chat.center</div>
-          </div>
-          <div className="menu-item">
-            <div>
-              <div style={{color: "#000000"}}>Don't have an account?</div>
-            </div>
-            <div onClick={this.showRegistrationToggle} style={{cursor: "pointer"}}>Sign up</div>
-          </div>
-        </div>
-      )
-    const info = (
-      <div className="info" >
-        <div className="team-avatar-wrapper">
-          <div style={{display: 'flex'}}>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarOne})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarTwo})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarThree})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFour})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFive})`}}></div>
-          </div>
-        </div>
-        <div className="team-name">
-          {teamName ? teamName : "She Sells Sea Shells Customer Support"}
-        </div>
-        <div className="team-url">
-            <a style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
-        </div>
-        <div className="welcome-message">
-          {welcomeMessage}
-        </div>
-      </div>
-    )
+    // const menu = (
+    //     <div style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} className="menu">
+    //         <div style={{color: "black"}}>
+    //           <div>
+    //             {guest.data.first_name || user.data.first_name ?
+    //               <div>
+    //                 {guest.data.first_name || user.data.first_name}
+    //               </div> : null
+    //             }
+    //             {guest.data.last_name || user.data.last_name ?
+    //               <div style={{paddingLeft: "5px"}}>
+    //                 {guest.data.last_name || user.data.last_name}
+    //               </div> : null
+    //             }
+    //           </div>
+    //         {guest.data.email || user.data.email ?
+    //           <div>
+    //             <div>
+    //               {guest.data.email || user.data.email}
+    //             </div>
+    //             <div>
+    //               {guest.guest && <div>temporary account</div>}
+    //             </div>
+    //           </div> :
+    //           <div style={{border: "none"}} className="menu-item">
+    //             <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>
+    //               Enter email for notifications
+    //             </div>
+    //           </div>
+    //         }
+    //         </div>
+    //       {guest.data.email && <div>
+    //         <div className="menu-item">
+    //           <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>Edit</div>
+    //         </div>
+    //         <div className="menu-item">
+    //           <div onClick={this.forgetMe} style={{cursor: "pointer"}}>Forget me</div>
+    //         </div>
+    //       </div>}
+    //       <div className="menu-item">
+    //         <div style={{cursor: "pointer"}}>Sign in with chat.center</div>
+    //       </div>
+    //       <div className="menu-item">
+    //         <div>
+    //           <div style={{color: "#000000"}}>Don't have an account?</div>
+    //         </div>
+    //         <div onClick={this.showRegistrationToggle} style={{cursor: "pointer"}}>Sign up</div>
+    //       </div>
+    //     </div>
+    //   )
     return (
       <div className="header">
       {this.state.showEnterEmailForNotifications && enterInformationForNotificationsModal}
         {this.props.environment.userScrollPosition > 150 && <div className="header-arrow" onClick={this.infoToggle.bind(this)}>
-          <InfoIcon />
+          <InfoIcon style={{backgroundColor: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}/>
         </div>}
         <div className="sign-in-to-chat-center" style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
           <div onClick={this.menuToggle.bind(this)} style={{display: "flex", cursor: "pointer"}}>
             <SignInIcon style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}/>
           </div>
         </div>
+        <div>{this.state.showLogin && <div className="registration"><Login /></div>}</div>
         <div>{this.state.showRegistration && <div className="registration"><RegistrationRouter /></div>}</div>
-        {this.state.showMenu && (chatpage ? <ChatPageMenu chatpage={chatpage}
+        {this.state.showMenu && <ChatPageMenu chatpage={chatpage}
         user={user} guest={guest} forgetMe={this.forgetMe.bind(this)}
         menuToggle={this.menuToggle.bind(this)}
         showLoginToggle={this.showLoginToggle.bind(this)}
-        showRegistrationToggle={this.showRegistrationToggle.bind(this)} /> : menu)}
-        {this.state.showInfo && this.props.environment.userScrollPosition > 150 && info}
+        showRegistrationToggle={this.showRegistrationToggle.bind(this)} />}
+        {this.state.showInfo && this.props.environment.userScrollPosition > 150 && <InfoPopUp {...this.props} />}
       </div>
     )
   }
