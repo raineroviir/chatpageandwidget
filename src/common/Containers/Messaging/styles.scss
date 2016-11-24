@@ -47,21 +47,6 @@
   }
 }
 
-.chatpage-menu {
-  background-color: #FFFFFF;
-  position: absolute;
-  top: 0px;
-  height: 100%;
-  width: 320px;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  .menu-item {
-    border-top: 1px solid #d5d6d8;
-    padding: 10px 10px 10px 10px;
-  }
-}
-
 .messages-while-inactive {
   width: 200px;
   top: auto;

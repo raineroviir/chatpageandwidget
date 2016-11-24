@@ -7,7 +7,6 @@ import AvatarTwo from '../../../common/Components/images/charmander.svg'
 import AvatarThree from '../../../common/Components/images/eevee.svg'
 import AvatarFour from '../../../common/Components/images/meowth.svg'
 import AvatarFive from '../../../common/Components/images/squirtle.svg'
-import closeIcon from '../../../common/Components/images/x.svg'
 import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import {updateUser, forgetUser} from '../../../common/actions/user'
@@ -16,6 +15,8 @@ import InfoIcon from '../../../common/Components/svgs/InfoIcon'
 import Register from '../../../common/Containers/Register'
 import Login from '../../../common/Containers/Login'
 import {RegistrationRouter} from '../../../common/Containers/Register/router'
+import ChatPageMenu from '../../Components/ChatPageMenu'
+import closeIcon from '../../../common/Components/images/x.svg'
 
 class Header extends Component {
   constructor(props) {
@@ -39,8 +40,8 @@ class Header extends Component {
     this.setState({showInfo: !this.state.showInfo, showMenu: this.state.showMenu ? !this.state.showMenu : this.state.showMenu})
   }
   enterEmailForNotificationsToggle() {
-    // this.menuToggle()
-    // this.setState({showEnterEmailForNotifications: !this.state.showEnterEmailForNotifications})
+    this.menuToggle()
+    this.setState({showEnterEmailForNotifications: !this.state.showEnterEmailForNotifications})
   }
   componentDidUpdate(prevProps) {
     if (!prevProps.register.finished_process && this.props.register.finished_process) {
@@ -67,6 +68,10 @@ class Header extends Component {
     this.enterEmailForNotificationsToggle()
     return
   }
+  showLoginToggle() {
+    this.menuToggle()
+    this.setState({showLogin: !this.state.showLogin})
+  }
   forgetMe() {
     const { dispatch } = this.props
     // const token = guest.token || user.token
@@ -76,8 +81,8 @@ class Header extends Component {
     // dispatch(updateUser(updates, token))
   }
   showRegistrationToggle() {
-    // this.menuToggle()
-    // this.setState({showRegistration: !this.state.showRegistration})
+    this.menuToggle()
+    this.setState({showRegistration: !this.state.showRegistration})
   }
   render() {
     const { chatpage, guest, user, environment } = this.props
@@ -194,61 +199,6 @@ class Header extends Component {
           </div>
         </div>
       )
-    const chatpageMenu = (
-      <div style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} className="chatpage-menu">
-        <div style={{padding: "10 10 0 0", display: "flex", justifyContent: "flex-end"}}>
-          <div onClick={this.menuToggle.bind(this)} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
-        </div>
-          <div style={{color: "black", padding: "10px"}}>
-            <div style={{display: "flex", fontSize: "30px"}}>
-              {guest.data.first_name || user.data.first_name ?
-                <div>
-                  {guest.data.first_name || user.data.first_name}
-                </div> : null
-              }
-              {guest.data.last_name || user.data.last_name ?
-                <div style={{paddingLeft: "5px"}}>
-                  {guest.data.last_name || user.data.last_name}
-                </div> : null
-              }
-            </div>
-          {guest.data.email || user.data.email ?
-            <div>
-              <div>
-                {guest.data.email || user.data.email}
-              </div>
-              <div>
-                {guest.guest && <div style={{opacity: "0.6"}}>temporary account</div>}
-              </div>
-            </div> :
-            <div style={{border: "none"}} className="menu-item">
-              <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>
-                Enter email for notifications
-              </div>
-            </div>
-          }
-          </div>
-        {guest.data.email && <div>
-          <div className="menu-item">
-            <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>Edit</div>
-          </div>
-          <div className="menu-item">
-            <div onClick={this.forgetMe} style={{cursor: "pointer"}}>Forget me</div>
-          </div>
-        </div>}
-        <div className="menu-item">
-          <div style={{cursor: "pointer"}}>Sign in with chat.center</div>
-        </div>
-        <div  className="menu-item">
-          <div>
-            <div style={{color: "#000000"}}>Don't have an account?</div>
-          </div>
-          <div>
-          <div onClick={this.showRegistrationToggle} style={{cursor: "pointer"}}>Sign up</div>
-          </div>
-        </div>
-      </div>
-    )
     const info = (
       <div className="info" >
         <div className="team-avatar-wrapper">
@@ -283,7 +233,11 @@ class Header extends Component {
           </div>
         </div>
         <div>{this.state.showRegistration && <div className="registration"><RegistrationRouter /></div>}</div>
-        {this.state.showMenu && (chatpage ? chatpageMenu : menu)}
+        {this.state.showMenu && (chatpage ? <ChatPageMenu chatpage={chatpage}
+        user={user} guest={guest} forgetMe={this.forgetMe.bind(this)}
+        menuToggle={this.menuToggle.bind(this)}
+        showLoginToggle={this.showLoginToggle.bind(this)}
+        showRegistrationToggle={this.showRegistrationToggle.bind(this)} /> : menu)}
         {this.state.showInfo && this.props.environment.userScrollPosition > 150 && info}
       </div>
     )
