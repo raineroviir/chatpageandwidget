@@ -24,7 +24,7 @@ class Messages extends Component {
     this.loadMoreHistory = this.loadMoreHistory.bind(this)
   }
   componentDidMount() {
-    const { dispatch, userScrollPosition, isGroupChat, activeConversationId, guest, user, initialLoadComplete, routeParams, widget } = this.props
+    const { dispatch, userScrollPosition, isGroupChat, activeConversationId, guest, user, initialLoadComplete, routeParams, widget, messageStreamNewMessage, lastTimeConversationWasRead } = this.props
     // if (routeParams) {
     //   dispatch({type: "SAVE_CONVOID_FROM_ROUTE_PARAMS", routeParams})
     // }
@@ -41,22 +41,27 @@ class Messages extends Component {
     if (!widget) {
       node.addEventListener('scroll', this.handleScroll.bind(this))
     }
+    if (messageStreamNewMessage) {
+      this.scrollToBottom()
+      dispatch(markConversationAsRead(activeConversationId, token, lastTimeConversationWasRead))
+      dispatch(scrollCompleteForMsgStream())
+    }
   }
   loadInitialHistory() {
-    const { activeConversationId, guest, user, dispatch, serverMessages, scrollIndex, oldestVisibleMessageUnixTimestamp} = this.props
+    const { activeConversationId, guest, user, dispatch, serverMessages, scrollIndex, oldestVisibleMessageUnixTimestamp, lastTimeConversationWasRead} = this.props
     const { token } = guest || user
     dispatch(getConversationHistory(activeConversationId, token, oldestVisibleMessageUnixTimestamp)).then((json) => {
       if (json && json.messages.length > 0) {
         this.scrollToBottom()
         const oldestVisibleMessage = json.messages[json.messages.length - 1]
-        dispatch(markConversationAsRead(activeConversationId, token))
+        dispatch(markConversationAsRead(activeConversationId, token, lastTimeConversationWasRead))
         dispatch(setOldestVisibleMessageUnixTimestamp(oldestVisibleMessage))
       }
       dispatch({type: "INITIAL_MSG_LOAD_COMPLETE"})
     })
   }
   componentDidUpdate(prevProps) {
-    const { dispatch, totalHeightOfHistoryMessages, isInfiniteLoading, userCreatedNewMessage, bot, userScrollPosition, messageStreamNewMessage, activeConversationId, guest, user }  = this.props
+    const { dispatch, totalHeightOfHistoryMessages, isInfiniteLoading, userCreatedNewMessage, bot, userScrollPosition, messageStreamNewMessage, activeConversationId, guest, user, lastTimeConversationWasRead }  = this.props
     const { token } = guest || user
     const node = ReactDOM.findDOMNode(this)
     if (userCreatedNewMessage) {
@@ -65,7 +70,7 @@ class Messages extends Component {
     }
     if (messageStreamNewMessage) {
       this.scrollToBottom()
-      dispatch(markConversationAsRead(activeConversationId, token))
+      dispatch(markConversationAsRead(activeConversationId, token, lastTimeConversationWasRead))
       dispatch(scrollCompleteForMsgStream())
     }
     if (userCreatedNewMessage && !bot.botResponse && bot.botActive) {
@@ -174,10 +179,10 @@ function mapStateToProps(state) {
   const { activeChannelId, isGroupChat } = channels
   const { messagesList, userCreatedNewMessage, messageStreamNewMessage, initialLoadComplete, reachedEnd, oldestVisibleMessageUnixTimestamp } = messages
   const { height, width, isInfiniteLoading, scrollToBottom, totalHeightOfHistoryMessages, userScrollPosition } = environment
-  const { activeConversationId } = conversations
+  const { activeConversationId, lastTimeConversationWasRead } = conversations
   return {
     activeChannelId, isGroupChat,
-    activeConversationId,
+    activeConversationId, lastTimeConversationWasRead,
     messagesList, userCreatedNewMessage, messageStreamNewMessage,
     environment, initialLoadComplete, reachedEnd, oldestVisibleMessageUnixTimestamp,
     height, width, isInfiniteLoading, scrollToBottom, totalHeightOfHistoryMessages, userScrollPosition,

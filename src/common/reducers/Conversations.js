@@ -8,7 +8,8 @@ const initialState = {
   socket: null,
   preparingToCreateConversation: false,
   activeConversationId: null,
-  userScrollPosition: 0
+  userScrollPosition: 0,
+  lastTimeConversationWasRead: 0
 };
 
 export function conversations(state = initialState, action) {
@@ -62,6 +63,10 @@ export function conversations(state = initialState, action) {
     return {...state, activeConversationId: action.conversationid, conversations: [...state.conversations, action.conversationid]}
   case 'STORE_USER_SCROLL_POSITION':
     return {...state, userScrollPosition: action.userScrollPosition}
+  case 'MARK_ALL_MESSAGES_AS_READ': {
+    console.log(action)
+    return {...state, lastTimeConversationWasRead: action.timestamp}
+  }
   case 'SAVE_CONVOID_FROM_ROUTE_PARAMS':
   console.log(action)
     return {...state, activeConversationId: action.routeParams.conversation}

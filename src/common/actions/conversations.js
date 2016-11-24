@@ -45,8 +45,13 @@ function processMemoizedConversationsForDispatch(channelid) {
   }
 }
 
-export function markConversationAsRead(conversationid, token, timestamp = moment().format("x")) {
+export function markConversationAsRead(conversationid, token, lastTimeConversationWasRead, timestamp = moment().format("x")) {
   return dispatch => {
+    console.log(lastTimeConversationWasRead)
+      console.log(lastTimeConversationWasRead - timestamp)
+    if (lastTimeConversationWasRead !== 0 && timestamp - lastTimeConversationWasRead < 10) {
+      return dispatch({type: "TRYING_TO_READ_CONVERSATION_TOO_FAST_TRY_AGAIN"})
+    }
     return fetch(Config.app + '/conversations.read', {
       method: 'POST',
       headers:{
@@ -60,7 +65,7 @@ export function markConversationAsRead(conversationid, token, timestamp = moment
       }
       return response.json()
     }).then(json => {
-      dispatch({type: "MARK_ALL_MESSAGES_AS_READ"})
+      dispatch({type: "MARK_ALL_MESSAGES_AS_READ", timestamp: timestamp})
       return json
     }).catch(error => console.log(error))
   }

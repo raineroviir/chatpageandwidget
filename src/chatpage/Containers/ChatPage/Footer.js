@@ -6,16 +6,17 @@ import { createConversation, prepareToCreateConversation } from '../../../common
 class Footer extends React.Component {
   render() {
     const { chatpage } = this.props
+    console.log(chatpage)
     return (
       <footer style={this.props.style} className="footer" >
         <CreateMessage />
         <div className="footer-message">
-          <span className="powered-by">
+          {chatpage.initialConfig.ccBranding ?  null : <span className="powered-by">
             {"Powered by "}
             <span style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
               {"Chat Center"}
             </span>
-          </span>
+          </span> }
         </div>
       </footer>
     )

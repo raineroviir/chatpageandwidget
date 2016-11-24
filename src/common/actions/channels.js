@@ -5,7 +5,7 @@ import moment from 'moment';
 import { fetchUserInfo, setOrGetGuestToken} from "./user";
 import { getConversations, processConversationsForDispatch } from './conversations'
 import { scrollToBottom } from './environment'
-import {dispatchMessageStream} from './messages'
+import { dispatchMessageStream } from './messages'
 
 export function fetchSocket(token, channelid) {
   return dispatch => {
@@ -82,9 +82,10 @@ function initializeSocket(socket, dispatch, channelid) {
         case "message": {
           dispatch(dispatchMessageStream(data.message.payload))
         }
-        case "public_group_message": {
-          dispatch(dispatchMessageStream(data.message.payload))
-        }
+        // right now it's creating two message streams in widget
+        // case "public_group_message": {
+        //   dispatch(dispatchMessageStream(data.message.payload))
+        // }
       }
     }
   }
@@ -98,20 +99,20 @@ function socketInitialized(socket) {
   }
 }
 
-export function testSocket () {
-  return dispatch => {
-    dispatch(dispatchMessageStream({
-      "payload": {
-        "conversation_id": 97,
-        "message_id": 63323,
-        "text": "dummy hardcoded socket message",
-        "user_id": 53
-      },
-      "timestamp": 1468657146,
-      "type": "message"
-    }))
-  }
-}
+// export function testSocket () {
+//   return dispatch => {
+//     dispatch(dispatchMessageStream({
+//       "payload": {
+//         "conversation_id": 97,
+//         "message_id": 63323,
+//         "text": "dummy hardcoded socket message",
+//         "user_id": 53
+//       },
+//       "timestamp": 1468657146,
+//       "type": "message"
+//     }))
+//   }
+// }
 
 export function selectChannel (channelname, conversationname) {
   return (dispatch, getState) => {

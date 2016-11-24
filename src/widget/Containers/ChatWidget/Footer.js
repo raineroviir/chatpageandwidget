@@ -9,12 +9,12 @@ class Footer extends React.Component {
       <footer style={this.props.style} className="footer" >
         <CreateMessage />
         <div className="footer-message">
-          {this.props.widget.initialConfig.ccBranding ? <span className="powered-by">
+          {this.props.widget.initialConfig.ccBranding ? null : <span className="powered-by">
             {"Powered by "}
             <span style={{color: this.props.widget.initialConfig.keyColor}}>
               {"Chat Center"}
             </span>
-          </span> : null}
+          </span>}
         </div>
       </footer>
     )

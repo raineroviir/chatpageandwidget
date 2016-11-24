@@ -78,12 +78,12 @@ class App extends React.Component {
     })
     // if (matchParticipantIdToMessageId.length === 0) {
     //   return (
-    //     <div style={{backgroundImage:  `url(${defaultAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+    //     <div style={{backgroundImage:  `url(${defaultAvatarUrl})`, backgroundRepeat: "no-repeat"}}  />
     //   )
     // }
     // if (message.bot) {
     //   return (
-    //     <div style={{backgroundImage:  `url(${defaultBotAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+    //     <div style={{backgroundImage:  `url(${defaultBotAvatarUrl})`, backgroundRepeat: "no-repeat"}}  />
     //   )
     // }
     console.log(matchParticipantIdToMessageId)
@@ -94,20 +94,20 @@ class App extends React.Component {
         return (
           <div style={{backgroundImage:  `url(${matchParticipantIdToMessageId[0].avatar_96 ||
           matchParticipantIdToMessageId[0].avatar_384 ||
-          matchParticipantIdToMessageId[0].avatar_960})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+          matchParticipantIdToMessageId[0].avatar_960})`, backgroundRepeat: "no-repeat"}}  />
         )
       }
       if (matchParticipantIdToMessageId[0].email) {
         return (
-          <div className="avatar">
-            <Gravatar size={48} md5="" email={matchParticipantIdToMessageId[0].email} />
+          <div >
+            <Gravatar style={{borderRadius: "50%", borderColor: "white", borderStyle: "solid"}} size={48} md5="" email={matchParticipantIdToMessageId[0].email} />
           </div>
         )
       }
       if (matchParticipantIdToMessageId[0].first_name && matchParticipantIdToMessageId[0].last_name) {
         return (
           <div style={{borderRadius: "50%", width: "28px", height: "28px", backgroundColor: widget ? widget.initialConfig.keyColor : "#f7a444"}}>
-          <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white"}} className="avatar">{matchParticipantIdToMessageId[0].first_name.slice(0, 1).toUpperCase()}{matchParticipantIdToMessageId[0].last_name.slice(0, 1).toUpperCase()}</div>
+          <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white"}} >{matchParticipantIdToMessageId[0].first_name.slice(0, 1).toUpperCase()}{matchParticipantIdToMessageId[0].last_name.slice(0, 1).toUpperCase()}</div>
           </div>
         )
       }
@@ -146,13 +146,14 @@ class App extends React.Component {
         {messages.messagesList.length === 0 ? <div className="minimized-welcome-message">
           {!this.state.show && this.state.miniWidgetShow && <MiniWidget onToggle={this.onToggle.bind(this)} widget={widget} onClose={this.onCloseMiniWidget.bind(this)} />}
         </div> : null}
+        {messages.messagesWhileInactive.length > 0 ? <div onClick={this.onToggle.bind(this)} style={{cursor: "pointer", top: "auto", left: "auto", bottom: "15px", right: "15px", position: "absolute"}}>{this.determineAvatar(lastMessage)}
+          <div style={{top: "auto", left: "auto", bottom: "33px", right: "33px", position: "absolute", backgroundColor: widget.initialConfig.keyColor}} className="unread-message-bubble">
+            <div style={{alignSelf: 'center'}}>{messages.messagesWhileInactive.length}</div>
+          </div>
+        </div> :
         <div className="chat-widget-button" style={{backgroundColor: widget.initialConfig.keyColor,
           backgroundSize: 'contain', backgroundRepeat: 'no-repeat'}} onClick={this.onToggle.bind(this)}>
-          {messages.messagesWhileInactive.length > 0 && this.determineAvatar(lastMessage)}
-          {messages.messagesWhileInactive.length > 0 && <div style={{backgroundColor: widget.initialConfig.keyColor}} className="unread-message-bubble">
-            <div style={{alignSelf: 'center'}}>{messages.messagesWhileInactive.length}</div>
-          </div>}
-        </div>
+        </div>}
         {this.state.show && <ChatWidget onClose={this.onToggle.bind(this)} dispatch={this.props.dispatch} />}
       </div>
     );
