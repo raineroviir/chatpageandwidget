@@ -34,21 +34,21 @@ export default class DefaultMessage extends Component {
         participant.avatar_384 ||
         participant.avatar_960) {
           return (
-            <div style={{backgroundImage:  `url(${participant.avatar_96 ||
+            <div key={index} style={{backgroundImage:  `url(${participant.avatar_96 ||
             participant.avatar_384 ||
             participant.avatar_960})`, backgroundRepeat: "no-repeat", zIndex: -index, borderColor: "white", borderStyle: "solid"}} className="default-message-member-avatar-icon" />
           )
         }
         if (participant.email) {
           return (
-            <div className="default-message-member-avatar-icon" style={{zIndex: -index}}>
+            <div key={index} className="default-message-member-avatar-icon" style={{zIndex: -index}}>
               <Gravatar style={{borderRadius: "50%", borderColor: "white", borderStyle: "solid",}} size={43} md5="" email={participant.email} />
             </div>
           )
         }
         if (participant.first_name && participant.last_name) {
           return (
-            <div className="default-message-member-avatar-icon" style={{zIndex: -index, borderRadius: "50%", borderColor: "white", borderStyle: "solid", backgroundColor: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
+            <div key={index} className="default-message-member-avatar-icon" style={{zIndex: -index, borderRadius: "50%", borderColor: "white", borderStyle: "solid", backgroundColor: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
             <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white", fontSize: "22.5px", width: "43px", height: "43px"}} >{participant.first_name.slice(0, 1).toUpperCase()}{participant.last_name.slice(0, 1).toUpperCase()}</div>
             </div>
           )
