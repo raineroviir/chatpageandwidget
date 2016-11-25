@@ -1,5 +1,5 @@
 import moment from 'moment';
-var _ = require('lodash');
+var _SortBy = require('lodash/sortBy');
 const initialState = {
   conversations: [],
   memoized: {},
@@ -15,7 +15,7 @@ const initialState = {
 export function conversations(state = initialState, action) {
   switch (action.type) {
   case 'FETCH_CONVERSATIONS':
-    let conv = action.data ? _.sortBy(action.data.conversations, a => parseInt(moment(a.updated_at).format("x"))).reverse() : null
+    let conv = action.data ? _SortBy(action.data.conversations, a => parseInt(moment(a.updated_at).format("x"))).reverse() : null
     return {
       ...state,
       conversations: conv,

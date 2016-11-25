@@ -1,5 +1,5 @@
 import moment from 'moment';
-var _ = require('lodash');
+var _SortBy = require('lodash/sortBy');
 
 const initialState = {
   messagesList: [],
@@ -17,7 +17,7 @@ const initialState = {
 export function messages(state = initialState, action) {
   switch (action.type) {
   case 'FETCH_MESSAGES':
-    let messages = _.sortBy(action.data.messages, a => (new Date()).getTime() - parseInt(moment(a.created_at).format("x")))
+    let messages = _SortBy(action.data.messages, a => (new Date()).getTime() - parseInt(moment(a.created_at).format("x")))
     return {
       ...state,
       messagesList: messages.reverse().concat(state.messagesList),

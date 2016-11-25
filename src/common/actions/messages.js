@@ -5,7 +5,7 @@ import moment from 'moment';
 import { createConversation } from './channels'
 import { setOrGetGuestToken } from './user'
 import { getConversationHistory, setGuestConvid } from './channels'
-var _ = require("lodash");
+var _UniqBy = require("lodash/uniqBy");
 
 export function scrollCompleteForUserMessage() {
   return {
@@ -115,7 +115,7 @@ function processAddMessage(response, conversationid) {
       messages = guestMessages.messages || [];
     channel = (typeof channel[1] === "number") ? url.substr(0, url.length - channel[0].length).match(/\/([^\/]+)\/?$/)[1] : channel[1];
 
-    guestMessages = _.uniqBy([...guestMessages, {channel, conversationid}] , "channel");
+    guestMessages = _UniqBy([...guestMessages, {channel, conversationid}] , "channel");
     localStorage.setItem("guestMessages", JSON.stringify(guestMessages));
   }
   return {

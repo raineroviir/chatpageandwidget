@@ -1,8 +1,9 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CompressionPlugin = require("compression-webpack-plugin");
 var path = require('path')
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   entry: {
     widget: './src/widget/widget',
     chatpage: './src/chatpage/chatpage'
@@ -15,7 +16,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"',
+        NODE_ENV: JSON.stringify('production'),
       },
       __DEVELOPMENT__: false,
     }),
@@ -26,7 +27,17 @@ module.exports = {
       compress: {
         warnings: false,
       },
+      comments: false,
+      sourceMap: false
     }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
+    })
   ],
   module: {
     loaders: [

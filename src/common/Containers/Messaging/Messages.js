@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom'
 import Waypoint from 'react-waypoint'
-import _ from 'lodash'
+
 import styles from './styles.scss';
 import { getConversationHistory, setactiveConversationId } from '../../actions/conversations'
 import {MessageListItem} from '../../Components/ChatMessages/MessageListItem'
