@@ -10,7 +10,7 @@ import SignInIcon from '../../../common/Components/svgs/SignInIcon'
 import InfoIcon from '../../../common/Components/svgs/InfoIcon'
 import Register from '../../../common/Containers/Register'
 import Login from '../../../common/Containers/Login'
-import {RegistrationRouter} from '../../../common/Containers/Register/router'
+import {RegistrationRouter} from '../RegistrationRouter'
 import ChatPageMenu from '../../Components/ChatPageMenu'
 import closeIcon from '../../../common/Components/images/x.svg'
 
@@ -68,8 +68,8 @@ class Header extends Component {
     return
   }
   showLoginToggle() {
-    // this.menuToggle()
-    // this.setState({showLogin: !this.state.showLogin})
+    this.menuToggle()
+    this.setState({showLogin: !this.state.showLogin})
   }
   forgetMe() {
     const { dispatch } = this.props

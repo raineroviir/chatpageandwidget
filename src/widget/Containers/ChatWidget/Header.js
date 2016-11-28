@@ -15,7 +15,7 @@ import {updateUser, forgetUser} from '../../../common/actions/user'
 import SignInIcon from './SignInIcon'
 import Register from '../../../common/Containers/Register'
 import Login from '../../../common/Containers/Login'
-import {RegistrationRouter} from '../../../common/Containers/Register/router'
+import {RegistrationRouter} from '../RegistrationRouter'
 import WidgetMenu from '../../Components/WidgetMenu'
 
 class Header extends Component {
