@@ -58,7 +58,7 @@ class Header extends Component {
     const { dispatch, guest, user } = this.props
     const token = guest.token || user.token
     console.log(updates)
-    if (!updates.name) {
+    if (!updates.nickname) {
       return alert("no name")
     }
     if (!updates.email) {
