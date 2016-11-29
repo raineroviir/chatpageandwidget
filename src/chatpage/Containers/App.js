@@ -7,7 +7,7 @@ import { initUser, fetchUserInfo } from '../../common/actions/user'
 import { initEnvironment
  } from '../../common/actions/environment'
 import { checkForConversation, setactiveConversationId} from '../../common/actions/conversations'
-import { fetchChannelInfo, fetchChannel, fetchSocket} from '../../common/actions/channels'
+import { fetchChannelInfo, fetchChannel, fetchSocket, fetchChannelMembers} from '../../common/actions/channels'
 import {createMessage} from '../../common/actions/messages'
 import saveSubDomainAsChannel from '../../common/actions/channels'
 import {getChatPage} from '../actions/chatpage'
@@ -65,6 +65,8 @@ class App extends React.Component {
         if (channel.conversation) {
           dispatch(setactiveConversationId(channel.conversation.id))
         }
+        console.log(token, channel.id)
+        dispatch(fetchChannelMembers(token, channel.id))
       }).catch(error => console.log(error))
     }).catch(error => console.log(error))
   }

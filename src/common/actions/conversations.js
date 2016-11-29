@@ -112,9 +112,6 @@ export function getConversationHistory(conversationid, token, oldestVisibleMessa
   return response.json()
 })
       .then(json => {
-        if (json.messages.length > 0) {
-          dispatch({type: "INCREASE_NEXT_FETCH_PAGE"})
-        }
         dispatch(processConversationsHistoryForDispatch(json, conversationid))
         dispatch({
           type: 'SET_CONVERSATION_CHANNEL_MEMOIZED',

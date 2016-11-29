@@ -26,6 +26,26 @@ export function fetchSocket(token, channelid) {
   }
 }
 
+export function fetchChannelMembers(token, channel_id) {
+  return dispatch => {
+    return fetch( Config.api + `/channels.members.list?channel_id=${channel_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    }).then(response => {
+      if (response.status >= 400) {
+        throw new Error("Bad response from server");
+      }
+      return response.json()
+    })
+    .then(channelMembers => {
+      console.log(channelMembers)
+      return dispatch({type: "RECEIVE_CHANNEL_MEMBERS", channelMembers})
+    }).catch(error => console.log(error))
+  }
+}
 export function fetchChannelInfo(token, channel_id) {
   return dispatch => {
     return fetch( Config.api + `/channels.info?channel_id=${channel_id}`, {

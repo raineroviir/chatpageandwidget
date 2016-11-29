@@ -7,6 +7,7 @@ const initialState = {
     otherChannels: [],
     recentContacts: [],
     directChannel: null,
+    memoizedChannelMembers: {},
     count: 0,
     isGroupChat: false,
     guest: {
@@ -58,6 +59,11 @@ export function channels(state = initialState, action) {
   case 'SAVE_SUBDOMAIN_AS_ACTIVE_CHANNEL':
   console.log(action)
     return {...state, activeChannelId: action.subdomain}
+  case 'RECEIVE_CHANNEL_MEMBERS':
+    console.log(action)
+    return {
+      ...state, memoizedChannelMembers: {...state.memoizedChannelMembers, [activeChannelId]: action.channelMembers}
+    }
   default:
     return state;
   }
