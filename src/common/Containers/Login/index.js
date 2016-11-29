@@ -10,7 +10,7 @@ import Logo from "../../Components/images/logo.svg"
 import UserIcon from "../../Components/images/user-icon.svg"
 import PasswordIcon from "../../Components/images/password-icon.svg"
 import { loginUser, submitLogin } from '../../actions/login'
-
+import closeIcon from '../../Components/images/x.svg'
 export class LoginComponent extends Component {
   static contextTypes = {
     router: React.PropTypes.object.isRequired
@@ -42,7 +42,8 @@ export class LoginComponent extends Component {
   render() {
     return (
       <div id="loginbox" className="login-wrapper">
-            <form id="signupform" className="form-horizontal" role="form">
+            <form id="signupform" className="form-horizontal" style={{display: "flex", flexDirection: "column", padding: "10px"}} role="form">
+              <div onClick={this.props.showLoginToggle} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
                 <div className="logo-wrapper">
                   <img className="logo" src={Logo} title="Chat Center" />
                 </div>

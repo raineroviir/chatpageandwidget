@@ -160,7 +160,7 @@ class Header extends Component {
           </div>
         </div>
         <div>{this.state.showRegistration && <div className="widget-registration"><RegistrationRouter /></div>}</div>
-        <div>{this.state.showLogin && <div className="widget-registration"><Login /></div>}</div>
+        <div>{this.state.showLogin && <div className="widget-registration"><Login showLoginToggle={this.showLoginToggle.bind(this)} /></div>}</div>
         <div>{this.state.showMenu && <WidgetMenu widget={widget}
         user={user} guest={guest} forgetMe={this.forgetMe.bind(this)}
         menuToggle={this.menuToggle.bind(this)}

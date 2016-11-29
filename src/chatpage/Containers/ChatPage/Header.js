@@ -159,7 +159,7 @@ class Header extends Component {
         </div>
         <div>{this.state.showLogin &&
           <div onClick={this.handleCloseModal.bind(this)} id="modal" className="modal">
-            <div className="chatpage-registration"><Login /></div>
+            <div className="chatpage-registration"><Login showLoginToggle={this.showLoginToggle.bind(this)} /></div>
           </div>}
         </div>
         <div>{this.state.showRegistration && <div className="chatpage-registration"><RegistrationRouter /></div>}</div>
