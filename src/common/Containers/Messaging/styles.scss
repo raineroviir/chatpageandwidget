@@ -230,24 +230,6 @@
   justify-content: center;
 }
 
-.your-details-entry-form {
-  display: flex;
-  align-items: center;
-  font-family: Rubik;
-  width: 640px;
-  font-size: 15px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  color: #474848;
-  .your-details {
-    font-size: 30px;
-    font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: -0.5px;
-  }
-}
-
 .capture-details-input {
   ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     opacity:  0.6;

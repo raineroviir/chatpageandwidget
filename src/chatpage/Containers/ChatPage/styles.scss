@@ -78,10 +78,14 @@
   font-stretch: normal;
   color: #474848;
   .your-details {
-    font-size: 30px;
+    font-family: Rubik;
+    font-size: 40px;
     font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
     line-height: 1.2;
     letter-spacing: -0.5px;
+    color: #000000;
   }
 }
 
@@ -188,7 +192,23 @@
   }
 }
 
-
+.your-details-entry-form {
+  display: flex;
+  align-items: center;
+  font-family: Rubik;
+  width: 640px;
+  font-size: 15px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  color: #474848;
+  .your-details {
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+}
 
 .header {
   border-bottom: 1px solid #eee;

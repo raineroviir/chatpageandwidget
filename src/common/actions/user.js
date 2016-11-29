@@ -156,6 +156,7 @@ export function updateUser(updates, token) {
       }
       return response.json()
     }).then(user => {
+      console.log(user)
       if (user.guest) {
         const guest = user.guest
         dispatch({type: "GUEST_UPDATED", guest})

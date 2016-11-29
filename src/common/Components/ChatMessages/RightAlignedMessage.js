@@ -19,14 +19,6 @@ export class RightAlignedMessage extends React.Component {
   }
   determineAvatar() {
     const { message, user, guest, widget, chatpage } = this.props
-    if (chatpage) {
-      return
-    }
-    // if (!guest.token || !user.token) {
-    //   return (
-    //     <div style={{backgroundImage:  `url(${defaultAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar" />
-    //   )
-    // }
     if (guest.token) {
       if (guest.data.avatar_96 ||
       guest.data.avatar_384 ||
@@ -76,6 +68,11 @@ export class RightAlignedMessage extends React.Component {
           </div>
         )
       }
+    }
+    if (!guest.token || !user.token) {
+      return (
+        <div style={{backgroundImage:  `url(${defaultAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+      )
     }
   }
   render() {
