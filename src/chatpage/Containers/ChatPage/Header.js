@@ -15,7 +15,7 @@ import ChatPageMenu from '../../Components/ChatPageMenu'
 import closeIcon from '../../../common/Components/images/x.svg'
 
 import EditUserInfo from '../../../common/Components/Menu/EditUserInfo'
-
+import Gravatar from 'react-gravatar'
 import InfoPopUp from '../../Components/InfoPopUp'
 
 class Header extends Component {
@@ -102,6 +102,34 @@ class Header extends Component {
     // this.menuToggle()
     // this.setState({showRegistration: !this.state.showRegistration})
   }
+  determineAvatar() {
+    const { user, chatpage } = this.props
+    if (user.token) {
+      if (user.data.avatar_96 ||
+      user.data.avatar_384 ||
+      user.data.avatar_960) {
+        return (
+          <div style={{borderRadius: "50%", borderColor: this.state.showMenu ? chatpage ? chatpage.initialConfig.keyColor : "#f7a444" : "grey", borderStyle: "solid", backgroundImage:  `url(${user.data.avatar_96 ||
+          user.data.avatar_384 ||
+          user.data.avatar_960})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+        )
+      }
+      if (user.data.email) {
+        return (
+          <div className="avatar">
+            <Gravatar style={{borderRadius: "50%", borderColor: this.state.showMenu ? chatpage ? chatpage.initialConfig.keyColor : "#f7a444" : "grey", borderStyle: "solid"}} size={28} md5="" email={user.data.email} />
+          </div>
+        )
+      }
+      if (user.data.first_name && user.data.last_name) {
+        return (
+          <div style={{borderRadius: "50%", borderColor: this.state.showMenu ? chatpage ? chatpage.initialConfig.keyColor : "#f7a444" : "grey", borderStyle: "solid", width: "28px", height: "28px", backgroundColor: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
+          <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white"}} className="avatar">{user.data.first_name.slice(0, 1).toUpperCase()}{user.data.last_name.slice(0, 1).toUpperCase()}</div>
+          </div>
+        )
+      }
+    }
+  }
   render() {
     const { chatpage, guest, user, environment } = this.props
     const currentUserEmail = guest.guest ? guest.data.email : user.data.email
@@ -117,7 +145,7 @@ class Header extends Component {
         </div>}
         <div className="sign-in-to-chat-center" style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
           <div onClick={this.menuToggle.bind(this)} style={{display: "flex", cursor: "pointer"}}>
-            <SignInIcon style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}/>
+            {user.token ? this.determineAvatar() : <SignInIcon style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}/>}
           </div>
         </div>
         <div>{this.state.showLogin &&
