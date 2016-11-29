@@ -262,65 +262,6 @@
    opacity:  0.6;
 }
 }
-.info {
-  font-family: Rubik;
-  font-size: 15px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.4;
-  color: #474848;
-  box-shadow: 0 14px 30px 0 rgba(0, 0, 0, 0.4);
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  border-radius: 2px;
-  background-color: #FFFFFF;
-  position: absolute;
-  top: 50px;
-  height: 196px;
-  width: 320px;
-  display: flex;
-  flex-direction: column;
-
-  border-color: transparent transparent transparent white;
-  &:after {
-    content: '';
-    width: 0;
-    height: 0;
-    border-style: solid;
-    position: absolute;
-    display: inline-block;
-    transition: all ease-in 0.5s;
-    border-color: inherit;
-    top: -11px;
-    left: 20;
-    border-width: 7 0 7 8;
-    transform: rotate(-90deg);
-  }
-  .team-avatar-wrapper {
-    padding: 15px 13px 4px 13px;
-  }
-  .team-avatar {
-    object-fit: contain;
-    background-repeat: no-repeat;
-    width: 116px;
-    height: 28px;
-  }
-  .team-url {
-    font-weight: 500;
-    line-height: 1.6;
-    padding: 0px 13px 0px 13px;
-  }
-  .team-name {
-    font-weight: 500;
-    letter-spacing: 0.1px;
-    padding: 4px 13px 4px 13px;
-  }
-  .welcome-message {
-    padding: 20px 13px 10px 13px;
-  }
-}
 
 .member-avatar-icon {
   width: 28px;

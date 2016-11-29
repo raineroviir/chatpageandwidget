@@ -30,7 +30,7 @@ export default class ChatPageMenu extends React.Component {
             </div> :
             <div style={{border: "none"}} className="menu-item">
               <div onClick={this.props.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>
-                Enter email for notifications
+              Enter email for notifications
               </div>
             </div>
           }

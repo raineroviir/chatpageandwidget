@@ -21,22 +21,25 @@ export default class WidgetMenu extends React.Component {
                 </div> : null
               }
             </div>
-          {guest.data.email || user.data.email ?
-            <div>
+            {guest.data.email || user.data.email &&
               <div>
-                {guest.data.email || user.data.email}
+                <div>
+                  {guest.data.email || user.data.email}
+                </div>
+                <div>
+                  {guest.data.email && <div style={{opacity: "0.6"}}>
+                  </div>}
+                  temporary account
+                </div>
               </div>
-              <div>
-                {guest.guest && <div style={{opacity: "0.6"}}>temporary account</div>}
-              </div>
-            </div> :
-            <div style={{border: "none"}} className="menu-item">
+            }
+          </div>
+          {!guest.data.email && <div style={{border: "none"}} className="menu-item">
               <div onClick={this.props.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>
-                Enter email for notifications
+              Enter email for notifications
               </div>
             </div>
           }
-          </div>
         {guest.data.email && <div>
           <div className="menu-item">
             <div onClick={this.props.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>Edit</div>
