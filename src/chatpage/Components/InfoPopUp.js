@@ -19,11 +19,11 @@ export default class InfoPopUp extends React.Component {
       <div className="chatpage-info" >
         <div className="team-avatar-wrapper">
           <div style={{display: 'flex'}}>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarOne})`}}></div>
+            {/* <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarOne})`}}></div>
             <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarTwo})`}}></div>
             <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarThree})`}}></div>
             <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFour})`}}></div>
-            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFive})`}}></div>
+            <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFive})`}}></div> */}
           </div>
         </div>
         <div className="team-name">
