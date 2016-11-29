@@ -17,6 +17,9 @@ export default class DefaultMessage extends Component {
   }
   constructAvatarCollage() {
     const { channels, widget, chatpage } = this.props
+    if (chatpage) {
+      return
+    }
     const activeChannelObject = channels.channels.all.filter((channel) => {
       return channel.id === channels.activeChannelId
     })
@@ -64,10 +67,10 @@ export default class DefaultMessage extends Component {
     // if (widget.initialConfig.teamAvatar) {
     //   console.log("team avatar is true")
     // }
-    const teamAvatarUrl = widget ? widget.initialConfig.channel.avatarUrl : chatpage ? chatpage.channel.avatarUrl : null
+    const teamAvatarUrl = widget ? widget.initialConfig.channel.avatarUrl : chatpage ? chatpage.initialConfig.channel.avatarUrl : null
     const teamChannelUrl = widget ? widget.initialConfig.channelUrl : chatpage ? chatpage.initialConfig.channelUrl : null
     const welcomeMessage = widget ? widget.initialConfig.content.welcomeMessage : chatpage ? chatpage.initialConfig.content.welcomeMessage : null
-    const teamName = widget ? widget.initialConfig.content.teamName : chatpage ? chatpage.initialConfig.content.welcomeMessage : null
+    const teamName = widget ? widget.initialConfig.content.teamName : chatpage ? chatpage.initialConfig.content.teamName : null
     return (
       <div className="default-message-wrapper" style={this.checkIfWidget()}>
         <div className="default-message">

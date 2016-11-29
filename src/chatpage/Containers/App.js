@@ -57,7 +57,7 @@ class App extends React.Component {
     dispatch(initUser(data))
     .then((token) => {
       dispatch(fetchChannel(channelName, team, token)).then((channel) => {
-          dispatch(fetchSocket(token, channel.id))
+        dispatch(fetchSocket(token, channel.id))
         dispatch(getChatPage(channel.id, token))
         if (!channel.is_group) {
           dispatch(checkForConversation(channel.id, token))
@@ -70,7 +70,7 @@ class App extends React.Component {
   }
   componentDidUpdate(prevProps) {
     const { dispatch } = this.props
-    if (prevProps.environment.initialLoading === true && this.props.conversations.activeConversationId !== null && this.props.channels.activeChannelId !== null) {
+    if (prevProps.environment.initialLoading === true && this.props.conversations.activeConversationId !== null && this.props.channels.activeChannelId !== null && this.props.chatpage.initialConfig.content) {
       dispatch({type: "FINISHED_INITIAL_LOADING"})
     }
   }

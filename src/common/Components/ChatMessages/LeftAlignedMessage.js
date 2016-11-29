@@ -33,6 +33,9 @@ export class LeftAlignedMessage extends React.Component {
   }
   determineAvatar() {
     const { message, conversationParticipants, widget, chatpage } = this.props
+    if (chatpage) {
+      return
+    }
     const matchParticipantIdToMessageId = conversationParticipants.filter((participant) => {
       return participant.id === message.user_id
     })

@@ -35,6 +35,10 @@ export function login(state = initialState, action) {
         user
       }
 
+    case 'USER_LOGIN_SUCCESS':
+      return {
+        ...state, loginRequest: "success"
+      }
     case 'RESET_USER_DETAILS':
       //mutate initial state to store the organisation value and create STATE from it
       var user = initialState.user;

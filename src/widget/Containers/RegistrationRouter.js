@@ -2,14 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import { createMemoryHistory, Router, Route, IndexRoute } from 'react-router'
 
 const history = createMemoryHistory("/")
-import Index from "./index"
-import RegisterOrgName from './Organization/Name'
+import Index from "../../common/Containers/Register/index"
+import RegisterOrgName from '../../common/Containers/Register/Organization/Name'
 
-import RegisterOrgDomain from './Organization/Domain';
-import RegisterOrgVerify from './Organization/Verify';
-import RegisterOrgDetail from './Organization/Detail';
-import RegisterOrgChannel from './Organization/Channel';
-import RegisterIndividual from './Individual'
+import RegisterOrgDomain from '../../common/Containers/Register/Organization/Domain';
+import RegisterOrgVerify from '../../common/Containers/Register/Organization/Verify';
+import RegisterOrgDetail from '../../common/Containers/Register/Organization/Detail';
+import RegisterOrgChannel from '../../common/Containers/Register/Organization/Channel';
+import RegisterIndividual from '../../common/Containers/Register/Individual'
 
 export class RegistrationRouter extends Component {
   render() {
