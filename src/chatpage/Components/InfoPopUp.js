@@ -16,7 +16,7 @@ export default class InfoPopUp extends React.Component {
     const currentUserEmail = guest.guest ? guest.data.email : user.data.email
     const currentUserName = guest.guest ? guest.data.first_name : user.data.first_name
     return (
-      <div className="info" >
+      <div className="chatpage-info" >
         <div className="team-avatar-wrapper">
           <div style={{display: 'flex'}}>
             <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarOne})`}}></div>

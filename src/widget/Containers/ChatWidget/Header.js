@@ -67,12 +67,13 @@ class Header extends Component {
     return
   }
   forgetMe() {
-    const { dispatch } = this.props
+    const { dispatch, guest, user } = this.props
     const token = guest.token || user.token
-    const updates = {email: "forget@me.com", first_name: "forget", last_name: "me"}
-    localStorage.clear()
-    dispatch(forgetUser())
+    const updates = {email: "", first_name: "", last_name: ""}
     dispatch(updateUser(updates, token))
+    localStorage.removeItem("guest")
+    localStorage.removeItem("orgs")
+    dispatch(forgetUser())
   }
   showLoginToggle() {
     this.menuToggle()
