@@ -45,6 +45,46 @@
   }
 }
 
+.modal {
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chatpage-userinfo-wrapper {
+  display: flex;
+  width: 100%;
+}
+.chatpage-registration {
+  background-color: #FFFFFF;
+  width: 640px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  font-family: Rubik;
+  font-size: 15px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  color: #474848;
+  .your-details {
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+}
+
 .chatpage-menu {
   background-color: #FFFFFF;
   position: absolute;

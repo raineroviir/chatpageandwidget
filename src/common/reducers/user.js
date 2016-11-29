@@ -32,6 +32,9 @@ export function user(state = initialState, action) {
       ...state,
       data: action.user
     }
+  case 'FORGET_USER':
+    return initialState
+
   case 'USER_LOGIN_SUCCESS':
     console.log(action)
     return {

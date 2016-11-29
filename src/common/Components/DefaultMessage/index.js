@@ -67,10 +67,10 @@ export default class DefaultMessage extends Component {
     // if (widget.initialConfig.teamAvatar) {
     //   console.log("team avatar is true")
     // }
-    const teamAvatarUrl = widget.initialConfig.channel ? widget.initialConfig.channel.avatarUrl : chatpage.initialConfig.channel ? chatpage.initialConfig.channel.avatarUrl : null
-    const teamChannelUrl = widget.initialConfig ? widget.initialConfig.channelUrl : chatpage.initialConfig ? chatpage.initialConfig.channelUrl : null
-    const welcomeMessage = widget ? widget.initialConfig.content.welcomeMessage : chatpage.initialConfig.content ? chatpage.initialConfig.content.welcomeMessage : null
-    const teamName = widget.initialConfig.content ? widget.initialConfig.content.teamName : chatpage.initialConfig.content ? chatpage.initialConfig.content.teamName : null
+    const teamAvatarUrl = widget ? widget.initialConfig.channel.avatarUrl : chatpage ? chatpage.initialConfig.channel.avatarUrl : null
+    const teamChannelUrl = widget ? widget.initialConfig.channelUrl : chatpage ? chatpage.initialConfig.channelUrl : null
+    const welcomeMessage = widget ? widget.initialConfig.content.welcomeMessage : chatpage ? chatpage.initialConfig.content.welcomeMessage : null
+    const teamName = widget ? widget.initialConfig.content.teamName : chatpage ? chatpage.initialConfig.content.teamName : null
     return (
       <div className="default-message-wrapper" style={this.checkIfWidget()}>
         <div className="default-message">

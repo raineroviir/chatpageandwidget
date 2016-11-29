@@ -119,7 +119,7 @@ class Header extends Component {
         </div>
       </div>)
       const registration = (
-        (<div className="registration">
+        (<div className="widget-registration">
           <div style={{padding: "10px", display: "flex", "flexDirection": "column"}}>
           <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
           <div className="your-details" style={{padding: "10 0 10 0"}}>
@@ -159,8 +159,8 @@ class Header extends Component {
             <SignInIcon style={{color: widget.initialConfig.keyColor}}/>
           </div>
         </div>
-        <div>{this.state.showRegistration && <div className="registration"><RegistrationRouter /></div>}</div>
-        <div>{this.state.showLogin && <div className="registration"><Login /></div>}</div>
+        <div>{this.state.showRegistration && <div className="widget-registration"><RegistrationRouter /></div>}</div>
+        <div>{this.state.showLogin && <div className="widget-registration"><Login /></div>}</div>
         <div>{this.state.showMenu && <WidgetMenu widget={widget}
         user={user} guest={guest} forgetMe={this.forgetMe.bind(this)}
         menuToggle={this.menuToggle.bind(this)}

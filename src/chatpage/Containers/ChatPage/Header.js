@@ -14,6 +14,8 @@ import {RegistrationRouter} from '../RegistrationRouter'
 import ChatPageMenu from '../../Components/ChatPageMenu'
 import closeIcon from '../../../common/Components/images/x.svg'
 
+import EditUserInfo from '../../../common/Components/Menu/EditUserInfo'
+
 import InfoPopUp from '../../Components/InfoPopUp'
 
 class Header extends Component {
@@ -46,6 +48,11 @@ class Header extends Component {
     if (!prevProps.register.finished_process && this.props.register.finished_process) {
       this.setState({showRegistration: false})
     }
+
+    if (prevProps.login.loginRequest !== "success" && this.props.login.loginRequest === "success") {
+      console.log("success")
+      this.showLoginToggle()
+    }
   }
   handleUserUpdate(e) {
     e.preventDefault()
@@ -67,17 +74,34 @@ class Header extends Component {
     this.enterEmailForNotificationsToggle()
     return
   }
-  showLoginToggle() {
+  showLoginToggle(e) {
     this.menuToggle()
     this.setState({showLogin: !this.state.showLogin})
   }
   forgetMe() {
-    const { dispatch } = this.props
+    // const { dispatch, guest, user } = this.props
     // const token = guest.token || user.token
-    // const updates = {email: "forget@me.com", first_name: "forget", last_name: "me"}
-    // localStorage.clear()
-    // dispatch(forgetUser())
+    // const updates = {email: "", first_name: "", last_name: ""}
     // dispatch(updateUser(updates, token))
+    // localStorage.removeItem("guest")
+    // localStorage.removeItem("orgs")
+    // dispatch(forgetUser())
+  }
+  handleCloseModal(e) {
+    if (e.target.id === 'modal') {
+      this.setState({
+        showMenu: false,
+        showInfo: false,
+        showEnterEmailForNotifications: false,
+        showRegistration: false,
+        showLogin: false
+      })
+    }
+  }
+  signOut() {
+    const { dispatch } = this.props
+    localStorage.removeItem("token")
+    dispatch(forgetUser())
   }
   showRegistrationToggle() {
     // this.menuToggle()
@@ -91,8 +115,8 @@ class Header extends Component {
     const teamName = chatpage.initialConfig.content ? chatpage.initialConfig.content.teamName : ""
     const currentUserEmail = guest.guest ? guest.data.email : user.data.email
     const currentUserName = guest.guest ? guest.data.first_name : user.data.first_name
-    const enterInformationForNotificationsModal =
-      (<div className="your-details-entry-form">
+    const registration = (
+      (<div className="chatpage-registration">
         <div style={{padding: "10px", display: "flex", "flexDirection": "column"}}>
         <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
         <div className="your-details" style={{padding: "10 0 10 0"}}>
@@ -119,88 +143,12 @@ class Header extends Component {
           </form>
         </div>
       </div>)
-      const registration = (
-        (<div className="registration">
-          <div style={{padding: "10px", display: "flex", "flexDirection": "column"}}>
-          <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
-          <div className="your-details" style={{padding: "10 0 10 0"}}>
-            Your Details
-          </div>
-            <form onSubmit={this.handleUserUpdate} style={{fontSize: "15px"}}>
-              <div style={{padding: "10px", letterSpacing: "0.1px"}}>
-                Name or nickname
-              </div>
-              <div style={{padding: "10px"}}>
-                <input className="capture-details-input" ref="nameCapture" style={{fontSize: "15px", letterSpacing: "0.1px", width: "100%", border: "none", height: "30px", borderBottom: "2px solid"}} placeholder={currentUserName ? currentUserName : "Enter your name"}/>
-              </div>
-              <div style={{padding: "10px", letterSpacing: "0.1px"}}>
-                Email for notifications
-              </div>
-              <div style={{padding: "10px"}}>
-                <input className="capture-details-input" ref="emailCapture" style={{fontSize: "15px", letterSpacing: "0.1px", width: "100%", border: "none", borderBottom: "2px solid", height: "30px"}}  placeholder={currentUserEmail ? currentUserEmail : "Enter your email"}/>
-              </div>
-              <div style={{padding: "20px 0 0 0"}}>
-                <button type="submit" style={{ backgroundColor: chatpage ? chatpage.initialConfig.keyColor : "#f7a444", height: "48px", borderRadius: "5px", color: "#FFFFFF", display: "flex", justifyContent: "center", width: "100%", borderStyle: "none"}}>
-                  <div style={{alignSelf: "center", fontSize: "15px"}}>Save Changes</div>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>)
-      )
-    // const menu = (
-    //     <div style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} className="menu">
-    //         <div style={{color: "black"}}>
-    //           <div>
-    //             {guest.data.first_name || user.data.first_name ?
-    //               <div>
-    //                 {guest.data.first_name || user.data.first_name}
-    //               </div> : null
-    //             }
-    //             {guest.data.last_name || user.data.last_name ?
-    //               <div style={{paddingLeft: "5px"}}>
-    //                 {guest.data.last_name || user.data.last_name}
-    //               </div> : null
-    //             }
-    //           </div>
-    //         {guest.data.email || user.data.email ?
-    //           <div>
-    //             <div>
-    //               {guest.data.email || user.data.email}
-    //             </div>
-    //             <div>
-    //               {guest.guest && <div>temporary account</div>}
-    //             </div>
-    //           </div> :
-    //           <div style={{border: "none"}} className="menu-item">
-    //             <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>
-    //               Enter email for notifications
-    //             </div>
-    //           </div>
-    //         }
-    //         </div>
-    //       {guest.data.email && <div>
-    //         <div className="menu-item">
-    //           <div onClick={this.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>Edit</div>
-    //         </div>
-    //         <div className="menu-item">
-    //           <div onClick={this.forgetMe} style={{cursor: "pointer"}}>Forget me</div>
-    //         </div>
-    //       </div>}
-    //       <div className="menu-item">
-    //         <div style={{cursor: "pointer"}}>Sign in with chat.center</div>
-    //       </div>
-    //       <div className="menu-item">
-    //         <div>
-    //           <div style={{color: "#000000"}}>Don't have an account?</div>
-    //         </div>
-    //         <div onClick={this.showRegistrationToggle} style={{cursor: "pointer"}}>Sign up</div>
-    //       </div>
-    //     </div>
-    //   )
+    )
     return (
       <div className="header">
-      {this.state.showEnterEmailForNotifications && enterInformationForNotificationsModal}
+      {this.state.showEnterEmailForNotifications && <div id="modal" className="modal" onClick={this.handleCloseModal.bind(this)}>
+        <EditUserInfo className="chatpage-userinfo-wrapper" enterEmailForNotificationsToggle={this.enterEmailForNotificationsToggle.bind(this)} handleUserUpdate={this.handleUserUpdate.bind(this)} chatpage={chatpage} currentUserEmail={currentUserEmail} currentUserName={currentUserName} />
+      </div>}
         {this.props.environment.userScrollPosition > 150 && <div className="header-arrow" onClick={this.infoToggle.bind(this)}>
           <InfoIcon style={{backgroundColor: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}/>
         </div>}
@@ -209,9 +157,13 @@ class Header extends Component {
             <SignInIcon style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}/>
           </div>
         </div>
-        <div>{this.state.showLogin && <div className="registration"><Login /></div>}</div>
-        <div>{this.state.showRegistration && <div className="registration"><RegistrationRouter /></div>}</div>
-        {this.state.showMenu && <ChatPageMenu chatpage={chatpage}
+        <div>{this.state.showLogin &&
+          <div onClick={this.handleCloseModal.bind(this)} id="modal" className="modal">
+            <div className="chatpage-registration"><Login /></div>
+          </div>}
+        </div>
+        <div>{this.state.showRegistration && <div className="chatpage-registration"><RegistrationRouter /></div>}</div>
+        {this.state.showMenu && <ChatPageMenu enterEmailForNotificationsToggle={this.enterEmailForNotificationsToggle.bind(this)} signOut={this.signOut.bind(this)} chatpage={chatpage}
         user={user} guest={guest} forgetMe={this.forgetMe.bind(this)}
         menuToggle={this.menuToggle.bind(this)}
         showLoginToggle={this.showLoginToggle.bind(this)}
@@ -223,13 +175,14 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-  const { user, guest, environment, register, chatpage } = state
+  const { user, guest, environment, register, chatpage, login } = state
   return {
     user,
     guest,
     chatpage,
     environment,
-    register
+    register,
+    login
   }
 }
 
