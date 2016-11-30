@@ -61,13 +61,6 @@ class App extends React.Component {
   }
   determineConversationParticipants() {
     const { channels } = this.props
-    // const activeChannelObject = channels.channels.all.filter((channel) => {
-    //   return channel.id === channels.activeChannelId
-    // })
-    // if (activeChannelObject[0].conversation) {
-    //   return activeChannelObject[0].conversation.users
-    // }
-    // return
     console.log('************************************')
     console.log(channels.memoizedChannelMembers[channels.activeChannelId])
     const channelMembers = channels.memoizedChannelMembers[channels.activeChannelId]

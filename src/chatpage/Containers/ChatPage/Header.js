@@ -125,7 +125,7 @@ class Header extends Component {
     }
   }
   render() {
-    const { chatpage, guest, user, environment } = this.props
+    const { chatpage, guest, user, environment, channels } = this.props
     const currentUserEmail = guest.guest ? guest.data.email : user.data.email
     const currentUserName = guest.guest ? guest.data.first_name : user.data.first_name
     return (
@@ -160,14 +160,15 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-  const { user, guest, environment, register, chatpage, login } = state
+  const { user, guest, environment, register, chatpage, login, channels } = state
   return {
     user,
     guest,
     chatpage,
     environment,
     register,
-    login
+    login,
+    channels
   }
 }
 

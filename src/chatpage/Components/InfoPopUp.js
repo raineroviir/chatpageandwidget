@@ -1,14 +1,9 @@
 import React from 'react'
-
-import AvatarOne from '../../common/Components/images/bullbasaur.svg'
-import AvatarTwo from '../../common/Components/images/charmander.svg'
-import AvatarThree from '../../common/Components/images/eevee.svg'
-import AvatarFour from '../../common/Components/images/meowth.svg'
-import AvatarFive from '../../common/Components/images/squirtle.svg'
+import AvatarCollage from '../../common/Components/Avatar/AvatarCollage'
 
 export default class InfoPopUp extends React.Component {
   render() {
-    const { chatpage, guest, user, environment } = this.props
+    const { chatpage, guest, user, environment, channels } = this.props
     const teamAvatarUrl = chatpage ? chatpage.initialConfig.channel.avatarUrl : null
     const teamChannelUrl = chatpage ? chatpage.initialConfig.channelUrl : "seaShells.com"
     const welcomeMessage = chatpage.initialConfig.content ? chatpage.initialConfig.content.welcomeMessage : "Hi there, thanks for checking out Chat Center, if you have any questions we will be happy to help, just let us know"
@@ -19,6 +14,7 @@ export default class InfoPopUp extends React.Component {
       <div className="chatpage-info" >
         <div className="team-avatar-wrapper">
           <div style={{display: 'flex'}}>
+            <AvatarCollage {...this.props} size={28}/>
           </div>
         </div>
         <div className="team-name">
