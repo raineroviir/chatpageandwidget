@@ -7,7 +7,7 @@ export default class ChatPageMenu extends React.Component {
     return (
       <div style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} className="chatpage-menu">
           <div style={{color: "black", padding: "10px"}}>
-            <div style={{display: "flex", fontSize: "30px"}}>
+            <div className="user-name" style={{display: "flex"}}>
               {guest.data.first_name || user.data.first_name ?
                 <div>
                   {guest.data.first_name || user.data.first_name}
@@ -19,22 +19,24 @@ export default class ChatPageMenu extends React.Component {
                 </div> : null
               }
             </div>
-          {guest.data.email || user.data.email ?
+          {guest.data.email &&
             <div>
               <div>
-                {guest.data.email === "placeholder" ? null : guest.data.email || user.data.email}
+                {guest.data.email === "placeholder" ? null : guest.data.email}
               </div>
               <div>
-                {guest.guest && <div style={{opacity: "0.6"}}>temporary account</div>}
-              </div>
-            </div> :
-            <div style={{border: "none"}} className="menu-item">
-              <div onClick={this.props.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>
-              Enter email for notifications
+                {guest.guest && <div className="temporary-account" style={{fontSize: "13px"}}>temporary account</div>}
               </div>
             </div>
           }
+          {user.data.team ? <div className="user-chat-channel">{user.data.team.name}</div> : null
+          }
           </div>
+        {!guest.data.email && !user.data.id && <div style={{border: "none"}} className="menu-item">
+          <div onClick={this.props.enterEmailForNotificationsToggle} style={{cursor: "pointer", fontSize: "13px"}}>
+          Enter email for notifications
+          </div>
+        </div>}
         {guest.data.email && <div>
           <div className="menu-item">
             <div onClick={this.props.enterEmailForNotificationsToggle} style={{cursor: "pointer"}}>Edit</div>

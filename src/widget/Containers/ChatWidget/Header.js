@@ -1,18 +1,11 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import FaAngleDown from 'react-icons/lib/fa/angle-down'
-import signInIcon from './files/group-3.svg'
-import infoIcon from './files/i.svg'
-import AvatarOne from './files/bullbasaur.svg'
-import AvatarTwo from './files/charmander.svg'
-import AvatarThree from './files/eevee.svg'
-import AvatarFour from './files/meowth.svg'
-import AvatarFive from './files/squirtle.svg'
 import closeIcon from './files/x.svg'
 import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import {updateUser, forgetUser} from '../../../common/actions/user'
-import SignInIcon from './SignInIcon'
+import WidgetSignInIcon from './WidgetSignInIcon'
 import Register from '../../../common/Containers/Register'
 import Login from '../../../common/Containers/Login'
 import {RegistrationRouter} from '../RegistrationRouter'
@@ -157,7 +150,7 @@ class Header extends Component {
         </div>
         <div className="sign-in-to-chat-center" style={{color: widget.initialConfig.keyColor}}>
           <div onClick={this.menuToggle.bind(this)} style={{display: "flex", cursor: "pointer"}}>
-            <SignInIcon style={{color: widget.initialConfig.keyColor}}/>
+            <WidgetSignInIcon style={{color: widget.initialConfig.keyColor}}/>
           </div>
         </div>
         <div>{this.state.showRegistration && <div className="widget-registration"><RegistrationRouter /></div>}</div>

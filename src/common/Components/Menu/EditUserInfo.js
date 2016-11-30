@@ -31,7 +31,7 @@ export default class EditUserInfo extends React.Component {
           <div onClick={this.props.enterEmailForNotificationsToggle} style={{cursor: "pointer", alignSelf: 'flex-end', width: "48px", height: "48px", backgroundImage: `url(${closeIcon})`}}></div>
           </div>
           <div style={{height: "100%", padding: "0 0 0 80" }}>
-            <div className="your-details" style={{fontSize: "40", padding: "64 0 10 5"}}>
+            <div className="your-details" style={{fontSize: "40px", padding: "64 0 10 5"}}>
             Your details
             </div>
             <form onSubmit={this.prepareSubmission} style={{fontSize: "18px"}}>

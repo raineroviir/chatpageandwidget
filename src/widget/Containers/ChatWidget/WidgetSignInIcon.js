@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class SignInIcon extends
+export default class WidgetSignInIcon extends
 
 React.Component {
   render() {

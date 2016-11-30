@@ -5,7 +5,7 @@ import signInIcon from '../../../common/Components/images/group-3.svg'
 
 import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
-import {updateUser, forgetUser} from '../../../common/actions/user'
+import {updateUser, forgetUser, initUser} from '../../../common/actions/user'
 import SignInIcon from '../../../common/Components/svgs/SignInIcon'
 import InfoIcon from '../../../common/Components/svgs/InfoIcon'
 import Register from '../../../common/Containers/Register'
@@ -56,7 +56,11 @@ class Header extends Component {
   }
   handleUserUpdate(updates) {
     const { dispatch, guest, user } = this.props
-    const token = guest.token || user.token
+    let token = guest.token || user.token
+    if (!token) {
+      this.enterEmailForNotificationsToggle()
+      return dispatch(initUser(updates))
+    }
     dispatch(updateUser(updates, token))
     this.enterEmailForNotificationsToggle()
   }
@@ -65,14 +69,13 @@ class Header extends Component {
     this.setState({showLogin: !this.state.showLogin})
   }
   forgetMe() {
-    // disabled waiting to finish rest of this work before forgetMe
-    // const { dispatch, guest, user } = this.props
-    // const token = guest.token || user.token
-    // const updates = {email: "", first_name: "", last_name: ""}
-    // dispatch(updateUser(updates, token))
-    // localStorage.removeItem("guest")
-    // localStorage.removeItem("orgs")
-    // dispatch(forgetUser())
+    const { dispatch, guest, user } = this.props
+    const token = guest.token || user.token
+    const updates = {email: "", first_name: "", last_name: ""}
+    dispatch(updateUser(updates, token))
+    localStorage.removeItem("guest")
+    localStorage.removeItem("orgs")
+    dispatch(forgetUser())
   }
   handleCloseModal(e) {
     if (e.target.id === 'modal') {
