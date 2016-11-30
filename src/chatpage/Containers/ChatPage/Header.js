@@ -139,7 +139,7 @@ class Header extends Component {
         </div>}
         <div className="sign-in-to-chat-center" style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
           <div onClick={this.menuToggle.bind(this)} style={{display: "flex", cursor: "pointer"}}>
-            {user.token ? this.determineAvatar() : <SignInIcon style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}/>}
+            {user.token ? this.determineAvatar() : <SignInIcon active={this.state.showMenu} style={{color: "white", activeColor: chatpage ? chatpage.initialConfig.keyColor : "#f7a444" }}/>}
           </div>
         </div>
         <div>{this.state.showLogin &&
