@@ -17,6 +17,10 @@ export default class DefaultMessage extends Component {
   }
   constructAvatarCollage() {
     const { channels, widget, chatpage } = this.props
+    if (!channels.activeChannelId || !channels.memoizedChannelMembers || !channels.memoizedChannelMembers[channels.activeChannelId]){
+      console.log("returning empty div");
+      return ("<div></div>")
+    }
     const conversationParticipants = channels.memoizedChannelMembers[channels.activeChannelId]
     return conversationParticipants.map((participant, index) => {
       if (participant) {
@@ -56,8 +60,8 @@ export default class DefaultMessage extends Component {
     // }
     const teamAvatarUrl = widget ? widget.initialConfig.channel.avatarUrl : chatpage ? chatpage.initialConfig.channel.avatarUrl : null
     const teamChannelUrl = widget ? widget.initialConfig.channelUrl : chatpage ? chatpage.initialConfig.channelUrl : null
-    const welcomeMessage = widget ? widget.initialConfig.content.welcomeMessage : chatpage ? chatpage.initialConfig.content.welcomeMessage : null
-    const teamName = widget ? widget.initialConfig.content.teamName : chatpage ? chatpage.initialConfig.content.teamName : null
+    const welcomeMessage = widget ? widget.initialConfig.content.welcomeMessage : chatpage.initialConfig.content ? chatpage.initialConfig.content.welcomeMessage : ""
+    const teamName = widget ? widget.initialConfig.content.teamName : chatpage.initialConfig.content ? chatpage.initialConfig.content.teamName : ""
     return (
       <div className="default-message-wrapper" style={this.checkIfWidget()}>
         <div className="default-message">
