@@ -24,7 +24,7 @@ export class RightAlignedMessage extends React.Component {
       guest.data.avatar_384 ||
       guest.data.avatar_960) {
         return (
-          <div style={{backgroundImage:  `url(${guest.data.avatar_96 ||
+          <div style={{borderRadius: "50%", backgroundImage:  `url(${guest.data.avatar_96 ||
           guest.data.avatar_384 ||
           guest.data.avatar_960})`, backgroundRepeat: "no-repeat"}} className="avatar" />
         )
@@ -32,7 +32,7 @@ export class RightAlignedMessage extends React.Component {
       if (guest.data.email) {
         return (
           <div className="avatar">
-            <Gravatar size={28} md5="" email={guest.data.email} />
+            <Gravatar style={{borderRadius: "50%"}} size={28} md5="" email={guest.data.email} />
           </div>
         )
       }
@@ -49,7 +49,7 @@ export class RightAlignedMessage extends React.Component {
       user.data.avatar_384 ||
       user.data.avatar_960) {
         return (
-          <div style={{backgroundImage:  `url(${user.data.avatar_96 ||
+          <div style={{borderRadius: "50%", backgroundImage:  `url(${user.data.avatar_96 ||
           user.data.avatar_384 ||
           user.data.avatar_960})`, backgroundRepeat: "no-repeat"}} className="avatar" />
         )
@@ -57,7 +57,7 @@ export class RightAlignedMessage extends React.Component {
       if (user.data.email) {
         return (
           <div className="avatar">
-            <Gravatar size={28} md5="" email={user.data.email} />
+            <Gravatar style={{borderRadius: "50%"}} size={28} md5="" email={user.data.email} />
           </div>
         )
       }

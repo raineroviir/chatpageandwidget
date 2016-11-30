@@ -33,9 +33,6 @@ export class LeftAlignedMessage extends React.Component {
   }
   determineAvatar() {
     const { message, conversationParticipants, widget, chatpage } = this.props
-    if (chatpage) {
-      return
-    }
     const matchParticipantIdToMessageId = conversationParticipants.filter((participant) => {
       return participant.id === message.user_id
     })
@@ -54,7 +51,7 @@ export class LeftAlignedMessage extends React.Component {
       matchParticipantIdToMessageId[0].avatar_384 ||
       matchParticipantIdToMessageId[0].avatar_960) {
         return (
-          <div style={{backgroundImage:  `url(${matchParticipantIdToMessageId[0].avatar_96 ||
+          <div style={{borderRadius: "50%", backgroundImage:  `url(${matchParticipantIdToMessageId[0].avatar_96 ||
           matchParticipantIdToMessageId[0].avatar_384 ||
           matchParticipantIdToMessageId[0].avatar_960})`, backgroundRepeat: "no-repeat"}} className="avatar" />
         )
@@ -62,7 +59,7 @@ export class LeftAlignedMessage extends React.Component {
       if (matchParticipantIdToMessageId[0].email) {
         return (
           <div className="avatar">
-            <Gravatar size={28} md5="" email={matchParticipantIdToMessageId[0].email} />
+            <Gravatar style={{borderRadius: "50%"}} size={28} md5="" email={matchParticipantIdToMessageId[0].email} />
           </div>
         )
       }

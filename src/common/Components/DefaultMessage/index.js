@@ -17,20 +17,7 @@ export default class DefaultMessage extends Component {
   }
   constructAvatarCollage() {
     const { channels, widget, chatpage } = this.props
-    if (chatpage) {
-      return
-    }
-    const activeChannelObject = channels.channels.all.filter((channel) => {
-      return channel.id === channels.activeChannelId
-    })
-    console.log(activeChannelObject)
-    if (!activeChannelObject[0]) {
-      return
-    }
-    if (!activeChannelObject[0].conversation) {
-      return
-    }
-    const conversationParticipants = activeChannelObject[0].conversation.users
+    const conversationParticipants = channels.memoizedChannelMembers[channels.activeChannelId]
     return conversationParticipants.map((participant, index) => {
       if (participant) {
         if (participant.avatar_96 ||

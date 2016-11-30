@@ -24,14 +24,15 @@ export class ChatMessages extends Component {
   }
   determineConversationParticipants() {
     const { channels } = this.props
-    const activeChannelObject = channels.channels.all.filter((channel) => {
-      console.log(channel.id, channels.activeChannelId)
-      return channel.id === channels.activeChannelId
-    })
-    if (activeChannelObject[0].conversation) {
-      return activeChannelObject[0].conversation.users
-    }
-    return
+    // const activeChannelObject = channels.channels.all.filter((channel) => {
+    //   console.log(channel.id, channels.activeChannelId)
+    //   return channel.id === channels.activeChannelId
+    // })
+    // if (activeChannelObject[0].conversation) {
+    //   return activeChannelObject[0].conversation.users
+    // }
+    const channelMembers = channels.memoizedChannelMembers[channels.activeChannelId]
+    return channelMembers
   }
   render() {
     const { messagesList, user, guest, widget, isGroupChat, channels, chatpage } = this.props

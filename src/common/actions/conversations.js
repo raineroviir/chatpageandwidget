@@ -47,8 +47,6 @@ function processMemoizedConversationsForDispatch(channelid) {
 
 export function markConversationAsRead(conversationid, token, lastTimeConversationWasRead, timestamp = moment().format("x")) {
   return dispatch => {
-    console.log(lastTimeConversationWasRead)
-      console.log(lastTimeConversationWasRead - timestamp)
     if (lastTimeConversationWasRead !== 0 && timestamp - lastTimeConversationWasRead < 10) {
       return dispatch({type: "TRYING_TO_READ_CONVERSATION_TOO_FAST_TRY_AGAIN"})
     }
@@ -95,7 +93,6 @@ export function getConversations(channel_id, token) {
   }
 }
 export function getConversationHistory(conversationid, token, oldestVisibleMessageUnixTimestamp, page, perpage) {
-  console.log(conversationid, token, oldestVisibleMessageUnixTimestamp, page, perpage)
   const created_before = oldestVisibleMessageUnixTimestamp ? `&created_before=${oldestVisibleMessageUnixTimestamp}` : ""
   return dispatch => {
     /* Trigger API service to retrieve latest conversation history */
@@ -112,9 +109,6 @@ export function getConversationHistory(conversationid, token, oldestVisibleMessa
   return response.json()
 })
       .then(json => {
-        if (json.messages.length > 0) {
-          dispatch({type: "INCREASE_NEXT_FETCH_PAGE"})
-        }
         dispatch(processConversationsHistoryForDispatch(json, conversationid))
         dispatch({
           type: 'SET_CONVERSATION_CHANNEL_MEMOIZED',
@@ -158,9 +152,7 @@ export function createConversation(channel_id, token) {
 }
 
 export function checkForConversation(channel_id, token) {
-  console.log(channel_id, token)
   const localStorageConversationId = JSON.parse(localStorage.getItem(channel_id))
-  console.log(localStorageConversationId)
   return dispatch => {
     if (!localStorageConversationId) {
       dispatch(createConversation(channel_id, token))

@@ -10,7 +10,6 @@ import moment from 'moment';
  * @return {[Promise]}
  */
 export function getWidget(channel_id, channel_url, token) {
-  console.log(channel_id, channel_url, token)
   if (channel_id) {
     return dispatch => {
       dispatch({type: "FETCHING_WIDGET_BY_CHANNEL_ID"})

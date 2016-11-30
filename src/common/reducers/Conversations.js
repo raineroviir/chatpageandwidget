@@ -64,11 +64,9 @@ export function conversations(state = initialState, action) {
   case 'STORE_USER_SCROLL_POSITION':
     return {...state, userScrollPosition: action.userScrollPosition}
   case 'MARK_ALL_MESSAGES_AS_READ': {
-    console.log(action)
     return {...state, lastTimeConversationWasRead: action.timestamp}
   }
   case 'SAVE_CONVOID_FROM_ROUTE_PARAMS':
-  console.log(action)
     return {...state, activeConversationId: action.routeParams.conversation}
   default:
     return state;

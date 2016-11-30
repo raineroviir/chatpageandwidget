@@ -36,7 +36,9 @@ export function loginUser(Username,Password) {
             else{
               org[0].token = json.token;
             }
-            localStorage.clear()
+            localStorage.removeItem("orgs")
+            localStorage.removeItem("token")
+            localStorage.removeItem("guest")
             localStorage.setItem("orgs", JSON.stringify(orgs));
             localStorage.setItem("token", JSON.stringify(json.token.access_token));
           }
