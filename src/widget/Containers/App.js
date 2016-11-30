@@ -9,7 +9,7 @@ import { getWidget } from '../actions/widget'
 import { initEnvironment, storeUserScrollPosition
  } from '../../common/actions/environment'
 import { checkForConversation } from '../../common/actions/conversations'
-import { createWidgetChannel, fetchChannelInfo, fetchChannel, fetchSocket} from '../../common/actions/channels'
+import { createWidgetChannel, fetchChannelInfo, fetchChannel, fetchSocket, fetchChannelMembers } from '../../common/actions/channels'
 import {createMessage} from '../../common/actions/messages'
 import {widgetToggle} from '../../common/actions/environment'
 import MiniWidget from '../Components/MiniWidget'
@@ -46,6 +46,7 @@ class App extends React.Component {
       dispatch(fetchChannel(channelname, team, token)).then((channel) => {
         dispatch(getWidget(channel.id, channel_url, token)).then(() => dispatch({type: "FINISHED_INITIAL_LOADING"}))
         dispatch(checkForConversation(channel.id, token))
+        dispatch(fetchChannelMembers(token, channel.id))
         // dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
       }).catch(error => console.log(error))
     }).catch(error => console.log(error))
@@ -60,13 +61,17 @@ class App extends React.Component {
   }
   determineConversationParticipants() {
     const { channels } = this.props
-    const activeChannelObject = channels.channels.all.filter((channel) => {
-      return channel.id === channels.activeChannelId
-    })
-    if (activeChannelObject[0].conversation) {
-      return activeChannelObject[0].conversation.users
-    }
-    return
+    // const activeChannelObject = channels.channels.all.filter((channel) => {
+    //   return channel.id === channels.activeChannelId
+    // })
+    // if (activeChannelObject[0].conversation) {
+    //   return activeChannelObject[0].conversation.users
+    // }
+    // return
+    console.log('************************************')
+    console.log(channels.memoizedChannelMembers[channels.activeChannelId])
+    const channelMembers = channels.memoizedChannelMembers[channels.activeChannelId]
+    return channelMembers
   }
   determineAvatar(lastMessage) {
     const { widget } = this.props

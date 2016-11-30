@@ -62,7 +62,7 @@ export function channels(state = initialState, action) {
   case 'RECEIVE_CHANNEL_MEMBERS':
     console.log(action)
     return {
-      ...state, memoizedChannelMembers: {...state.memoizedChannelMembers, [activeChannelId]: action.channelMembers}
+      ...state, memoizedChannelMembers: {...state.memoizedChannelMembers, [state.activeChannelId]: action.channelMembers}
     }
   default:
     return state;

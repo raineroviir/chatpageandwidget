@@ -41,8 +41,7 @@ export function fetchChannelMembers(token, channel_id) {
       return response.json()
     })
     .then(channelMembers => {
-      console.log(channelMembers)
-      return dispatch({type: "RECEIVE_CHANNEL_MEMBERS", channelMembers})
+      return dispatch({type: "RECEIVE_CHANNEL_MEMBERS", channelMembers: channelMembers.users})
     }).catch(error => console.log(error))
   }
 }

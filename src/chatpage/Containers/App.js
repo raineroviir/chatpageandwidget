@@ -59,6 +59,7 @@ class App extends React.Component {
       dispatch(fetchChannel(channelName, team, token)).then((channel) => {
         dispatch(fetchSocket(token, channel.id))
         dispatch(getChatPage(channel.id, token))
+        console.log(channel)
         if (!channel.is_group) {
           dispatch(checkForConversation(channel.id, token))
         }
