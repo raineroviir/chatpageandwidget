@@ -105,9 +105,9 @@ function initializeSocket(socket, dispatch, channelid) {
           dispatch(dispatchMessageStream(data.message.payload))
         }
         // right now it's creating two message streams in widget
-        // case "public_group_message": {
-        //   dispatch(dispatchMessageStream(data.message.payload))
-        // }
+        case "public_group_message": {
+          dispatch(dispatchMessageStream(data.message.payload))
+        }
       }
     }
   }
