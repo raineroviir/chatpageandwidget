@@ -83,7 +83,7 @@ class App extends React.Component {
       return null
     }
     return (
-      <div style={{display: "flex", justifyContent: "center"}}>
+      <div style={{display: "flex", justifyContent: "center", height: "100%", width: "100%", backgroundColor: chatpage.initialConfig.bgColor}}>
         <ChatPage />
       </div>
     );
