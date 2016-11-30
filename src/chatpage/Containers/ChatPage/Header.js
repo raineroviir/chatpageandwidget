@@ -57,13 +57,6 @@ class Header extends Component {
   handleUserUpdate(updates) {
     const { dispatch, guest, user } = this.props
     const token = guest.token || user.token
-    console.log(updates)
-    if (!updates.nickname) {
-      return alert("no name")
-    }
-    if (!updates.email) {
-      return alert("no email")
-    }
     dispatch(updateUser(updates, token))
     this.enterEmailForNotificationsToggle()
   }
@@ -113,11 +106,12 @@ class Header extends Component {
           user.data.avatar_384 ||
           user.data.avatar_960})`, backgroundRepeat: "no-repeat"}} className="avatar" />
         )
+
       }
       if (user.data.email) {
         return (
           <div className="avatar">
-            <Gravatar style={{borderRadius: "50%", borderColor: this.state.showMenu ? chatpage ? chatpage.initialConfig.keyColor : "#f7a444" : "grey", borderStyle: "solid"}} size={28} md5="" email={user.data.email} />
+            <Gravatar default="mm" style={{borderRadius: "50%", borderColor: this.state.showMenu ? chatpage ? chatpage.initialConfig.keyColor : "#f7a444" : "grey", borderStyle: "solid"}} size={28} md5="" email={user.data.email} />
           </div>
         )
       }

@@ -105,7 +105,7 @@ class App extends React.Component {
       if (matchParticipantIdToMessageId[0].email) {
         return (
           <div >
-            <Gravatar style={{borderRadius: "50%", borderColor: "white", borderStyle: "solid"}} size={48} md5="" email={matchParticipantIdToMessageId[0].email} />
+            <Gravatar default="mm" style={{borderRadius: "50%", borderColor: "white", borderStyle: "solid"}} size={48} md5="" email={matchParticipantIdToMessageId[0].email} />
           </div>
         )
       }

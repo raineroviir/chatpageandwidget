@@ -22,7 +22,7 @@ export default class ChatPageMenu extends React.Component {
           {guest.data.email || user.data.email ?
             <div>
               <div>
-                {guest.data.email || user.data.email}
+                {guest.data.email === "placeholder" ? null : guest.data.email || user.data.email}
               </div>
               <div>
                 {guest.guest && <div style={{opacity: "0.6"}}>temporary account</div>}

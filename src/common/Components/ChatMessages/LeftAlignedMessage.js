@@ -59,7 +59,7 @@ export class LeftAlignedMessage extends React.Component {
       if (matchParticipantIdToMessageId[0].email) {
         return (
           <div className="avatar">
-            <Gravatar style={{borderRadius: "50%"}} size={28} md5="" email={matchParticipantIdToMessageId[0].email} />
+            <Gravatar default="mm" style={{borderRadius: "50%"}} size={28} md5="" email={matchParticipantIdToMessageId[0].email} />
           </div>
         )
       }

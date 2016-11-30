@@ -32,7 +32,7 @@ export class RightAlignedMessage extends React.Component {
       if (guest.data.email) {
         return (
           <div className="avatar">
-            <Gravatar style={{borderRadius: "50%"}} size={28} md5="" email={guest.data.email} />
+            <Gravatar default="mm" style={{borderRadius: "50%"}} size={28} md5="" email={guest.data.email} />
           </div>
         )
       }
@@ -57,7 +57,7 @@ export class RightAlignedMessage extends React.Component {
       if (user.data.email) {
         return (
           <div className="avatar">
-            <Gravatar style={{borderRadius: "50%"}} size={28} md5="" email={user.data.email} />
+            <Gravatar default="mm" style={{borderRadius: "50%"}} size={28} md5="" email={user.data.email} />
           </div>
         )
       }
@@ -93,9 +93,6 @@ export class RightAlignedMessage extends React.Component {
             {message.text}
           </div>
           {checkForSameUser ? <div style={{padding: "3px 12px 0 8px"}} className="avatar-wrapper">
-            {/* <div className="avatar">
-              <Gravatar size={28} md5="" email={userEmail} />
-            </div> */}
             {this.determineAvatar()}
           </div> : <div style={{padding: "0 48px 0 0"}}></div>}
         </div>

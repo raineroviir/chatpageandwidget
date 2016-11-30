@@ -36,7 +36,7 @@ export default class DefaultMessage extends Component {
         if (participant.email) {
           return (
             <div key={index} className="default-message-member-avatar-icon" style={{zIndex: -index}}>
-              <Gravatar style={{borderRadius: "50%", borderColor: "white", borderStyle: "solid",}} size={43} md5="" email={participant.email} />
+              <Gravatar default="mm" style={{borderRadius: "50%", borderColor: "white", borderStyle: "solid",}} size={43} md5="" email={participant.email} />
             </div>
           )
         }
