@@ -89,8 +89,10 @@ function initializeSocket(socket, dispatch, channelid) {
       }))
       //add also a user channel subscription
       //this is required if the chatpage is for individual chat
+      console.log('subscribed')
       ws.send(JSON.stringify(socket.subscription))
     } else {
+      console.log('subscribed')
       ws.send(JSON.stringify(socket.subscription))
     }
   }

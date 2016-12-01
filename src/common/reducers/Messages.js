@@ -11,7 +11,8 @@ const initialState = {
   initialLoadComplete: false,
   reachedEnd: false,
   oldestVisibleMessageUnixTimestamp: false,
-  messagesWhileInactive: []
+  messagesWhileInactive: [],
+  timeStampOfLastMessageStream: null
 };
 
 export function messages(state = initialState, action) {
@@ -65,6 +66,7 @@ export function messages(state = initialState, action) {
   case 'MESSAGE_STREAM':
     let message = action.message
     message.created_at = moment().format()
+      console.log(action)
     return {
       ...state,
       messageStreamNewMessage: true,
@@ -72,7 +74,8 @@ export function messages(state = initialState, action) {
       memoized: {
         ...state.memoized,
         [action.conversationid]: [...state.messagesList, message]
-      }
+      },
+      timeStampOfLastMessageStream: action.receivedAt
     };
   case 'MESSAGE_RECEIVED_FOR_INACTIVE_USER':
     return {...state, messagesWhileInactive: [...state.messagesWhileInactive, action.message]}

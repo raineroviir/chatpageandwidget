@@ -38,7 +38,14 @@ export function dispatchMessageStream(message) {
     dispatch({type: "MESSAGE_STREAM",
     message: message,
     receivedAt: Date.now()})
+  }
+}
 
+export function refreshConversationHistoryBasedOnElapsedTime() {
+  return (dispatch, getState) => {
+    const state = getState()
+    const lastWSMessageReceipt = state.messages.timeStampOfLastMessageStream
+    console.log(lastWSMessageReceipt)
   }
 }
 
