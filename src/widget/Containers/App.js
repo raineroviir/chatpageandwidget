@@ -13,8 +13,7 @@ import { createWidgetChannel, fetchChannelInfo, fetchChannel, fetchSocket, fetch
 import {createMessage} from '../../common/actions/messages'
 import {widgetToggle} from '../../common/actions/environment'
 import MiniWidget from '../Components/MiniWidget'
-import AvatarOne from '../Containers/ChatWidget/files/bullbasaur.svg'
-import ChatCenterLogo from './ChatWidget/ChatCenterLogo'
+import ChatCenterLogo from '../../common/Components/svgs/ChatCenterLogo'
 import moment from 'moment'
 import Gravatar from 'react-gravatar'
 
@@ -112,7 +111,7 @@ class App extends React.Component {
     }
   }
   render() {
-    const { widget, environment, messages } = this.props
+    const { widget, environment, messages, channels } = this.props
     if (environment.initialLoading) {
       return null
     }
@@ -142,7 +141,7 @@ class App extends React.Component {
         </div>
         }
         {messages.messagesList.length === 0 ? <div className="minimized-welcome-message">
-          {!this.state.show && this.state.miniWidgetShow && <MiniWidget onToggle={this.onToggle.bind(this)} widget={widget} onClose={this.onCloseMiniWidget.bind(this)} />}
+          {!this.state.show && this.state.miniWidgetShow && <MiniWidget  onToggle={this.onToggle.bind(this)} {...this.props} onClose={this.onCloseMiniWidget.bind(this)} />}
         </div> : null}
         {messages.messagesWhileInactive.length > 0 ? <div onClick={this.onToggle.bind(this)} style={{cursor: "pointer", top: "auto", left: "auto", bottom: "15px", right: "15px", position: "absolute"}}>{this.determineAvatar(lastMessage)}
           <div style={{top: "auto", left: "auto", bottom: "33px", right: "33px", position: "absolute", backgroundColor: widget.initialConfig.keyColor}} className="unread-message-bubble">

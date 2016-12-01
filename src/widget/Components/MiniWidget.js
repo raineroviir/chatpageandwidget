@@ -1,10 +1,6 @@
 import React from 'react'
-import AvatarOne from '../Containers/ChatWidget/files/bullbasaur.svg'
-import AvatarTwo from '../Containers/ChatWidget/files/charmander.svg'
-import AvatarThree from '../Containers/ChatWidget/files/eevee.svg'
-import AvatarFour from '../Containers/ChatWidget/files/meowth.svg'
-import AvatarFive from '../Containers/ChatWidget/files/squirtle.svg'
 import FaAngleDown from 'react-icons/lib/fa/angle-down'
+import AvatarCollage from '../../common/Components/Avatar/AvatarCollage'
 
 export default class MiniWidget extends React.Component {
   render() {
@@ -17,11 +13,7 @@ export default class MiniWidget extends React.Component {
           <div style={{display: "flex", flexDirection: "row"}}>
             <div style={{flexGrow: "1"}} className="team-avatar-wrapper">
               <div onClick={this.props.onToggle.bind(this)} style={{display: 'flex'}}>
-                <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarOne})`}}></div>
-                <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarTwo})`}}></div>
-                <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarThree})`}}></div>
-                <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFour})`}}></div>
-                <div className="member-avatar-icon" style={{backgroundImage: `url(${AvatarFive})`}}></div>
+                <AvatarCollage {...this.props} size={28}/>
               </div>
             </div>
             <div className="header-arrow" style={{display: "flex", justifyContent: "flex-end", padding: "10 10 0 0", fontSize: "20px"}} onClick={this.props.onClose.bind(this)}>

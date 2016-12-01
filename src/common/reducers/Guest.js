@@ -56,7 +56,7 @@ export function guest(state = initialState, action) {
   case 'RESET_USER_DETAILS':
     return initialState;
   case 'FORGET_USER':
-    return {...state, data: initialState.data}
+    return initialState;
   case 'WIDGET_CHANNEL_CREATED':
     return {...state, channel: action.channel}
   case 'CONVERSATION_CREATED':

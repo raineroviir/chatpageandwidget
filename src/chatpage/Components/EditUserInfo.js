@@ -1,5 +1,5 @@
 import React from 'react'
-import closeIcon from '../images/x.svg'
+import closeIcon from '../../common/Components/images/x.svg'
 
 export default class EditUserInfo extends React.Component {
   constructor(props) {

@@ -12,9 +12,9 @@ import PasswordIcon from "../../Components/images/password-icon.svg"
 import { loginUser, submitLogin } from '../../actions/login'
 import closeIcon from '../../Components/images/x.svg'
 export class LoginComponent extends Component {
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired
-  }
+  // static contextTypes = {
+  //   router: React.PropTypes.object.isRequired
+  // }
   handleLogin(e){
       e.preventDefault();
       const { dispatch } = this.props

@@ -14,7 +14,7 @@ import {RegistrationRouter} from '../RegistrationRouter'
 import ChatPageMenu from '../../Components/ChatPageMenu'
 import closeIcon from '../../../common/Components/images/x.svg'
 
-import EditUserInfo from '../../../common/Components/Menu/EditUserInfo'
+import EditUserInfo from '../../Components/EditUserInfo'
 import Gravatar from 'react-gravatar'
 import InfoPopUp from '../../Components/InfoPopUp'
 
@@ -57,9 +57,11 @@ class Header extends Component {
   handleUserUpdate(updates) {
     const { dispatch, guest, user } = this.props
     let token = guest.token || user.token
+    console.log(token)
     if (!token) {
+      dispatch(initUser(updates))
       this.enterEmailForNotificationsToggle()
-      return dispatch(initUser(updates))
+      return
     }
     dispatch(updateUser(updates, token))
     this.enterEmailForNotificationsToggle()
@@ -72,7 +74,7 @@ class Header extends Component {
     const { dispatch, guest, user } = this.props
     const token = guest.token || user.token
     const updates = {email: "", first_name: "", last_name: ""}
-    dispatch(updateUser(updates, token))
+    // dispatch(updateUser(updates, token))
     localStorage.removeItem("guest")
     localStorage.removeItem("orgs")
     dispatch(forgetUser())
