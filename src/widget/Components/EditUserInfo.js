@@ -17,9 +17,15 @@ export default class EditUserInfo extends React.Component {
     this.setState({email: e.target.value})
   }
   prepareSubmission(e) {
-    console.log(this.props)
     e.preventDefault()
-    const updates = {email: this.state.email, nickname: this.state.name, first_name: this.state.name}
+    const { currentUserName, currentUserEmail } = this.props
+    let updates = {}
+    if (this.state.email && this.state.email !== currentUserEmail) {
+      updates.email = this.state.email
+    }
+    if (this.state.name && this.state.name !== currentUserName) {
+      updates.nick_name = this.state.name
+    }
     this.props.handleUserUpdate(updates)
     this.setState({name: "", email: ""})
   }

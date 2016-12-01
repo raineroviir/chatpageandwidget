@@ -80,7 +80,8 @@ class Header extends Component {
     const currentUserName = guest.guest ? guest.data.first_name : user.data.first_name
     return (
       <div className="header">
-      {this.state.showEnterEmailForNotifications && <EditUserInfo handleUserUpdate={this.handleUserUpdate.bind(this)} {...this.props} />}
+      {this.state.showEnterEmailForNotifications && <EditUserInfo
+        currentUserName={currentUserName} currentUserEmail={currentUserEmail} handleUserUpdate={this.handleUserUpdate.bind(this)} {...this.props} />}
         <div className="header-arrow" onClick={this.props.onClose.bind(this)}>
           <FaAngleDown />
         </div>
