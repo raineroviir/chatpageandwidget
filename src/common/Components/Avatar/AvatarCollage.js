@@ -39,7 +39,7 @@ export default class AvatarCollage extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div style={{display: "flex", flexDirection: "row"}}>
         {this.constructAvatarCollage()}
       </div>
     )
