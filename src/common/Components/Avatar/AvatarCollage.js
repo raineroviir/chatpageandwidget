@@ -1,8 +1,9 @@
 import Gravatar from 'react-gravatar'
 import React from 'react'
+import closeIcon from '../../Components/images/x.svg'
 
 export default class AvatarCollage extends React.Component {
-  constructAvatarCollage() {
+  constructUserAvatars() {
     const { channels, widget, chatpage, size } = this.props
     if (!channels.activeChannelId || !channels.memoizedChannelMembers || !channels.memoizedChannelMembers[channels.activeChannelId]){
       console.log("returning empty div");
@@ -37,10 +38,28 @@ export default class AvatarCollage extends React.Component {
       }
     })
   }
+  constructChannelAvatar() {
+    const { channels, widget, chatpage, size } = this.props
+    if (widget) {
+      if (widget.initialConfig.channel.avatar) {
+        return (
+          <div style={{backgroundImage: `url(${widget.initialConfig.channel.avatarUrl})`}}></div>
+        )
+      }
+    }
+    if (chatpage) {
+      if (chatpage.initialConfig.channel.avatar) {
+        return (
+          <div style={{width: "43px", height: "43px", backgroundImage: `url(${chatpage.initialConfig.channel.avatarUrl})`}}></div>
+        )
+      }
+    }
+  }
   render() {
     return (
       <div style={{display: "flex", flexDirection: "row"}}>
-        {this.constructAvatarCollage()}
+        {this.constructChannelAvatar()}
+        {this.constructUserAvatars()}
       </div>
     )
   }

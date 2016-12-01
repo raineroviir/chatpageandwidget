@@ -12,11 +12,13 @@ export default class InfoPopUp extends React.Component {
     const currentUserName = guest.guest ? guest.data.first_name : user.data.first_name
     return (
       <div className="chatpage-info" >
+        {chatpage ? chatpage.initialConfig.teamAvatar ?
         <div className="team-avatar-wrapper">
           <div style={{display: 'flex'}}>
-            <AvatarCollage {...this.props} size={28}/>
+           <AvatarCollage {...this.props} size={28}/>
           </div>
-        </div>
+        </div> : null : null
+        }
         <div className="team-name">
           {teamName ? teamName : "She Sells Sea Shells Customer Support"}
         </div>

@@ -11,11 +11,13 @@ export default class MiniWidget extends React.Component {
       <div className="mini-widget" style={{boxShadow: "0 1px 5px rgba(0, 50, 100, 0.25)", borderRadius: "5px"}}>
         <div className="initial-info" style={{borderRadius: "5px 5px 0 0", padding: "5 5 0 5"}}>
           <div style={{display: "flex", flexDirection: "row"}}>
+            {widget ? widget.initialConfig.teamAvatar ?
             <div style={{flexGrow: "1"}} className="team-avatar-wrapper">
               <div onClick={this.props.onToggle.bind(this)} style={{display: 'flex'}}>
-                <AvatarCollage {...this.props} size={28}/>
+               <AvatarCollage {...this.props} size={28}/>
               </div>
             </div>
+            : null : null}
             <div className="header-arrow" style={{display: "flex", justifyContent: "flex-end", padding: "10 10 0 0", fontSize: "20px"}} onClick={this.props.onClose.bind(this)}>
               <FaAngleDown />
             </div>

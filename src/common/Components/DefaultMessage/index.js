@@ -26,9 +26,14 @@ export default class DefaultMessage extends Component {
     return (
       <div className="default-message-wrapper" style={this.checkIfWidget()}>
         <div className="default-message">
+          {widget ? widget.initialConfig.teamAvatar ?
           <div className="team-avatar-url-wrapper" style={this.checkIfWidget(), {display: 'flex', flexDirection: "row"}}>
+             <AvatarCollage {...this.props} size={43}/>
+          </div>  : null : null
+          }
+          {chatpage ? chatpage.initialConfig.teamAvatar ?   <div className="team-avatar-url-wrapper" style={this.checkIfWidget(), {display: 'flex', flexDirection: "row"}}>
             <AvatarCollage {...this.props} size={43}/>
-          </div>
+          </div>  : null : null}
           <div className="team-details">
             <div className="team-name" style={this.checkIfWidget()}>
               {teamName}
