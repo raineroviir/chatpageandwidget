@@ -28,7 +28,7 @@ export default class MenuItems extends React.Component {
               </div>
             </div>
           }
-          {user.data.team ? <div className="user-chat-channel">{user.data.team.name}</div> : null}
+          {user.data.team && user.data.team.name ? <div className="user-chat-channel">{user.data.team.name}</div> : null}
         </div>
       )
     }

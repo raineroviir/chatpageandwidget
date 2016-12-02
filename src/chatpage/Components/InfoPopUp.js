@@ -19,15 +19,18 @@ export default class InfoPopUp extends React.Component {
           </div>
         </div> : null : null
         }
+        {teamName &&
         <div className="team-name">
-          {teamName ? teamName : "She Sells Sea Shells Customer Support"}
-        </div>
+          {teamName}
+        </div>}
+        {teamChannelUrl &&
         <div className="team-url">
             <a style={{color: chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
-        </div>
+        </div>}
+        {welcomeMessage &&
         <div className="welcome-message">
           {welcomeMessage}
-        </div>
+        </div>}
       </div>
     )
   }
