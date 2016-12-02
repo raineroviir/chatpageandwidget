@@ -31,6 +31,9 @@ export class ChatMessages extends Component {
     // if (activeChannelObject[0].conversation) {
     //   return activeChannelObject[0].conversation.users
     // }
+    if (!channels.activeChannelId || ! channels.memoizedChannelMembers || !channels.memoizedChannelMembers[channels.activeChannelId]){
+      return null;
+    }
     const channelMembers = channels.memoizedChannelMembers[channels.activeChannelId]
     return channelMembers
   }
