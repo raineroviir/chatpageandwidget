@@ -13,12 +13,6 @@ export default class DefaultMessage extends Component {
   }
   render() {
     const { user, guest, widget, channels, chatpage, environment } = this.props
-    // if (widget.initialConfig.channel.avatar) {
-    //   console.log("channel avatar is true")
-    // }
-    // if (widget.initialConfig.teamAvatar) {
-    //   console.log("team avatar is true")
-    // }
     const teamAvatarUrl = widget ? widget.initialConfig.channel.avatarUrl : chatpage ? chatpage.initialConfig.channel.avatarUrl : null
     const teamChannelUrl = widget ? widget.initialConfig.channelUrl : chatpage ? chatpage.initialConfig.channelUrl : null
     const welcomeMessage = widget ? widget.initialConfig.content.welcomeMessage : chatpage.initialConfig.content ? chatpage.initialConfig.content.welcomeMessage : ""
@@ -35,12 +29,14 @@ export default class DefaultMessage extends Component {
             <AvatarCollage {...this.props} size={43}/>
           </div>  : null : null}
           <div className="team-details">
+            {teamName &&
             <div className="team-name" style={this.checkIfWidget()}>
               {teamName}
-            </div>
+            </div>}
+            {teamChannelUrl &&
             <div className="team-website" style={this.checkIfWidget(), {color: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
                 <a style={{color: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
-            </div>
+            </div>}
             <div className="welcome-message" style={this.checkIfWidget()}>
               {welcomeMessage}
             </div>
