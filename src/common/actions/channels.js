@@ -32,7 +32,7 @@ export function fetchChannelMembers(token, channel_id) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token.access_token}`
       }
     }).then(response => {
       if (response.status >= 400) {
@@ -51,7 +51,7 @@ export function fetchChannelInfo(token, channel_id) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token.access_token}`
       }
     }).then(response => {
       if (response.status >= 400) {
@@ -74,7 +74,7 @@ function getSocketURL (token) {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token.access_token
     }
   });
 }
@@ -177,7 +177,7 @@ export function fetchChannel(channelname, team, token) {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token.access_token
     }
   }).then(response => {
   if (response.status >= 400) {
@@ -230,7 +230,7 @@ export function createWidgetChannel(token) {
         method: 'POST',
         headers:{
           'enctype':"multipart/form-data",
-          'Authorization': 'Bearer ' + token
+          'Authorization': 'Bearer ' + token.access_token
         },
         body: data
     }).then(response => {

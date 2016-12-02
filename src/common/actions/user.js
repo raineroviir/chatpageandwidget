@@ -32,7 +32,7 @@ export function fetchUserInfo(token) {
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token.access_token
       }
     }).then(response => {
       if (response.status >= 400) {
@@ -56,7 +56,7 @@ export function validateGuestTokenAndIfExpiredGiveNewGuestToken(token) {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token.access_token
     }
   }).then(response => {
     if (response.status >= 400) {
@@ -102,7 +102,7 @@ export function initUser(data) {
         })
           .then(json => {
             if(json.ok) {
-              let token = json.token.access_token;
+              let token = json.token;
               console.log(token)
               localStorage.setItem("guest", JSON.stringify(token))
               dispatch(fetchUserInfo(token))
@@ -148,7 +148,7 @@ export function updateUser(updates, token) {
       method: 'PUT',
       headers:{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token.access_token
       },
       body: JSON.stringify(updates)
     }).then(response => {

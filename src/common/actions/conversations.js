@@ -54,7 +54,7 @@ export function markConversationAsRead(conversationid, token, lastTimeConversati
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token.access_token
       },
       body: JSON.stringify({conversation_id: conversationid, timestamp: timestamp})
     }).then(response => {
@@ -74,7 +74,7 @@ export function getConversations(channel_id, token) {
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token.access_token
       }
     }).then(response => {
       if (response.status >= 400) {
@@ -100,7 +100,7 @@ export function getConversationHistory(conversationid, token, oldestVisibleMessa
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token.access_token}`
       }
     }).then(response => {
   if (response.status >= 400) {
@@ -134,7 +134,7 @@ export function createConversation(channel_id, token) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token.access_token
       },
       body: JSON.stringify({channel_id: channel_id})
     }).then(response => {
