@@ -14,8 +14,8 @@ export default class InfoPopUp extends React.Component {
       <div className="chatpage-info" >
         {chatpage ? chatpage.initialConfig.teamAvatar ?
         <div className="team-avatar-wrapper">
-          <div style={{display: 'flex'}}>
-           <AvatarCollage {...this.props} size={28}/>
+          <div style={{display: 'flex', flexDirection: "row"}}>
+             <AvatarCollage {...this.props} size={28}/>
           </div>
         </div> : null : null
         }

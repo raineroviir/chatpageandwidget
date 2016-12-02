@@ -37,9 +37,9 @@ export default class DefaultMessage extends Component {
             <div className="team-website" style={this.checkIfWidget(), {color: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
                 <a style={{color: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}} href="javascript:;">{teamChannelUrl}</a>
             </div>}
-            <div className="welcome-message" style={this.checkIfWidget()}>
-              {welcomeMessage}
-            </div>
+          </div>
+          <div className="welcome-message" style={this.checkIfWidget()}>
+            {welcomeMessage}
           </div>
         </div>
       </div>
