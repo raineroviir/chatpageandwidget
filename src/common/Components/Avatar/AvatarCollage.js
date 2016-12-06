@@ -9,8 +9,8 @@ export default class AvatarCollage extends React.Component {
       console.log("returning empty div");
       return ("<div></div>")
     }
-    // const conversationParticipants = channels.memoizedChannelMembers[channels.activeChannelId].slice(0,5)
-    const conversationParticipants = [{email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}].slice(0,5)
+    const conversationParticipants = channels.memoizedChannelMembers[channels.activeChannelId].slice(0,5)
+    // const conversationParticipants = [{email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}].slice(0,5)
     return conversationParticipants.map((participant, index) => {
       if (participant) {
         if (participant.avatar_96 ||
