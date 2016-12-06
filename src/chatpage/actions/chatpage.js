@@ -8,7 +8,7 @@ export function getChatPage(channel_id, token) {
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token.access_token
       }
     }).then(response => {
       if (response.status >= 400) {

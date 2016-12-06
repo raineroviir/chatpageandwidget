@@ -20,7 +20,7 @@ export function loginUser(Username,Password) {
       .then(response => response.json())
       .then(json => {
         console.log(json)
-        const token = json.token.access_token
+        const token = json.token
         if (json.token) {
           if (typeof(Storage) !== "undefined") {
             var orgs = JSON.parse(localStorage.getItem("orgs")) || [],
@@ -40,7 +40,7 @@ export function loginUser(Username,Password) {
             localStorage.removeItem("token")
             localStorage.removeItem("guest")
             localStorage.setItem("orgs", JSON.stringify(orgs));
-            localStorage.setItem("token", JSON.stringify(json.token.access_token));
+            localStorage.setItem("token", JSON.stringify(json.token));
           }
         }
         dispatch({

@@ -88,7 +88,7 @@ function postMessage(message, conversationid, token, channelid, attachment) {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' +  token,
+      'Authorization': 'Bearer ' +  token.access_token,
     },
     body: JSON.stringify({
       text: message,
