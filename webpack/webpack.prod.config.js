@@ -8,12 +8,12 @@ module.exports = {
     widget: './src/widget/widget',
     chatpage: './src/chatpage/chatpage'
   },
-  "resolve": {
-    "alias": {
-      "react": "preact-compat",
-      "react-dom": "preact-compat"
-    }
-  },
+  // "resolve": {
+  //   "alias": {
+  //     "react": "preact-compat",
+  //     "react-dom": "preact-compat"
+  //   }
+  // },
   output: {
     path: path.join(__dirname, '..', '/dist/'),
     publicPath: '/dist/',
