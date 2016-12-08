@@ -7,7 +7,7 @@ export default class AvatarCollage extends React.Component {
     const { channels, widget, chatpage, size } = this.props
     if (!channels.activeChannelId || !channels.memoizedChannelMembers || !channels.memoizedChannelMembers[channels.activeChannelId]){
       console.log("returning empty div");
-      return ("<div></div>")
+      return ("")
     }
     const conversationParticipants = channels.memoizedChannelMembers[channels.activeChannelId].slice(0,5)
     // const conversationParticipants = [{email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}, {email: "bl0"}].slice(0,5)
