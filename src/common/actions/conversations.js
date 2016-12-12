@@ -17,6 +17,25 @@ export function setactiveConversationId(conversationid) {
   }
 }
 
+export function joinConversation(conversationid, userid, token) {
+  return dispatch => {
+    return fetch( Config.api + '/conversations.participant.join', {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token.access_token
+      }
+    }).then(response => {
+      if (response.status >= 400) {
+        throw new Error("Bad response from server");
+      }
+      return response.json()
+    }).then(json => {
+      console.log(json)
+    }).catch(error => console.log(error))
+  }
+}
+
 export function prepareToCreateConversation() {
   return {
     type: "PREPARE_TO_CREATE_NEW_CONVERSATION"

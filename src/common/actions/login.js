@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import Config from '../config';
 
 import {fetchUserInfo} from './user'
+import {joinConversation} from './conversations'
 
 export function loginUser(Username,Password) {
   return (dispatch, getState) => {
@@ -50,7 +51,12 @@ export function loginUser(Username,Password) {
           type: "USER_LOGIN_SUCCESS",
           token: token
         })
-        dispatch(fetchUserInfo(token))
+        dispatch(fetchUserInfo(token)).then((userid) => {
+          const state = getState()
+          const conversationId = state.conversations.activeConversationId
+          const userId = state.user.data.id
+          dispatch(joinConversation(conversationId, userId, token))
+        })
       },
       err => {throw err}).catch(e => console.log(e))
   }
