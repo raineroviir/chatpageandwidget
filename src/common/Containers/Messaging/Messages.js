@@ -132,7 +132,7 @@ class Messages extends Component {
   }
   handleScroll(e) {
     const { dispatch } = this.props
-    const scrollPosition = e.srcElement.scrollTop
+    const scrollPosition = e.target.scrollTop || e.srcElement.scrollTop
     dispatch(storeUserScrollPosition(scrollPosition))
   }
   componentWillUnmount() {

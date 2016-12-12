@@ -8,6 +8,12 @@ module.exports = {
     widget: './src/widget/widget',
     chatpage: './src/chatpage/chatpage'
   },
+  // "resolve": {
+  //   "alias": {
+  //     "react": "preact-compat",
+  //     "react-dom": "preact-compat"
+  //   }
+  // },
   output: {
     path: path.join(__dirname, '..', '/dist/'),
     publicPath: '/dist/',
@@ -15,9 +21,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
+      'process.env': JSON.stringify({ NODE_ENV: 'production' }),
       __DEVELOPMENT__: false,
     }),
     new ExtractTextPlugin('bundle.css'),
