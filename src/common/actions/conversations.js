@@ -19,12 +19,15 @@ export function setactiveConversationId(conversationid) {
 
 export function joinConversation(conversationid, userid, token) {
   return dispatch => {
+    const payload = {conversation_id: conversationid, user_id: userid}
+    console.log(payload)
     return fetch( Config.api + '/conversations.participant.join', {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token.access_token
-      }
+      },
+      body: JSON.stringify(payload)
     }).then(response => {
       if (response.status >= 400) {
         throw new Error("Bad response from server");
