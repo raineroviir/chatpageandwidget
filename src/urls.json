@@ -1,0 +1,141 @@
+{
+    "widget": {
+        "details": {
+            "method": "get",
+            "url": "widgets"
+        },
+        "create": {
+            "method": "post",
+            "url": "widgets.create"
+        },
+        "update": {
+            "method": "put",
+            "url": "widgets.update"  
+        },
+        "plan-list": {
+            "method": "get",
+            "url": "plans.list"
+        },
+        "coupon-validate": {
+            "method": "get",
+            "url":"coupons.validate"
+        },
+        "plans-switch" : {
+            "method": "post",
+            "url": "plans.switch"
+        },
+        "cards": {
+            "update": {
+                "method": "post",
+                "url": "cards.update"      
+            },
+            "info": {
+                "method": "get",
+                "url": "cards.info"      
+            }
+        },
+        "plans": {
+            "transactions" : {
+                "history": {
+                    "method": "get",
+                    "url": "plans.transactions.history"    
+                }
+            },
+            "outstandingAmount" : {
+                "method": "get",
+                "url": "plans.outstandingAmount"    
+            }
+        },
+        "billing": {
+            "info": {
+                "method": "get",
+                "url": "billing.info"
+            }
+        }
+    },
+    "chatpage": {
+        "details": {
+            "method": "get",
+            "url": "chat-page"
+        },
+        "create": {
+            "method": "post",
+            "url": "chat-page.create"
+        },
+        "update": {
+            "method": "put",
+            "url": "chat-page.update"  
+        },
+        "plan-list": {
+            "method": "get",
+            "url": "plans.list"
+        },
+        "coupon-validate": {
+            "method": "get",
+            "url":"coupons.validate"
+        },
+        "plans-switch" : {
+            "method": "post",
+            "url": "plans.switch"
+        },
+        "cards": {
+            "update": {
+                "method": "post",
+                "url": "cards.update"      
+            },
+            "info": {
+                "method": "get",
+                "url": "cards.info"      
+            }
+        },
+        "plans": {
+            "transactions" : {
+                "history": {
+                    "method": "get",
+                    "url": "plans.transactions.history"    
+                }
+            },
+            "outstandingAmount" : {
+                "method": "get",
+                "url": "plans.outstandingAmount"    
+            }
+        },
+        "billing": {
+            "info": {
+                "method": "get",
+                "url": "billing.info"
+            }
+        }
+    },
+    "api": {
+        "teams": {
+            "members-list": {
+                "method": "get",
+                "url": "teams.members.list"
+            },
+            "delete": {
+                "method": "delete",
+                "url": "teams.delete"
+            }
+        },
+        "settings" : {
+            "organization-update": {
+                "method": "PUT",
+                "url": "teams.update"   
+            },
+            "personnal-update": {
+                "method": "PUT",
+                "url": "users.update"   
+            }
+        },
+        "users": {
+            "password": {
+                "change" : { 
+                    "method": "post",
+                    "url":"users.password.change"
+                }
+                
+            }
+        }
+    }
+}

@@ -34,22 +34,26 @@ export function ownDomainStateFunction(ownDomainState, ownDomainValue) {
   }
 }
 
-export function registerPersonalDetails(FirstName,LastName,Email) {
+export function registerPersonalDetails(FirstName,LastName,Email,Password) {
   return (dispatch, getState) => {
       dispatch({
       type: 'REGISTER_PERSONAL_DETAILS',
+<<<<<<< HEAD:src/common/actions/register.js
       first_name:FirstName,
       last_name:LastName,
       email:Email
+=======
+      value:{"first_name":FirstName,"last_name":LastName,"email":Email,"password":Password}
+>>>>>>> 2a30ec5cce134b44f5f73d3ea64b8e06c3b4433d:src/actions/Registration/index.js
     })
   }
 }
 
-export function registerPersonalDetailsJoin(InviteToken,FirstName,LastName,Password,TeamName) {
+export function registerPersonalDetailsJoin(InviteToken,FirstName,LastName,Password,TeamName,Email) {
   return (dispatch, getState) => {
       dispatch({
       type: 'REGISTER_PERSONAL_DETAILS_JOIN',
-      value:{"invite_token":InviteToken,"first_name":FirstName,"last_name":LastName,"password":Password,"team_name":TeamName}
+      value:{"invite_token":InviteToken,"first_name":FirstName,"last_name":LastName,"password":Password,"team_name":TeamName,"email":Email}
     })
   }
 }
@@ -161,12 +165,13 @@ export function inviteMembers (emails) {
           return addMembers(json.user.team.id, emails, token).then(response => {return response.json()})
         })
         .then(json => {
-          if(json.ok){
+        if(json.meta_key == 'ok'){
             dispatch(inviteStatus(true));
             if (typeof(Storage) !== "undefined") {
               //window.location.hash = "#/" + localStorage.getItem("user_channel");
-              browserHistory.push("/dashboard/" + localStorage.getItem("user_channel"));
-              localStorage.setItem("user_channel", "");
+              //browserHistory.push("/dashboard/" + localStorage.getItem("user_channel"));
+             // localStorage.setItem("user_channel", "");
+              browserHistory.push("/signup/organization/sucess");
             }
           }
           dispatch({
