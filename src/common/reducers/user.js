@@ -20,7 +20,7 @@ export function user(state = initialState, action) {
   case 'RECEIVED_USER_INFO':
     return {
       ...state,
-      data: action.data.user
+      data: action.data
     };
   case 'RECEIVE_USER_TOKEN_FROM_LOCAL_STORAGE':
     console.log(action)

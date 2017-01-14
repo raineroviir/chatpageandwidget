@@ -13,10 +13,10 @@ export default class DefaultMessage extends Component {
   }
   render() {
     const { user, guest, widget, channels, chatpage, environment } = this.props
-    const teamAvatarUrl = widget ? widget.initialConfig.channel.avatarUrl : chatpage ? chatpage.initialConfig.channel.avatarUrl : null
-    const teamChannelUrl = widget ? widget.initialConfig.channelUrl : chatpage ? chatpage.initialConfig.channelUrl : null
-    const welcomeMessage = widget ? widget.initialConfig.content.welcomeMessage : chatpage.initialConfig.content ? chatpage.initialConfig.content.welcomeMessage : ""
-    const teamName = widget ? widget.initialConfig.content.teamName : chatpage.initialConfig.content ? chatpage.initialConfig.content.teamName : ""
+    const teamAvatarUrl = null
+    const teamChannelUrl = null
+    const welcomeMessage = "Greetings!"
+    const teamName = "Rainer's Chat"
     return (
       <div className="default-message-wrapper" style={this.checkIfWidget()}>
         <div className="default-message">

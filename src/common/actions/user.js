@@ -26,28 +26,22 @@ function fetchGuestToken(data) {
  * @return {[Promise]}
  */
 export function fetchUserInfo(token) {
-  console.log(token)
   return dispatch => {
-    return fetch( Config.api + '/users.me', {
-      method: 'GET',
-      headers:{
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token.access_token
+    console.log(token)
+    const json = {
+      "id": 1,
+      "first_name": "Rainer",
+      "last_name": "Oviir",
+      "avatar_96": null,
+      "avatar_384": null,
+      "avatar_960": null,
+      "team": {
+        "id": 1,
+        "name": "Chat Widget",
+        "description": "Chatting Widget!"
       }
-    }).then(response => {
-      if (response.status >= 400) {
-        throw new Error("Bad response from server");
-      }
-      return response.json()
-    }).then(json => {
-      console.log(json)
-      json.guest ? dispatch(receiveGuestInfo(json)) :
-      dispatch(receiveUserInfo(json))
-    },
-    error => {
-      dispatch({type: 'FETCH_USER_INFO_ERROR', error})
-      throw error
-    }).catch(error => console.log(error))
+    }
+    dispatch(receiveUserInfo(json))
   }
 }
 
@@ -93,28 +87,10 @@ export function initUser(data) {
         //   }
         //   return response.json()
         // })
-        return apiService(Config.app + '/guest.token', {
-          method: 'POST',
-          headers:{
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        })
-          .then(json => {
-            if(json.ok) {
-              let token = json.token;
-              console.log(token)
-              localStorage.setItem("guest", JSON.stringify(token))
-              dispatch(fetchUserInfo(token))
-              dispatch({type: 'TOKEN_SET', token})
-              dispatch({type: "INIT_USER_FINISHED"})
-              return token
-            }
-          },
-            error => {
-              dispatch({type: 'FETCH_TOKEN_ERROR', error})
-              throw error
-            }).catch(error => console.log(error))
+        let token = 1234567890
+        dispatch(fetchUserInfo(token))
+        dispatch({type: 'TOKEN_SET', token})
+        dispatch({type: "INIT_USER_FINISHED"})
       } else {
         let token;
         if (guest) {

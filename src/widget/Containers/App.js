@@ -40,15 +40,16 @@ class App extends React.Component {
     const team = channel_url.slice(0,index)
     dispatch(initEnvironment())
     dispatch(initUser(data))
-    .then((token) => {
-      dispatch(fetchSocket(token))
-      dispatch(fetchChannel(channelname, team, token)).then((channel) => {
-        dispatch(getWidget(channel.id, channel_url, token)).then(() => dispatch({type: "FINISHED_INITIAL_LOADING"}))
-        dispatch(checkForConversation(channel.id, token))
-        dispatch(fetchChannelMembers(token, channel.id))
-        // dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
-      }).catch(error => console.log(error))
-    }).catch(error => console.log(error))
+    dispatch({type: "FINISHED_INITIAL_LOADING"})
+    // .then((token) => {
+    //   dispatch(fetchSocket(token))
+    //   dispatch(fetchChannel(channelname, team, token)).then((channel) => {
+    //     dispatch(getWidget(channel.id, channel_url, token)).then(() =>
+    //     dispatch(checkForConversation(channel.id, token))
+    //     dispatch(fetchChannelMembers(token, channel.id))
+    //     // dispatch({type: "STORE_CHANNEL_INFO", channelId: channel_id, channelUrl: channel_url})
+    //   }).catch(error => console.log(error))
+    // }).catch(error => console.log(error))
   }
   onCloseMiniWidget() {
     this.setState({miniWidgetShow: !this.state.miniWidgetShow})

@@ -32,45 +32,48 @@ export class LeftAlignedMessage extends React.Component {
     this.refs.emailInput.value = ""
   }
   determineAvatar() {
-    const { message, conversationParticipants, widget, chatpage } = this.props
-    const matchParticipantIdToMessageId = conversationParticipants.filter((participant) => {
-      return participant.id === message.user_id
-    })
-    if (matchParticipantIdToMessageId.length === 0) {
-      return (
-        <div style={{backgroundImage:  `url(${defaultAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar" />
-      )
-    }
-    if (message.bot) {
-      return (
-        <div style={{backgroundImage:  `url(${defaultBotAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar" />
-      )
-    }
-    if (matchParticipantIdToMessageId[0]) {
-      if (matchParticipantIdToMessageId[0].avatar_96 ||
-      matchParticipantIdToMessageId[0].avatar_384 ||
-      matchParticipantIdToMessageId[0].avatar_960) {
-        return (
-          <div style={{borderRadius: "50%", backgroundImage:  `url(${matchParticipantIdToMessageId[0].avatar_96 ||
-          matchParticipantIdToMessageId[0].avatar_384 ||
-          matchParticipantIdToMessageId[0].avatar_960})`, backgroundRepeat: "no-repeat"}} className="avatar" />
-        )
-      }
-      if (matchParticipantIdToMessageId[0].email) {
-        return (
-          <div className="avatar">
-            <Gravatar default="mm" style={{borderRadius: "50%"}} size={28} md5="" email={matchParticipantIdToMessageId[0].email} />
-          </div>
-        )
-      }
-      if (matchParticipantIdToMessageId[0].first_name && matchParticipantIdToMessageId[0].last_name) {
-        return (
-          <div style={{borderRadius: "50%", width: "28px", height: "28px", backgroundColor: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
-          <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white"}} className="avatar">{matchParticipantIdToMessageId[0].first_name.slice(0, 1).toUpperCase()}{matchParticipantIdToMessageId[0].last_name.slice(0, 1).toUpperCase()}</div>
-          </div>
-        )
-      }
-    }
+    // const { message, conversationParticipants, widget, chatpage } = this.props
+    // let matchParticipantIdToMessageId;
+    // if (conversationParticipants) {
+    //   matchParticipantIdToMessageId = conversationParticipants.filter((participant) => {
+    //     return participant.id === message.user_id
+    //   })
+    // }
+    // if (matchParticipantIdToMessageId && matchParticipantIdToMessageId.length === 0) {
+    //   return (
+    //     <div style={{backgroundImage:  `url(${defaultAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+    //   )
+    // }
+    // if (message.bot) {
+    //   return (
+    //     <div style={{backgroundImage:  `url(${defaultBotAvatarUrl})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+    //   )
+    // }
+    // if (matchParticipantIdToMessageId[0]) {
+    //   if (matchParticipantIdToMessageId[0].avatar_96 ||
+    //   matchParticipantIdToMessageId[0].avatar_384 ||
+    //   matchParticipantIdToMessageId[0].avatar_960) {
+    //     return (
+    //       <div style={{borderRadius: "50%", backgroundImage:  `url(${matchParticipantIdToMessageId[0].avatar_96 ||
+    //       matchParticipantIdToMessageId[0].avatar_384 ||
+    //       matchParticipantIdToMessageId[0].avatar_960})`, backgroundRepeat: "no-repeat"}} className="avatar" />
+    //     )
+    //   }
+    //   if (matchParticipantIdToMessageId[0].email) {
+    //     return (
+    //       <div className="avatar">
+    //         <Gravatar default="mm" style={{borderRadius: "50%"}} size={28} md5="" email={matchParticipantIdToMessageId[0].email} />
+    //       </div>
+    //     )
+    //   }
+    //   if (matchParticipantIdToMessageId[0].first_name && matchParticipantIdToMessageId[0].last_name) {
+    //     return (
+    //       <div style={{borderRadius: "50%", width: "28px", height: "28px", backgroundColor: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor : "#f7a444"}}>
+    //       <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "white"}} className="avatar">{matchParticipantIdToMessageId[0].first_name.slice(0, 1).toUpperCase()}{matchParticipantIdToMessageId[0].last_name.slice(0, 1).toUpperCase()}</div>
+    //       </div>
+    //     )
+    //   }
+    // }
   }
   render() {
     const { checkForSameUser, message, widget, emailReceived, guest, previousMessage } = this.props

@@ -21,11 +21,11 @@ export class ChatTextBox extends Component {
             <input ref="Message"
             type="text"
             className="message-input"
-            placeholder={widget ? widget.initialConfig.content.inputMsgholder : chatpage ? chatpage.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"}
-            aria-label={widget ? widget.initialConfig.content.inputMsgholder : chatpage ? chatpage.initialConfig.content.inputMsgholder : "Type here; '/' - commands, '@' - mentions"} />
+            placeholder={"Type here; '/' - commands, '@' - mentions"}
+            aria-label={"Type here; '/' - commands, '@' - mentions"} />
           </div>
           <button type="submit" className="submit-button" style={{color: widget ? widget.initialConfig.keyColor : chatpage ? chatpage.initialConfig.keyColor :  "#f7a444"}}>
-            {widget ? widget.initialConfig.content.sendBtnText : chatpage ? chatpage.initialConfig.content.sendBtnText : "Send" }
+            {"Send"}
           </button>
         </form>
       </div>
