@@ -8,7 +8,7 @@ const publicPath = express.static(path.join(__dirname, '..', '..', '/'))
 app.use(publicPath)
 
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '..', '..', 'widget.html'));
+  res.sendFile(path.join(__dirname, '..', '..', 'index.html'));
 });
 
 app.listen(port, (error) => {
