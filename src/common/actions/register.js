@@ -38,13 +38,10 @@ export function registerPersonalDetails(FirstName,LastName,Email,Password) {
   return (dispatch, getState) => {
       dispatch({
       type: 'REGISTER_PERSONAL_DETAILS',
-<<<<<<< HEAD:src/common/actions/register.js
       first_name:FirstName,
       last_name:LastName,
-      email:Email
-=======
+      email:Email,
       value:{"first_name":FirstName,"last_name":LastName,"email":Email,"password":Password}
->>>>>>> 2a30ec5cce134b44f5f73d3ea64b8e06c3b4433d:src/actions/Registration/index.js
     })
   }
 }
