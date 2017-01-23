@@ -3,8 +3,8 @@ const app = express()
 const port = process.env.PORT || 8000
 const path = require('path')
 
-app.use(require('morgan')('short'));
-
+if (process.env.NODE_ENV !== "production") {
+  app.use(require('morgan')('short'));
   const webpack = require('webpack');
   const webpackConfig = require('../../../webpack/webpack.dev.config');
   const compiler = webpack(webpackConfig);
@@ -16,7 +16,7 @@ app.use(require('morgan')('short'));
   app.use(require('webpack-hot-middleware')(compiler, {
     log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000,
   }));
-
+}
 app.get('/*/', function(req, res) {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
